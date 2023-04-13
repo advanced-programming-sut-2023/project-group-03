@@ -76,9 +76,9 @@ assignees: Arman17Babaei
 
 ## تسک‌های نفر سوم
 
-  **نام و نام خانوادگی:**
+  **نام و نام خانوادگی: علی احمدوند**
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>ساخنتن یو ام ال کنترلرهای خازج از منوی بازی</summary>
 
   <div dir="ltr" align='right'>
 
