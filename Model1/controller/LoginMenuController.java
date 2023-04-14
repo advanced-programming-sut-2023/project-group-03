@@ -1,10 +1,10 @@
 package controller;
 
-import Model.User;
+import Model1.Model.User;
 
 import java.util.regex.Matcher;
 
-public class LoginMenuController extends UserBasedMenuController {
+public class LoginMenuController extends controller.UserBasedMenuController {
     public void stayLoggedIn() {
 
     }

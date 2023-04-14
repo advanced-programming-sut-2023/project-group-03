@@ -19,6 +19,11 @@ class Keep extends Building
         super(xPos, yPos, owner);
     }
 
+    @Override
+    public void getHit() {
+
+    }
+
     public HashMap<Resources, Integer> getInventory() {
         return inventory;
     }
@@ -44,14 +49,14 @@ class Keep extends Building
     }
 
     public boolean Hire(int number) {
-
+        return true;
     }
     public boolean addResource(Resources resources,int number) {
-
+        return true;
     }
 
     public boolean removeResource(Resources resources, int number) {
-
+        return true;
     }
 
     @Override

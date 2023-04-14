@@ -23,6 +23,11 @@ class Baracks extends CastleBuilding
     }
 
     @Override
+    public void getHit() {
+
+    }
+
+    @Override
     public void action() {
 
     }

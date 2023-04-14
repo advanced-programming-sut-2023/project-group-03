@@ -24,6 +24,11 @@ class ResourceGenerator extends Building
 
 
      @Override
+     public void getHit() {
+
+     }
+
+     @Override
      public void action() {
 
      }

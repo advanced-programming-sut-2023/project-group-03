@@ -15,26 +15,26 @@ class Field
     private HashMap<String,Field> neighbours;
 
     
-    public final boolean addBuilding(Building bulding)
+    public boolean addBuilding(Building bulding)
+    {
+        return false;
+    }    
+    
+    
+    public void removeBuilding()
     {
         
     }    
     
     
-    public final void removeBuilding()
+    public boolean addUnit(Unit unit)
     {
-        
-    }    
-    
-    
-    public final boolean addUnit(Unit unit)
-    {
-        
+        return false;
     }    
     
     
     public final boolean removeUnit(Unit unit)
     {
-        
+        return true;
     }    
 }
