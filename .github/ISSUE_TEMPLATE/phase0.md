@@ -62,9 +62,9 @@ assignees: Arman17Babaei
 
 ## تسک‌های نفر دوم
 
-  **نام و نام خانوادگی:**
+  **نام و نام خانوادگی: پوریا محمودخان شیرازی**
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>ساخت یو ام ال های ویو برای منو ها و کمک در مودل</summary>
 
   <div dir="ltr" align='right'>
 
