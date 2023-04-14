@@ -13,8 +13,6 @@ public class User {
     private int highScore;
     private int rank;
 
-    private static ArrayList<User> users = new ArrayList<>();
-
     public User(String password, String username, String nickname, String email, String recoveryPass, String slogan, String securityQuestion) {
         this.password = password;
         this.username = username;
@@ -84,9 +82,5 @@ public class User {
 
     public void setSlogan(String slogan) {
         this.slogan = slogan;
-    }
-
-    public void sortUsersBasedOnHighScore() {
-        
     }
 }
