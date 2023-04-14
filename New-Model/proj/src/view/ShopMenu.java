@@ -1,6 +1,7 @@
 package view;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
 
 public class ShopMenu {
 
@@ -15,5 +16,9 @@ public class ShopMenu {
     private void showPriceList(){
         //shows prices of items
     }
+    
+    private void buy(Matcher matcher){}
+    
+    private void sell(Matcher matcher){}
 
 }
