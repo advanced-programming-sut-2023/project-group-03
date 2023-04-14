@@ -2,9 +2,9 @@ package controller;
 
 import java.util.regex.Matcher;
 
-import Model1.Model.Units.Unit;
+import Model.Units.Unit;
 
-import Model1.Model.User;
+import Model.User;
 
 public class GameMenuController extends Controller {
     private Unit selectedUnit;
