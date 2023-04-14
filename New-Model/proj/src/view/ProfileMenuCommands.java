@@ -11,7 +11,8 @@ public enum ProfileMenuCommands {
     DISPLAY_HIGHSCORE(""),
     DISPLAY_RANK(""),
     DISPLAY_SLOGAN(""),
-    DISPLAY_ALL("")
+    DISPLAY_ALL(""),
+    START_GAME("")
     ;
 
     String regex;

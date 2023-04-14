@@ -27,4 +27,7 @@ public class ProfileMenu {
     private void displayProfile(Matcher matcher){
         // shows different profile data based on matcher
     }
+    
+    //start game
+    private void startGame(Matcher matcher){};
 }
