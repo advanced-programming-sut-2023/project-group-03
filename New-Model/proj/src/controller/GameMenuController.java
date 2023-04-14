@@ -10,6 +10,8 @@ public class GameMenuController extends Controller {
     private Unit selectedUnit;
 
     private User currentPlayer;
+    
+    private final Game game;
 
 
     public void setSelectedUnit(Unit selectedUnit) {
