@@ -43,6 +43,11 @@ class Towers extends CastleBuilding
     }
 
     @Override
+    public void getHit() {
+
+    }
+
+    @Override
     public void action() {
 
     }
