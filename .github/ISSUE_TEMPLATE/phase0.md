@@ -20,7 +20,7 @@ assignees: Arman17Babaei
 
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [*] تمام شده
   </div>
 </details>
 
@@ -48,14 +48,14 @@ assignees: Arman17Babaei
 
 ## تسک‌های نفر اول
 
-  **نام و نام خانوادگی:**
+  **نام و نام خانوادگی: مهران طلایی خواجه روشنایی**
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>نوشتن مدل</summary>
 
   <div dir="ltr" align='right'>
 
   1. [ ] شروع نشده
-  2. [ ] در حال انجام
+  2. [*] در حال انجام
   3. [ ] تمام شده
   </div>
 </details>
@@ -70,7 +70,7 @@ assignees: Arman17Babaei
 
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [*] تمام شده
   </div>
 </details>
 
@@ -84,7 +84,26 @@ assignees: Arman17Babaei
 
   1. [ ] شروع نشده
   2. [ ] در حال انجام
+  3. [*] تمام شده
+  </div>
+  
+  
+  <summary>نوشتن کنترلر برای منوی باری</summary>
+  
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [*] در حال انجام
   3. [ ] تمام شده
+  </div>
+  
+    <summary>کمک به منطق مدل</summary>
+  
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [*] تمام شده
   </div>
 </details>
 </div>
