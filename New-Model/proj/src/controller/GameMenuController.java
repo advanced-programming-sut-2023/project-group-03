@@ -2,9 +2,9 @@ package controller;
 
 import java.util.regex.Matcher;
 
-import Model1.Model.Units.Unit;
+import Model.Units.Unit;
 
-import Model1.Model.User;
+import Model.User;
 
 public class GameMenuController extends Controller {
     private Unit selectedUnit;
@@ -86,7 +86,7 @@ public class GameMenuController extends Controller {
         return false;
     }
 
-    public void findProperPath(int x, int y, int dir, Model1.Model.Units.Unit unit) {
+    public void findProperPath(int x, int y, int dir, Unit unit) {
 
     }
 
