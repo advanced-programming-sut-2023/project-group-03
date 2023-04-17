@@ -25,6 +25,12 @@ public class RegisterMenuController extends UserBasedMenuController {
         Matcher matcher = getMatcher(userInfo, USER_FIELD.getRegex());
         if (matcher == null) return "Invalid command!";
 
+        //check the format of user info
+        Matcher registerFormatCheckerMatcher = getMatcher(userInfo, NEW_USER_FORMAT_CHECK.getRegex());
+        if (registerFormatCheckerMatcher == null) return "Invalid command!";
+        registerFormatCheckerMatcher.find();
+        if (!(registerFormatCheckerMatcher.end() == userInfo.length())) return "Invalid command!";
+
         String option = "";
         String optionInfo = "";
         while (matcher.matches()) {
@@ -51,6 +57,8 @@ public class RegisterMenuController extends UserBasedMenuController {
             while (showRandomSlogan(optionInfo).equals("n")) {
                 optionInfo = randomSloganGenerator();
             }
+
+            if (optionInfo.contains("\"")) optionInfo = optionInfo.substring(1, optionInfo.length() - 2);
 
             infoMap.put(option, optionInfo);
         }
