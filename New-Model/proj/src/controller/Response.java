@@ -28,7 +28,34 @@ public enum Response {
     CHANGE_EMAIL("Your email changed successfully!"),
     CHANGE_SLOGAN("Your slogan changed successfully!"),
     REMOVE_SLOGAN("Your slogan got cleared!"),
-
+    //kingdom
+    INVALID_FOOD_RATE("Invalid food rate! -3 < food rate < 3"),
+    INVALID_TAX_RATE("Invalid tax rate! -4 < tax rate < 9"),
+    INVALID_FEAR_RATE("Invalid fear rate! -6 < fear rate < 6"),
+    ////buildings
+    INVALID_LOCATION(""),
+    //drop building
+    INVALID_BUILDING_TYPE(""),
+    BUILDING_ALREADY_EXISTS(""),
+    //select building
+    NO_BUILDING_EXIST(""),
+    BUILDING_OWNERSHIP_PROBLEM(""),
+    //making units
+    NOT_ENOUGH_RESOURCES(""),
+    NOT_ENOUGH_POPULATION(""),
+    INVALID_TROOP_TYPE(""),
+    //repair
+    NOT_ENOUGH_STONE(""),
+    UNABLE_TO_REPAIR(""),
+    ////units
+    NO_UNIT_EXIST(""),
+    INVALID_DESTINATION(""),
+    LONG_DESTINATION(""),
+    INVALID_UNIT_STATE(""),
+    //attack
+    NOT_ARCHER(""),
+    NOT_ENGINEER(""),
+    NOT_TUNNELLER(""),
     ;
     private String output;
 
