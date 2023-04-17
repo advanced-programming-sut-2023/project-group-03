@@ -25,9 +25,11 @@ public class RegisterMenuController extends UserBasedMenuController {
         Matcher matcher = getMatcher(userInfo, USER_FIELD.getRegex());
         if (matcher == null) return "Invalid command!";
 
+        String option = "";
+        String optionInfo = "";
         while (matcher.matches()) {
-            String option = matcher.group("option");
-            String optionInfo = matcher.group("optionInfo");
+            option = matcher.group("option");
+            optionInfo = matcher.group("optionInfo");
             if (!infoMap.containsKey(option)) return INVALID_OPTION.toString();
             if (infoMap.get(option) != null) return REPETITIVE_OPTION.toString();
             if (optionInfo == null) {
@@ -52,6 +54,8 @@ public class RegisterMenuController extends UserBasedMenuController {
 
             infoMap.put(option, optionInfo);
         }
+        
+        if (!option.equals("p") && matcher.end() != userInfo.length()) return "Invalid command!";
 
         if (!checkUsernameNicknameFormat(infoMap.get("u"))) return INVALID_USERNAME_FORMAT.toString();
         //check if there is a player with this username--------------
