@@ -6,13 +6,18 @@ public enum Response {
     PASSWORD_EMPTY("Password field is empty!"),
     NICKNAME_EMPTY("Nickname field is empty!"),
     EMAIL_EMPTY("Email field is empty!"),
+    SLOGAN_EMPTY("You entered -s but didn't provide any slogan!"),
     INVALID_USERNAME_FORMAT("Username's format is wrong! You can only use English letters and underscore."),
     INVALID_NICKNAME_FORMAT("Nickname's format is wrong! You can only use English letters and underscore."),
     REPETITIVE_USERNAME("A player with this username exists!"),
     WEAK_PASSWORD("Your password is weak! Your password requires at least 6 letters including capital and small letters and digits and a random character!"),
-    WRONG_CONFIRMATION_PASSWORD("Confirmation password and password are not the same!"),
+    WRONG_PASSWORD_CONFIRMATION("Confirmation password and password are not the same!"),
+    PASSWORD_CONFIRMATION_EMPTY("You forgot to write password confirmation! Please write it exactly after the password."),
     REPETITIVE_EMAIL("A player with this email exists!"),
     INVALID_EMAIL_FORMAT("Your Email's format is wrong!"),
+    INVALID_OPTION("You entered an invalid option!"),
+    REPETITIVE_OPTION("You entered an option twice!"),
+    SUCCESSFULL_REGISTER("You got signed up successfully!"),
     //login
     UNKNOWN_USERNAME("There is no player with this username!"),
     INVALID_PASSWORD("Your password is wrong!"),
@@ -63,7 +68,7 @@ public enum Response {
         this.output = output;
     }
 
-    public String getOutput() {
+    public String toString() {
         return this.output;
     }
 }

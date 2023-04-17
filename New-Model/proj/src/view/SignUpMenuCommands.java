@@ -1,12 +1,18 @@
 package view;
 
 public enum SignUpMenuCommands {
-
-    NEW_USER("")
+    INPUT("(?<input>([^\"\\s]\\S*|\"[^\"]+\"))"),
+    USER_FIELD("-(?<option>[upesn]) (?<optionInfo>([^\"\\s]\\S*|\"[^\"]+\"))?"),
+    PASSWORD_CONFIRMATION("-p (?<password>([^\"\\s]\\S*|\"[^\"]+\")) (?<passwordConfirmation>([^\"\\s]\\S*|\"[^\"]+\"))"),
+    NEW_USER("user create (?<userInfo>.+)")
     ;
 
-    String regex;
+    private String regex;
     private SignUpMenuCommands(String regex){
         this.regex = regex;
+    }
+
+    public String getRegex() {
+        return this.regex;
     }
 }

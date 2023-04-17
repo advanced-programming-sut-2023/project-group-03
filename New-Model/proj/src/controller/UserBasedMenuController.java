@@ -1,26 +1,26 @@
 package controller;
 
+import view.SignUpMenuCommands.*;
+
+import java.util.regex.Matcher;
+
+import static controller.UserBasedMenuCommands.*;
+import static controller.ControllerFunctions.getMatcher;
+
 public class UserBasedMenuController extends Controller {
     public static boolean checkUsernameNicknameFormat(String username) {
-        return true;
-    }
-    public static String checkUsername(String username) {
-        //call checkUsernameFormat
-        //check for repetitive username
-        return "";
+        return getMatcher(username, INVALID_USERNAME_FORMAT.getRegex()) == null;
     }
     public static boolean checkPasswordWeakness(String password) {
-        return true;
-    }
-
-    public static String checkPassword(String password, String passwordConfirmation) {
-        //call checkPasswordWeakness
-        //check equality of password and its confirmation
-        return "";
+        if (password.length() < 6) return true;
+        if (getMatcher(password, "[a-z]") == null) return true;
+        if (getMatcher(password, "[A-Z]") == null) return true;
+        if (getMatcher(password, "\\d") == null) return true;
+        return getMatcher(password, "[^a-zA-Z0-9]") == null;
     }
 
     public static boolean checkEmailFormat(String email) {
-        return true;
+        return getMatcher(email, EMAIL_FORMAT.getRegex()) == null;
     }
 
     public String randomPasswordGenerator() {
