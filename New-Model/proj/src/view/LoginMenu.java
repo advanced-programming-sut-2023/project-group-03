@@ -1,6 +1,5 @@
 package view;
 
-import Model.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;

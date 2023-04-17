@@ -11,9 +11,12 @@ public class User {
     private int highScore;
     private int rank;
 
-    public User(String password, String username) {
+    public User(String password, String username, String nickname, String email, String slogan) {
         this.password = password;
         this.username = username;
+        this.nickname = nickname;
+        this.email = email;
+        this.slogan = slogan;
     }
 
     public String getPassword() {
