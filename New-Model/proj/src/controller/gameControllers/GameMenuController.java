@@ -1,18 +1,24 @@
-package controller;
+package controller.gameControllers;
 
 import java.util.regex.Matcher;
 
+import Model.GamePlay.Game;
 import Model.Units.Unit;
 
 import Model.User;
+import controller.Controller;
 
 public class GameMenuController extends Controller {
     private Unit selectedUnit;
 
     private User currentPlayer;
-    
+
     private final Game game;
 
+    public GameMenuController(User currentPlayer, Game game) {
+        this.currentPlayer = currentPlayer;
+        this.game = game;
+    }
 
     public void setSelectedUnit(Unit selectedUnit) {
         this.selectedUnit = selectedUnit;
