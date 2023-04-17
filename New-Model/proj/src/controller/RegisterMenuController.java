@@ -54,8 +54,6 @@ public class RegisterMenuController extends UserBasedMenuController {
 
             infoMap.put(option, optionInfo);
         }
-        
-        if (!option.equals("p") && matcher.end() != userInfo.length()) return "Invalid command!";
 
         if (!checkUsernameNicknameFormat(infoMap.get("u"))) return INVALID_USERNAME_FORMAT.toString();
         //check if there is a player with this username--------------
