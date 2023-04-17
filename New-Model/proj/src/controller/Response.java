@@ -33,29 +33,29 @@ public enum Response {
     INVALID_TAX_RATE("Invalid tax rate! -4 < tax rate < 9"),
     INVALID_FEAR_RATE("Invalid fear rate! -6 < fear rate < 6"),
     ////buildings
-    INVALID_LOCATION(""),
+    INVALID_LOCATION("Invalid x or y for location!"),
     //drop building
-    INVALID_BUILDING_TYPE(""),
-    BUILDING_ALREADY_EXISTS(""),
+    INVALID_BUILDING_TYPE("There is no building type same as the given type!"),
+    BUILDING_ALREADY_EXISTS("This field already has a building!"),
     //select building
-    NO_BUILDING_EXIST(""),
-    BUILDING_OWNERSHIP_PROBLEM(""),
+    NO_BUILDING_EXIST("There is no building here!"),
+    BUILDING_OWNERSHIP_PROBLEM("You don't own this building!"),
     //making units
-    NOT_ENOUGH_RESOURCES(""),
-    NOT_ENOUGH_POPULATION(""),
-    INVALID_TROOP_TYPE(""),
+    NOT_ENOUGH_RESOURCES("There is not enough resources to make the given unit."),
+    NOT_ENOUGH_POPULATION("You don't have enough population to make the given unit."),
+    INVALID_TROOP_TYPE("There is no soldier type same as the given type!"),
     //repair
-    NOT_ENOUGH_STONE(""),
-    UNABLE_TO_REPAIR(""),
+    NOT_ENOUGH_STONE("There is not enough resources to repair!"),
+    UNABLE_TO_REPAIR("You can't repair right now. Enemies' soldiers are too close!"),
     ////units
-    NO_UNIT_EXIST(""),
-    INVALID_DESTINATION(""),
-    LONG_DESTINATION(""),
-    INVALID_UNIT_STATE(""),
+    NO_UNIT_EXIST("There is no unit here!"),
+    INVALID_DESTINATION("You can't go to that place. It is too high or too deap!"),
+    LONG_DESTINATION("Please choose a closer destination."),
+    INVALID_UNIT_STATE("Invalid unit state! You can only choose : standing, defensive, offensive."),
     //attack
-    NOT_ARCHER(""),
-    NOT_ENGINEER(""),
-    NOT_TUNNELLER(""),
+    NOT_ARCHER("Selected unit is not Archer!"),
+    NOT_ENGINEER("Selected unit is not Engineer!"),
+    NOT_TUNNELLER("Selected unit is not Tunneller!"),
     ;
     private String output;
 
