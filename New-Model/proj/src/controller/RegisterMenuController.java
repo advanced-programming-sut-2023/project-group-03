@@ -2,7 +2,7 @@ package controller;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
-import static view.SignUpMenuCommands.*;
+import static view.Enums.SignUpMenuCommands.*;
 import static controller.Response.*;
 import static controller.ControllerFunctions.getMatcher;
 import static view.SignUpMenu.getRandomPasswordConfirmation;

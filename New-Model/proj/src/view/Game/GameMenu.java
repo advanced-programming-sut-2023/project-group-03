@@ -1,4 +1,4 @@
-package view;
+package view.Game;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;

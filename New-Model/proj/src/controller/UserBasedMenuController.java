@@ -1,9 +1,5 @@
 package controller;
 
-import view.SignUpMenuCommands.*;
-
-import java.util.regex.Matcher;
-
 import static controller.UserBasedMenuCommands.*;
 import static controller.ControllerFunctions.getMatcher;
 
