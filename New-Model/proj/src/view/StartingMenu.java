@@ -12,24 +12,24 @@ public class StartingMenu extends Menu{
         super(scanner);
         System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN +">>Welcome to the fucking Game<<");
         System.out.println(ConsoleColors.TEXT_BRIGHT_RED + "choose a menu to continue:");
-        System.out.println(ConsoleColors.TEXT_RESET + "1.Login Menu");
-        System.out.println("2.Signup Menu");
+        System.out.println(ConsoleColors.TEXT_RESET + "1.login menu");
+        System.out.println("2.signup menu");
+        System.out.println("3.back");
     }
-    @Override
-    public void run() {
+
+    public void run() throws Transition {
         String command=scanner.nextLine();
-        try {
-            if (Pattern.matches(StartingMenuCommands.LOGIN_MENU.getRegex(), command)) {
-                throw new Transition(new LoginMenu(scanner));
-            }
-            if (Pattern.matches(StartingMenuCommands.SIGNUP_MENU.getRegex(), command)) {
-                throw new Transition(new SignUpMenu(scanner));
-            } else {
-                System.out.println("wrong input");
-                throw new Transition(this);
-            }
-        }catch (Transition e) {
-            e.getDestMenu().run();
+        if (Pattern.matches(StartingMenuCommands.LOGIN_MENU.getRegex(), command)) {
+            throw new  Transition(new LoginMenu(scanner));
+        }
+        else if (Pattern.matches(StartingMenuCommands.SIGNUP_MENU.getRegex(), command)) {
+            throw  new Transition(new SignUpMenu(scanner));
+        }
+        else if (Pattern.matches(StartingMenuCommands.EXIT.getRegex(), command)) {
+            throw  new Transition(new StartingMenu(scanner));
+        } else {
+            System.out.println("wrong input");
+            throw new Transition(this);
         }
     }
 }

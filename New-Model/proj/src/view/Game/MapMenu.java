@@ -2,6 +2,7 @@ package view.Game;
 
 import Model.Feild.GameMap;
 import view.Menu;
+import view.Transition;
 
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class MapMenu extends Menu {
     }
 
     @Override
-    public void run() {
-        super.run();
+    public void run() throws Transition {
+
     }
 }

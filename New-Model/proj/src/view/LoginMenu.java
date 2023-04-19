@@ -14,8 +14,8 @@ public class LoginMenu extends Menu{
     }
 
     @Override
-    public void run() {
-        super.run();
+    public void run() throws Transition {
+
     }
 
     private void login(Matcher matcher){}

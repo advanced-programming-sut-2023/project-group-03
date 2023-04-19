@@ -3,6 +3,7 @@ package view.Enums;
 public enum StartingMenuCommands {
     LOGIN_MENU("login menu"),
     SIGNUP_MENU("signup menu"),
+    EXIT("exit"),
     ;
     private String regex;
 

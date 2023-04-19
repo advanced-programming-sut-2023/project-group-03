@@ -9,7 +9,17 @@ public abstract class Menu {
         this.scanner = scanner;
     }
 
-    public void run() {
+    public abstract void run() throws Transition;
 
+    public void RunHandler() {
+        try {
+            run();
+        } catch (Transition transition) {
+            if (transition.getDestMenu().equals(null)) {
+                return;
+            } else {
+                transition.getDestMenu().RunHandler();
+            }
+        }
     }
 }

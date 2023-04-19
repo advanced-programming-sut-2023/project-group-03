@@ -13,9 +13,9 @@ public class ProfileMenu extends Menu{
         this.user = user;
     }
 
-    public String run(Scanner scanner){
+    @Override
+    public void run() throws Transition {
 
-        return null;
     }
 
     // change profile data

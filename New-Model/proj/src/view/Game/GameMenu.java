@@ -2,6 +2,7 @@ package view.Game;
 
 import Model.GamePlay.Game;
 import view.Menu;
+import view.Transition;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -15,8 +16,8 @@ public class GameMenu extends Menu {
     }
 
     @Override
-    public void run() {
-        super.run();
+    public void run() throws Transition {
+
     }
 
     // map

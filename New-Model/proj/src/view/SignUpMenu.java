@@ -1,5 +1,7 @@
 package view;
 
+import view.Enums.ConsoleColors;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -8,12 +10,17 @@ public class SignUpMenu extends Menu {
 
     public SignUpMenu(Scanner scanner){
         super(scanner);
+        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN +">>Signup menu<<"+ConsoleColors.TEXT_BLACK);
+        System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW + "choose a command to continue:");
+        System.out.println(ConsoleColors.TEXT_RESET + "1.Login Menu");
+        System.out.println("2.Signup Menu");
     }
 
-    public String run(Scanner scanner){
+    @Override
+    public void run() throws Transition {
 
-        return null;
     }
+
 
     private void createUser(Matcher matcher){}
 
