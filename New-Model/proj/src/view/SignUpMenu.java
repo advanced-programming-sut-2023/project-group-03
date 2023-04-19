@@ -1,6 +1,7 @@
 package view;
 
 import view.Enums.ConsoleColors;
+import view.Enums.SignUpMenuCommands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,23 +44,27 @@ public class SignUpMenu extends Menu {
         return confirmation;
     }
 
-    public static HashMap<String, String> askSecurityQuestion(ArrayList<String> questions) {
-        HashMap<String, String> pickedQuestion = new HashMap<>() {{
-            put("q", null);
-            put("a", null);
-        }};
-
+    public static String askSecurityQuestion(ArrayList<String> questions, Scanner scanner) {
         System.out.println("Pick one of the questions below and enter the answer and confirmation of it.");
-
-        int questionIndex = 1;
-        for (String question : questions) {
-            System.out.println(questionIndex + "." + question);
+        for (int questionIndex = 0; questionIndex < questions.size(); questionIndex++) {
+            System.out.println((questionIndex + 1) + questions.get(questionIndex));
         }
 
+        Matcher checkFormatMatcher;
+        String input;
+        do {
+            System.out.println("Please Enter: question pick -q <question's number> -a <answer> -c <confirmation>");
+            input = scanner.nextLine();
+            checkFormatMatcher = controller.ControllerFunctions.getMatcher(input, SignUpMenuCommands.PICK_QUESTION.getRegex());
+
+        } while (checkFormatMatcher == null);
 
 
+        return checkFormatMatcher.group("questionInfo");
+    }
 
-        return pickedQuestion;
+    public static void showOutput(String output) {
+        System.out.println(output);
     }
 
 

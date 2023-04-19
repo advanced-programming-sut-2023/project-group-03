@@ -22,6 +22,8 @@ public enum Response {
     INVALID_EMAIL_FORMAT("Your Email's format is wrong!"),
     INVALID_OPTION("You entered an invalid option!"),
     REPETITIVE_OPTION("You entered this option twice: "),
+    WRONG_ANSWER_CONFIRMATION("Answer and confirmation answer are not the same!"),
+    QUESTION_OUT_OF_RANGE("Question's number is invalid."),
     SUCCESSFULL_REGISTER("You got signed up successfully!"),
     //login
     UNKNOWN_USERNAME("There is no player with this username!"),
