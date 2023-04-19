@@ -10,10 +10,7 @@ public class SignUpMenu extends Menu {
 
     public SignUpMenu(Scanner scanner){
         super(scanner);
-        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN +">>Signup menu<<"+ConsoleColors.TEXT_BLACK);
-        System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW + "choose a command to continue:");
-        System.out.println(ConsoleColors.TEXT_RESET + "1.Login Menu");
-        System.out.println("2.Signup Menu");
+        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Signup menu<<" + ConsoleColors.TEXT_RESET);
     }
 
     @Override
