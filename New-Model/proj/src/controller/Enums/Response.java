@@ -27,7 +27,9 @@ public enum Response {
     SUCCESSFULL_REGISTER("You got signed up successfully!"),
     //login
     UNKNOWN_USERNAME("There is no player with this username!"),
-    INVALID_PASSWORD("Your password is wrong!"),
+    INVALID_PASSWORD_LOGIN("Your password is wrong! You have to wait for: "),
+    ENTER_PASSWORD("Enter your password or enter 'back' if you forgot your password."),
+    BACK_TO_LOGIN_MENU("You are back in the login menu!"),
     LOGIN("User logged in successfully!"),
     LOGOUT("User logged out successfully!"),
     //profile

@@ -1,7 +1,7 @@
 package controller;
 
 import Model.User;
-import controller.Enums.InputKeys;
+import controller.Enums.InputOptions;
 import view.SignUpMenu;
 
 import java.util.HashMap;
@@ -12,7 +12,6 @@ import static view.Enums.SignUpMenuCommands.*;
 import static controller.Enums.ControllerCommands.*;
 import static controller.Enums.Response.*;
 import static controller.ControllerFunctions.*;
-import static controller.Enums.InputKeys.*;
 import static Model.UserDatabase.*;
 import static view.SignUpMenu.*;
 
@@ -107,7 +106,7 @@ public class RegisterMenuController extends UserBasedMenuController {
 
         while (true) {
             question = SignUpMenu.askSecurityQuestion(securityQuestions, scanner);
-            securityQuestionResult  = getOptions(InputKeys.PICK_QUESTION.getKeys(), question);
+            securityQuestionResult  = getOptions(InputOptions.PICK_QUESTION.getKeys(), question);
             if (securityQuestionResult.get("error") != null) {
                 showOutput(securityQuestionResult.get("error"));
                 continue;

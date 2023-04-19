@@ -3,7 +3,7 @@ package view.Enums;
 public enum LoginMenuCommands {
 
     PICK_SECURITY(""),
-    LOGIN(""),
+    LOGIN("^user login (?<loginInfo>.+)$"),
     FORGOT_PASSWORD(""),
     LOGOUT("")
     ;
