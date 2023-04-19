@@ -12,6 +12,8 @@ public class UserDatabase {
         return null;
     }
 
+    public static User getUserByEmail(String email) {return null;}
+
     public static User getUserByNickName(String name) {
         return null;
     }

@@ -2,6 +2,8 @@ package view;
 
 import view.Enums.ConsoleColors;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -39,6 +41,24 @@ public class SignUpMenu extends Menu {
             confirmation = scanner.nextLine();
         }
         return confirmation;
+    }
+
+    public static HashMap<String, String> askSecurityQuestion(ArrayList<String> questions) {
+        HashMap<String, String> pickedQuestion = new HashMap<>() {{
+            put("q", null);
+            put("a", null);
+        }};
+
+        System.out.println("Pick one of the questions below and enter the answer and confirmation of it.");
+
+        int questionIndex = 1;
+        for (String question : questions) {
+            System.out.println(questionIndex + "." + question);
+        }
+
+
+
+        return pickedQuestion;
     }
 
 

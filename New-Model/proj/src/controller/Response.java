@@ -68,7 +68,7 @@ public enum Response {
         this.output = output;
     }
 
-    public String toString() {
+    public String getOutput() {
         return this.output;
     }
 }
