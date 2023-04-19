@@ -2,12 +2,13 @@ package controller;
 
 import Model.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 
 import static view.Enums.SignUpMenuCommands.*;
-import static controller.Response.*;
+import static controller.Enums.ControllerCommands.*;
+import static controller.Enums.Response.*;
 import static controller.ControllerFunctions.*;
 import static view.SignUpMenu.getRandomPasswordConfirmation;
 import static view.SignUpMenu.showRandomSlogan;
@@ -23,7 +24,7 @@ public class RegisterMenuController extends UserBasedMenuController {
         put("s", null);
     }};
 
-    public String registerNewUser(Matcher inputMatcher) {
+    public String registerNewUser(Matcher inputMatcher, Scanner scanner) {
         //check all the problems that can occur for the command and return a proper String to menu to see what happened
         boolean randomPassword = false; // check if user wants a random password and if he wants it, no need to check the confirmation.
         String userInfo = inputMatcher.group("userInfo");
@@ -33,7 +34,6 @@ public class RegisterMenuController extends UserBasedMenuController {
         //check the format of user info
         Matcher registerFormatCheckerMatcher = getMatcher(userInfo, NEW_USER_FORMAT_CHECK.getRegex());
         if (registerFormatCheckerMatcher == null) return "Invalid command!";
-        registerFormatCheckerMatcher.find();
         if (!(registerFormatCheckerMatcher.end() == userInfo.length())) return "Invalid command!";
 
         String option = "";
@@ -42,7 +42,7 @@ public class RegisterMenuController extends UserBasedMenuController {
             option = matcher.group("option");
             optionInfo = matcher.group("optionInfo");
             if (!infoMap.containsKey(option)) return INVALID_OPTION.getOutput();
-            if (infoMap.get(option) != null) return REPETITIVE_OPTION.getOutput();
+            if (infoMap.get(option) != null) return REPETITIVE_OPTION.getOutput() + option;
             if (optionInfo == null) {
                 if (option.equals("u")) return USERNAME_EMPTY.getOutput();
                 if (option.equals("p")) return PASSWORD_EMPTY.getOutput();
@@ -54,16 +54,16 @@ public class RegisterMenuController extends UserBasedMenuController {
                 optionInfo = randomPasswordGenerator();
                 randomPassword = true;
             }
-            while (!getRandomPasswordConfirmation(optionInfo).equals(optionInfo)) {
+            while (!getRandomPasswordConfirmation(optionInfo, scanner).equals(optionInfo)) {
                 optionInfo = randomPasswordGenerator();
             }
 
             if (option.equals("s") && optionInfo.equals("random")) optionInfo = randomSloganGenerator();
-            while (showRandomSlogan(optionInfo).equals("n")) {
+            while (showRandomSlogan(optionInfo, scanner).equals("n")) {
                 optionInfo = randomSloganGenerator();
             }
 
-            optionInfo = quotationUnwrapper(optionInfo);
+            optionInfo = unwrapQuotation(optionInfo);
 
             infoMap.put(option, optionInfo);
         } while (matcher.matches());
@@ -95,7 +95,6 @@ public class RegisterMenuController extends UserBasedMenuController {
         if (!checkEmailFormat(infoMap.get("e"))) return INVALID_EMAIL_FORMAT.getOutput();
 
         //asking the security question
-        ArrayList<String> securityQuestions = getSecurityQuestions();
 
 
         //add the new user to database
@@ -103,9 +102,26 @@ public class RegisterMenuController extends UserBasedMenuController {
         return SUCCESSFULL_REGISTER.getOutput();
     }
 
-    private String askSecurityQuestion() {
-        ArrayList<String> securityQuestions = getSecurityQuestions();
+    public static HashMap<String, String> askSecurityQuestion(Matcher matcher) {
+        HashMap<String, String> pickedQuestion = new HashMap<>() {{
+            put("q", null);
+            put("a", null);
+            put("c", null);
+        }};
 
-        return "";
+        String questionInfo = matcher.group("questionInfo");
+        if (getMatcher(questionInfo, MULTI_OPTION_FIELD_FORMAT.getRegex()) == null) return null;
+
+        matcher = getMatcher(questionInfo, OPTION_FIELD.getRegex());
+        if (matcher == null) return null;
+
+        String option;
+        String optionInfo;
+        do {
+            option = matcher.group("option");
+            optionInfo = matcher.group("optionInfo");
+        } while (matcher.matches());
+
+        return pickedQuestion;
     }
 }

@@ -11,7 +11,7 @@ public class ControllerFunctions {
         return null;
     }
 
-    public static String quotationUnwrapper(String input) {
+    public static String unwrapQuotation(String input) {
         if (input == null) return null;
         if (!input.contains("\"")) return input;
         return input.substring(1, input.length() - 2);

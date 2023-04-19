@@ -1,4 +1,4 @@
-package controller;
+package controller.Enums;
 
 public enum UserBasedMenuCommands {
     INVALID_USERNAME_FORMAT("[^a-zA-Z0-9_]"),

@@ -1,6 +1,11 @@
-package controller;
+package controller.Enums;
 
 public enum Response {
+    //general
+    INVALID_COMMAND("Invalid command!"),
+    INVALID_KEY("You entered an invalid key: "),
+    FIELD_EMPTY("This field is empty: "),
+    FIELD_FORGOTTEN("You forgot this field: "),
     //register
     USERNAME_EMPTY("Username field is empty!"),
     PASSWORD_EMPTY("Password field is empty!"),
@@ -16,7 +21,7 @@ public enum Response {
     REPETITIVE_EMAIL("A player with this email exists!"),
     INVALID_EMAIL_FORMAT("Your Email's format is wrong!"),
     INVALID_OPTION("You entered an invalid option!"),
-    REPETITIVE_OPTION("You entered an option twice!"),
+    REPETITIVE_OPTION("You entered this option twice: "),
     SUCCESSFULL_REGISTER("You got signed up successfully!"),
     //login
     UNKNOWN_USERNAME("There is no player with this username!"),

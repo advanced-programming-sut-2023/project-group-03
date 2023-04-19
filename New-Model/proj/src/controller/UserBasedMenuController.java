@@ -3,7 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static controller.UserBasedMenuCommands.*;
+import static controller.Enums.UserBasedMenuCommands.*;
 import static controller.ControllerFunctions.getMatcher;
 
 public class UserBasedMenuController extends Controller {
@@ -22,16 +22,12 @@ public class UserBasedMenuController extends Controller {
         return getMatcher(email, EMAIL_FORMAT.getRegex()) == null;
     }
 
-    private ArrayList<String> securityQuestions = new ArrayList<>(Arrays.asList(
+    protected static ArrayList<String> securityQuestions = new ArrayList<>(Arrays.asList(
             "What is your favourite aunt's name?",
             "Which one of your grandpas do you hate the most?",
             "Do you even like this game?",
             "When did you have your first kiss?"
     ));
-
-    public ArrayList<String> getSecurityQuestions() {
-        return securityQuestions;
-    }
 
     public String randomPasswordGenerator() {
         return "";

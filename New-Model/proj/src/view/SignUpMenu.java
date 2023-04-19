@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class SignUpMenu extends Menu {
-    static Scanner scanner;
+    private Scanner scanner;
 
     public SignUpMenu(Scanner scanner){
         super(scanner);
@@ -25,13 +25,13 @@ public class SignUpMenu extends Menu {
 
     private void pickQuestion(Matcher matcher){}
 
-    public static String getRandomPasswordConfirmation(String randomPassword) {
+    public static String getRandomPasswordConfirmation(String randomPassword, Scanner scanner) {
         System.out.println("Your random password is: " + randomPassword);
         System.out.println("Please re-enter the given password here: ");
         return scanner.nextLine();
     }
 
-    public static String showRandomSlogan(String randomSlogan) {
+    public static String showRandomSlogan(String randomSlogan, Scanner scanner) {
         System.out.println("Your random slogan is: " + randomSlogan);
         System.out.println("If you want to keep this slogan please enter y and else enter n.");
         String confirmation = scanner.nextLine();
@@ -55,6 +55,7 @@ public class SignUpMenu extends Menu {
         for (String question : questions) {
             System.out.println(questionIndex + "." + question);
         }
+
 
 
 
