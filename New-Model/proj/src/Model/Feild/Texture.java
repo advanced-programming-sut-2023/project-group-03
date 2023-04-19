@@ -1,4 +1,4 @@
-﻿package Model.Feild;
+package Model.Feild;
 
  enum Texture
 {

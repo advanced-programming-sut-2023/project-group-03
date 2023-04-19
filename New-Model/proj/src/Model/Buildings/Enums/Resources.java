@@ -1,8 +1,8 @@
-﻿package Model.Buildings.Enums;
+package Model.Buildings.Enums;
 
 public enum Resources
 {
-    FLOUR("flour", TypeOfResource.FOOD, 10);
+     FLOUR("flour", TypeOfResource.FOOD, 10);
 //    IRON,
 //    STONE,
 //    OIL,
@@ -23,6 +23,7 @@ public enum Resources
 //    BREAD,
 //    WINE,
 //    HORSE;
+    ;
     TypeOfResource type;
     int gold;
     String name;
