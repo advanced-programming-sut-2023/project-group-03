@@ -2,7 +2,7 @@ package Model.Buildings;
 
 import Model.Buildings.Enums.GeneratorTypes;
 import Model.Buildings.Enums.Resources;
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class Generators extends Building{
@@ -16,7 +16,7 @@ public class Generators extends Building{
     private int gold;
     private int worker;
 
-    private boolean isInfire;
+    private boolean isInFire;
 
     public Generators(Player owner, Tile position, GeneratorTypes type) {
         super(owner, position);
@@ -26,8 +26,8 @@ public class Generators extends Building{
         return type;
     }
 
-    public boolean isInfire() {
-        return isInfire;
+    public boolean isInFire() {
+        return isInFire;
     }
 
     public int getInventory() {

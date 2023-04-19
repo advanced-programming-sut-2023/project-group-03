@@ -1,7 +1,7 @@
 package Model.Buildings;
 
 import Model.Buildings.Enums.Resources;
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class Store extends Building{

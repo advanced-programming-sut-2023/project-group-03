@@ -1,11 +1,6 @@
 package Model.Units.Enums;
 
-import Model.Buildings.Enums.Resources;
-import Model.GamePlay.Drawable;
-
-import java.util.HashSet;
-
-public enum troopTypes {
+public enum TroopTypes {
 
     ;
     private String name;
@@ -14,7 +9,7 @@ public enum troopTypes {
     private int HP;
     private int range;
     private int gold;
-    troopTypes(String name, int damage, int speed, int HP, int range, int gold) {
+    TroopTypes(String name, int damage, int speed, int HP, int range, int gold) {
         this.Speed=speed;
         this.name = name;
         this.damage = damage;

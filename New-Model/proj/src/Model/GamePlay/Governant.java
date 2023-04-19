@@ -1,6 +1,6 @@
 package Model.GamePlay;
 
-import Model.Feild.Tile;
+import Model.Field.Tile;
 
 import java.util.ArrayList;
 

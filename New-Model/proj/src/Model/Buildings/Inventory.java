@@ -2,7 +2,7 @@ package Model.Buildings;
 
 import Model.Buildings.Enums.InventoryTypes;
 import Model.Buildings.Enums.Resources;
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 import java.util.HashMap;

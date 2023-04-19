@@ -1,6 +1,6 @@
 package Model.Buildings.Defending;
 
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
 
@@ -8,22 +8,26 @@ import java.util.ArrayList;
 
 public class Gates extends CastleBuilding {
     private GateTypes type;
-    private ArrayList<Troop> troops;
     private boolean isOpen;
 
     public Gates(Player owner, Tile position, GateTypes type) {
         super(owner, position);
+        this.setHP(type.getHP());
+        this.length = type.getLength();
+        this.width = type.getWidth();
+        this.setStoneCost(type.getStoneCost());
     }
 
-    public void addTroop(Troop troop) {
-
-    }
-
-    public void removeTroop(Troop troop) {
-
-    }
     private void updateOwner() {
-
+        for (Troop now: troops) {
+            if(now.getOwner().equals(owner)){
+                return;
+            }
+        }
+        if(troops.size()==0){
+            return;
+        }
+        owner = troops.get(0).getOwner();
     }
 
     private void updateCloseOrOpen() {

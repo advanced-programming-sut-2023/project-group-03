@@ -1,4 +1,4 @@
-package Model.Feild;
+package Model.Field;
 
 import Model.Buildings.Building;
 import Model.GamePlay.Player;

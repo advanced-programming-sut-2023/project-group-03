@@ -1,12 +1,12 @@
 package Model.GamePlay;
 
-import Model.Feild.Tile;
+import Model.Field.Tile;
 
 public abstract class Drawable {
-    Player owner;
-    Tile position;
-    Material material;
-    int HP;
+    protected Player owner;
+    protected Tile position;
+    protected Material material;
+    protected int HP;
 
     public Drawable(Player owner, Tile position) {
         this.owner = owner;

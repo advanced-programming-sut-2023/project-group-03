@@ -1,4 +1,4 @@
-package Model.Feild;
+package Model.Field;
 
 public class GameMap {
     private int size;

@@ -1,29 +1,29 @@
 package Model.Buildings;
 
 import Model.Buildings.Enums.TypeOfBarracks;
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Combat.CombatUnit;
-import Model.Units.Enums.troopTypes;
+import Model.Units.Enums.TroopTypes;
 
 import java.util.HashSet;
 
-public class Baracks extends Building{
+public class Barracks extends Building{
 
     TypeOfBarracks type;
-    HashSet<troopTypes> Products;
+    HashSet<TroopTypes> Products;
 
-    public Baracks(Player owner, Tile position, TypeOfBarracks type) {
+    public Barracks(Player owner, Tile position, TypeOfBarracks type) {
         super(owner, position);
         this.setMaterial(Material.STONE);
     }
 
-    public HashSet<troopTypes> getProducts() {
+    public HashSet<TroopTypes> getProducts() {
         return Products;
     }
 
-    public CombatUnit make(troopTypes types) {
+    public CombatUnit make(TroopTypes types) {
         return null;
     }
     @Override

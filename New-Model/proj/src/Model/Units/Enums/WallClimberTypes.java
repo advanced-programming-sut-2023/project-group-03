@@ -11,7 +11,7 @@ public enum WallClimberTypes {
     private int range;
     private int gold;
     WallClimberTypes(String name, int damage, int speed, int HP, int range, int gold) {
-        this.Speed=speed;
+        this.Speed = speed;
         this.name = name;
         this.damage = damage;
         this.HP = HP;

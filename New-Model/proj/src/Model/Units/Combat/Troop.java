@@ -1,16 +1,16 @@
 package Model.Units.Combat;
 
 import Model.Buildings.Enums.Resources;
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.Units.Enums.AttackingMode;
-import Model.Units.Enums.troopTypes;
+import Model.Units.Enums.TroopTypes;
 
 import java.util.HashSet;
 
 public class Troop extends CombatUnit{
-    troopTypes type;
+    TroopTypes type;
     AttackingMode mode;
     HashSet <Resources> equipment;
     int gold;
@@ -24,11 +24,11 @@ public class Troop extends CombatUnit{
 
     }
 
-    public troopTypes getType() {
+    public TroopTypes getType() {
         return type;
     }
 
-    public void setType(troopTypes type) {
+    public void setType(TroopTypes type) {
         this.type = type;
     }
 

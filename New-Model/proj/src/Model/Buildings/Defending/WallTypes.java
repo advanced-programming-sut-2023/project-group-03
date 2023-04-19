@@ -4,9 +4,9 @@ public enum WallTypes {
     BIG("", 2, 2);
     //SMALL;
 
-    public String name;
-    public int HP;
-    public int stoneCost;
+    private String name;
+    private int HP;
+    private int stoneCost;
 
     WallTypes(String name, int HP, int stoneCost) {
         this.name = name;

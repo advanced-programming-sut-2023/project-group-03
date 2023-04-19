@@ -1,7 +1,7 @@
 package Model.Buildings;
 
 import Model.Buildings.Enums.RestTypes;
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class Rest extends Building {

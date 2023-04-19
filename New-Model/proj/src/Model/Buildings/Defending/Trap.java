@@ -1,10 +1,11 @@
 package Model.Buildings.Defending;
 
 import Model.Buildings.Building;
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class Trap extends Building {
+
     private TypeOfTraps type;
     private int gold;
     private int wood;

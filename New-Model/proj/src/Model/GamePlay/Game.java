@@ -1,6 +1,6 @@
 package Model.GamePlay;
 
-import Model.Feild.GameMap;
+import Model.Field.GameMap;
 
 import java.util.ArrayList;
 

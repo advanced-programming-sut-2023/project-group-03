@@ -1,6 +1,6 @@
 package Model.Buildings.Defending;
 
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Throwers;
 import Model.Units.Combat.Troop;
@@ -10,22 +10,17 @@ import java.util.ArrayList;
 public class Towers extends CastleBuilding {
     private TowerTypes type;
     private Throwers thrower;
-    private ArrayList<Troop> troops;
     private int defenseIncrease;
     private int rangeIncrease;
 
     public Towers(Player owner, Tile position, TowerTypes type) {
         super(owner, position);
-        this.setHP(type.HP);
-        this.
-    }
-
-    public void addTroop(Troop troop) {
-
-    }
-
-    public void removeTroop(Troop troop) {
-
+        this.setHP(type.getHP());
+        this.length = type.getLength();
+        this.width = type.getWidth();
+        this.setStoneCost(type.getStoneCost());
+        this.defenseIncrease = type.getDefenseIncrease();
+        this.rangeIncrease = type.getRangeIncrease();
     }
 
     public Throwers getThrower() {

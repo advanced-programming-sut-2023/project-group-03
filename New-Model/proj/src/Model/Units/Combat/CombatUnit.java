@@ -1,6 +1,6 @@
 package Model.Units.Combat;
 
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Unit;

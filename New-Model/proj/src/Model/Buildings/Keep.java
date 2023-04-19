@@ -1,6 +1,6 @@
 package Model.Buildings;
 
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class Keep extends Building {

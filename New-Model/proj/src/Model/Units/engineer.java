@@ -1,7 +1,6 @@
 package Model.Units;
 
-import Model.Buildings.Generators;
-import Model.Feild.Tile;
+import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 
