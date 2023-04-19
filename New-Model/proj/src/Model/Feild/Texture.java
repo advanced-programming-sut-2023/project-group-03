@@ -1,6 +1,6 @@
 package Model.Feild;
 
- enum Texture
+ public enum Texture
 {
     GROUND,
     PEBBLE,

@@ -8,8 +8,12 @@ public enum LoginMenuCommands {
     LOGOUT("")
     ;
 
-    String regex;
+    private String regex;
     private LoginMenuCommands(String regex){
         this.regex = regex;
+    }
+
+    public String getRegex() {
+        return regex;
     }
 }

@@ -16,6 +16,8 @@ public class Towers extends CastleBuilding {
 
     public Towers(Player owner, Tile position, TowerTypes type) {
         super(owner, position);
+        this.setHP(type.HP);
+        this.
     }
 
     public void addTroop(Troop troop) {

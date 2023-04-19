@@ -5,11 +5,11 @@ public enum GateTypes {
 //    BIG_STONE_GATE_HOUSE,
 //    DRAWBBRIDGE;
 
-    public String name;
-    public int HP;
-    public int lenght;
-    public int width;
-    public int stoneCost;
+    private String name;
+    private int HP;
+    private int lenght;
+    private int width;
+    private int stoneCost;
 
     GateTypes(String name, int HP, int lenght, int width, int stoneCost) {
         this.name = name;
@@ -17,5 +17,25 @@ public enum GateTypes {
         this.lenght = lenght;
         this.width = width;
         this.stoneCost = stoneCost;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHP() {
+        return HP;
+    }
+
+    public int getLenght() {
+        return lenght;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getStoneCost() {
+        return stoneCost;
     }
 }
