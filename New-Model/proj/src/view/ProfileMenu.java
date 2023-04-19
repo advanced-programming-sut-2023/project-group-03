@@ -18,9 +18,6 @@ public class ProfileMenu extends Menu{
         return null;
     }
 
-    public ProfileMenu() {
-    }
-
     // change profile data
 
     private void changeProfileNonPassword(Matcher matcher){
