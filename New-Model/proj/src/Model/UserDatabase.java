@@ -3,36 +3,36 @@ package Model;
 import java.util.ArrayList;
 
 public class UserDatabase {
-    private ArrayList<User> users;
-    private ArrayList<User> ranking;
+    private static ArrayList<User> users;
+    private static ArrayList<User> ranking;
     public UserDatabase() {
     }
 
-    public User getUserByName(String name) {
+    public static User getUserByName(String name) {
         return null;
     }
 
-    public User getUserByNickName(String name) {
+    public static User getUserByNickName(String name) {
         return null;
     }
 
-    public void addUser(User user) {
+    public static void addUser(User user) {
 
     }
 
-    public void removeUser(User user) {
+    public static void removeUser(User user) {
 
     }
 
-    public void updateRanking() {
+    public static void updateRanking() {
 
     }
 
-    public ArrayList<User> getUsers() {
+    public static ArrayList<User> getUsers() {
         return users;
     }
 
-    public ArrayList<User> getRanking() {
+    public static ArrayList<User> getRanking() {
         return ranking;
     }
 }
