@@ -1,7 +1,11 @@
 import view.StartingMenu;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        StartingMenu startingMenu=new StartingMenu();
+        Scanner scanner = new Scanner(System.in);
+        StartingMenu startingMenu=new StartingMenu(scanner);
+        startingMenu.run();
     }
 }

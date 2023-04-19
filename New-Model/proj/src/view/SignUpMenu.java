@@ -3,7 +3,7 @@ package view;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class SignUpMenu {
+public class SignUpMenu extends Menu {
     static Scanner scanner;
 
     public SignUpMenu(Scanner scanner){

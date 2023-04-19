@@ -1,9 +1,17 @@
 package view;
 
+import Model.User;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class ProfileMenu {
+public class ProfileMenu extends Menu{
+    User user;
+
+    public ProfileMenu(Scanner scanner, User user) {
+        super(scanner);
+        this.user = user;
+    }
 
     public String run(Scanner scanner){
 

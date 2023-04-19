@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class LoginMenu {
+public class LoginMenu extends Menu{
 
     private static ArrayList<String> securityQuestions;
 
-    public LoginMenu() {
+    public LoginMenu(Scanner scanner) {
+        super(scanner);
     }
 
-    public String run(Scanner scanner){
-
-        return null;
+    @Override
+    public void run() {
+        super.run();
     }
 
     private void login(Matcher matcher){}

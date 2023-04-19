@@ -1,15 +1,22 @@
 package view.Game;
 
+import Model.GamePlay.Game;
+import view.Menu;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class GameMenu {
+public class GameMenu extends Menu {
+    Game game;
 
-    public GameMenu() {
+    public GameMenu(Scanner scanner, Game game) {
+        super(scanner);
+        this.game = game;
     }
 
-    public String run(Scanner scanner){
-        return null;
+    @Override
+    public void run() {
+        super.run();
     }
 
     // map
