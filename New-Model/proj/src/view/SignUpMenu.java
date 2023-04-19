@@ -7,7 +7,7 @@ public class SignUpMenu extends Menu {
     static Scanner scanner;
 
     public SignUpMenu(Scanner scanner){
-        this.scanner = scanner;
+        super(scanner);
     }
 
     public String run(Scanner scanner){
