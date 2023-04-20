@@ -3,7 +3,7 @@ package Model.Buildings.Enums;
 public enum GeneratorTypes {
 //    MILL,
 //    INN,
-//    IRONMINE,
+//    IRON_MINE,
 //    OX_TETHER,
 //    PITCH_RIG,
 //    QUARRY,
@@ -26,31 +26,31 @@ public enum GeneratorTypes {
 //    CHURCH;
     ;
     private int rate;
-    private int Inventory;
-    private int Capacity;
+    private int inventory;
+    private int capacity;
     private Resources product;
-    private Resources Use;
+    private Resources use;
     private int wood;
     private int gold;
     private int worker;
 
     GeneratorTypes(int rate, int inventory, int capacity, Resources product, Resources use, int wood, int gold, int worker) {
         this.rate = rate;
-        Inventory = inventory;
-        Capacity = capacity;
+        this.inventory = inventory;
+        this.capacity = capacity;
         this.product = product;
-        Use = use;
+        this.use = use;
         this.wood = wood;
         this.gold = gold;
         this.worker = worker;
     }
 
     public int getInventory() {
-        return Inventory;
+        return inventory;
     }
 
     public int getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public Resources getProduct() {
@@ -58,7 +58,7 @@ public enum GeneratorTypes {
     }
 
     public Resources getUse() {
-        return Use;
+        return use;
     }
 
     public int getWood() {

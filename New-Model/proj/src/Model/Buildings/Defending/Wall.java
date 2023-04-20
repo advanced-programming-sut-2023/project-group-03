@@ -12,10 +12,8 @@ public class Wall extends CastleBuilding {
 
     public Wall(Player owner, Tile position,WallTypes type) {
         super(owner, position);
-    }
-
-    public ArrayList<Troop> getTroops() {
-        return troops;
+        this.HP = type.getHP();
+        this.stoneCost = type.getStoneCost();
     }
 
     public Trap getTrap() {
@@ -24,6 +22,7 @@ public class Wall extends CastleBuilding {
 
     public boolean setTrap(Trap trap) {
         //this.trap = trap;
+        //TODO
         return false;
     }
 

@@ -14,6 +14,10 @@ public class Trap extends Building {
 
     public Trap(Player owner, Tile position, TypeOfTraps type) {
         super(owner, position);
+        this.gold = type.getGold();
+        this.wood = type.getWood();
+        this.oil = type.getOil();
+        this.worker = type.getWorker();
     }
 
     @Override

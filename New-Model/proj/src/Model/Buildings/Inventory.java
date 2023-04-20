@@ -14,6 +14,7 @@ public class Inventory extends Building {
 
     public Inventory(Player owner, Tile position, InventoryTypes type) {
         super(owner, position);
+
     }
 
     public InventoryTypes getType() {

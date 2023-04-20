@@ -12,10 +12,11 @@ public class Gates extends CastleBuilding {
 
     public Gates(Player owner, Tile position, GateTypes type) {
         super(owner, position);
-        this.setHP(type.getHP());
+        this.HP=type.getHP();
         this.length = type.getLength();
         this.width = type.getWidth();
-        this.setStoneCost(type.getStoneCost());
+        this.stoneCost = type.getStoneCost();
+
     }
 
     private void updateOwner() {
@@ -62,10 +63,6 @@ public class Gates extends CastleBuilding {
     @Override
     public void print() {
 
-    }
-
-    public ArrayList<Troop> getTroops() {
-        return troops;
     }
 
 }

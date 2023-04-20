@@ -15,10 +15,10 @@ public class Towers extends CastleBuilding {
 
     public Towers(Player owner, Tile position, TowerTypes type) {
         super(owner, position);
-        this.setHP(type.getHP());
+        this.HP = type.getHP();
         this.length = type.getLength();
         this.width = type.getWidth();
-        this.setStoneCost(type.getStoneCost());
+        this.stoneCost = type.getStoneCost();
         this.defenseIncrease = type.getDefenseIncrease();
         this.rangeIncrease = type.getRangeIncrease();
     }
@@ -33,10 +33,6 @@ public class Towers extends CastleBuilding {
 
     public TowerTypes getType() {
         return type;
-    }
-
-    public ArrayList<Troop> getTroops() {
-        return troops;
     }
 
     public int getDefenseIncrease() {

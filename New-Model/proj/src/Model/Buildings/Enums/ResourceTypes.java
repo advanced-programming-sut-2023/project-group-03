@@ -1,6 +1,6 @@
 package Model.Buildings.Enums;
 
-public enum TypeOfResource {
+public enum ResourceTypes {
     WEAPON,
     FOOD,
     STOCK;

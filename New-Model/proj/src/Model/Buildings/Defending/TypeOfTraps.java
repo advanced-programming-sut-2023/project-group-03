@@ -1,10 +1,11 @@
 package Model.Buildings.Defending;
 
 public enum TypeOfTraps {
-    BOILING_OIL("", 3, 3, 3, 3);
+    BOILING_OIL("", 3, 3, 3, 3)
 //    PITCH_DITCH,
 //    CAGED_WAR_DOGS,
-//    KILLING_PIT;
+//    KILLING_PIT
+    ;
 
     String name;
     private int gold;

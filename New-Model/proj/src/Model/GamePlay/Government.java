@@ -4,7 +4,7 @@ import Model.Field.Tile;
 
 import java.util.ArrayList;
 
-public class Governant {
+public class Government {
     private ArrayList<Tile> territory;
     private ArrayList<Tile> free;
     int maxFood;

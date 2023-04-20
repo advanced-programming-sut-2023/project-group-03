@@ -13,4 +13,16 @@ public enum WallTypes {
         this.HP = HP;
         this.stoneCost = stoneCost;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHP() {
+        return HP;
+    }
+
+    public int getStoneCost() {
+        return stoneCost;
+    }
 }

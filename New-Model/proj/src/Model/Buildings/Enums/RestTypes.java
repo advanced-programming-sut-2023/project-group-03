@@ -1,7 +1,8 @@
 package Model.Buildings.Enums;
 
 public enum RestTypes {
-    //STABLE,HOVEL;
+    //STABLE,
+    // HOVEL;
     ;
 
     RestTypes(int length, int width, int gold, int wood) {

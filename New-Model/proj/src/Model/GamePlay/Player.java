@@ -10,9 +10,9 @@ import java.util.HashMap;
 public class Player {
     private Game game;
     private User user;
-    private Governant governant;
-    ArrayList<Request> IncomeRequests;
-    ArrayList<Request> MyRequests;
+    private Government government;
+    ArrayList<Request> incomeRequests;
+    ArrayList<Request> myRequests;
     ArrayList<Unit> allUnits;
     int gold;
     int popularity;
@@ -21,9 +21,17 @@ public class Player {
     int FoodRate;
     HashMap<Resources, Integer> inventory;
 
-    public Player(User user, Governant governant) {
+    public Player(User user, Government government) {
         this.user = user;
-        this.governant = governant;
+        this.government = government;
+    }
+
+    public void increaseGold(int number){
+        gold+=number;
+    }
+
+    public void decreaseGold(int number){
+        gold-=number;
     }
 
     public void increaseInventory(Resources resources, int number) {
@@ -109,16 +117,16 @@ public class Player {
         return user;
     }
 
-    public Governant getGovernant() {
-        return governant;
+    public Government getGovernant() {
+        return government;
     }
 
     public ArrayList<Request> getIncomeRequests() {
-        return IncomeRequests;
+        return incomeRequests;
     }
 
     public ArrayList<Request> getMyRequests() {
-        return MyRequests;
+        return myRequests;
     }
 
     public ArrayList<Unit> getAllUnits() {

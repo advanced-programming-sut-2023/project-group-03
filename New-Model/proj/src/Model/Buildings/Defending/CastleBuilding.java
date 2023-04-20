@@ -1,6 +1,7 @@
 package Model.Buildings.Defending;
 
 import Model.Buildings.Building;
+import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
@@ -15,6 +16,7 @@ public abstract class CastleBuilding extends Building {
         super(owner, position);
         this.setMaterial(Material.STONE);
         this.troops = new ArrayList<>();
+        owner.decreaseInventory(Resources.STONE,stoneCost);
     }
 
     public void setStoneCost(int stoneCost) {
@@ -31,5 +33,9 @@ public abstract class CastleBuilding extends Building {
 
     public void removeTroop(Troop troop) {
         troops.remove(troop);
+    }
+
+    public ArrayList<Troop> getTroops() {
+        return troops;
     }
 }
