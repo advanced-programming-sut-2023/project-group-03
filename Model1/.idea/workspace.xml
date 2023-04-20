@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a867d058-c1d8-4436-b7df-79e370a40718" name="Changes" comment="salam">
+      <change afterPath="$PROJECT_DIR$/Model/Buildings/Cathedral.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/Buildings/Enums/WallTypes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/Buildings/defending/BoilingOil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/Buildings/defending/Wall.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/Units/BatteringRam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/Units/Enums/ThrowersTypes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/Units/SiegeTower.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/Units/Throwers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/Units/portabaleShield.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Baracks.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/Baracks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/Building.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/CastleBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/defending/CastleBuilding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Church.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Enums/Gates.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/Enums/GatesTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Enums/GenaratorTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/Enums/GenaratorTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Enums/Resource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Enums/TypeOfInventories.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/Enums/TypeOfInventories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Gates.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/defending/Gates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/Inventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Keep.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/Keep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/ResourceGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/ResourceGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Towers.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/defending/Towers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/Trap.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/defending/Trap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Buildings/waterSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Buildings/waterSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Drawable.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Drawable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Field.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Units/AntiBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Units/AntiBuilding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../untitled/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Baracks.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Building.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Cathedral.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Enums/BarracksTypes.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Enums/ChurchTypes.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Enums/GatesTypes.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Enums/GenaratorTypes.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Enums/TowerTypes.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Enums/TrapTypes.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Enums/TypeOfInventories.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Enums/WaterSourceTypes.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Inventory.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/Keep.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/ResourceGenerator.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/defending/BoilingOil.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/defending/CastleBuilding.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/defending/Gates.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Buildings/defending/Towers.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Drawable.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Field.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Units/AntiBuilding.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Units/Enums/ArchersTypes.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Units/Enums/Melee.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Units/Enums/ThrowersTypes.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Units/Unit.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Model/Units/portabaleShield.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2OMu6A9CIitGHfDORZNQxWwUo4d" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/tala/Desktop/project/Model1",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Model1.Model.Buildings" />
+      <recent name="Model1.Model.Buildings.Enums" />
+      <recent name="Model1.Model" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Model1.Model.Buildings" />
+      <recent name="Model1.Model.Units.Enums" />
+      <recent name="Model1.Model.Buildings.Enums" />
+      <recent name="Model1.Model" />
+      <recent name="Model1.Model.Units" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a867d058-c1d8-4436-b7df-79e370a40718" name="Changes" comment="" />
+      <created>1681382594029</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681382594029</updated>
+    </task>
+    <task id="LOCAL-00001" summary="salam">
+      <created>1681385029453</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681385029453</updated>
+    </task>
+    <task id="LOCAL-00002" summary="salam">
+      <created>1681389312977</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681389312977</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="salam" />
+    <option name="LAST_COMMIT_MESSAGE" value="salam" />
+  </component>
+</project>
