@@ -13,9 +13,14 @@ import static controller.Enums.ControllerCommands.*;
 import static controller.Enums.Response.*;
 import static controller.ControllerFunctions.*;
 import static Model.UserDatabase.*;
+import static view.LoginMenu.showOutput;
 import static view.SignUpMenu.*;
 
 public class RegisterMenuController extends UserBasedMenuController {
+    public static String askSecurityQuestion2(Matcher matcher) {
+        return null;
+    }
+
     public String registerNewUser(Matcher inputMatcher, Scanner scanner) {
         HashMap<String, String> infoMap = new HashMap() {{//setting up hash keys
             put("u", null);

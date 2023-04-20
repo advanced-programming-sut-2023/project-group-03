@@ -39,4 +39,11 @@ public class ConsoleColors {
     public static final String TEXT_BRIGHT_BG_PURPLE = "\u001B[105m";
     public static final String TEXT_BRIGHT_BG_CYAN   = "\u001B[106m";
     public static final String TEXT_BRIGHT_BG_WHITE  = "\u001B[107m";
+
+    public static void colorPrint(String textColor, String toPrint) {
+        System.out.println(textColor + toPrint + TEXT_RESET);
+    }
+    public static void colorPrint(String textColor,String bgColor,String toPrint) {
+        System.out.println(textColor + bgColor + toPrint + TEXT_RESET);
+    }
 }
