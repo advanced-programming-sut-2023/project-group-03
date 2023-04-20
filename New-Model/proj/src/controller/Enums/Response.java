@@ -27,7 +27,7 @@ public enum Response {
     SUCCESSFUL_REGISTER("You got signed up successfully!"),
     //login
     UNKNOWN_USERNAME("There is no player with this username!"),
-    INVALID_PASSWORD_LOGIN("Your password is wrong! You have to wait for: "),
+    WRONG_PASSWORD_LOGIN("Your password is wrong! You have to wait for: "),
     ENTER_PASSWORD("Enter your password or enter 'back' if you forgot your password."),
     BACK_TO_LOGIN_MENU("You are back in the login menu!"),
     SUCCESSFUL_LOGIN("User logged in successfully!"),
@@ -45,6 +45,10 @@ public enum Response {
     SUCCESSFUL_CHANGE_EMAIL("Your email changed successfully!"),
     SUCCESSFUL_CHANGE_SLOGAN("Your slogan changed successfully!"),
     SUCCESSFUL_REMOVE_SLOGAN("Your slogan got cleared!"),
+    DISPLAY_NULL_SLOGAN("You haven't set your slogan yet!"),
+    DISPLAY_RANK("Your rank is: "),
+    DISPLAY_HIGHSCORE("Your highscore is: "),
+
     //kingdom
     INVALID_FOOD_RATE("Invalid food rate! -3 < food rate < 3"),
     INVALID_TAX_RATE("Invalid tax rate! -4 < tax rate < 9"),

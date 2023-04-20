@@ -34,7 +34,7 @@ public class LoginMenu extends Menu{
     }
 
     public static String getPasswordAgain(Scanner scanner, int seconds){
-        System.out.println(INVALID_PASSWORD_LOGIN.getOutput() + seconds + " seconds");
+        System.out.println(WRONG_PASSWORD_LOGIN.getOutput() + seconds + " seconds");
         try {
             Thread.sleep((seconds * 3 * 1000));
         } catch (Exception e) {

@@ -4,7 +4,7 @@ public enum ProfileMenuCommands {
 
     CHANGE_USERNAME(""),
     CHANGE_NICKNAME(""),
-    CHANGE_PASSWORD(""),
+    CHANGE_PASSWORD("^profile change password (?<passwordInfo>.+)$"),
     CHANGE_EMAIL(""),
     CHANGE_SLOGAN(""),
     REMOVE_SLOGAN(""),
@@ -20,4 +20,7 @@ public enum ProfileMenuCommands {
         this.regex = regex;
     }
 
+    public String getRegex() {
+        return this.regex;
+    }
 }
