@@ -21,7 +21,7 @@ public class LoginMenuController extends UserBasedMenuController {
         HashMap<String, String> infoMap = getOptions(LOGIN_USER.getKeys(), loginInfo);
         if (infoMap.get("error") != null) return infoMap.get("error");
         String username = infoMap.get("u");
-        String password = infoMap.get("p");
+        String password = getEncryptedPassword(infoMap.get("p"));
         User user = getUserByName(username);
         //check username existence
         if (user == null) return UNKNOWN_USERNAME.getOutput();
@@ -40,21 +40,20 @@ public class LoginMenuController extends UserBasedMenuController {
         define amountOfWrongPassword : Integer
         check the password and based on amountOfWrongPassword give a time break to user (5s, 10s, ...)
          */
-        String rightPassword = user.getPassword();
         int wrongPasswordCounter = 0;
         String inputPassword;
         do {
             wrongPasswordCounter++;
             inputPassword = getPasswordAgain(scanner, wrongPasswordCounter);
             if (inputPassword.equals("back")) return false;
-        } while (!inputPassword.equals(user.getPassword()));
+        } while (!getEncryptedPassword(inputPassword).equals(user.getPassword()));
         return true;
     }
 
     public String forgotPassword(Scanner scanner, User user) {
         String securityQuestion = user.getSecurityQuestion();
         String answer = getAnswer(scanner, securityQuestion);;
-        while (!answer.equals(user.getRecoveryPass())){
+        while (!getEncryptedPassword(answer).equals(user.getRecoveryPass())){
             if (answer.equals("back")) return BACK_TO_LOGIN_MENU.getOutput();
             view.LoginMenu.showOutput(WRONG_ANSWER_SECURITY_QUESTION.getOutput());
             answer  = getAnswer(scanner, securityQuestion);
@@ -67,11 +66,12 @@ public class LoginMenuController extends UserBasedMenuController {
         while (true) {
             if (newPassword.equals("back")) return BACK_TO_LOGIN_MENU.getOutput();
             if (checkPasswordWeakness(newPassword)) view.LoginMenu.showOutput(WEAK_PASSWORD.getOutput());
-            else if (newPassword.equals(user.getPassword())) view.LoginMenu.showOutput(REPETITIVE_PASSWORD.getOutput());
+            else if (getEncryptedPassword(newPassword).equals(user.getPassword()))
+                view.LoginMenu.showOutput(REPETITIVE_PASSWORD.getOutput());
             else break;
             newPassword = getNewPassword(scanner);
         }
-        user.setPassword(newPassword);
+        user.setPassword(getEncryptedPassword(newPassword));
         return SUCCESSFUL_CHANGE_PASSWORD.getOutput();
     }
 

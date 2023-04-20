@@ -1,10 +1,13 @@
 package controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static controller.Enums.UserBasedMenuCommands.*;
 import static controller.ControllerFunctions.getMatcher;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class UserBasedMenuController extends Controller {
     public static boolean checkUsernameNicknameFormat(String username) {
@@ -35,6 +38,21 @@ public class UserBasedMenuController extends Controller {
 
     public String randomSloganGenerator() {
         return "";
+    }
+
+    private String encryptPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        byte[] messageDigestBytes = messageDigest.digest(password.getBytes());
+        BigInteger result = new BigInteger(1, messageDigestBytes);
+        return result.toString(16);
+    }
+
+    public String getEncryptedPassword(String password) {
+        try {
+            return encryptPassword(password);
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
     }
 
     public String captchaGenerator() {

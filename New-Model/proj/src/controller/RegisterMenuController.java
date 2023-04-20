@@ -92,6 +92,9 @@ public class RegisterMenuController extends UserBasedMenuController {
         if (getUserByEmail(infoMap.get("e")) != null) return REPETITIVE_EMAIL.getOutput();
         if (!checkEmailFormat(infoMap.get("e"))) return INVALID_EMAIL_FORMAT.getOutput();
 
+        //encrypt password before saving
+        infoMap.put("p", getEncryptedPassword(infoMap.get("p")));
+
         User newUser = new User(infoMap.get("p"), infoMap.get("u"), infoMap.get("n"), infoMap.get("e"), infoMap.get("s"));
         addUser(newUser);
 
@@ -125,7 +128,11 @@ public class RegisterMenuController extends UserBasedMenuController {
             break;
         }
         newUser.setSecurityQuestion(securityQuestions.get(Integer.parseInt(securityQuestionResult.get("q")) - 1));
-        newUser.setRecoveryPass(securityQuestions.get(Integer.parseInt(securityQuestionResult.get("a"))));
+
+        //encrypt recovery password
+        String answer = getEncryptedPassword(securityQuestionResult.get("a"));
+
+        newUser.setRecoveryPass(answer);
     }
 
     private void randomSetups(boolean randomSlogan, boolean randomPassword, Scanner scanner, HashMap<String, String> infoMap) {
