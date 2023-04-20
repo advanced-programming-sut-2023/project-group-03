@@ -48,7 +48,15 @@ public class LoginMenu extends Menu{
         // check if json file is null or not
     }
 
-    private void forgotPassword(Matcher matcher){}
+    private void forgotPassword(Matcher matcher){
+
+    }
+
+    public static String getAnswer(Scanner scanner, String question) {
+        System.out.println(GET_ANSWER_LOGIN);
+        System.out.println(question);
+        return scanner.nextLine();
+    }
 
     private void logout(Matcher matcher){
         // clears json

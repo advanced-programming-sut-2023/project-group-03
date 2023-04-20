@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import static controller.Enums.InputOptions.*;
 import static Model.UserDatabase.getUserByName;
 import static controller.Enums.Response.*;
+import static view.LoginMenu.getAnswer;
 import static view.LoginMenu.getPasswordAgain;
 
 public class LoginMenuController extends UserBasedMenuController {
@@ -49,6 +50,16 @@ public class LoginMenuController extends UserBasedMenuController {
             if (inputPassword.equals("back")) return false;
         } while (!inputPassword.equals(user.getPassword()));
         return true;
+    }
+
+    public String forgotPassword(Scanner scanner, User user) {
+        String securityQuestion = user.getSecurityQuestion();
+        String answer;
+        do {
+            answer  = getAnswer(scanner, securityQuestion);
+            if (answer.equals("back")) return BACK_TO_LOGIN_MENU.getOutput();
+        } while (!answer.equals(user.getRecoveryPass()));
+        return "";
     }
 
     public String getSecurityQuestion(User user) {
