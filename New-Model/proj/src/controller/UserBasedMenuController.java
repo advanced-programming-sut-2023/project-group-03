@@ -33,6 +33,15 @@ public class UserBasedMenuController extends Controller {
             "When did you have your first kiss?"
     ));
 
+    protected static ArrayList<String> slogans = new ArrayList<>(Arrays.asList(
+            "My army is stronger than your papa's belt.",
+            "No one has guts to stop my win except whom I lose to.",
+            "If I lose, this match is over.",
+            "My enemies are gonna get boiled in their mama's tears.",
+            "You can't run away from me. I couldn't do it neither.",
+            "I'm not here to win, I'm here to conquer."
+    ));
+
     public String randomPasswordGenerator() {
         String smallLetters = "abcdefghijklmnopqrstuvwxyz";
         String capitalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -62,7 +71,8 @@ public class UserBasedMenuController extends Controller {
     }
 
     public String randomSloganGenerator() {
-        return "";
+        Random randomGenerator = new Random();
+        return slogans.get(randomGenerator.nextInt(slogans.size()));
     }
 
     private String encryptPassword(String password) throws NoSuchAlgorithmException {
