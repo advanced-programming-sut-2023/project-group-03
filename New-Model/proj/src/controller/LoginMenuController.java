@@ -32,7 +32,7 @@ public class LoginMenuController extends UserBasedMenuController {
         }
 
         if (!rightPassword) return BACK_TO_LOGIN_MENU.getOutput();
-        return LOGIN.getOutput();
+        return SUCCESSFUL_LOGIN.getOutput();
     }
 
     private boolean wrongPassword(Scanner scanner, User user) {

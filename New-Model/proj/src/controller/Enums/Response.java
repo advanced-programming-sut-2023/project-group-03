@@ -30,7 +30,7 @@ public enum Response {
     INVALID_PASSWORD_LOGIN("Your password is wrong! You have to wait for: "),
     ENTER_PASSWORD("Enter your password or enter 'back' if you forgot your password."),
     BACK_TO_LOGIN_MENU("You are back in the login menu!"),
-    LOGIN("User logged in successfully!"),
+    SUCCESSFUL_LOGIN("User logged in successfully!"),
     GET_ANSWER_LOGIN("Please enter the answer of this question or write 'back' to go to login menu."),
     ENTER_NEW_PASSWORD("Please enter a new password:"),
     WRONG_ANSWER_SECURITY_QUESTION("Wrong answer!"),

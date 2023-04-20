@@ -59,7 +59,6 @@ public class RegisterMenuController extends UserBasedMenuController {
             }
 
             infoMap.put(option, unwrapQuotation(optionInfo));
-            System.out.println(option + ": " + unwrapQuotation(optionInfo));
         } while (matcher.find());
 
         //check if input misses an option
