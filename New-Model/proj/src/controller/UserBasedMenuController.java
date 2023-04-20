@@ -8,6 +8,7 @@ import static controller.Enums.UserBasedMenuCommands.*;
 import static controller.ControllerFunctions.getMatcher;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 public class UserBasedMenuController extends Controller {
     public static boolean checkUsernameNicknameFormat(String username) {
@@ -33,7 +34,31 @@ public class UserBasedMenuController extends Controller {
     ));
 
     public String randomPasswordGenerator() {
-        return "";
+        String smallLetters = "abcdefghijklmnopqrstuvwxyz";
+        String capitalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String numbers = "0123456789";
+        String randomCharacters = "!@#$%^&*()-=_+[]\\|,./<>?`~";
+        String allCharacters = smallLetters + capitalLetters + numbers + randomCharacters;
+
+        ArrayList<String> characters = new ArrayList<>(Arrays.asList(smallLetters, capitalLetters, numbers, randomCharacters));
+
+        Random randomGenerator = new Random();
+
+        int passwordSize = randomGenerator.nextInt(4) + 6;
+        String password = "";
+
+        for (int i = 0; i < 4; i++) {
+            password += characters.get(i).charAt(randomGenerator.nextInt(characters.get(i).length()));
+        }
+
+        for (int i = 0; i < passwordSize - 4; i++) {
+            password += allCharacters.charAt(randomGenerator.nextInt(allCharacters.length()));
+        }
+
+        int breakPoint = randomGenerator.nextInt(passwordSize);
+        password = password.substring(0, breakPoint) + password.substring(breakPoint, passwordSize);
+
+        return password;
     }
 
     public String randomSloganGenerator() {
