@@ -58,6 +58,17 @@ public class LoginMenu extends Menu{
         return scanner.nextLine();
     }
 
+    public static String getNewPassword(Scanner scanner) {
+        System.out.println(ENTER_NEW_PASSWORD.getOutput());
+        String newPassword = scanner.nextLine();
+//        System.out.println(SUCCESSFULL_CHANGE_PASSWORD.getOutput());
+        return newPassword;
+    }
+
+    public static void showOutput(String output) {
+        System.out.println(output);
+    }
+
     private void logout(Matcher matcher){
         // clears json
     }

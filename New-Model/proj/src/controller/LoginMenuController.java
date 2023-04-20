@@ -9,8 +9,7 @@ import java.util.regex.Matcher;
 import static controller.Enums.InputOptions.*;
 import static Model.UserDatabase.getUserByName;
 import static controller.Enums.Response.*;
-import static view.LoginMenu.getAnswer;
-import static view.LoginMenu.getPasswordAgain;
+import static view.LoginMenu.*;
 
 public class LoginMenuController extends UserBasedMenuController {
     public void stayLoggedIn() {
@@ -54,26 +53,24 @@ public class LoginMenuController extends UserBasedMenuController {
 
     public String forgotPassword(Scanner scanner, User user) {
         String securityQuestion = user.getSecurityQuestion();
-        String answer;
-        do {
-            answer  = getAnswer(scanner, securityQuestion);
+        String answer = getAnswer(scanner, securityQuestion);;
+        while (!answer.equals(user.getRecoveryPass())){
             if (answer.equals("back")) return BACK_TO_LOGIN_MENU.getOutput();
-        } while (!answer.equals(user.getRecoveryPass()));
-        return "";
+            view.LoginMenu.showOutput(WRONG_ANSWER_SECURITY_QUESTION.getOutput());
+            answer  = getAnswer(scanner, securityQuestion);
+        }
+        return setNewPassword(user, scanner);
     }
 
-    public String getSecurityQuestion(User user) {
-        return "";
-    }
-
-    public boolean checkSecurityQuestionAnswer(User user, String answer) {
-        return true;
-    }
-
-    public String setNewPassword(User user, String newPassword, String newPasswordConfirmation) {
-        //check the format of newPassword and confirmation of it
-        //set the new password for the given user
-        return "";
+    public String setNewPassword(User user, Scanner scanner) {
+        String newPassword = getNewPassword(scanner);
+        while (checkPasswordWeakness(newPassword)) {
+            if (newPassword.equals("back")) return BACK_TO_LOGIN_MENU.getOutput();
+            view.LoginMenu.showOutput(WEAK_PASSWORD.getOutput());
+            newPassword = getNewPassword(scanner);
+        }
+        user.setPassword(newPassword);
+        return SUCCESSFUL_CHANGE_PASSWORD.getOutput();
     }
 
 }

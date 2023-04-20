@@ -97,7 +97,7 @@ public class RegisterMenuController extends UserBasedMenuController {
 
         setSecurityQuestionAnswer(newUser, scanner);
 
-        return SUCCESSFULL_REGISTER.getOutput();
+        return SUCCESSFUL_REGISTER.getOutput();
     }
 
     private void setSecurityQuestionAnswer(User newUser, Scanner scanner) {
