@@ -73,15 +73,35 @@ assignees: Arman17Babaei
 
 ## تسک‌های نفر سوم
 
-  **نام و نام خانوادگی:**
+  **نام و نام خانوادگی: علی احمدوند**
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>درست کردن کنترلر برای رجیستر</summary>
 
   <div dir="ltr" align='right'>
 
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [*] تمام شده
+  </div>
+</details>
+ <details>
+  <summary>درست کردن کنترلر برای لاگین</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [*] تمام شده
+  </div>
+</details>
+ <details>
+  <summary>درست کردن کنترلر برای بروفایل منو</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [*] تمام شده
   </div>
 </details>
 </div>
