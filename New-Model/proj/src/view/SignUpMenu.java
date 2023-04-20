@@ -47,7 +47,7 @@ public class SignUpMenu extends Menu {
     public static String askSecurityQuestion(ArrayList<String> questions, Scanner scanner) {
         System.out.println("Pick one of the questions below and enter the answer and confirmation of it.");
         for (int questionIndex = 0; questionIndex < questions.size(); questionIndex++) {
-            System.out.println((questionIndex + 1) + questions.get(questionIndex));
+            System.out.println((questionIndex + 1) + ". " + questions.get(questionIndex));
         }
 
         Matcher checkFormatMatcher;

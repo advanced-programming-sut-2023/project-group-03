@@ -17,7 +17,7 @@ import static view.SignUpMenu.*;
 
 public class RegisterMenuController extends UserBasedMenuController {
     public String registerNewUser(Matcher inputMatcher, Scanner scanner) {
-        HashMap<String, String> infoMap = new HashMap() {{
+        HashMap<String, String> infoMap = new HashMap() {{//setting up hash keys
             put("u", null);
             put("p", null);
             put("e", null);
@@ -25,20 +25,17 @@ public class RegisterMenuController extends UserBasedMenuController {
             put("s", null);
         }};
 
-        //check all the problems that can occur for the command and return a proper String to menu to see what happened
         boolean randomPassword = false; // check if user wants a random password and if he wants it, no need to check the confirmation.
         boolean randomSlogan = false;
         String userInfo = inputMatcher.group("userInfo");
-        Matcher matcher = getMatcher(userInfo, OPTION_FIELD.getRegex());
-        if (matcher == null) return "Invalid command!";
-
         //check the format of user info
         Matcher registerFormatCheckerMatcher = getMatcher(userInfo, NEW_USER_FORMAT_CHECK.getRegex());
-        if (registerFormatCheckerMatcher == null) return "Invalid command!";
-        if (!(registerFormatCheckerMatcher.end() == userInfo.length())) return "Invalid command!";
+        if (registerFormatCheckerMatcher == null) return INVALID_COMMAND.getOutput();
 
         String option = "";
         String optionInfo = "";
+        Matcher matcher = getMatcher(userInfo, OPTION_FIELD.getRegex());
+        if (matcher == null) return INVALID_COMMAND.getOutput();
         do {
             option = matcher.group("option");
             optionInfo = matcher.group("optionInfo");
@@ -62,11 +59,12 @@ public class RegisterMenuController extends UserBasedMenuController {
             }
 
             infoMap.put(option, unwrapQuotation(optionInfo));
-        } while (matcher.matches());
+            System.out.println(option + ": " + unwrapQuotation(optionInfo));
+        } while (matcher.find());
 
         //check if input misses an option
         for (String key : infoMap.keySet()) {
-            if (!key.equals("s") && infoMap.get(key) == null) 
+            if (!key.equals("s") && infoMap.get(key) == null)
                 return FIELD_FORGOTTEN.getOutput() + key;
         }
 
@@ -90,6 +88,7 @@ public class RegisterMenuController extends UserBasedMenuController {
 
         //check email
         if (getUserByEmail(infoMap.get("e")) != null) return REPETITIVE_EMAIL.getOutput();
+        System.out.println("email: " + infoMap.get("e"));
         if (!checkEmailFormat(infoMap.get("e"))) return INVALID_EMAIL_FORMAT.getOutput();
 
         //encrypt password before saving
@@ -121,7 +120,7 @@ public class RegisterMenuController extends UserBasedMenuController {
             }
 
             if (Integer.parseInt(securityQuestionResult.get("q")) < 1 ||
-                Integer.parseInt(securityQuestionResult.get("q")) > securityQuestions.size()) {
+                    Integer.parseInt(securityQuestionResult.get("q")) > securityQuestions.size()) {
                 showOutput(QUESTION_OUT_OF_RANGE.getOutput());
                 continue;
             }

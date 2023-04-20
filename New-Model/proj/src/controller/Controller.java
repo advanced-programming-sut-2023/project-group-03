@@ -25,6 +25,7 @@ public class Controller {
         }
 
         String option, optionInfo;
+        matcher = getMatcher(input, OPTION_FIELD.getRegex());
 
         do {
             option = matcher.group("option");
@@ -41,18 +42,16 @@ public class Controller {
                 return infoMap;
             }//empty field
 
-            for (String key : keys) {
-                if (infoMap.get(key) == null) {
-                    infoMap.put("error", FIELD_FORGOTTEN.getOutput() + option);
-                    return infoMap;
-                }
-            }//forgot to enter a field
-
             optionInfo = unwrapQuotation(optionInfo);//fixing option info if it has ""
             infoMap.put(option, optionInfo);
+        } while(matcher.find());
 
-            
-        } while(matcher.matches());
+        for (String key : keys) {
+            if (infoMap.get(key) == null) {
+                infoMap.put("error", FIELD_FORGOTTEN.getOutput() + key);
+                return infoMap;
+            }
+        }//forgot to enter a field
 
         return infoMap;
     }

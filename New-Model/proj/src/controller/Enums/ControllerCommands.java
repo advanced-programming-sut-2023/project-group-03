@@ -1,8 +1,8 @@
 package controller.Enums;
 
 public enum ControllerCommands {
-    OPTION_FIELD("-(?<option>\\w) (?<optionInfo>([^\"\\s]\\S*|\"[^\"]+\"))?"),
-    MULTI_OPTION_FIELD_FORMAT("(-[\\w] ([^\"\\s]\\S*|\"[^\"]+\")?\\s?)+$"),
+    OPTION_FIELD("-(?<option>\\w+) (?<optionInfo>([^\"\\s]\\S*|\"[^\"]+\"))?"),
+    MULTI_OPTION_FIELD_FORMAT("(-[\\w+] ([^\"\\s]\\S*|\"[^\"]+\")?\\s?)+$"),
     ;
 
     private String regex;
