@@ -7,14 +7,13 @@ import view.Enums.StartingMenuCommands;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import static view.Enums.ConsoleColors.TEXT_RED;
+import static view.Enums.ConsoleColors.colorPrint;
+
 public class StartingMenu extends Menu{
     public StartingMenu(Scanner scanner) {
         super(scanner);
-        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN +">>Welcome to the fucking Game<<");
-        System.out.println(ConsoleColors.TEXT_BRIGHT_RED + "choose a menu to continue:");
-        System.out.println(ConsoleColors.TEXT_RESET + "1.login menu");
-        System.out.println("2.signup menu");
-        System.out.println("3.back");
+        showGuide();
     }
 
     public void run() throws Transition {
@@ -31,5 +30,14 @@ public class StartingMenu extends Menu{
             System.out.println("wrong input");
             throw new Transition(this);
         }
+    }
+
+    public void showGuide() {
+        colorPrint(TEXT_RED,"================================================");
+        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN +">>Welcome to the fucking Game<<");
+        System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW + "choose a menu to continue:");
+        System.out.println(ConsoleColors.TEXT_RESET + "1.login menu");
+        System.out.println("2.signup menu");
+        System.out.println("3.back");
     }
 }

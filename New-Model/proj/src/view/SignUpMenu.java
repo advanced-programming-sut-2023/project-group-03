@@ -1,5 +1,7 @@
 package view;
 
+import controller.Enums.Response;
+import controller.RegisterMenuController;
 import view.Enums.ConsoleColors;
 import view.Enums.SignUpMenuCommands;
 
@@ -8,17 +10,36 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
+import static view.Enums.ConsoleColors.*;
+
 public class SignUpMenu extends Menu {
-    private Scanner scanner;
 
     public SignUpMenu(Scanner scanner){
         super(scanner);
-        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Signup menu<<" + ConsoleColors.TEXT_RESET);
+        showGuide();
     }
 
     @Override
     public void run() throws Transition {
-
+        String command = scanner.nextLine();
+        if (command.matches(SignUpMenuCommands.BACK.getRegex())) {
+            throw new Transition(new StartingMenu(scanner));
+        }
+        if (command.matches(SignUpMenuCommands.OSKOL.getRegex())) {
+            System.out.println(inlineInput());
+            if (inlineInput().equals(Response.SUCCESSFUL_REGISTER.getOutput())) {
+                securityQuestionGuide();
+                do {
+                    System.out.println(securityQuestionInline());
+                } while (!securityQuestionInline().equals(Response.SUCCESSFUL_REGISTER));
+            }
+            throw new Transition(this);
+        } else if (command.matches(SignUpMenuCommands.WISE.getRegex())) {
+            nonInlineInput();
+        } else {
+            System.out.println("wrong input");
+            throw new Transition(this);
+        }
     }
 
 
@@ -67,5 +88,62 @@ public class SignUpMenu extends Menu {
         System.out.println(output);
     }
 
+
+    private void showGuide() {
+        colorPrint(TEXT_RED,"================================================");
+        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Signup menu<<" + ConsoleColors.TEXT_RESET);
+        colorPrint(ConsoleColors.TEXT_YELLOW, "back: backing to starting menu");
+        colorPrint(ConsoleColors.TEXT_YELLOW, "to create user choose an option:");
+        System.out.println("1.I am Oskol and want an inline command");
+        System.out.println("2.I am not Oskol");
+    }
+
+    private String inlineInput() {
+        colorPrint(TEXT_YELLOW, "salam Oskol! type the command:");
+        String command = scanner.nextLine();
+        String output = null;
+        if (command.matches(SignUpMenuCommands.CREATE_USER.getRegex())) {
+            Matcher matcher = SignUpMenuCommands.CREATE_USER.getPattern().matcher(command);
+            output = new RegisterMenuController().registerNewUser(matcher, scanner);
+        } else {
+            output = "try again oskol";
+        }
+        return output;
+    }
+
+    private void nonInlineInput() {
+        String username,nickname,slogan;
+        String password,passwordConfirmation,email;
+        colorPrint(TEXT_YELLOW, "Ahsant");
+        colorPrint(TEXT_YELLOW, "username:");
+        username = scanner.nextLine();
+        colorPrint(TEXT_YELLOW, "password(random: random nickname):");
+        password=scanner.nextLine();
+        colorPrint(TEXT_YELLOW, "password confirmation:");
+        passwordConfirmation = scanner.nextLine();
+        colorPrint(TEXT_YELLOW, "email:");
+        email = scanner.nextLine();
+        colorPrint(TEXT_YELLOW, "nickname(random: random nickname):");
+        nickname = scanner.nextLine();
+        colorPrint(TEXT_YELLOW, "slogan(random: random slogan):");
+        slogan = scanner.nextLine();
+    }
+
+    private void securityQuestionGuide() {
+        colorPrint(TEXT_YELLOW,"pick your security question:");
+        colorPrint(TEXT_YELLOW,"1.whats your aunt name? 2.whats your aunt last name? 3.whats your aunt phone number?");
+    }
+    private String securityQuestionInline() {
+        String command = scanner.nextLine();
+        String output = null;
+        if (command.matches(SignUpMenuCommands.SECURITY_QUESTION.getRegex())) {
+            Matcher matcher = SignUpMenuCommands.SECURITY_QUESTION.getPattern().matcher(command);
+            output = RegisterMenuController.askSecurityQuestion2(matcher);
+        } else {
+            output = "try again oskol";
+        }
+
+        return output;
+    }
 
 }
