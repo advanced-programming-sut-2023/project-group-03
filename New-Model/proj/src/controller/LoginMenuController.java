@@ -64,9 +64,11 @@ public class LoginMenuController extends UserBasedMenuController {
 
     public String setNewPassword(User user, Scanner scanner) {
         String newPassword = getNewPassword(scanner);
-        while (checkPasswordWeakness(newPassword)) {
+        while (true) {
             if (newPassword.equals("back")) return BACK_TO_LOGIN_MENU.getOutput();
-            view.LoginMenu.showOutput(WEAK_PASSWORD.getOutput());
+            if (checkPasswordWeakness(newPassword)) view.LoginMenu.showOutput(WEAK_PASSWORD.getOutput());
+            else if (newPassword.equals(user.getPassword())) view.LoginMenu.showOutput(REPETITIVE_PASSWORD.getOutput());
+            else break;
             newPassword = getNewPassword(scanner);
         }
         user.setPassword(newPassword);
