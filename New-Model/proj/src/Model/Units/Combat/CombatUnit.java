@@ -12,7 +12,7 @@ public abstract class CombatUnit extends Unit {
     protected int damage;
     protected int Speed;
     protected int baseRange;
-    protected int modifiedRang;
+    protected int modifiedRange;
     protected int defenseRate;
 
     public CombatUnit(Player owner, Tile position) {
@@ -21,5 +21,10 @@ public abstract class CombatUnit extends Unit {
 
     public void attackTo(Tile tile) {
 
+    }
+
+    @Override
+
+    public void getHit(int value){
     }
 }

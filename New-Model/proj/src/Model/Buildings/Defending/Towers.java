@@ -1,11 +1,9 @@
 package Model.Buildings.Defending;
 
+import Model.Buildings.Defending.Enums.TowerTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Throwers;
-import Model.Units.Combat.Troop;
-
-import java.util.ArrayList;
 
 public class Towers extends CastleBuilding {
     private TowerTypes type;

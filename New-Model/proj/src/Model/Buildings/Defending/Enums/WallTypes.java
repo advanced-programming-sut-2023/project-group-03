@@ -1,4 +1,4 @@
-package Model.Buildings.Defending;
+package Model.Buildings.Defending.Enums;
 
 public enum WallTypes {
     BIG("", 2, 2);

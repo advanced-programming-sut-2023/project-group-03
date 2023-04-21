@@ -3,12 +3,12 @@ package Model.Buildings.Enums;
 import Model.GamePlay.Material;
 
 public enum BarracksType {
-    ;
 //    BARRACK,
 //    MERCENARY_POST,
 //    ENGINEER_GUILD,
 //    TUNNELER_GUILD,
-//    SIEGE_TENT;
+//    SIEGE_TENT
+    ;
     private int gold;
     private int wood;
     private int oil;

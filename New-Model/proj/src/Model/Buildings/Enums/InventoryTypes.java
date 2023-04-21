@@ -2,7 +2,7 @@ package Model.Buildings.Enums;
 
 import java.util.HashSet;
 
-public enum InventoryTypes {
+public enum  InventoryTypes {
 //    STOCKPILE,
 //    ARMOURY,
 //    FOOD_STORAGE

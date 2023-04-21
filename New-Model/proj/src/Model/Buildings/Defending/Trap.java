@@ -1,18 +1,19 @@
 package Model.Buildings.Defending;
 
 import Model.Buildings.Building;
+import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class Trap extends Building {
 
-    private TypeOfTraps type;
+    private TrapsTypes type;
     private int gold;
     private int wood;
     private int oil;
     private int worker;
 
-    public Trap(Player owner, Tile position, TypeOfTraps type) {
+    public Trap(Player owner, Tile position, TrapsTypes type) {
         super(owner, position);
         this.gold = type.getGold();
         this.wood = type.getWood();

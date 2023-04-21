@@ -26,7 +26,7 @@ public enum Resources
     ;
 
      // TODO
-     // gold amount must be correctly declares
+     // gold amount must be correctly declared
 
     ResourceTypes type;
     int gold;
@@ -35,5 +35,17 @@ public enum Resources
         this.type = type;
         this.gold = gold;
         this.name = name;
+    }
+
+    public ResourceTypes getType() {
+        return type;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public String getName() {
+        return name;
     }
 }

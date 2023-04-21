@@ -1,4 +1,4 @@
-package Model.Buildings.Defending;
+package Model.Buildings.Defending.Enums;
 
 public enum TowerTypes {
     LOOKOUT_TOWER("", 1, 1, 1, 1, 11, 1)

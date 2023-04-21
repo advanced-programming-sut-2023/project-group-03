@@ -24,6 +24,10 @@ public class Player {
     public Player(User user, Government government) {
         this.user = user;
         this.government = government;
+        Resources[] RList = Resources.values();
+        for (Resources now : RList) {
+            inventory.put(now,0);
+        }
     }
 
     public void increaseGold(int number){
@@ -35,19 +39,19 @@ public class Player {
     }
 
     public void increaseInventory(Resources resources, int number) {
-
+        inventory.replace(resources,Integer.sum(inventory.get(resources), number));
     }
 
     public void decreaseInventory(Resources resources, int number) {
-
+        inventory.replace(resources,Integer.sum(inventory.get(resources), -number));
     }
 
     public void addUnit(Unit unit) {
-
+        allUnits.add(unit);
     }
 
     public void removeUnit(Unit unit) {
-
+        allUnits.remove(unit);
     }
 
     public void update() {
@@ -55,11 +59,11 @@ public class Player {
     }
 
     public void addToMyRequest(Request request) {
-
+        myRequests.add(request);
     }
 
     public void addToIncomeRequest(Request request) {
-
+        incomeRequests.add(request);
     }
     public void answerRequest(Request request) {
 
@@ -117,7 +121,7 @@ public class Player {
         return user;
     }
 
-    public Government getGovernant() {
+    public Government getGovernment() {
         return government;
     }
 
