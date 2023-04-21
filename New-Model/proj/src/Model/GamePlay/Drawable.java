@@ -2,9 +2,12 @@ package Model.GamePlay;
 
 import Model.Field.Tile;
 
+import java.util.ArrayList;
+
 public abstract class Drawable {
     protected Player owner;
     protected Tile position;
+    protected ArrayList<Tile> tiles;
     protected Material material;
     protected int HP;
 
@@ -51,4 +54,6 @@ public abstract class Drawable {
     public void setHP(int HP) {
         this.HP = HP;
     }
+
+    public void remove(){}
 }

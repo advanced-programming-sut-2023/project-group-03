@@ -14,7 +14,12 @@ public class Inventory extends Building {
 
     public Inventory(Player owner, Tile position, InventoryTypes type) {
         super(owner, position);
-
+        inventory = new HashMap<>();
+        for (Resources now : type.getResources()) {
+            inventory.put(now,0);
+        }
+        this.type = type;
+        this.capacity = type.getCapacity();
     }
 
     public InventoryTypes getType() {
@@ -31,7 +36,7 @@ public class Inventory extends Building {
 
     @Override
     public void check() {
-
+        // if HP<=0
     }
 
     @Override
