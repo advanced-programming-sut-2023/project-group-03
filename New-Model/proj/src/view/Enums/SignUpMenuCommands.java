@@ -19,7 +19,7 @@ public enum SignUpMenuCommands {
     NEW_USER("user create (?<userInfo>.+)"),
     NEW_USER_FORMAT_CHECK("(-[[\\w]&&[^p]] ([^\"\\s]\\S*|\"[^\"]+\")?\\s?)|(-p (([^\"\\s]\\S*|\"[^\"]+\")" +
             "( ([^\"\\s]\\S*|\"[^\"]+\"))?)?\\s?)+$"),
-    PICK_QUESTION("^pick question (?<questionInfo>.+)"),
+    PICK_QUESTION("^question pick (?<questionInfo>.+)"),
     ;
     private String regex;
     private Pattern pattern;

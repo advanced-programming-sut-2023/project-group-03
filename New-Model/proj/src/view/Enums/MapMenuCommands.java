@@ -3,8 +3,10 @@ package view.Enums;
 import java.util.regex.Pattern;
 
 public enum MapMenuCommands {
+    SHOW_MAP("^show map (?<mapCoordinates>.+)$"),
     MOVE("map ((?<verticalDir>\\w+) (?<verticalNum>\\d+))? " +
             "((?<horizontalDir>\\w+) (?<horizontalNum>\\d+))?"),
+    SET_TEXTURE_ALI("^settexture (?<setTextureInfo>.+)$"),
     SET_TEXTURE("settexture (?=.*-x\\s+(?<x>\\d+))" +
             "(?=.*-y\\s+(?<y>\\d+))(?=.*-type\\s+(?<type>\\S+))"),
     SET_TEXTURE_REC("settexture (?=.*-x1\\s+(?<x1>\\d+))(?=.*-x2\\s+(?<x2>\\d+))" +

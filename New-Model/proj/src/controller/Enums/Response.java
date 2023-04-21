@@ -48,6 +48,11 @@ public enum Response {
     DISPLAY_NULL_SLOGAN("You haven't set your slogan yet!"),
     DISPLAY_RANK("Your rank is: "),
     DISPLAY_HIGHSCORE("Your highscore is: "),
+    //map
+    INVALID_X_MAP("Invalid x value!"),
+    INVALID_Y_MAP("Invalid y value!"),
+    SUCCESSFUL_SHOW_MAP("game's map:"),
+    INVALID_TEXTURE("Invalid texture."),
 
     //kingdom
     INVALID_FOOD_RATE("Invalid food rate! -3 < food rate < 3"),
