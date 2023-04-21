@@ -30,20 +30,28 @@ public class ProfileMenu extends Menu{
         }
         else if (command.matches(ProfileMenuCommands.CHANGE_USERNAME.getRegex())) {
             Matcher matcher = ProfileMenuCommands.CHANGE_USERNAME.getMatcher(command);
-            //output=controller.changeUsername()
+            matcher.find();
+            output = controller.changeUsername(matcher.group("username"));
         }
         else if (command.matches(ProfileMenuCommands.CHANGE_NICKNAME.getRegex())) {
             Matcher matcher = ProfileMenuCommands.CHANGE_NICKNAME.getMatcher(command);
+            matcher.find();
+            output = controller.changeNickname(matcher.group("nickname"));
         }
         else if (command.matches(ProfileMenuCommands.CHANGE_PASSWORD.getRegex())) {
             Matcher matcher=ProfileMenuCommands.CHANGE_PASSWORD.getMatcher(command);
+            matcher.find();
             output = controller.changePassword(matcher);
         }
         else if (command.matches(ProfileMenuCommands.CHANGE_EMAIL.getRegex())) {
             Matcher matcher = ProfileMenuCommands.CHANGE_EMAIL.getMatcher(command);
+            matcher.find();
+            output = controller.changeEmail(matcher.group("email"));
         }
         else if (command.matches(ProfileMenuCommands.CHANGE_SLOGAN.getRegex())) {
             Matcher matcher = ProfileMenuCommands.CHANGE_SLOGAN.getMatcher(command);
+            matcher.find();
+            output = controller.changeSlogan(matcher.group("slogan"));
         }
         else if (command.matches(ProfileMenuCommands.REMOVE_SLOGAN.getRegex())) {
             output = controller.removeSlogan();

@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class UserDatabase {
     private static ArrayList<User> users = new ArrayList<>();
@@ -32,7 +33,10 @@ public class UserDatabase {
     }
 
     public static void updateRanking() {
-
+        Collections.sort(ranking);
+        for (int i = 0; i < ranking.size(); i++) {
+            ranking.get(i).setRank(i + 1);
+        }
     }
 
     public static ArrayList<User> getUsers() {

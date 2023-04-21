@@ -1,6 +1,6 @@
 package Model;
 
-public class User {
+public class User implements  Comparable<User>{
     private String password;
     private String username;
     private String nickname;
@@ -89,5 +89,16 @@ public class User {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        if (this.highScore > o.highScore) {
+            return 1;
+        } else if (this.highScore < o.highScore) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
