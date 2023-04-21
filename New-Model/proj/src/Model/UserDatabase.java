@@ -3,12 +3,17 @@ package Model;
 import java.util.ArrayList;
 
 public class UserDatabase {
-    private static ArrayList<User> users;
-    private static ArrayList<User> ranking;
+    private static ArrayList<User> users = new ArrayList<>();
+    private static ArrayList<User> ranking = new ArrayList<>();
     public UserDatabase() {
     }
 
     public static User getUserByName(String name) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(name)) {
+                return users.get(i);
+            }
+        }
         return null;
     }
 
@@ -19,7 +24,7 @@ public class UserDatabase {
     }
 
     public static void addUser(User user) {
-
+        users.add(user);
     }
 
     public static void removeUser(User user) {

@@ -33,7 +33,7 @@ public class MapMenu extends Menu {
 
     private void showGuide() {
         colorPrint(TEXT_RED,"================================================");
-        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Map menu<<" + ConsoleColors.TEXT_RESET);
+        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Map menu<<" + " User: " + user.getUsername() + ConsoleColors.TEXT_RESET);
         colorPrint(ConsoleColors.TEXT_YELLOW, "exit: backing to main menu");
     }
 

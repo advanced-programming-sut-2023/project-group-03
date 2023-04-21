@@ -25,14 +25,21 @@ public class SignUpMenu extends Menu {
         if (command.matches(SignUpMenuCommands.BACK.getRegex())) {
             throw new Transition(new StartingMenu(scanner));
         }
-        if (command.matches(SignUpMenuCommands.OSKOL.getRegex())) {
-            System.out.println(inlineInput());
-            if (inlineInput().equals(Response.SUCCESSFUL_REGISTER.getOutput())) {
+        else if (command.matches(SignUpMenuCommands.OSKOL.getRegex())) {
+            String output = null;
+            do {
+                output = inlineInput();
+                System.out.println(output);
+            } while (!output.matches(Response.SUCCESSFUL_REGISTER.getOutput()) && !output.matches("back to signup mode"));
+/*
+            if (output.equals(Response.SUCCESSFUL_REGISTER.getOutput())) {
                 securityQuestionGuide();
                 do {
-                    System.out.println(securityQuestionInline());
-                } while (!securityQuestionInline().equals(Response.SUCCESSFUL_REGISTER));
-            }
+                    output = securityQuestionInline();
+                    System.out.println(output);
+                } while (!output.equals(Response.SUCCESSFUL_REGISTER));
+
+        }*/
             throw new Transition(this);
         } else if (command.matches(SignUpMenuCommands.WISE.getRegex())) {
             nonInlineInput();
@@ -92,9 +99,9 @@ public class SignUpMenu extends Menu {
     private void showGuide() {
         colorPrint(TEXT_RED,"================================================");
         System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Signup menu<<" + ConsoleColors.TEXT_RESET);
-        colorPrint(ConsoleColors.TEXT_YELLOW, "back: backing to starting menu");
+        colorPrint(ConsoleColors.TEXT_YELLOW, "back: back to starting menu");
         colorPrint(ConsoleColors.TEXT_YELLOW, "to create user choose an option:");
-        System.out.println("1.I am Oskol and want an inline command");
+        System.out.println("1.I am Oskol");
         System.out.println("2.I am not Oskol");
     }
 
@@ -102,8 +109,9 @@ public class SignUpMenu extends Menu {
         colorPrint(TEXT_YELLOW, "salam Oskol! type the command:");
         String command = scanner.nextLine();
         String output = null;
-        if (command.matches(SignUpMenuCommands.CREATE_USER.getRegex())) {
-            Matcher matcher = SignUpMenuCommands.CREATE_USER.getPattern().matcher(command);
+        if (command.matches(SignUpMenuCommands.NEW_USER.getRegex())) {
+            Matcher matcher = SignUpMenuCommands.NEW_USER.getPattern().matcher(command);
+            matcher.find();
             output = new RegisterMenuController().registerNewUser(matcher, scanner);
         } else {
             output = "try again oskol";
@@ -139,7 +147,11 @@ public class SignUpMenu extends Menu {
         if (command.matches(SignUpMenuCommands.SECURITY_QUESTION.getRegex())) {
             Matcher matcher = SignUpMenuCommands.SECURITY_QUESTION.getPattern().matcher(command);
             output = RegisterMenuController.askSecurityQuestion2(matcher);
-        } else {
+        }
+        if (command.matches(SignUpMenuCommands.BACK.getRegex())) {
+            output = "back to signup mode";
+        }
+         else {
             output = "try again oskol";
         }
 

@@ -42,7 +42,7 @@ public class MainMenu extends Menu{
 
     public void showGuide() {
         colorPrint(TEXT_RED,"================================================");
-        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>main menu<<");
+        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>main menu<<" + " User: " + user.getUsername());
         System.out.println(ConsoleColors.TEXT_YELLOW + "choose a menu to continue:");
         System.out.println(ConsoleColors.TEXT_RESET + "1.profile menu");
         System.out.println("2.start Game");

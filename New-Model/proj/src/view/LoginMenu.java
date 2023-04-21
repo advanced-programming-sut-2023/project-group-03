@@ -3,6 +3,8 @@ package view;
 
 import Model.User;
 import Model.UserDatabase;
+import controller.Enums.Response;
+import controller.LoginMenuController;
 import view.Enums.ConsoleColors;
 import view.Enums.LoginMenuCommands;
 
@@ -29,9 +31,20 @@ public class LoginMenu extends Menu{
         if (command.matches(LoginMenuCommands.BACK.getRegex())) {
             throw new Transition(new StartingMenu(scanner));
         }
-        if (command.matches(LoginMenuCommands.USER_LOGIN.getRegex())) {
-            User user = UserDatabase.getUserByName("");
-            throw new Transition(new MainMenu(scanner, user));
+        if (command.matches(LoginMenuCommands.LOGIN.getRegex())) {
+            LoginMenuController controller = new LoginMenuController();
+            Matcher matcher = LoginMenuCommands.LOGIN.getPattern().matcher(command);
+            matcher.find();
+            String output = controller.login(matcher, scanner);
+            System.out.println(output);
+            if (output.matches(SUCCESSFUL_LOGIN.getOutput())) {
+                Matcher matcher1 = LoginMenuCommands.USER_LOGIN.getMatcher(command);
+                matcher1.find();
+                String username = matcher1.group("username");
+                User user = UserDatabase.getUserByName(username);
+                throw new Transition(new MainMenu(scanner, user));
+            }
+            throw new Transition(this);
         }
         if (command.matches(LoginMenuCommands.FORGOT_PASSWORD.getRegex())) {
             User user = UserDatabase.getUserByName("");
@@ -85,8 +98,8 @@ public class LoginMenu extends Menu{
         colorPrint(TEXT_RED,"================================================");
         System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Login menu<<" + ConsoleColors.TEXT_RESET);
         colorPrint(ConsoleColors.TEXT_YELLOW, "back: backing to starting menu");
-        colorPrint(ConsoleColors.TEXT_YELLOW, "to create user choose an option:");
-        System.out.println("1.I am Oskol and want an inline command");
-        System.out.println("2.I am not Oskol");
+        colorPrint(ConsoleColors.TEXT_YELLOW, "possible command:");
+        System.out.println("1.user login -u <username> -p <password>");
+        System.out.println("2.forgot password -u <username>");
     }
 }

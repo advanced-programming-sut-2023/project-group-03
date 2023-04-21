@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public enum SignUpMenuCommands {
     BACK("back to starting menu"),
     UNDO("undo"),
-    OSKOL("I am Oskol and want an inline command"),
+    OSKOL("I am Oskol"),
     WISE("I am not Oskol"),
     CREATE_USER("(?=.*-u\\s+(?<username>\\S+))(?=.*-p\\s+(?<password>\\S+)\\s+(?<confirm>\\S+))" +
             "(?=.*-email\\s+(?<email>\\S+))" + "(?=.*-n\\s+(?<nickname>\\S+))?(?=.*-s\\s+(?<slogan>.+))?"),
