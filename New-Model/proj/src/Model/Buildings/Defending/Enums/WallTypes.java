@@ -1,4 +1,4 @@
-package Model.Buildings.Defending;
+package Model.Buildings.Defending.Enums;
 
 public enum WallTypes {
     BIG("", 2, 2);
@@ -12,5 +12,17 @@ public enum WallTypes {
         this.name = name;
         this.HP = HP;
         this.stoneCost = stoneCost;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHP() {
+        return HP;
+    }
+
+    public int getStoneCost() {
+        return stoneCost;
     }
 }

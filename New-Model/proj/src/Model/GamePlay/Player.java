@@ -10,9 +10,9 @@ import java.util.HashMap;
 public class Player {
     private Game game;
     private User user;
-    private Governant governant;
-    ArrayList<Request> IncomeRequests;
-    ArrayList<Request> MyRequests;
+    private Government government;
+    ArrayList<Request> incomeRequests;
+    ArrayList<Request> myRequests;
     ArrayList<Unit> allUnits;
     int gold;
     int popularity;
@@ -21,25 +21,37 @@ public class Player {
     int FoodRate;
     HashMap<Resources, Integer> inventory;
 
-    public Player(User user, Governant governant) {
+    public Player(User user, Government government) {
         this.user = user;
-        this.governant = governant;
+        this.government = government;
+        Resources[] RList = Resources.values();
+        for (Resources now : RList) {
+            inventory.put(now,0);
+        }
+    }
+
+    public void increaseGold(int number){
+        gold+=number;
+    }
+
+    public void decreaseGold(int number){
+        gold-=number;
     }
 
     public void increaseInventory(Resources resources, int number) {
-
+        inventory.replace(resources,Integer.sum(inventory.get(resources), number));
     }
 
     public void decreaseInventory(Resources resources, int number) {
-
+        inventory.replace(resources,Integer.sum(inventory.get(resources), -number));
     }
 
     public void addUnit(Unit unit) {
-
+        allUnits.add(unit);
     }
 
     public void removeUnit(Unit unit) {
-
+        allUnits.remove(unit);
     }
 
     public void update() {
@@ -47,11 +59,11 @@ public class Player {
     }
 
     public void addToMyRequest(Request request) {
-
+        myRequests.add(request);
     }
 
     public void addToIncomeRequest(Request request) {
-
+        incomeRequests.add(request);
     }
     public void answerRequest(Request request) {
 
@@ -109,16 +121,16 @@ public class Player {
         return user;
     }
 
-    public Governant getGovernant() {
-        return governant;
+    public Government getGovernment() {
+        return government;
     }
 
     public ArrayList<Request> getIncomeRequests() {
-        return IncomeRequests;
+        return incomeRequests;
     }
 
     public ArrayList<Request> getMyRequests() {
-        return MyRequests;
+        return myRequests;
     }
 
     public ArrayList<Unit> getAllUnits() {

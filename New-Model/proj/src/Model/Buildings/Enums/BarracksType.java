@@ -2,19 +2,19 @@ package Model.Buildings.Enums;
 
 import Model.GamePlay.Material;
 
-public enum TypeOfBarracks {
-    ;
+public enum BarracksType {
 //    BARRACK,
 //    MERCENARY_POST,
 //    ENGINEER_GUILD,
 //    TUNNELER_GUILD,
-//    SIEGE_TENT;
+//    SIEGE_TENT
+    ;
     private int gold;
     private int wood;
     private int oil;
     private Material material;
 
-    TypeOfBarracks(int gold, int wood, int oil, Material material) {
+    private BarracksType(int gold, int wood, int oil, Material material) {
         this.gold = gold;
         this.wood = wood;
         this.oil = oil;

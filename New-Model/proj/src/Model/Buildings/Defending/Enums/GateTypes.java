@@ -1,4 +1,4 @@
-package Model.Buildings.Defending;
+package Model.Buildings.Defending.Enums;
 
 public enum GateTypes {
     SMALL_STONE_GATE_HOUSE("", 0, 3, 5, 6)

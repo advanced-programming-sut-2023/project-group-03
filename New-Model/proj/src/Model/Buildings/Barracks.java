@@ -1,6 +1,7 @@
 package Model.Buildings;
 
-import Model.Buildings.Enums.TypeOfBarracks;
+import Model.Buildings.Enums.BarracksType;
+import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
@@ -11,12 +12,15 @@ import java.util.HashSet;
 
 public class Barracks extends Building{
 
-    TypeOfBarracks type;
+    BarracksType type;
     HashSet<TroopTypes> Products;
 
-    public Barracks(Player owner, Tile position, TypeOfBarracks type) {
+    public Barracks(Player owner, Tile position, BarracksType type) {
         super(owner, position);
-        this.setMaterial(Material.STONE);
+        this.material = type.getMaterial();
+        owner.decreaseInventory(Resources.WOOD,type.getWood());
+        owner.decreaseInventory(Resources.OIL,type.getOil());
+        owner.decreaseGold(type.getGold());
     }
 
     public HashSet<TroopTypes> getProducts() {

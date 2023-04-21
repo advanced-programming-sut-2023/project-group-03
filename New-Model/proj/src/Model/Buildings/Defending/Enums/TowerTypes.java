@@ -1,11 +1,12 @@
-package Model.Buildings.Defending;
+package Model.Buildings.Defending.Enums;
 
 public enum TowerTypes {
-    LOOKOUT_TOWER("", 1, 1, 1, 1, 11, 1);
+    LOOKOUT_TOWER("", 1, 1, 1, 1, 11, 1)
 //    PERIMETER_TOWER,
 //    TURRET,
 //    SQUARE_TOWER,
-//    ROUND_TOWER;
+//    ROUND_TOWER
+    ;
 
     private String name;
     private int HP;

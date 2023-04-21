@@ -1,10 +1,11 @@
-package Model.Buildings.Defending;
+package Model.Buildings.Defending.Enums;
 
-public enum TypeOfTraps {
-    BOILING_OIL("", 3, 3, 3, 3);
+public enum TrapsTypes {
+    BOILING_OIL("", 3, 3, 3, 3)
 //    PITCH_DITCH,
 //    CAGED_WAR_DOGS,
-//    KILLING_PIT;
+//    KILLING_PIT
+    ;
 
     String name;
     private int gold;
@@ -12,7 +13,7 @@ public enum TypeOfTraps {
     private int oil;
     private int worker;
 
-    TypeOfTraps(String name,int gold, int wood, int oil, int worker) {
+    TrapsTypes(String name, int gold, int wood, int oil, int worker) {
         this.name=name;
         this.gold = gold;
         this.wood = wood;

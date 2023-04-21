@@ -16,7 +16,11 @@ public class Request {
     }
 
     public void addToList(Resources resources, int number) {
-
+        if(list.containsKey(resources)){
+            list.replace(resources,Integer.sum(list.get(resources),number));
+            return;
+        }
+        list.put(resources,number);
     }
 
     public void removeFromList(Resources resources, int number) {
@@ -24,11 +28,11 @@ public class Request {
     }
 
     public void addTarget(Player player) {
-
+        target.add(player);
     }
 
     public void removeTarget(Player player) {
-
+        target.remove(player);
     }
 
     public Player getOwner() {

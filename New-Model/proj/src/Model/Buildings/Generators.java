@@ -8,10 +8,10 @@ import Model.GamePlay.Player;
 public class Generators extends Building{
     private GeneratorTypes type ;
     private int rate;
-    private int Inventory;
-    private int Capacity;
+    private int inventory;
+    private int capacity;
     private Resources product;
-    private Resources Use;
+    private Resources use;
     private int wood;
     private int gold;
     private int worker;
@@ -20,6 +20,17 @@ public class Generators extends Building{
 
     public Generators(Player owner, Tile position, GeneratorTypes type) {
         super(owner, position);
+        this.rate = type.getRate();
+        this.inventory = type.getInventory();
+        this.capacity = type.getCapacity();
+        this.product = type.getProduct();
+        this.use = type.getUse();
+        this.wood = type.getWood();
+        this.gold = type.getGold();
+        this.worker = type.getWorker();
+        owner.decreaseInventory(Resources.WOOD,type.getWood());
+        owner.decreaseGold(type.getGold());
+        /////////////////////////////////////////////////////////worker ro bayad chikar kard?
     }
 
     public GeneratorTypes getType() {
@@ -31,11 +42,11 @@ public class Generators extends Building{
     }
 
     public int getInventory() {
-        return Inventory;
+        return inventory;
     }
 
     public int getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public Resources getProduct() {
@@ -43,7 +54,7 @@ public class Generators extends Building{
     }
 
     public Resources getUse() {
-        return Use;
+        return use;
     }
 
     @Override

@@ -1,10 +1,9 @@
 package Model.Buildings.Defending;
 
+import Model.Buildings.Defending.Enums.GateTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
-
-import java.util.ArrayList;
 
 public class Gates extends CastleBuilding {
     private GateTypes type;
@@ -12,10 +11,11 @@ public class Gates extends CastleBuilding {
 
     public Gates(Player owner, Tile position, GateTypes type) {
         super(owner, position);
-        this.setHP(type.getHP());
+        this.HP=type.getHP();
         this.length = type.getLength();
         this.width = type.getWidth();
-        this.setStoneCost(type.getStoneCost());
+        this.stoneCost = type.getStoneCost();
+
     }
 
     private void updateOwner() {
@@ -62,10 +62,6 @@ public class Gates extends CastleBuilding {
     @Override
     public void print() {
 
-    }
-
-    public ArrayList<Troop> getTroops() {
-        return troops;
     }
 
 }

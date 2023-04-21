@@ -1,10 +1,8 @@
 package Model.Buildings.Defending;
 
+import Model.Buildings.Defending.Enums.WallTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
-import Model.Units.Combat.Troop;
-
-import java.util.ArrayList;
 
 public class Wall extends CastleBuilding {
     private WallTypes type;
@@ -12,10 +10,8 @@ public class Wall extends CastleBuilding {
 
     public Wall(Player owner, Tile position,WallTypes type) {
         super(owner, position);
-    }
-
-    public ArrayList<Troop> getTroops() {
-        return troops;
+        this.HP = type.getHP();
+        this.stoneCost = type.getStoneCost();
     }
 
     public Trap getTrap() {
@@ -23,8 +19,11 @@ public class Wall extends CastleBuilding {
     }
 
     public boolean setTrap(Trap trap) {
-        //this.trap = trap;
-        return false;
+        if(this.trap == null){
+            return false;
+        }
+        this.trap = trap;
+        return true;
     }
 
     @Override
