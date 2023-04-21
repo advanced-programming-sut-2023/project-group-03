@@ -4,6 +4,7 @@ public class GameMap {
     private int size;
     private Tile[][] map;
     private int numberOfPlayers;
+    private String name;
     public GameMap(int size) {
         this.size=size;
         map = new Tile[size][size];
@@ -28,5 +29,13 @@ public class GameMap {
 
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
