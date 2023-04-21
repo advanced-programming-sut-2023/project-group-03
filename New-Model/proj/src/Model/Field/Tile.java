@@ -12,6 +12,7 @@ public class Tile {
     private height height;
     private Texture texture;
     private Building building;
+    private mazafaza mazafaza;
     private ArrayList<Unit> units;
     private HashMap<Direction,Tile> neighbours;
     private Player owner;

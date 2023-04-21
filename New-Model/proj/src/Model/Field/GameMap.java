@@ -2,6 +2,7 @@ package Model.Field;
 
 public class GameMap {
     private int size;
+    private Tile center;
     private Tile[][] map;
     private int numberOfPlayers;
     private String name;
