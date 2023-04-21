@@ -25,7 +25,11 @@ public class MainMenu extends Menu{
         showGuide();
         String command = scanner.nextLine();
         if (command.matches(MainMenuCommands.BACK.getRegex())) {
-            throw new Transition(new StartingMenu(scanner));
+            StartingMenu startingMenu = new StartingMenu(scanner);
+            if (user.isStayLoggedIn()) {
+                startingMenu.setUser(user);
+            }
+            throw new Transition(startingMenu);
         }
         if (command.matches(MainMenuCommands.MAP_MENU.getRegex())) {
             throw new Transition(new MapMenu(scanner,user));

@@ -1,8 +1,10 @@
 package view;
 
+import Model.User;
 import view.Enums.ConsoleColors;
 import view.Enums.GameMenuCommands;
 import view.Enums.StartingMenuCommands;
+import view.Game.MapMenu;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -11,6 +13,7 @@ import static view.Enums.ConsoleColors.TEXT_RED;
 import static view.Enums.ConsoleColors.colorPrint;
 
 public class StartingMenu extends Menu{
+    User user;
     public StartingMenu(Scanner scanner) {
         super(scanner);
     }
@@ -19,6 +22,9 @@ public class StartingMenu extends Menu{
         showGuide();
         String command=scanner.nextLine();
         if (Pattern.matches(StartingMenuCommands.LOGIN_MENU.getRegex(), command)) {
+            if (user != null) {
+                throw new Transition(new MainMenu(scanner, user));
+            }
             throw new  Transition(new LoginMenu(scanner));
         }
         else if (Pattern.matches(StartingMenuCommands.SIGNUP_MENU.getRegex(), command)) {
@@ -39,5 +45,13 @@ public class StartingMenu extends Menu{
         System.out.println(ConsoleColors.TEXT_RESET + "1.login menu");
         System.out.println("2.signup menu");
         System.out.println("3.back");
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

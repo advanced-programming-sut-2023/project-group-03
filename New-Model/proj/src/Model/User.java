@@ -10,7 +10,7 @@ public class User implements  Comparable<User>{
     private String securityQuestion;
     private int highScore;
     private int rank;
-
+    private boolean stayLoggedIn = false;
     public User(String password, String username, String nickname, String email, String slogan) {
         this.password = password;
         this.username = username;
@@ -100,5 +100,13 @@ public class User implements  Comparable<User>{
         } else {
             return 0;
         }
+    }
+
+    public boolean isStayLoggedIn() {
+        return stayLoggedIn;
+    }
+
+    public void setStayLoggedIn(boolean stayLoggedIn) {
+        this.stayLoggedIn = stayLoggedIn;
     }
 }
