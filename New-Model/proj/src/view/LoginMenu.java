@@ -2,6 +2,8 @@ package view;
 
 
 import Model.User;
+import Model.UserDatabase;
+import view.Enums.ConsoleColors;
 import view.Enums.LoginMenuCommands;
 
 import java.util.ArrayList;
@@ -9,6 +11,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static controller.Enums.Response.*;
+import static view.Enums.ConsoleColors.TEXT_RED;
+import static view.Enums.ConsoleColors.colorPrint;
 
 public class LoginMenu extends Menu{
 
@@ -20,17 +24,21 @@ public class LoginMenu extends Menu{
 
     @Override
     public void run() throws Transition {
+        showGuide();
         String command=scanner.nextLine();
-        if (Pattern.matches(LoginMenuCommands.LOGIN.getRegex(), command)) {
-            User user = new User("", "", "", "", "");
-            throw new Transition(new MainMenu(scanner, user));
-        } else if (Pattern.matches(LoginMenuCommands.LOGOUT.getRegex(), command)) {
-
-        } else if (Pattern.matches(LoginMenuCommands.PICK_SECURITY.getRegex(), command)) {
-
-        } else if (Pattern.matches(LoginMenuCommands.FORGOT_PASSWORD.getRegex(), command)) {
-
+        if (command.matches(LoginMenuCommands.BACK.getRegex())) {
+            throw new Transition(new StartingMenu(scanner));
         }
+        if (command.matches(LoginMenuCommands.USER_LOGIN.getRegex())) {
+            User user = UserDatabase.getUserByName("");
+            throw new Transition(new MainMenu(scanner, user));
+        }
+        if (command.matches(LoginMenuCommands.FORGOT_PASSWORD.getRegex())) {
+            User user = UserDatabase.getUserByName("");
+            throw new Transition(new MainMenu(scanner, user));
+        }
+        colorPrint(TEXT_RED, "invalid command");
+        throw new Transition(this);
     }
 
     public static String getPasswordAgain(Scanner scanner, int seconds){
@@ -73,4 +81,12 @@ public class LoginMenu extends Menu{
         // clears json
     }
 
+    private void showGuide() {
+        colorPrint(TEXT_RED,"================================================");
+        System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Login menu<<" + ConsoleColors.TEXT_RESET);
+        colorPrint(ConsoleColors.TEXT_YELLOW, "back: backing to starting menu");
+        colorPrint(ConsoleColors.TEXT_YELLOW, "to create user choose an option:");
+        System.out.println("1.I am Oskol and want an inline command");
+        System.out.println("2.I am not Oskol");
+    }
 }

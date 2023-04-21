@@ -1,17 +1,18 @@
 package view.Game;
 
 import Model.Field.GameMap;
+import Model.User;
 import view.Menu;
 import view.Transition;
 
 import java.util.Scanner;
 
 public class MapMenu extends Menu {
-    GameMap map;
+    User user;
 
-    public MapMenu(Scanner scanner, GameMap map) {
+    public MapMenu(Scanner scanner, User user) {
         super(scanner);
-        this.map = map;
+        this.user = user;
     }
 
     @Override

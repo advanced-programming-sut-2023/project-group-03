@@ -13,10 +13,10 @@ import static view.Enums.ConsoleColors.colorPrint;
 public class StartingMenu extends Menu{
     public StartingMenu(Scanner scanner) {
         super(scanner);
-        showGuide();
     }
 
     public void run() throws Transition {
+        showGuide();
         String command=scanner.nextLine();
         if (Pattern.matches(StartingMenuCommands.LOGIN_MENU.getRegex(), command)) {
             throw new  Transition(new LoginMenu(scanner));
@@ -27,7 +27,7 @@ public class StartingMenu extends Menu{
         else if (Pattern.matches(StartingMenuCommands.EXIT.getRegex(), command)) {
             throw  new Transition(new StartingMenu(scanner));
         } else {
-            System.out.println("wrong input");
+            colorPrint(TEXT_RED, "invalid command");
             throw new Transition(this);
         }
     }

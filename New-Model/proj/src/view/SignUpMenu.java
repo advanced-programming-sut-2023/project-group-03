@@ -16,11 +16,11 @@ public class SignUpMenu extends Menu {
 
     public SignUpMenu(Scanner scanner){
         super(scanner);
-        showGuide();
     }
 
     @Override
     public void run() throws Transition {
+        showGuide();
         String command = scanner.nextLine();
         if (command.matches(SignUpMenuCommands.BACK.getRegex())) {
             throw new Transition(new StartingMenu(scanner));
