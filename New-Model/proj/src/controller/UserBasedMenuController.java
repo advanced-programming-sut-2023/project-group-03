@@ -23,7 +23,7 @@ public class UserBasedMenuController extends Controller {
     }
 
     public static boolean checkEmailFormat(String email) {
-        return getMatcher(email, EMAIL_FORMAT.getRegex()) == null;
+        return (getMatcher(email, EMAIL_FORMAT.getRegex()) == null);
     }
 
     protected static ArrayList<String> securityQuestions = new ArrayList<>(Arrays.asList(

@@ -91,7 +91,7 @@ public class RegisterMenuController extends UserBasedMenuController {
 
         //check email
         if (getUserByEmail(infoMap.get("e")) != null) return REPETITIVE_EMAIL.getOutput();
-        if (!checkEmailFormat(infoMap.get("e"))) return INVALID_EMAIL_FORMAT.getOutput();
+        if (checkEmailFormat(infoMap.get("e"))) return INVALID_EMAIL_FORMAT.getOutput();
 
         //encrypt password before saving
         infoMap.put("p", getEncryptedPassword(infoMap.get("p")));
