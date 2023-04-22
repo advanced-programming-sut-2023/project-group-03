@@ -157,7 +157,11 @@ public class MapController extends Controller {
         Building building = targetTile.getBuilding();
         if (building != null) building.remove();
 
-        gameMap.getMap()[x][y] = new Tile(height.GROUND, Texture.GROUND);
+        Tile newTile = new Tile(height.GROUND, Texture.GROUND);
+        gameMap.getMap()[x][y] = newTile;
+        newTile.setRowNum(x);
+        newTile.setColumnNum(y);
+
         return SUCCESSFUL_CLEAR_TILE.getOutput();
     }
 

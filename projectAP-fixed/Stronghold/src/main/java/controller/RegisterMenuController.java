@@ -85,13 +85,12 @@ public class RegisterMenuController extends UserBasedMenuController {
                 return WRONG_PASSWORD_CONFIRMATION.getOutput();
             }
         }
-
-        //setting random password and random slogan up
-        randomSetups(randomSlogan, randomPassword, scanner, infoMap);
-
         //check email
         if (getUserByEmail(infoMap.get("e")) != null) return REPETITIVE_EMAIL.getOutput();
         if (checkEmailFormat(infoMap.get("e"))) return INVALID_EMAIL_FORMAT.getOutput();
+
+        //setting random password and random slogan up
+        randomSetups(randomSlogan, randomPassword, scanner, infoMap);
 
         //encrypt password before saving
         infoMap.put("p", getEncryptedPassword(infoMap.get("p")));
