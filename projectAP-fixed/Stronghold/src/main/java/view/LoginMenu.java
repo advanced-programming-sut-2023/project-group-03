@@ -47,15 +47,18 @@ public class LoginMenu extends Menu{
             throw new Transition(this);
         }
         if (command.matches(LoginMenuCommands.FORGOT_PASSWORD.getRegex())) {
-            User user = UserDatabase.getUserByName("");
-            throw new Transition(new MainMenu(scanner, user));
+            LoginMenuController controller = new LoginMenuController();
+            Matcher matcher = LoginMenuCommands.FORGOT_PASSWORD.getPattern().matcher(command);
+            matcher.find();
+            System.out.println(controller.forgotPassword(matcher, scanner));
+            throw new Transition(this);
         }
         colorPrint(TEXT_RED, "invalid command");
         throw new Transition(this);
     }
 
     public static String getPasswordAgain(Scanner scanner, int seconds){
-        System.out.println(WRONG_PASSWORD_LOGIN.getOutput() + seconds + " seconds");
+        System.out.println(WRONG_PASSWORD_LOGIN.getOutput() + 3 * seconds + " seconds");
         try {
             Thread.sleep((seconds * 3 * 1000));
         } catch (Exception e) {
