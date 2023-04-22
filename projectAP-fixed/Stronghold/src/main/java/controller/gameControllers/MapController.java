@@ -14,7 +14,7 @@ import static controller.Enums.InputOptions.*;
 import static controller.Enums.Response.*;
 
 public class MapController extends Controller {
-    private int gameWidth = 10;
+    private int gameWidth = 3;
     private int gameLength = gameWidth * 2;
     
     GameMap gameMap;

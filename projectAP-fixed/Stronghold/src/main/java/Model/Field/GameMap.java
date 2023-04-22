@@ -14,7 +14,7 @@ public class GameMap {
             for (int j = 0; j < map.length; j++) {
                 map[i][j] = new Tile(height.GROUND,Texture.GROUND);
                 map[i][j].setColumnNum(j);
-                map[i][j].setRowNum(j);
+                map[i][j].setRowNum(i);
             }
         }
     }

@@ -6,7 +6,7 @@ public enum MapMenuCommands {
     BACK("back to starting menu"),
     SHOW_MAP("^show map (?<coordinatesInfo>.+)$"),
     SHOW_DETAILS_ALI("^show details (?<coordinatesInfo>.+)"),
-    MOVE_ALI("map ((?<verticalDir>\\w+)( (?<verticalNum>\\d+))?)?" +
+    MOVE_ALI("move ((?<verticalDir>\\w+)( (?<verticalNum>\\d+))?)?" +
             "( (?<horizontalDir>\\w+)( (?<horizontalNum>\\d+))?)?"),
     MOVE("map ((?<verticalDir>\\w+) (?<verticalNum>\\d+))? " +
             "((?<horizontalDir>\\w+) (?<horizontalNum>\\d+))?"),

@@ -49,7 +49,7 @@ public class MapMenu extends Menu {
                 System.out.println(mapController.dropTree(matcher));
             }
             else if (command.matches(MapMenuCommands.DROPROCK_ALI.getRegex())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.DROPROCK.getRegex());
+                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.DROPROCK_ALI.getRegex());
                 System.out.println(mapController.dropRock(matcher));
             }
             else if (command.matches(MapMenuCommands.DROPUNIT.getRegex())) {
@@ -57,7 +57,7 @@ public class MapMenu extends Menu {
                 //
             }
             else if (command.matches(MapMenuCommands.SET_TEXTURE_ALI.getRegex())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_TEXTURE.getRegex());
+                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_TEXTURE_ALI.getRegex());
                 System.out.println(mapController.setTexture(matcher));
             }
             else if (command.matches(MapMenuCommands.SHOW_DETAILS_ALI.getRegex())) {
@@ -65,6 +65,9 @@ public class MapMenu extends Menu {
                 System.out.println(mapController.showDetails(matcher));
             } else if (command.matches(MapMenuCommands.BACK.getRegex())) {
                 throw new Transition(new MainMenu(scanner, user));
+            } else if (command.matches(MapMenuCommands.CLEAR_ALI.getRegex())) {
+                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.CLEAR_ALI.getRegex());
+                System.out.println(mapController.clearField(matcher));
             } else {
                 colorPrint(TEXT_RED, "invalidCommand");
             }

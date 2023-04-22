@@ -37,7 +37,7 @@ public enum Texture
 
     public String getColor() {
         if (name.equals("ground")) {
-            return (ConsoleColors.TEXT_BRIGHT_BG_YELLOW);
+            return (ConsoleColors.TEXT_BRIGHT_BG_BLACK);
         }
         if (name.equals("pebble")) {
             return (ConsoleColors.TEXT_BG_CYAN);
@@ -49,7 +49,7 @@ public enum Texture
             return (ConsoleColors.TEXT_BG_CYAN);
         }
         if (name.equals("Iron")) {
-            return (ConsoleColors.TEXT_BRIGHT_YELLOW);
+            return (ConsoleColors.TEXT_BG_YELLOW);
         }
         if (name.equals("grass")||name.equals("grassland")) {
             return (ConsoleColors.TEXT_BRIGHT_BG_GREEN);
