@@ -47,4 +47,8 @@ public class ConsoleColors {
     public static void colorPrint(String textColor,String bgColor,String toPrint) {
         System.out.println(textColor + bgColor + toPrint + TEXT_RESET);
     }
+    public static String formatPrinter(String txtColor,String bgColor,String toPrint) {
+        String s = txtColor + bgColor + toPrint + TEXT_RESET;
+        return s;
+    }
 }

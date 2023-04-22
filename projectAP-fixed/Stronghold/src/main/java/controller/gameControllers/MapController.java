@@ -2,12 +2,10 @@ package controller.gameControllers;
 
 import Model.Buildings.Building;
 import Model.Field.*;
-import Model.Units.Combat.CombatUnit;
 import Model.Units.Combat.Troop;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
 import controller.Controller;
-import controller.Enums.ControllerCommands;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -55,7 +53,6 @@ public class MapController extends Controller {
 
         if (x > gameMap.getSize() - 10 || x < 10) return INVALID_X_MAP.getOutput();
         if (y > gameMap.getSize() - 10 || y < 10) return INVALID_Y_MAP.getOutput();
-
         gameMap.setCenter(gameMap.getMap()[x][y]);
         return SUCCESSFUL_SHOW_MAP.getOutput();
     }
@@ -70,8 +67,8 @@ public class MapController extends Controller {
 
         Tile centerTile = gameMap.getCenter();
 
-        int finalX = centerTile.getXpos() + (verticalDir.equals("up") ? verticalNum : -verticalNum);
-        int finalY = centerTile.getYpos() + (horizontalDir.equals("right") ? horizontalNum : -horizontalNum);
+        int finalX = centerTile.getRowNum() + (verticalDir.equals("up") ? verticalNum : -verticalNum);
+        int finalY = centerTile.getColumnNum() + (horizontalDir.equals("right") ? horizontalNum : -horizontalNum);
 
         if (finalX > gameMap.getSize() - 10 || finalX < 10) return INVALID_FINAL_X_VALUE.getOutput();
         if (finalY > gameMap.getSize() - 10 || finalY < 10) return INVALID_FINAL_Y_VALUE.getOutput();

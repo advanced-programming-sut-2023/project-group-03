@@ -3,6 +3,7 @@ package view.Enums;
 import java.util.regex.Pattern;
 
 public enum MapMenuCommands {
+    BACK("back to starting menu"),
     SHOW_MAP("^show map (?<coordinatesInfo>.+)$"),
     SHOW_DETAILS_ALI("^show details (?<coordinatesInfo>.+)"),
     MOVE_ALI("map ((?<verticalDir>\\w+)( (?<verticalNum>\\d+))?)?" +
@@ -30,5 +31,9 @@ public enum MapMenuCommands {
     private String regex;
     MapMenuCommands(String regex) {
         this.regex = regex;
+    }
+
+    public String getRegex() {
+        return regex;
     }
 }

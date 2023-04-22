@@ -10,6 +10,13 @@ public class GameMap {
         this.size=size;
         map = new Tile[size][size];
         //...
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++) {
+                map[i][j] = new Tile(height.GROUND,Texture.GROUND);
+                map[i][j].setColumnNum(j);
+                map[i][j].setRowNum(j);
+            }
+        }
     }
 
     public void updateMap(int xpos, int ypos) {
@@ -44,7 +51,29 @@ public class GameMap {
         return center;
     }
 
-    public void setCenter(Tile center) {
-        this.center = center;
+    public void setCenter(int row, int column) {
+        this.center = map[row][column];
+    }
+
+    public void setCenter(Tile tile) {
+        this.center = tile;
+    }
+
+    public void showMap(int halfSide) {
+        System.out.print("|");
+        int colNumber = halfSide * 2;
+        for (int i = 0; i < (2 * colNumber + 1); i++) {
+            System.out.print("-------|");
+        }
+        System.out.println();
+        for (int i = center.getRowNum() - halfSide; i < center.getRowNum() + halfSide + 1; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print("|");
+                for (int k = center.getColumnNum() - colNumber; k < center.getColumnNum() +colNumber + 1; k++) {
+                    System.out.print(map[i][k].show()[j]);
+                }
+                System.out.println();
+            }
+        }
     }
 }

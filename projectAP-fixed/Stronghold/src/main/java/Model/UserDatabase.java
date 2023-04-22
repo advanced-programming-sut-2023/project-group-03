@@ -1,9 +1,12 @@
 package Model;
 
+import Model.Field.GameMap;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class UserDatabase {
+    private static ArrayList<GameMap> maps = new ArrayList<>();
     private static ArrayList<User> users = new ArrayList<>();
     private static ArrayList<User> ranking = new ArrayList<>();
     public UserDatabase() {
@@ -45,5 +48,9 @@ public class UserDatabase {
 
     public static ArrayList<User> getRanking() {
         return ranking;
+    }
+
+    public static void addMap(GameMap map) {
+        maps.add(map);
     }
 }
