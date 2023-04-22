@@ -1,6 +1,7 @@
 package view.Game;
 
 import Model.Field.GameMap;
+import Model.GamePlay.Player;
 import Model.User;
 import Model.UserDatabase;
 import controller.ControllerFunctions;
@@ -34,13 +35,35 @@ public class MapMenu extends Menu {
             output = intializeSize();
             System.out.println(output);
         } while (output.equals("wrong input"));
+        do {
+            output = intializeNumberOfPlayers();
+            System.out.println(output);
+        } while (output.equals("Invalid command"));
         System.out.println(intializeName());
         map.showMap(displaySize);
         MapController mapController = new MapController(map);
+        Player currentPlayer = map.getPlayers()[0];
         while (true) {
             ConsoleColors.colorPrint(TEXT_GREEN, "your command:");
             String command = scanner.nextLine();
-            if (command.matches(MapMenuCommands.MOVE_ALI.getRegex())) {
+            if (command.matches("switch player: choose number of players from 1 to " + map.getNumberOfPlayers())) {
+                while (true) {
+                    command = scanner.nextLine();
+                    if (!command.matches("\\d+")) {
+                        System.out.println("a number please");
+                    } else if (Integer.parseInt(command) > map.getNumberOfPlayers()) {
+                        System.out.println("is greater than number of players");
+                    } else {
+                        System.out.println("player switched");
+                        currentPlayer = map.getPlayers()[Integer.parseInt(command) - 1];
+                        break;
+                    }
+                }
+            }
+            else if (command.matches(MapMenuCommands.SET_OWNER_REC.getRegex())) {
+                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_OWNER_REC.getRegex());
+                System.out.println(mapController.setOwner(matcher, currentPlayer));
+            } else if (command.matches(MapMenuCommands.MOVE_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.MOVE_ALI.getRegex());
                 System.out.println(mapController.moveMap(matcher));
             }
@@ -102,5 +125,20 @@ public class MapMenu extends Menu {
         map.setCenter(map.getSize()/ 2, map.getSize()/ 2);
         UserDatabase.addMap(map);
         return "setting name: "+command;
+    }
+
+    private String intializeNumberOfPlayers() {
+        colorPrint(TEXT_YELLOW, "choose number of players: 2 or 3 or 4");
+        String command = scanner.nextLine();
+        if (command.matches("2")) {
+            map.setNumberOfPlayers(2);
+        } else if (command.matches("3")) {
+            map.setNumberOfPlayers(3);
+        } else if (command.matches("4")) {
+            map.setNumberOfPlayers(4);
+        } else {
+            return ConsoleColors.formatPrinter(TEXT_RED, "", "Invalid command");
+        }
+        return ConsoleColors.formatPrinter("", "", "setting number of players: "+command);
     }
 }

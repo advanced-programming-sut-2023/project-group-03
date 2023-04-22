@@ -1,11 +1,15 @@
 package Model.Field;
 
+import Model.GamePlay.Player;
+
 public class GameMap {
     private int size;
     private Tile center;
     private Tile[][] map;
     private int numberOfPlayers;
     private String name;
+    private Player[] players = new Player[4];
+
     public GameMap(int size) {
         this.size=size;
         map = new Tile[size][size];
@@ -36,7 +40,27 @@ public class GameMap {
     }
 
     public void setNumberOfPlayers(int numberOfPlayers) {
+        if (this.numberOfPlayers > 1) {
+            return;
+        }
         this.numberOfPlayers = numberOfPlayers;
+        for (int i = 0; i < numberOfPlayers; i++) {
+            players[i] = new Player(null, null);
+            if (i == 0) {
+                players[i].setFlagColor(flagColors.RED);
+            } else if (i == 1) {
+                players[i].setFlagColor(flagColors.GREEN);
+            } else if (i == 2) {
+                players[i].setFlagColor(flagColors.BLUE);
+            } else if (i == 3) {
+                players[i].setFlagColor(flagColors.BLACK);
+            }
+        }
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++) {
+                map[i][j].setOwner(players[0]);
+            }
+        }
     }
 
     public String getName() {
@@ -75,5 +99,9 @@ public class GameMap {
                 System.out.println();
             }
         }
+    }
+
+    public Player[] getPlayers() {
+        return players;
     }
 }

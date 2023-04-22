@@ -1,5 +1,7 @@
 package Model.Units.Enums;
 
+import Model.Units.Combat.CombatUnit;
+
 public enum TroopTypes {
 
     ;
@@ -41,5 +43,10 @@ public enum TroopTypes {
 
     public int getSpeed() {
         return Speed;
+    }
+
+    public CombatUnit create(String name) {
+
+        return null;
     }
 }

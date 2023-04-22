@@ -3,11 +3,13 @@ package Model.GamePlay;
 import Model.Buildings.Enums.Resources;
 import Model.Units.Unit;
 import Model.User;
+import Model.Field.flagColors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
+    private flagColors flagColor;
     private Game game;
     private User user;
     private Government government;
@@ -19,7 +21,7 @@ public class Player {
     int fearFactor;
     int taxRate;
     int FoodRate;
-    HashMap<Resources, Integer> inventory;
+    HashMap<Resources, Integer> inventory = new HashMap<>();
 
     public Player(User user, Government government) {
         this.user = user;
@@ -139,6 +141,22 @@ public class Player {
 
     public HashMap<Resources, Integer> getInventory() {
         return inventory;
+    }
+
+    public void setFlagColor(flagColors flagColor) {
+        this.flagColor = flagColor;
+    }
+
+    public flagColors getFlagColor() {
+        return flagColor;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setGovernment(Government government) {
+        this.government = government;
     }
 
     public void setGame(Game game) {

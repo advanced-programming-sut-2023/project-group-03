@@ -106,7 +106,7 @@ public class Tile {
         ans[3]="-------|";
         ans[0] = ConsoleColors.formatPrinter("", texture.getColor(), numberOfUnits)+"|";
         ans[1] = ConsoleColors.formatPrinter("", texture.getColor(), coordinate) + "|";
-        ans[2] = ConsoleColors.formatPrinter("", texture.getColor(), "       ")+"|";
+        ans[2] = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), texture.getColor(), "flag   ")+"|";
         return ans;
     }
 }

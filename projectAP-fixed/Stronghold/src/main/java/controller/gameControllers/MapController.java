@@ -2,6 +2,7 @@ package controller.gameControllers;
 
 import Model.Buildings.Building;
 import Model.Field.*;
+import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
@@ -218,6 +219,10 @@ public class MapController extends Controller {
         if (targetTile.getMazafaza() != null) return ROCK_EXIST.getOutput();
         if (targetTile.getUnits().size() > 0) return UNIT_EXIST.getOutput();
         if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
+        return null;
+    }
+
+    public String setOwner(Matcher matcher, Player player) {
         return null;
     }
 }
