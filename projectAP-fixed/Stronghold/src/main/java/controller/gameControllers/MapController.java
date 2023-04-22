@@ -7,6 +7,7 @@ import Model.Units.Combat.Troop;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
 import controller.Controller;
+import controller.Enums.ControllerCommands;
 
 import java.util.HashMap;
 import java.util.Random;

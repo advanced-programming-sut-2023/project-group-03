@@ -1,6 +1,7 @@
 package controller;
 
 import Model.User;
+import controller.Enums.ControllerCommands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,16 +64,8 @@ public class ProfileMenuController extends UserBasedMenuController {
     }
 
     public String displayRank() {
-        String username = user.getUsername();
         updateRanking();
-        int rank = 0;
-        ArrayList<User> rankings = getRanking();
-        for (User player : rankings) {
-            rank++;
-            if (player.getUsername().equals(username)) break;
-        }
-
-        return DISPLAY_RANK.getOutput() + rank;
+        return String.valueOf(user.getRank());
     }
 
     public String displaySlogan() {
@@ -83,11 +76,12 @@ public class ProfileMenuController extends UserBasedMenuController {
 
     public String displayAllInfo() {
         String output = "";
-        output += "username: " + user.getUsername();
-        output += "nickname: " + user.getNickname();
-        output += "email: " + user.getEmail();
+        output += "username: " + user.getUsername() + "\n";
+        output += "nickname: " + user.getNickname() + "\n";
+        output += "email: " + user.getEmail() + "\n";
         if (user.getSlogan() != null) output += "slogan: " + user.getSlogan();
-
+        output += "highScore: " + user.getHighScore() + "\n";
+        output += "rank: " + user.getRank();
         return output;
     }
 

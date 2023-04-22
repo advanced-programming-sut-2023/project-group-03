@@ -103,6 +103,6 @@ public class LoginMenu extends Menu{
         colorPrint(ConsoleColors.TEXT_YELLOW, "back: backing to starting menu");
         colorPrint(ConsoleColors.TEXT_YELLOW, "possible command:");
         System.out.println("1.user login -u <username> -p <password>");
-        System.out.println("2.forgot password -u <username>");
+        System.out.println("2.forgot my password -u <username>");
     }
 }

@@ -1,5 +1,7 @@
 package controller;
 
+import controller.Enums.ControllerCommands;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;

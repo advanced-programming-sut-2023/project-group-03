@@ -1,6 +1,8 @@
 package controller;
 
 import Model.User;
+import controller.Enums.ControllerCommands;
+
 import java.lang.Thread;
 
 import java.util.HashMap;
@@ -18,7 +20,18 @@ public class LoginMenuController extends UserBasedMenuController {
 
     public String login(Matcher matcher, Scanner scanner) {
         String loginInfo = matcher.group("loginInfo");
+        String stayString = "--stay-logged-in";
+        boolean stay = false;
+
+        if (loginInfo.contains(stayString)) {
+            int place = loginInfo.indexOf(stayString);
+            if (place == 0) loginInfo = loginInfo.substring(stayString.length() + 1);
+            else loginInfo = loginInfo.substring(0, place - 1) + loginInfo.substring(place + stayString.length());
+            stay = true;
+        }
+
         HashMap<String, String> infoMap = getOptions(LOGIN_USER.getKeys(), loginInfo);
+
         if (infoMap.get("error") != null) return infoMap.get("error");
         String username = infoMap.get("u");
         String password = getEncryptedPassword(infoMap.get("p"));
@@ -32,6 +45,10 @@ public class LoginMenuController extends UserBasedMenuController {
         }
 
         if (!rightPassword) return BACK_TO_LOGIN_MENU.getOutput();
+
+        if (stay) {
+            user.setStayLoggedIn(true);
+        }
         return SUCCESSFUL_LOGIN.getOutput();
     }
 
