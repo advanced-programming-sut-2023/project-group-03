@@ -14,6 +14,9 @@ import static controller.Enums.InputOptions.*;
 import static controller.Enums.Response.*;
 
 public class MapController extends Controller {
+    private int gameWidth = 10;
+    private int gameLength = gameWidth * 2;
+    
     GameMap gameMap;
     public MapController(GameMap gameMap) {
         this.gameMap = gameMap;
@@ -53,6 +56,10 @@ public class MapController extends Controller {
 
         if (x > gameMap.getSize() - 10 || x < 10) return INVALID_X_MAP.getOutput();
         if (y > gameMap.getSize() - 10 || y < 10) return INVALID_Y_MAP.getOutput();
+
+        if (x > gameMap.getSize() - gameLength || x < gameLength) return INVALID_X_MAP.getOutput();
+        if (y > gameMap.getSize() - gameWidth || y < gameWidth) return INVALID_Y_MAP.getOutput();
+
         gameMap.setCenter(gameMap.getMap()[x][y]);
         return SUCCESSFUL_SHOW_MAP.getOutput();
     }
@@ -70,8 +77,8 @@ public class MapController extends Controller {
         int finalX = centerTile.getRowNum() + (verticalDir.equals("up") ? verticalNum : -verticalNum);
         int finalY = centerTile.getColumnNum() + (horizontalDir.equals("right") ? horizontalNum : -horizontalNum);
 
-        if (finalX > gameMap.getSize() - 10 || finalX < 10) return INVALID_FINAL_X_VALUE.getOutput();
-        if (finalY > gameMap.getSize() - 10 || finalY < 10) return INVALID_FINAL_Y_VALUE.getOutput();
+        if (finalX > gameMap.getSize() - gameLength || finalX < gameLength) return INVALID_FINAL_X_VALUE.getOutput();
+        if (finalY > gameMap.getSize() - gameWidth || finalY < gameWidth) return INVALID_FINAL_Y_VALUE.getOutput();
 
         gameMap.setCenter(gameMap.getMap()[finalX][finalY]);
         return SUCCESSFUL_MOVE_MAP.getOutput();
