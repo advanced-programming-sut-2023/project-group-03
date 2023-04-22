@@ -1,7 +1,7 @@
 package view;
 
-import Model.GamePlay.Game;
-import Model.User;
+import model.GamePlay.Game;
+import model.User;
 
 public class Transition extends Exception{
     private Menu destMenu;

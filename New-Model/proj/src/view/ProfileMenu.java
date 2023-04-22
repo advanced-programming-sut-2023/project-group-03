@@ -1,6 +1,6 @@
 package view;
 
-import Model.User;
+import model.User;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;

@@ -1,6 +1,6 @@
 package view.Game;
 
-import Model.Field.GameMap;
+import model.Field.GameMap;
 import view.Menu;
 import view.Transition;
 

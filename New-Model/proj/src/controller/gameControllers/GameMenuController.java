@@ -1,11 +1,9 @@
 package controller.gameControllers;
 
-import java.util.regex.Matcher;
+import model.GamePlay.Game;
+import model.Units.Unit;
 
-import Model.GamePlay.Game;
-import Model.Units.Unit;
-
-import Model.User;
+import model.User;
 import controller.Controller;
 
 public class GameMenuController extends Controller {
