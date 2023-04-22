@@ -5,6 +5,7 @@ import Model.Field.Tile;
 import java.util.ArrayList;
 
 public abstract class Drawable {
+    protected String name;
     protected Player owner;
     protected Tile position;
     protected ArrayList<Tile> tiles;

@@ -28,7 +28,7 @@ public class MapMenu extends Menu {
 
     @Override
     public void run() throws Transition {
-        int displaySize = 5;
+        int displaySize = 3;
         String output;
         do {
             output = intializeSize();
