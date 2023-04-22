@@ -27,4 +27,6 @@ public abstract class CombatUnit extends Unit {
 
     public void getHit(int value){
     }
+
+
 }

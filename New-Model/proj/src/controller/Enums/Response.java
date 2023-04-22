@@ -51,9 +51,24 @@ public enum Response {
     //map
     INVALID_X_MAP("Invalid x value!"),
     INVALID_Y_MAP("Invalid y value!"),
+    INVALID_VERTICAL_DIRECTION("Invalid direction for vertical move!"),
+    INVALID_HORIZONTAL_DIRECTION("Invalid direction for horizontal move!"),
+    INVALID_FINAL_X_VALUE("Invalid final x value!"),
+    INVALID_FINAL_Y_VALUE("Invalid final y value!"),
     SUCCESSFUL_SHOW_MAP("game's map:"),
+    SUCCESSFUL_MOVE_MAP("game's map:"),
+    //set environment
     INVALID_TEXTURE("Invalid texture."),
-
+    BUILDING_EXIST("There is a building here..."),
+    SUCCESSFUL_SETTEXTURE("successful set texture."),
+    SUCCESSFUL_CLEAR_TILE("successful clear tile"),
+    ////drop rock
+    INVALID_ROCK_DIRECTION("The given direction is invalid. Enter one of n, e, w, s, r."),
+    ROCK_EXIST("There is a rock or tree in this place already."),
+    UNIT_EXIST("There is a unit here..."),
+    SUCCESSFUL_DROP_ROCK("successful drop rock"),
+    SUCCESSFUL_DROP_TREE("successful_drop_tree"),
+    INVALID_TREE("There is no such a tree in the game."),
     //kingdom
     INVALID_FOOD_RATE("Invalid food rate! -3 < food rate < 3"),
     INVALID_TAX_RATE("Invalid tax rate! -4 < tax rate < 9"),

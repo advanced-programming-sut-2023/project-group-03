@@ -10,8 +10,10 @@ public enum InputOptions {
     LOGIN_USER(new ArrayList<>(Arrays.asList("u", "p"))),
     CHANGE_PASSWORD(new ArrayList<>(Arrays.asList("o", "n"))),
     //map
-    SHOW_MAP(new ArrayList<>(Arrays.asList("x", "y"))),
+    COORDINATES(new ArrayList<>(Arrays.asList("x", "y"))),
     SET_TEXTURE(new ArrayList<>(Arrays.asList("x", "y", "t"))),
+    DROP_ROCK(new ArrayList<>(Arrays.asList("x", "y", "d"))),
+    DROP_TREE(new ArrayList<>(Arrays.asList("x", "y", "t")))
 
     ;
     private ArrayList<String> keys;

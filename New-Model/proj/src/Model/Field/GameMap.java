@@ -39,4 +39,12 @@ public class GameMap {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Tile getCenter() {
+        return center;
+    }
+
+    public void setCenter(Tile center) {
+        this.center = center;
+    }
 }

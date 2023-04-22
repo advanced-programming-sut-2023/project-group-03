@@ -1,13 +1,18 @@
 package controller.gameControllers;
 
-import Model.Field.Texture;
+import Model.Buildings.Building;
+import Model.Field.*;
+import Model.Units.Combat.CombatUnit;
+import Model.Units.Combat.Troop;
+import Model.Units.Enums.TroopTypes;
+import Model.Units.Unit;
 import controller.Controller;
 
 import java.util.HashMap;
+import java.util.Random;
 import java.util.regex.Matcher;
 import static controller.Enums.InputOptions.*;
 import static controller.Enums.Response.*;
-import Model.Field.GameMap;
 
 public class MapController extends Controller {
     GameMap gameMap;
@@ -36,8 +41,8 @@ public class MapController extends Controller {
     }
 
     public String showMap(Matcher matcher) {
-        String mapCoordinates = matcher.group("mapCoordinates");
-        HashMap<String, String> coordinates = getOptions(SHOW_MAP.getKeys(), mapCoordinates);
+        String mapCoordinates = matcher.group("coordinatesInfo");
+        HashMap<String, String> coordinates = getOptions(COORDINATES.getKeys(), mapCoordinates);
         String error = coordinates.get("error");
         if (error != null) return error;
 
@@ -47,18 +52,64 @@ public class MapController extends Controller {
         int x = Integer.parseInt(coordinates.get("x")) - 1;
         int y = Integer.parseInt(coordinates.get("y")) - 1;
 
-        //show the given map
+        if (x > gameMap.getSize() - 10 || x < 10) return INVALID_X_MAP.getOutput();
+        if (y > gameMap.getSize() - 10 || y < 10) return INVALID_Y_MAP.getOutput();
+
+        gameMap.setCenter(gameMap.getMap()[x][y]);
         return SUCCESSFUL_SHOW_MAP.getOutput();
     }
-    public void moveMap(Matcher matcher) {
+    public String moveMap(Matcher matcher) {
+        String verticalDir = matcher.group("verticalDir");
+        int verticalNum = Integer.parseInt(matcher.group("verticalNum"));
+        String horizontalDir = matcher.group("horizontalDir");
+        int horizontalNum = Integer.parseInt(matcher.group("horizontalNum"));
 
+        if (!(verticalDir.equals("up") || verticalDir.equals("down"))) return INVALID_VERTICAL_DIRECTION.getOutput();
+        if (!(horizontalDir.equals("right") || horizontalDir.equals("left"))) return INVALID_HORIZONTAL_DIRECTION.getOutput();
+
+        Tile centerTile = gameMap.getCenter();
+
+        int finalX = centerTile.getXpos() + (verticalDir.equals("up") ? verticalNum : -verticalNum);
+        int finalY = centerTile.getYpos() + (horizontalDir.equals("right") ? horizontalNum : -horizontalNum);
+
+        if (finalX > gameMap.getSize() - 10 || finalX < 10) return INVALID_FINAL_X_VALUE.getOutput();
+        if (finalY > gameMap.getSize() - 10 || finalY < 10) return INVALID_FINAL_Y_VALUE.getOutput();
+
+        gameMap.setCenter(gameMap.getMap()[finalX][finalY]);
+        return SUCCESSFUL_MOVE_MAP.getOutput();
     }
-    public void showDetails(Matcher matcher) {
+    public String showDetails(Matcher matcher) {
+        String mapCoordinates = matcher.group("coordinatesInfo");
+        HashMap<String, String> coordinates = getOptions(COORDINATES.getKeys(), mapCoordinates);
+        String error = coordinates.get("error");
+        if (error != null) return error;
 
-    }
+        String checkCoordinatesResult = checkCoordinates(coordinates, "x", "y");
+        if (checkCoordinatesResult != null) return checkCoordinatesResult;
 
-    public String checkSetTextureRequirements(int x, int y) {
-        return "";
+        int x = Integer.parseInt(coordinates.get("x")) - 1;
+        int y = Integer.parseInt(coordinates.get("y")) - 1;
+        Tile targetTile = gameMap.getMap()[x][y];
+        String output = "";
+        output += "texture: " + targetTile.getTexture().name() + "\n";
+        if (targetTile.getTexture().getResource() != null)
+            output += "resource: " + targetTile.getTexture().getResource() + "\n";
+
+        HashMap<TroopTypes, Integer> troopTypesCounter = new HashMap<>();
+        for (TroopTypes troopType : TroopTypes.values()) troopTypesCounter.put(troopType, 0);
+        for (Unit unit : targetTile.getUnits()) {
+            if (unit instanceof Troop) {
+                Troop troop = (Troop) unit;
+                troopTypesCounter.put(troop.getType(), troopTypesCounter.get(troop.getType()) + 1);
+            }
+        }
+
+        for (TroopTypes troopType : TroopTypes.values()) {
+            output += troopType.getName() + ": " + troopTypesCounter.get(troopType) + "\n";
+        }
+
+        //need to add building too
+        return output;
     }
 
     public String setTexture(Matcher matcher) {
@@ -76,31 +127,88 @@ public class MapController extends Controller {
         Texture texture = Texture.getByName(infoMap.get("t"));
         if (texture == null) return INVALID_TEXTURE.getOutput();
 
+        Tile targetTile = gameMap.getMap()[x][y];
+        if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
 
-        //any kind of texture including oil and water ...
-        return "";
+        targetTile.setTexture(texture);
+        return SUCCESSFUL_SETTEXTURE.getOutput();
     }
 
-    public void clearField(Matcher matcher) {
+    public String clearField(Matcher matcher) {
+        String mapCoordinates = matcher.group("coordinatesInfo");
+        HashMap<String, String> coordinates = getOptions(COORDINATES.getKeys(), mapCoordinates);
+        String error = coordinates.get("error");
+        if (error != null) return error;
 
-    }
+        String checkCoordinatesResult = checkCoordinates(coordinates, "x", "y");
+        if (checkCoordinatesResult != null) return checkCoordinatesResult;
 
-    public String checkDropRockRequirements(int x, int y) {
-        //check direction and position
-        return "";
+        int x = Integer.parseInt(coordinates.get("x")) - 1;
+        int y = Integer.parseInt(coordinates.get("y")) - 1;
+
+        Tile targetTile = gameMap.getMap()[x][y];
+
+        for (Unit unit : targetTile.getUnits()) unit.remove();
+        Building building = targetTile.getBuilding();
+        if (building != null) building.remove();
+
+        gameMap.getMap()[x][y] = new Tile(height.GROUND, Texture.GROUND);
+        return SUCCESSFUL_CLEAR_TILE.getOutput();
     }
 
     public String dropRock(Matcher matcher) {
-        return "";
-    }
+        String dropRockInfo = matcher.group("dropRockInfo");
+        HashMap<String, String> infoMap = getOptions(DROP_ROCK.getKeys(), dropRockInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
 
-    public String checkDropTreeRequirements(int x, int y) {
-        //check type of tree
-        //check texture of the ground
-        return "";
+        String checkCoordinatesResult = checkCoordinates(infoMap, "x", "y");
+        if (checkCoordinatesResult != null) return checkCoordinatesResult;
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        String direction = infoMap.get("d");
+        String allDirections = "news";
+        if (direction.equals("r")) infoMap.put("r", String.valueOf(allDirections.charAt(new Random().nextInt(allDirections.length()))));
+        else if (direction.length() > 1 || !allDirections.contains(direction)) return INVALID_ROCK_DIRECTION.getOutput();
+
+        Tile targetTile = gameMap.getMap()[x][y];
+
+        String checkDropMazafazaResult = checkDropMazafaza(targetTile);
+        if (checkDropMazafazaResult != null) return checkDropMazafazaResult;
+
+        targetTile.setMazafaza(mazafaza.getMazafazaByName("rock" + direction.toUpperCase()));
+        return SUCCESSFUL_DROP_ROCK.getOutput();
     }
 
     public String dropTree(Matcher matcher) {
-        return "";
+        String dropRockInfo = matcher.group("dropTreeInfo");
+        HashMap<String, String> infoMap = getOptions(DROP_TREE.getKeys(), dropRockInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String checkCoordinatesResult = checkCoordinates(infoMap, "x", "y");
+        if (checkCoordinatesResult != null) return checkCoordinatesResult;
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        mazafaza mazafazaTarget = mazafaza.getMazafazaByName(infoMap.get("t"));
+        if (mazafazaTarget == null) return INVALID_TREE.getOutput();
+
+        Tile targetTile = gameMap.getMap()[x][y];
+
+        String checkDropMazafazaResult = checkDropMazafaza(targetTile);
+        if (checkDropMazafazaResult != null) return checkDropMazafazaResult;
+
+        targetTile.setMazafaza(mazafazaTarget);
+
+        return SUCCESSFUL_DROP_TREE.getOutput();
+    }
+
+    private String checkDropMazafaza(Tile targetTile) {
+        if (targetTile.getMazafaza() != null) return ROCK_EXIST.getOutput();
+        if (targetTile.getUnits().size() > 0) return UNIT_EXIST.getOutput();
+        if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
+        return null;
     }
 }

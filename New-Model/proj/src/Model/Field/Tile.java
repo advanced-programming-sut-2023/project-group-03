@@ -77,4 +77,24 @@ public class Tile {
     public void setOwner(Player owner) {
         this.owner = owner;
     }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
+    public Model.Field.mazafaza getMazafaza() {
+        return mazafaza;
+    }
+
+    public void setMazafaza(Model.Field.mazafaza mazafaza) {
+        this.mazafaza = mazafaza;
+    }
+
+    public ArrayList<Unit> getUnits() {
+        return units;
+    }
 }
