@@ -50,7 +50,14 @@ public class LoginMenuController extends UserBasedMenuController {
         return true;
     }
 
-    public String forgotPassword(Scanner scanner, User user) {
+    public String forgotPasswordGetUsername(Matcher matcher, Scanner scanner) {
+        String username = matcher.group("username");
+        User user = getUserByName(username);
+        if (user == null) return UNKNOWN_USERNAME.getOutput();
+        return forgotPassword(scanner, user);
+    }
+
+    private String forgotPassword(Scanner scanner, User user) {
         String securityQuestion = user.getSecurityQuestion();
         String answer = getAnswer(scanner, securityQuestion);;
         while (!getEncryptedPassword(answer).equals(user.getRecoveryPass())){
