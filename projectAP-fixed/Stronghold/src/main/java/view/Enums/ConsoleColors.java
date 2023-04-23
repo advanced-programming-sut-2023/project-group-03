@@ -51,4 +51,28 @@ public class ConsoleColors {
         String s = txtColor + bgColor + toPrint + TEXT_RESET;
         return s;
     }
+    public static String getColorByBynumber(int number) {
+        if (number < 0) {
+            number = -number;
+        }
+        if (number % 6 == 0) {
+            return TEXT_RESET;
+        }
+        if (number % 5 == 0) {
+            return TEXT_RED;
+        }
+        if (number % 5 == 1) {
+            return TEXT_YELLOW;
+        }
+        if (number % 5 == 2) {
+            return TEXT_GREEN;
+        }
+        if (number % 5 == 3) {
+            return TEXT_BLUE;
+        }
+        if (number % 5 == 4) {
+            return TEXT_BRIGHT_PURPLE;
+        }
+        return null;
+    }
 }
