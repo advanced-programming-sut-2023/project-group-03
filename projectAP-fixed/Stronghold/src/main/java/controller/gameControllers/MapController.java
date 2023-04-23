@@ -15,8 +15,8 @@ import static controller.Enums.InputOptions.*;
 import static controller.Enums.Response.*;
 
 public class MapController extends Controller {
-    private int gameWidth = 3;
-    private int gameLength = gameWidth * 2;
+    private final int gameWidth = 3;
+    private final int gameLength = gameWidth * 2;
     
     GameMap gameMap;
     public MapController(GameMap gameMap) {
@@ -54,9 +54,6 @@ public class MapController extends Controller {
 
         int x = Integer.parseInt(coordinates.get("x")) - 1;
         int y = Integer.parseInt(coordinates.get("y")) - 1;
-
-        if (x > gameMap.getSize() - 10 || x < 10) return INVALID_X_MAP.getOutput();
-        if (y > gameMap.getSize() - 10 || y < 10) return INVALID_Y_MAP.getOutput();
 
         if (x > gameMap.getSize() - gameLength || x < gameLength) return INVALID_X_MAP.getOutput();
         if (y > gameMap.getSize() - gameWidth || y < gameWidth) return INVALID_Y_MAP.getOutput();
@@ -160,6 +157,42 @@ public class MapController extends Controller {
         if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
 
         targetTile.setTexture(texture);
+        return SUCCESSFUL_SETTEXTURE.getOutput();
+    }
+
+    public String setTextureRectangle(Matcher matcher) {
+        String textureInfo = matcher.group("setTextureInfo");
+        HashMap<String, String> infoMap = getOptions(SET_TEXTURE_RECTANGLE.getKeys(), textureInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String checkCoordinates = checkCoordinates(infoMap, "x1", "y1");
+        if (checkCoordinates != null) return  checkCoordinates;
+        String checkCoordinates2 = checkCoordinates(infoMap, "x2", "y2");
+        if (checkCoordinates2 != null) return  checkCoordinates2;
+
+        int row1 = Integer.parseInt(infoMap.get("x1")) - 1;
+        int col1 = Integer.parseInt(infoMap.get("y1")) - 1;
+        int row2 = Integer.parseInt(infoMap.get("x2")) - 1;
+        int col2 = Integer.parseInt(infoMap.get("y2")) - 1;
+
+        if (row1 > row2 || col1 > col2) return INVALID_RECTANGLE.getOutput();
+
+        for (int row = row1; row < row2; row++) {
+            for (int col = col1; col < col2; col++) {
+                if (gameMap.getMap()[row][col].getBuilding() != null) return BUILDING_EXIST_RECTANGLE.getOutput();
+            }
+        }
+
+        Texture targetTexture = Texture.getByName(infoMap.get("t"));
+        if (targetTexture == null) return INVALID_TEXTURE.getOutput();
+
+        for (int row = row1; row < row2; row++) {
+            for (int col = col1; col < col2; col++) {
+                gameMap.getMap()[row][col].setTexture(targetTexture);
+            }
+        }
+
         return SUCCESSFUL_SETTEXTURE.getOutput();
     }
 

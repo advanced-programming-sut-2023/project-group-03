@@ -55,11 +55,13 @@ public enum Response {
     INVALID_HORIZONTAL_DIRECTION("Invalid direction for horizontal move!"),
     INVALID_FINAL_X_VALUE("Invalid final x value!"),
     INVALID_FINAL_Y_VALUE("Invalid final y value!"),
+    INVALID_RECTANGLE("Given coordinates are not valid. Enter top-left and bottom-right of the rectangle."),
     SUCCESSFUL_SHOW_MAP("game's map:"),
     SUCCESSFUL_MOVE_MAP("game's map:"),
     //set environment
     INVALID_TEXTURE("Invalid texture."),
     BUILDING_EXIST("There is a building here..."),
+    BUILDING_EXIST_RECTANGLE("There is a building in this location: "),
     SUCCESSFUL_SETTEXTURE("successful set texture."),
     SUCCESSFUL_CLEAR_TILE("successful clear tile"),
     ////drop rock
