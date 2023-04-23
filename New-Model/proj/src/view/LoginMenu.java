@@ -1,7 +1,7 @@
 package view;
 
 
-import model.User;
+import Model.User;
 import view.Enums.LoginMenuCommands;
 
 import java.util.ArrayList;

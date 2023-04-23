@@ -1,12 +1,12 @@
 package controller;
 
-import model.User;
+import Model.User;
 
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import static controller.Enums.InputOptions.*;
-import static model.UserDatabase.getUserByName;
+import static Model.UserDatabase.getUserByName;
 import static controller.Enums.Response.*;
 import static view.LoginMenu.*;
 

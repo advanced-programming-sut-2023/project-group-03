@@ -1,6 +1,6 @@
 package controller;
 
-import model.User;
+import Model.User;
 import controller.Enums.InputOptions;
 import view.SignUpMenu;
 
@@ -12,7 +12,7 @@ import static view.Enums.SignUpMenuCommands.*;
 import static controller.Enums.ControllerCommands.*;
 import static controller.Enums.Response.*;
 import static controller.ControllerFunctions.*;
-import static model.UserDatabase.*;
+import static Model.UserDatabase.*;
 import static view.SignUpMenu.*;
 
 public class RegisterMenuController extends UserBasedMenuController {

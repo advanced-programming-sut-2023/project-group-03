@@ -1,6 +1,6 @@
 package view;
 
-import model.User;
+import Model.User;
 import view.Enums.ConsoleColors;
 
 import java.util.Scanner;
