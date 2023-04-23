@@ -1,6 +1,10 @@
 package controller.gameControllers;
 
-import Model.Buildings.Building;
+import Model.Buildings.*;
+import Model.Buildings.Enums.BarracksType;
+import Model.Buildings.Enums.GeneratorTypes;
+import Model.Buildings.Enums.InventoryTypes;
+import Model.Buildings.Enums.RestTypes;
 import Model.Field.*;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Throwers;
@@ -11,6 +15,7 @@ import Model.Units.Enums.TroopTypes;
 import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
 import controller.Controller;
+import controller.Enums.InputOptions;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -295,6 +300,10 @@ public class MapController extends Controller {
         int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         Tile targetTile = gameMap.getMap()[x][y];
+        Texture targetTileTexture = targetTile.getTexture();
+
+        if (targetTileTexture.getName().equals("water") || targetTileTexture.getName().equals("oil"))
+            return INVALID_TILE_DROP_UNIT.getOutput();
 
         if (!infoMap.get("c").matches("\\d+")) return INVALID_UNIT_AMOUNT.getOutput();
         int amount = Integer.parseInt(infoMap.get("c"));
@@ -328,7 +337,88 @@ public class MapController extends Controller {
         return INVALID_UNIT_TYPE.getOutput();
     }
 
+    public String dropBuilding(Matcher matcher, Player player) {
+        String unitInfo = matcher.group("buildingInfo");
+        HashMap<String, String> infoMap = getOptions(DROP_BUILDING.getKeys(), unitInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String checkCoordinatesResult = checkCoordinates(infoMap, "x", "y");
+        if (checkCoordinatesResult != null) return checkCoordinatesResult;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        Tile targetTile = gameMap.getMap()[x][y];
+        Texture tileTexture = targetTile.getTexture();
+
+        if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
+
+        String type = infoMap.get("t");
+
+        //targetTile owner changes
+
+        BarracksType barracksType = BarracksType.getBuildingTypeByName(type);
+        if (barracksType != null) {
+            if (!barracksType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
+            targetTile.setBuilding(new Barracks(player, targetTile, barracksType));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
+        }
+
+        GeneratorTypes generatorType = GeneratorTypes.getBuildingTypeByName(type);
+        if (generatorType != null) {
+            if (!generatorType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
+            targetTile.setBuilding(new Generators(player, targetTile, generatorType));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
+        }
+
+        RestTypes restType = RestTypes.getBuildingTypeByName(type);
+        if (restType != null) {
+            if (!restType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
+            targetTile.setBuilding(new Rest(player, targetTile, restType));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
+        }
+
+        InventoryTypes inventoryType = InventoryTypes.getBuildingTypeByName(type);
+        if (inventoryType != null) {
+            if (!inventoryType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
+            targetTile.setBuilding(new Inventory(player, targetTile, inventoryType));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
+        }
+
+        return INVALID_BUILDING_TYPE.getOutput();
+    }
+
     public String setOwner(Matcher matcher, Player player) {
-        return null;
+        String setOwnerInfo = matcher.group("setOwnerInfo");
+        HashMap<String, String> infoMap = getOptions(COORDINATES_RECTANGULAR.getKeys(), setOwnerInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String checkCoordinates = checkCoordinates(infoMap, "x1", "y1");
+        if (checkCoordinates != null) return  checkCoordinates;
+        String checkCoordinates2 = checkCoordinates(infoMap, "x2", "y2");
+        if (checkCoordinates2 != null) return  checkCoordinates2;
+
+        int row1 = Integer.parseInt(infoMap.get("x1")) - 1;
+        int col1 = Integer.parseInt(infoMap.get("y1")) - 1;
+        int row2 = Integer.parseInt(infoMap.get("x2")) - 1;
+        int col2 = Integer.parseInt(infoMap.get("y2")) - 1;
+
+        if (row1 > row2 || col1 > col2) return INVALID_RECTANGLE.getOutput();
+
+        for (int row = row1; row < row2; row++) {
+            for (int col = col1; col < col2; col++) {
+                if (gameMap.getMap()[row][col].getBuilding() != null) return BUILDING_EXIST_RECTANGLE.getOutput();
+            }
+        }
+
+        for (int row = row1; row < row2; row++) {
+            for (int col = col1; col < col2; col++) {
+                gameMap.getMap()[row][col].setOwner(player);
+            }
+        }
+
+        return SUCCESSFUL_SET_OWNER.getOutput();
     }
 }

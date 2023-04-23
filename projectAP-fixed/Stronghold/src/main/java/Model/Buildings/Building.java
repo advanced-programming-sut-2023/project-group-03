@@ -18,4 +18,8 @@ public abstract class Building extends Drawable {
     public Building(Player owner, Tile position) {
         super(owner, position);
     }
+
+    public HashSet<Texture> getTextures() {
+        return textures;
+    }
 }

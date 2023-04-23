@@ -11,11 +11,13 @@ public enum InputOptions {
     CHANGE_PASSWORD(new ArrayList<>(Arrays.asList("o", "n"))),
     //map
     COORDINATES(new ArrayList<>(Arrays.asList("x", "y"))),
+    COORDINATES_RECTANGULAR(new ArrayList<>(Arrays.asList("x1", "y1", "x2", "y2"))),
     SET_TEXTURE(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     SET_TEXTURE_RECTANGLE(new ArrayList<>(Arrays.asList("x1", "y1", "x2", "y2", "t"))),
     DROP_ROCK(new ArrayList<>(Arrays.asList("x", "y", "d"))),
     DROP_TREE(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     DROP_UNIT(new ArrayList<>(Arrays.asList("x", "y", "t", "c"))),
+    DROP_BUILDING(new ArrayList<>(Arrays.asList("x", "y", "t"))),
 
     ;
     private ArrayList<String> keys;

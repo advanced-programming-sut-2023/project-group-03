@@ -1,5 +1,10 @@
 package Model.Buildings.Enums;
 
+import Model.Field.Texture;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public enum GeneratorTypes {
 //    MILL,
 //    INN,
@@ -25,6 +30,7 @@ public enum GeneratorTypes {
 //    HOVEL,
 //    CHURCH;
     ;
+    private String name;
     private int rate;
     private int inventory;
     private int capacity;
@@ -33,8 +39,10 @@ public enum GeneratorTypes {
     private int wood;
     private int gold;
     private int worker;
+    private HashSet<Texture> textures;
 
-    GeneratorTypes(int rate, int inventory, int capacity, Resources product, Resources use, int wood, int gold, int worker) {
+    GeneratorTypes(String name, int rate, int inventory, int capacity, Resources product, Resources use, int wood, int gold, int worker, HashSet<Texture> textures) {
+        this.name = name;
         this.rate = rate;
         this.inventory = inventory;
         this.capacity = capacity;
@@ -43,6 +51,7 @@ public enum GeneratorTypes {
         this.wood = wood;
         this.gold = gold;
         this.worker = worker;
+        this.textures = textures;
     }
 
     public int getInventory() {
@@ -75,5 +84,16 @@ public enum GeneratorTypes {
 
     public int getWorker() {
         return worker;
+    }
+
+    public HashSet<Texture> getTextures() {
+        return textures;
+    }
+
+    public static GeneratorTypes getBuildingTypeByName(String name) {
+        for (GeneratorTypes type : GeneratorTypes.values()) {
+            if (type.name.equals(name)) return type;
+        }
+        return null;
     }
 }

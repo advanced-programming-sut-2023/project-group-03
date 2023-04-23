@@ -74,8 +74,14 @@ public enum Response {
     ////drop unit
     UNIT_NOT_ACCESS("You don't have access to this tile."),
     INVALID_UNIT_AMOUNT("Invalid number for amount of units."),
-    SUCCESSFUL_DROP_UNIT("successful drop unit"),
+    SUCCESSFUL_DROP_UNIT("Successfully drop unit!"),
+    INVALID_TILE_DROP_UNIT("You can't drop your unit on a tile with this texture."),
     INVALID_UNIT_TYPE("Invalid unit type."),
+    ////drop building
+    DROP_BUILDING_TEXTURE("You can't build the given building on a tile with this texture."),
+    SUCCESSFUL_DROP_BUILDING("Successfully dropped building!"),
+    ////set owner
+    SUCCESSFUL_SET_OWNER("Successfully set owner."),
     //kingdom
     INVALID_FOOD_RATE("Invalid food rate! -3 < food rate < 3"),
     INVALID_TAX_RATE("Invalid tax rate! -4 < tax rate < 9"),

@@ -24,11 +24,13 @@ public enum MapMenuCommands {
     DROPTREE_ALI("^droptree (?<dropTreeInfo>.+)"),
     DROPTREE("droptree (?=.*-x\\s+(?<x>\\d+))" +
             "(?=.*-y\\s+(?<y>\\d+))(?=.*-t\\s+(?<type>\\S+))"),
+    DROP_BUILDING_ALI("^dropbuilding (?<buildingInfo>.+)$"),
     DROPBUILDING("dropbuilding (?=.*-x\\s+(?<x>\\d+))" +
             "(?=.*-y\\s+(?<y>\\d+))(?=.*-t\\s+(?<type>\\S+))"),
-    DROP_UNIT_ALI("dropunit (?<unitInfo>.+)"),
+    DROP_UNIT_ALI("^dropunit (?<unitInfo>.+)"),
     DROPUNIT("dropunit (?=.*-x\\s+(?<x>\\d+))" +
             "(?=.*-y\\s+(?<y>\\d+))(?=.*-t\\s+(?<type>\\S+))(?=.*-c\\s+(?<count>\\d+))"),
+    SET_OWNER_ALI("^set owner (?<setOwnerInfo>.+)"),
     ;
     private String regex;
     MapMenuCommands(String regex) {

@@ -35,6 +35,10 @@ public enum Texture
         return this.resource;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getColor() {
         if (name.equals("ground")) {
             return (ConsoleColors.TEXT_BRIGHT_BG_BLACK);
