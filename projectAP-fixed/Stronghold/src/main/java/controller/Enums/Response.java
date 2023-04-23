@@ -71,6 +71,11 @@ public enum Response {
     SUCCESSFUL_DROP_ROCK("successful drop rock"),
     SUCCESSFUL_DROP_TREE("successful_drop_tree"),
     INVALID_TREE("There is no such a tree in the game."),
+    ////drop unit
+    UNIT_NOT_ACCESS("You don't have access to this tile."),
+    INVALID_UNIT_AMOUNT("Invalid number for amount of units."),
+    SUCCESSFUL_DROP_UNIT("successful drop unit"),
+    INVALID_UNIT_TYPE("Invalid unit type."),
     //kingdom
     INVALID_FOOD_RATE("Invalid food rate! -3 < food rate < 3"),
     INVALID_TAX_RATE("Invalid tax rate! -4 < tax rate < 9"),

@@ -3,8 +3,12 @@ package controller.gameControllers;
 import Model.Buildings.Building;
 import Model.Field.*;
 import Model.GamePlay.Player;
+import Model.Units.Combat.Throwers;
 import Model.Units.Combat.Troop;
+import Model.Units.Combat.WallClimber;
+import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
+import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
 import controller.Controller;
 
@@ -276,6 +280,52 @@ public class MapController extends Controller {
         if (targetTile.getUnits().size() > 0) return UNIT_EXIST.getOutput();
         if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
         return null;
+    }
+
+    public String dropUnit(Matcher matcher, Player player) {
+        String unitInfo = matcher.group("unitInfo");
+        HashMap<String, String> infoMap = getOptions(DROP_UNIT.getKeys(), unitInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String checkCoordinatesResult = checkCoordinates(infoMap, "x", "y");
+        if (checkCoordinatesResult != null) return checkCoordinatesResult;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        Tile targetTile = gameMap.getMap()[x][y];
+
+        if (!infoMap.get("c").matches("\\d+")) return INVALID_UNIT_AMOUNT.getOutput();
+        int amount = Integer.parseInt(infoMap.get("c"));
+
+        String type = infoMap.get("t");
+
+        ThrowerTypes throwerType = ThrowerTypes.getThrowerTypeByName(type);
+        if (throwerType != null) {
+            for (int i = 0; i < amount; i++) {
+                new Throwers(player, targetTile, throwerType);
+            }
+            return SUCCESSFUL_DROP_UNIT.getOutput();
+        }
+
+        TroopTypes troopType = TroopTypes.getTroopTypeByName(type);
+        if (troopType != null) {
+            for (int i = 0; i < amount; i++) {
+                new Troop(player, targetTile, troopType);
+            }
+            return SUCCESSFUL_DROP_UNIT.getOutput();
+        }
+
+        WallClimberTypes wallClimberType = WallClimberTypes.getWallClimberType(type);
+        if (wallClimberType != null) {
+            for (int i = 0; i < amount; i++) {
+                new WallClimber(player, targetTile);
+            }
+            return SUCCESSFUL_DROP_UNIT.getOutput();
+        }
+
+        return INVALID_UNIT_TYPE.getOutput();
     }
 
     public String setOwner(Matcher matcher, Player player) {

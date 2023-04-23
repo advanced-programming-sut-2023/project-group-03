@@ -47,4 +47,11 @@ public enum ThrowerTypes {
     public int getSpeed() {
         return Speed;
     }
+
+    public static ThrowerTypes getThrowerTypeByName(String name) {
+        for (ThrowerTypes throwerType : ThrowerTypes.values()) {
+            if (throwerType.name.equals(name)) return throwerType;
+        }
+        return null;
+    }
 }

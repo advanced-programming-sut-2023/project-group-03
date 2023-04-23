@@ -2,12 +2,13 @@ package Model.Units.Combat;
 
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.Units.Enums.ThrowerTypes;
 
 public class Throwers extends CombatUnit{
-    private Throwers type;
+    private ThrowerTypes type;
     private int cost;
 
-    public Throwers(Player owner, Tile position, Throwers type) {
+    public Throwers(Player owner, Tile position, ThrowerTypes type) {
         super(owner, position);
     }
 
@@ -21,7 +22,7 @@ public class Throwers extends CombatUnit{
         super.attackTo(tile);
     }
 
-    public Throwers getType() {
+    public ThrowerTypes getType() {
         return type;
     }
 

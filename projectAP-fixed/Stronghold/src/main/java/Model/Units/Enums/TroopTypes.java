@@ -46,7 +46,13 @@ public enum TroopTypes {
     }
 
     public CombatUnit create(String name) {
+        return null;
+    }
 
+    public static TroopTypes getTroopTypeByName(String name) {
+        for (TroopTypes throwerType : TroopTypes.values()) {
+            if (throwerType.name.equals(name)) return throwerType;
+        }
         return null;
     }
 }

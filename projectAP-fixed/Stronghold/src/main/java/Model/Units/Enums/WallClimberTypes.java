@@ -43,4 +43,11 @@ public enum WallClimberTypes {
     public int getSpeed() {
         return Speed;
     }
+
+    public static WallClimberTypes getWallClimberType(String name) {
+        for (WallClimberTypes type : WallClimberTypes.values()) {
+            if (type.name.equals(name)) return type;
+        }
+        return null;
+    }
 }

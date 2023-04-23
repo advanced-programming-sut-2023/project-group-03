@@ -16,7 +16,7 @@ public class Troop extends CombatUnit{
     int gold;
     Drawable currentTarget;
 
-    public Troop(Player owner, Tile position) {
+    public Troop(Player owner, Tile position, TroopTypes type) {
         super(owner, position);
     }
 

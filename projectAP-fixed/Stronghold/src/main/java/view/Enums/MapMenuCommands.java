@@ -26,6 +26,7 @@ public enum MapMenuCommands {
             "(?=.*-y\\s+(?<y>\\d+))(?=.*-t\\s+(?<type>\\S+))"),
     DROPBUILDING("dropbuilding (?=.*-x\\s+(?<x>\\d+))" +
             "(?=.*-y\\s+(?<y>\\d+))(?=.*-t\\s+(?<type>\\S+))"),
+    DROP_UNIT_ALI("dropunit (?<unitInfo>.+)"),
     DROPUNIT("dropunit (?=.*-x\\s+(?<x>\\d+))" +
             "(?=.*-y\\s+(?<y>\\d+))(?=.*-t\\s+(?<type>\\S+))(?=.*-c\\s+(?<count>\\d+))"),
     ;
