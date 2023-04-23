@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 public class UserDatabase {
     static String dataPath = "hello.json";
+    static String backupData = "backup.json";
 
     private static ArrayList<GameMap> maps = new ArrayList<>();
     private static ArrayList<User> users = new ArrayList<>();
@@ -81,6 +82,7 @@ public class UserDatabase {
 
     public static void loadSavedData() {
         File file = new File(dataPath);
+        File backupFile = new File(backupData);
 
         try {
             Scanner reader = new Scanner(file);
@@ -90,6 +92,13 @@ public class UserDatabase {
             }
 
             makeJsonUsers(data);
+
+            //backing up saved data
+            backupFile.delete();
+            backupFile.createNewFile();
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(backupFile));
+            bufferedWriter.write(data);
+            bufferedWriter.close();
 
         } catch (Exception e) {
             System.out.println("There was a problem...");

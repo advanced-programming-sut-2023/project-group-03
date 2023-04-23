@@ -66,22 +66,45 @@ public class MapController extends Controller {
     }
     public String moveMap(Matcher matcher) {
         String verticalDir = matcher.group("verticalDir");
-        int verticalNum = Integer.parseInt(matcher.group("verticalNum"));
+        String verticalNumString = matcher.group("verticalNum");
         String horizontalDir = matcher.group("horizontalDir");
-        int horizontalNum = Integer.parseInt(matcher.group("horizontalNum"));
+        String horizontalNumString = matcher.group("horizontalNum");
 
-        if (!(verticalDir.equals("up") || verticalDir.equals("down"))) return INVALID_VERTICAL_DIRECTION.getOutput();
-        if (!(horizontalDir.equals("right") || horizontalDir.equals("left"))) return INVALID_HORIZONTAL_DIRECTION.getOutput();
+        int verticalNum = 1;
+        int horizontalNum = 1;
+        if (verticalNumString != null) {
+            if (!verticalNumString.matches("\\d+")) {
+                return INVALID_Y_MAP.getOutput();
+            }
+            verticalNum = Integer.parseInt(verticalNumString);
+        }
+
+        if (horizontalNumString != null) {
+            if (!horizontalNumString.matches("\\d+")) {
+                return INVALID_X_MAP.getOutput();
+            }
+            horizontalNum = Integer.parseInt(horizontalNumString);
+        }
 
         Tile centerTile = gameMap.getCenter();
+        int finalRow = centerTile.getRowNum(), finalColumn = centerTile.getColumnNum();
 
-        int finalX = centerTile.getRowNum() + (verticalDir.equals("up") ? verticalNum : -verticalNum);
-        int finalY = centerTile.getColumnNum() + (horizontalDir.equals("right") ? horizontalNum : -horizontalNum);
+        if (verticalDir != null) {
+            if (!(verticalDir.equals("up") || verticalDir.equals("down"))) return INVALID_VERTICAL_DIRECTION.getOutput();
+            finalRow = centerTile.getRowNum() + (verticalDir.equals("up") ? verticalNum : -verticalNum);
 
-        if (finalX > gameMap.getSize() - gameLength || finalX < gameLength) return INVALID_FINAL_X_VALUE.getOutput();
-        if (finalY > gameMap.getSize() - gameWidth || finalY < gameWidth) return INVALID_FINAL_Y_VALUE.getOutput();
+        }
 
-        gameMap.setCenter(gameMap.getMap()[finalX][finalY]);
+        if (horizontalDir != null) {
+            if (!(horizontalDir.equals("right") || horizontalDir.equals("left"))) return INVALID_HORIZONTAL_DIRECTION.getOutput();
+            finalColumn = centerTile.getColumnNum() + (horizontalDir.equals("right") ? horizontalNum : -horizontalNum);
+
+        }
+
+        if (finalRow > gameMap.getSize() - gameLength || finalRow < gameLength) return INVALID_FINAL_X_VALUE.getOutput();
+        if (finalColumn > gameMap.getSize() - gameWidth || finalColumn < gameWidth) return INVALID_FINAL_Y_VALUE.getOutput();
+
+        gameMap.setCenter(gameMap.getMap()[finalRow][finalColumn]);
         return SUCCESSFUL_MOVE_MAP.getOutput();
     }
     public String showDetails(Matcher matcher) {
