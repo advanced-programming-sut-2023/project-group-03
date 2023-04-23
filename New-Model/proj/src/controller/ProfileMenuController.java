@@ -1,6 +1,6 @@
 package controller;
 
-import model.User;
+import Model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;

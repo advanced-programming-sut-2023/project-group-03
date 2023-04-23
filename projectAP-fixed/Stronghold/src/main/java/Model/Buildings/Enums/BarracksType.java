@@ -5,7 +5,7 @@ import Model.GamePlay.Material;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-
+import Model.GamePlay.Material;
 public enum BarracksType {
 //    BARRACK,
 //    MERCENARY_POST,
@@ -18,7 +18,6 @@ public enum BarracksType {
     private int wood;
     private int oil;
     private Material material;
-
     private HashSet<Texture> textures;
 
     private BarracksType(String name, int gold, int wood, int oil, Material material, HashSet<Texture> textures) {

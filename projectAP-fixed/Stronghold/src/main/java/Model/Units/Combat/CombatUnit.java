@@ -10,7 +10,7 @@ import java.util.HashSet;
 public abstract class CombatUnit extends Unit {
     protected HashSet<Material> Targets;
     protected int damage;
-    protected int Speed;
+    protected int speed;
     protected int baseRange;
     protected int modifiedRange;
     protected int defenseRate;

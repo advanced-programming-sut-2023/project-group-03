@@ -2,6 +2,7 @@ package view;
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Model.User;
 import Model.UserDatabase;
 import controller.Enums.Response;
@@ -9,6 +10,9 @@ import controller.LoginMenuController;
 import view.Enums.ConsoleColors;
 =======
 import model.User;
+>>>>>>> origin/phase1pouria
+=======
+import Model.User;
 >>>>>>> origin/phase1pouria
 import view.Enums.LoginMenuCommands;
 

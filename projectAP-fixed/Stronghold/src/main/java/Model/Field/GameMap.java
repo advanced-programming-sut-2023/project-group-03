@@ -1,7 +1,6 @@
 package Model.Field;
 
 import Model.GamePlay.Player;
-
 public class GameMap {
     private int size;
     private Tile center;
@@ -9,7 +8,6 @@ public class GameMap {
     private int numberOfPlayers;
     private String name;
     private Player[] players = new Player[4];
-
     public GameMap(int size) {
         this.size=size;
         map = new Tile[size][size];

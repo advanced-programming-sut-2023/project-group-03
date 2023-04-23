@@ -1,10 +1,14 @@
 package view;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Model.Field.GameMap;
 import Model.User;
 =======
 import model.User;
+>>>>>>> origin/phase1pouria
+=======
+import Model.User;
 >>>>>>> origin/phase1pouria
 import view.Enums.ConsoleColors;
 import view.Enums.MainMenuCommands;

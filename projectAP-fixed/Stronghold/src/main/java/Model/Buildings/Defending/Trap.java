@@ -23,7 +23,15 @@ public class Trap extends Building {
 
     @Override
     public void check() {
+<<<<<<< HEAD
 
+=======
+        if(shouldBreak()){
+            return;
+        }
+        //TODO check damage for soldier inside
+        // format UseTrap() where if trap is used it is taken from the building
+>>>>>>> origin/phase1pouria
     }
 
     @Override

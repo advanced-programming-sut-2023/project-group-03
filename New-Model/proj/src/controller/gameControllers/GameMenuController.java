@@ -1,9 +1,9 @@
 package controller.gameControllers;
 
-import model.GamePlay.Game;
-import model.Units.Unit;
+import Model.GamePlay.Game;
+import Model.Units.Unit;
 
-import model.User;
+import Model.User;
 import controller.Controller;
 
 public class GameMenuController extends Controller {

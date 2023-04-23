@@ -1,6 +1,6 @@
 package view.Game;
 
-import model.GamePlay.Game;
+import Model.GamePlay.Game;
 import view.Menu;
 import view.Transition;
 

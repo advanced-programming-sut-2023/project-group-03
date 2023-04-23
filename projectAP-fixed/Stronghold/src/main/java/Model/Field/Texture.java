@@ -3,6 +3,7 @@ package Model.Field;
 import Model.Buildings.Enums.Resources;
 import view.Enums.ConsoleColors;
 import view.Enums.ConsoleColors;
+
 public enum Texture
 {
     GROUND("ground", null),

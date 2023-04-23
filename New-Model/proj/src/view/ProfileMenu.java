@@ -1,6 +1,7 @@
 package view;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Model.User;
 import view.Enums.ConsoleColors;
 import view.Enums.LoginMenuCommands;
@@ -8,6 +9,9 @@ import view.Enums.ProfileMenuCommands;
 import controller.ProfileMenuController;
 =======
 import model.User;
+=======
+import Model.User;
+>>>>>>> origin/phase1pouria
 
 >>>>>>> origin/phase1pouria
 import java.util.Scanner;

@@ -32,7 +32,10 @@ public class Barracks extends Building{
     }
     @Override
     public void check() {
-
+        if(shouldBreak()){
+            return;
+        }
+        // TODO should make troops be here?
     }
 
     @Override

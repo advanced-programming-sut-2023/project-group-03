@@ -1,6 +1,6 @@
 package controller.gameControllers;
 
-import model.Units.Unit;
+import Model.Units.Unit;
 
 import java.util.regex.Matcher;
 

@@ -21,6 +21,7 @@ public enum RestTypes {
     }
 
     private String name;
+
     private int length;
     private int width;
     private int gold;

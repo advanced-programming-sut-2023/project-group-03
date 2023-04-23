@@ -39,7 +39,9 @@ public class Player {
     public void decreaseGold(int number){
         gold-=number;
     }
-
+    public int getResourceAmount(Resources resources){
+        return inventory.get(resources);
+    }
     public void increaseInventory(Resources resources, int number) {
         inventory.replace(resources,Integer.sum(inventory.get(resources), number));
     }
@@ -158,7 +160,6 @@ public class Player {
     public void setGovernment(Government government) {
         this.government = government;
     }
-
     public void setGame(Game game) {
         this.game = game;
     }

@@ -23,7 +23,9 @@ public class Tile {
         this.texture = texture;
     }
 
-    public boolean addBuilding(Building bulding) {
+    public void destroyBuilding(){}
+
+    public boolean addBuilding(Building building) {
         return false;
     }
 
@@ -38,7 +40,6 @@ public class Tile {
     public boolean removeUnit(Unit unit) {
         return true;
     }
-
     public int getRowNum() {
         return rowNum;
     }
@@ -52,8 +53,7 @@ public class Tile {
     }
 
     public void setColumnNum(int columnNum) {
-        this.columnNum = columnNum;
-    }
+        this.columnNum = columnNum;}
 
     public height getHeight() {
         return height;

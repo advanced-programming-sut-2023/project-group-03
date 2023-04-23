@@ -22,4 +22,11 @@ public abstract class Building extends Drawable {
     public HashSet<Texture> getTextures() {
         return textures;
     }
+    protected boolean shouldBreak(){
+        if(HP<=0){
+            position.destroyBuilding();
+            return true;
+        }
+        return false;
+    }
 }

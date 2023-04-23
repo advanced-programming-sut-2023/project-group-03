@@ -1,6 +1,6 @@
 package view.Game;
 
-import model.User;
+import Model.User;
 import view.Menu;
 import view.Transition;
 
