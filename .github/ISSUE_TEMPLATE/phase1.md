@@ -47,13 +47,63 @@ assignees: Arman17Babaei
 
   **نام و نام خانوادگی:مهران طلایی خواجه روشنایی**
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>درست کردن کلاس و توابع برای تنظیم حرکت بین منوها</summary>
 
   <div dir="ltr" align='right'>
 
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [*] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>زدن ویو برای لاگین و رجیستر</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [*] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>تولید و چک کردن کپچا</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [*] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>درست کردن توابع برای نشان دادن مپ</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [*] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>زدن ویو برای تغییر دادن ساختار مپ</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [*] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>زدن ویو برای پروفایل منو</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [*] تمام شده
   </div>
 </details>
 
@@ -84,6 +134,7 @@ assignees: Arman17Babaei
   3. [*] تمام شده
   </div>
 </details>
+<details>
   <summary>اضافه کردن پروفایل منو</summary>
 
   <div dir="ltr" align='right'>
@@ -93,7 +144,8 @@ assignees: Arman17Babaei
   3. [*] تمام شده
   </div>
 </details>
-<summary>زدن توابع تغییر دادن ساختار مپ</summary>
+<details>
+ <summary>زدن توابع تغییر دادن ساختار مپ</summary>
 
   <div dir="ltr" align='right'>
 
@@ -101,6 +153,8 @@ assignees: Arman17Babaei
   2. [ٓٓٓٓٓٓ ] در حال انجام
   3. [*] تمام شده
   </div>
+</details>
+<details>
   <summary>زدن توابع خرید و فروش در بازی</summary>
 
   <div dir="ltr" align='right'>
