@@ -80,8 +80,35 @@ assignees: Arman17Babaei
   <div dir="ltr" align='right'>
 
   1. [ ] شروع نشده
-  2. [ٓٓٓٓٓٓ*] در حال انجام
-  3. [ ] تمام شده
+  2. [ٓٓٓٓٓٓ ] در حال انجام
+  3. [*] تمام شده
   </div>
+</details>
+  <summary>اضافه کردن پروفایل منو</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ٓٓٓٓٓٓ ] در حال انجام
+  3. [*] تمام شده
+  </div>
+</details>
+<summary>زدن توابع تغییر دادن ساختار مپ</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ٓٓٓٓٓٓ ] در حال انجام
+  3. [*] تمام شده
+  </div>
+  <summary>زدن توابع خرید و فروش در بازی</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ٓٓٓٓٓٓ ] در حال انجام
+  3. [*] تمام شده
+  </div>
+</details>
 </details>
 </div>
