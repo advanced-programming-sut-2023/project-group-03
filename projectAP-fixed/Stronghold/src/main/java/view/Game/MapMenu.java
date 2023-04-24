@@ -75,9 +75,13 @@ public class MapMenu extends Menu {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.DROPROCK_ALI.getRegex());
                 System.out.println(mapController.dropRock(matcher));
             }
-            else if (command.matches(MapMenuCommands.DROPUNIT.getRegex())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.DROPUNIT.getRegex());
-                //
+            else if (command.matches(MapMenuCommands.DROP_UNIT_ALI.getRegex())) {
+                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.DROP_UNIT_ALI.getRegex());
+                System.out.println(mapController.dropUnit(matcher, currentPlayer));
+            }
+            else if (command.matches(MapMenuCommands.DROP_BUILDING_ALI.getRegex())) {
+                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.DROP_BUILDING_ALI.getRegex());
+                System.out.println(mapController.dropBuilding(matcher, currentPlayer));
             }
             else if (command.matches(MapMenuCommands.SET_TEXTURE_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_TEXTURE_ALI.getRegex());
@@ -86,12 +90,15 @@ public class MapMenu extends Menu {
             else if (command.matches(MapMenuCommands.SHOW_DETAILS_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SHOW_DETAILS_ALI.getRegex());
                 System.out.println(mapController.showDetails(matcher));
-            } else if (command.matches(MapMenuCommands.BACK.getRegex())) {
+            }
+            else if (command.matches(MapMenuCommands.BACK.getRegex())) {
                 throw new Transition(new MainMenu(scanner, user));
-            } else if (command.matches(MapMenuCommands.CLEAR_ALI.getRegex())) {
+            }
+            else if (command.matches(MapMenuCommands.CLEAR_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.CLEAR_ALI.getRegex());
                 System.out.println(mapController.clearField(matcher));
-            } else {
+            }
+            else {
                 colorPrint(TEXT_RED, "invalidCommand");
             }
             map.showMap(displaySize);
