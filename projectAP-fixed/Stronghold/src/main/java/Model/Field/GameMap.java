@@ -82,15 +82,19 @@ public class GameMap {
     }
 
     public void showMap(int halfSide) {
-        System.out.print("|");
+        System.out.print("╔");
         int colNumber = halfSide * 2;
         for (int i = 0; i < (2 * colNumber + 1); i++) {
-            System.out.print("-------|");
+            System.out.print("═══════╦");
         }
         System.out.println();
         for (int i = center.getRowNum() - halfSide; i < center.getRowNum() + halfSide + 1; i++) {
             for (int j = 0; j < 4; j++) {
-                System.out.print("|");
+                if (j % 4 == 3) {
+                    System.out.print("╠");
+                } else {
+                    System.out.print("║");
+                }
                 for (int k = center.getColumnNum() - colNumber; k < center.getColumnNum() +colNumber + 1; k++) {
                     System.out.print(map[i][k].show()[j]);
                 }

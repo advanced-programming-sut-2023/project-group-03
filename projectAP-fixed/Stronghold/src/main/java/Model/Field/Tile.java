@@ -100,13 +100,21 @@ public class Tile {
     }
 
     public String[] show() {
-        String numberOfUnits = String.format("#:%5d",units.size());
+        String numberOfUnits = String.format("#:%3d",units.size());
+        if (this.building != null) {
+            numberOfUnits += "║B";
+        }
+        if (this.mazafaza != null) {
+            numberOfUnits += "║T";
+        } else {
+            numberOfUnits += "║N";
+        }
         String[] ans = new String[4];
         String coordinate = String.format("%3d,%3d", rowNum, columnNum);
-        ans[3]="-------|";
-        ans[0] = ConsoleColors.formatPrinter("", texture.getColor(), numberOfUnits)+"|";
-        ans[1] = ConsoleColors.formatPrinter("", texture.getColor(), coordinate) + "|";
-        ans[2] = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), texture.getColor(), "flag   ")+"|";
+        ans[3]="═══════╬";
+        ans[0] = ConsoleColors.formatPrinter("", texture.getColor(), numberOfUnits)+"║";
+        ans[1] = ConsoleColors.formatPrinter("", texture.getColor(), coordinate) + "║";
+        ans[2] = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), texture.getColor(), "║░flag░")+"║";
         return ans;
     }
 }

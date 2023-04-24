@@ -38,7 +38,7 @@ public class MapMenu extends Menu {
         do {
             output = intializeNumberOfPlayers();
             System.out.println(output);
-        } while (output.equals("Invalid command"));
+        } while (output.equals(TEXT_RED + "Invalid command"+ TEXT_RESET));
         System.out.println(intializeName());
         map.showMap(displaySize);
         MapController mapController = new MapController(map);
@@ -53,6 +53,8 @@ public class MapMenu extends Menu {
                         System.out.println("a number please");
                     } else if (Integer.parseInt(command) > map.getNumberOfPlayers()) {
                         System.out.println("is greater than number of players");
+                    } else if (Integer.parseInt(command) < 2) {
+                        System.out.println("at least 2 player");
                     } else {
                         System.out.println("player switched");
                         currentPlayer = map.getPlayers()[Integer.parseInt(command) - 1];

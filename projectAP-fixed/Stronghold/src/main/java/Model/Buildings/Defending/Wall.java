@@ -28,13 +28,13 @@ public class Wall extends CastleBuilding {
 
     @Override
     public void check() {
-<<<<<<< HEAD
-
-=======
-        if(shouldBreak()){
-            return;
-        }
->>>>>>> origin/phase1pouria
+//<<<<<<< HEAD
+//
+//=======
+//        if(shouldBreak()){
+//            return;
+//        }
+//>>>>>>> origin/phase1pouria
     }
 
     @Override
