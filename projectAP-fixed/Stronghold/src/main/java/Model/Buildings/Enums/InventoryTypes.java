@@ -2,7 +2,6 @@ package Model.Buildings.Enums;
 
 import Model.Field.Texture;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public enum  InventoryTypes {
@@ -50,7 +49,7 @@ public enum  InventoryTypes {
         return textures;
     }
 
-    public static InventoryTypes getBuildingTypeByName(String name) {
+    public static InventoryTypes getTypeByName(String name) {
         for (InventoryTypes type : InventoryTypes.values()) {
             if (type.name.equals(name)) return type;
         }

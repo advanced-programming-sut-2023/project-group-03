@@ -14,12 +14,12 @@ public abstract class Building extends Drawable {
     protected int woodCost;
     protected int goldCost;
 
-    protected HashSet<Texture> textures;
+    protected static HashSet<Texture> textures;
     public Building(Player owner, Tile position) {
         super(owner, position);
     }
 
-    public HashSet<Texture> getTextures() {
+    public static HashSet<Texture> getTextures() {
         return textures;
     }
     protected boolean shouldBreak(){

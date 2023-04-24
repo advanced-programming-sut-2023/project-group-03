@@ -3,9 +3,8 @@ package Model.Buildings.Enums;
 import Model.Field.Texture;
 import Model.GamePlay.Material;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import Model.GamePlay.Material;
+
 public enum BarracksType {
 //    BARRACK,
 //    MERCENARY_POST,
@@ -49,7 +48,7 @@ public enum BarracksType {
         return textures;
     }
 
-    public static BarracksType getBuildingTypeByName(String name) {
+    public static BarracksType getTypeByName(String name) {
         for (BarracksType type : BarracksType.values()) {
             if (type.name.equals(name)) return type;
         }

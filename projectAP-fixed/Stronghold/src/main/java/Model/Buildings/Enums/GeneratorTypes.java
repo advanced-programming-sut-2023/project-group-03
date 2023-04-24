@@ -2,7 +2,6 @@ package Model.Buildings.Enums;
 
 import Model.Field.Texture;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public enum GeneratorTypes {
@@ -90,7 +89,7 @@ public enum GeneratorTypes {
         return textures;
     }
 
-    public static GeneratorTypes getBuildingTypeByName(String name) {
+    public static GeneratorTypes getTypeByName(String name) {
         for (GeneratorTypes type : GeneratorTypes.values()) {
             if (type.name.equals(name)) return type;
         }

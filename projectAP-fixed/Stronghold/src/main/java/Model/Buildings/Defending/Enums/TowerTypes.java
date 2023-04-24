@@ -1,7 +1,12 @@
 package Model.Buildings.Defending.Enums;
 
+import Model.Buildings.Enums.RestTypes;
+import Model.Field.Texture;
+
+import java.util.HashSet;
+
 public enum TowerTypes {
-    LOOKOUT_TOWER("", 1, 1, 1, 1, 11, 1)
+//    LOOKOUT_TOWER("", 1, 1, 1, 1, 11, 1)
 //    PERIMETER_TOWER,
 //    TURRET,
 //    SQUARE_TOWER,
@@ -15,8 +20,10 @@ public enum TowerTypes {
     private int stoneCost;
     private int defenseIncrease;
     private int rangeIncrease;
+    private HashSet<Texture> textures;
 
-    TowerTypes(String name, int HP, int length, int width, int stoneCost, int defenseIncrease, int rangeIncrease) {
+    TowerTypes(String name, int HP, int length, int width, int stoneCost, int defenseIncrease, int rangeIncrease, HashSet textures) {
+        this.textures = textures;
         this.name = name;
         this.HP = HP;
         this.length = length;
@@ -80,5 +87,16 @@ public enum TowerTypes {
 
     public void setRangeIncrease(int rangeIncrease) {
         this.rangeIncrease = rangeIncrease;
+    }
+
+    public HashSet<Texture> getTextures() {
+        return textures;
+    }
+
+    public static TowerTypes getTypeByName(String name) {
+        for (TowerTypes type : TowerTypes.values()) {
+            if (type.name.equals(name)) return type;
+        }
+        return null;
     }
 }

@@ -1,6 +1,14 @@
 package controller.gameControllers;
 
 import Model.Buildings.*;
+import Model.Buildings.Defending.Enums.GateTypes;
+import Model.Buildings.Defending.Enums.TowerTypes;
+import Model.Buildings.Defending.Enums.TrapsTypes;
+import Model.Buildings.Defending.Enums.WallTypes;
+import Model.Buildings.Defending.Gates;
+import Model.Buildings.Defending.Towers;
+import Model.Buildings.Defending.Trap;
+import Model.Buildings.Defending.Wall;
 import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.GeneratorTypes;
 import Model.Buildings.Enums.InventoryTypes;
@@ -15,7 +23,6 @@ import Model.Units.Enums.TroopTypes;
 import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
 import controller.Controller;
-import controller.Enums.InputOptions;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -26,7 +33,6 @@ import static controller.Enums.Response.*;
 public class MapController extends Controller {
     private final int gameWidth = 3;
     private final int gameLength = gameWidth * 2;
-    
     GameMap gameMap;
     public MapController(GameMap gameMap) {
         this.gameMap = gameMap;
@@ -358,33 +364,73 @@ public class MapController extends Controller {
 
         //targetTile owner changes
 
-        BarracksType barracksType = BarracksType.getBuildingTypeByName(type);
+        BarracksType barracksType = BarracksType.getTypeByName(type);
         if (barracksType != null) {
             if (!barracksType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
             targetTile.setBuilding(new Barracks(player, targetTile, barracksType));
             return SUCCESSFUL_DROP_BUILDING.getOutput();
         }
 
-        GeneratorTypes generatorType = GeneratorTypes.getBuildingTypeByName(type);
+        GeneratorTypes generatorType = GeneratorTypes.getTypeByName(type);
         if (generatorType != null) {
             if (!generatorType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
             targetTile.setBuilding(new Generators(player, targetTile, generatorType));
             return SUCCESSFUL_DROP_BUILDING.getOutput();
         }
 
-        RestTypes restType = RestTypes.getBuildingTypeByName(type);
+        RestTypes restType = RestTypes.getTypeByName(type);
         if (restType != null) {
             if (!restType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
             targetTile.setBuilding(new Rest(player, targetTile, restType));
             return SUCCESSFUL_DROP_BUILDING.getOutput();
         }
 
-        InventoryTypes inventoryType = InventoryTypes.getBuildingTypeByName(type);
+        InventoryTypes inventoryType = InventoryTypes.getTypeByName(type);
         if (inventoryType != null) {
             if (!inventoryType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
             targetTile.setBuilding(new Inventory(player, targetTile, inventoryType));
             return SUCCESSFUL_DROP_BUILDING.getOutput();
         }
+
+        GateTypes gateType = GateTypes.getTypeByName(type);
+        if (gateType != null) {
+            if (!gateType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
+            targetTile.setBuilding(new Gates(player, targetTile, gateType));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
+        }
+
+        TowerTypes towerType = TowerTypes.getTypeByName(type);
+        if (towerType != null) {
+            if (!towerType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
+            targetTile.setBuilding(new Towers(player, targetTile, towerType));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
+        }
+
+        TrapsTypes trapsType = TrapsTypes.getTypeByName(type);
+        if (trapsType != null) {
+            if (!trapsType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
+            targetTile.setBuilding(new Trap(player, targetTile, trapsType));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
+        }
+
+        WallTypes wallType = WallTypes.getTypeByName(type);
+        if (wallType != null) {
+            if (!wallType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
+            targetTile.setBuilding(new Wall(player, targetTile, wallType));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
+        }
+
+        if (type.equals("store")) {
+            if (!Store.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
+//            targetTile.setBuilding(new Store(player, targetTile));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
+        }
+
+        if (type.equals("keep")) {
+            //check if this player has a keep
+            //make the keep if there is not any...
+        }
+
 
         return INVALID_BUILDING_TYPE.getOutput();
     }

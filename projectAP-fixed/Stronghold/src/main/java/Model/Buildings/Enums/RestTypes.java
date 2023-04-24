@@ -2,8 +2,6 @@ package Model.Buildings.Enums;
 
 import Model.Field.Texture;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public enum RestTypes {
@@ -49,7 +47,7 @@ public enum RestTypes {
     }
 
 
-    public static RestTypes getBuildingTypeByName(String name) {
+    public static RestTypes getTypeByName(String name) {
         for (RestTypes type : RestTypes.values()) {
             if (type.name.equals(name)) return type;
         }
