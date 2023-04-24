@@ -80,8 +80,19 @@ public enum Response {
     ////drop building
     DROP_BUILDING_TEXTURE("You can't build the given building on a tile with this texture."),
     SUCCESSFUL_DROP_BUILDING("Successfully dropped building!"),
+    STORE_DROP("You don't have permission to make a store."),
+    KEEP_EXIST("This flag already has a keep."),
     ////set owner
     SUCCESSFUL_SET_OWNER("Successfully set owner."),
+    //market
+    INVALID_RESOURCE_TYPE("Invalid resource type."),
+    INVALID_RESOURCE_AMOUNT("Please enter an integer for 'amount'."),
+    ////buy
+    NOT_ENOUGH_GOLD("You don't have enough gold to purchase."),
+    SUCCESSFUL_PURCHASE("Successfully purchased."),
+    ////sell
+    NOT_ENOUGH_RESOURCE_SELL("You don't have that much resource to sell."),
+    SUCCESSFUL_SELL("Successfully sold."),
     //kingdom
     INVALID_FOOD_RATE("Invalid food rate! -3 < food rate < 3"),
     INVALID_TAX_RATE("Invalid tax rate! -4 < tax rate < 9"),

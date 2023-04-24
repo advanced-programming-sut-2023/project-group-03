@@ -1,6 +1,7 @@
 package Model.GamePlay;
 
 import Model.Buildings.Enums.Resources;
+import Model.Buildings.Keep;
 import Model.Units.Unit;
 import Model.User;
 import Model.Field.flagColors;
@@ -13,6 +14,7 @@ public class Player {
     private Game game;
     private User user;
     private Government government;
+    private Keep keep = null;
     ArrayList<Request> incomeRequests;
     ArrayList<Request> myRequests;
     ArrayList<Unit> allUnits;
@@ -115,6 +117,14 @@ public class Player {
 
     public void setFoodRate(int foodRate) {
         FoodRate = foodRate;
+    }
+
+    public Keep getKeep() {
+        return keep;
+    }
+
+    public void setKeep(Keep keep) {
+        this.keep = keep;
     }
 
     public Game getGame() {

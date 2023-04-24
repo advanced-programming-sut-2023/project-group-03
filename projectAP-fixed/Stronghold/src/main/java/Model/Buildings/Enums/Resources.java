@@ -1,5 +1,7 @@
 package Model.Buildings.Enums;
 
+import javax.naming.spi.ResolveResult;
+
 public enum Resources
 {
      FLOUR("flour", ResourceTypes.FOOD, 10),
@@ -28,13 +30,16 @@ public enum Resources
      // TODO
      // gold amount must be correctly declared
 
-    ResourceTypes type;
-    int gold;
-    String name;
+    private ResourceTypes type;
+    private int gold;
+    private String name;
+
+    private int sellPrice;
     Resources(String name, ResourceTypes type, int gold) {
         this.type = type;
         this.gold = gold;
         this.name = name;
+        sellPrice = (int) Math.floor(0.8 * gold);
     }
 
     public ResourceTypes getType() {
@@ -47,5 +52,16 @@ public enum Resources
 
     public String getName() {
         return name;
+    }
+
+    public int getSellPrice() {
+        return sellPrice;
+    }
+
+    public static Resources getResourceByName(String name) {
+        for (Resources resource : Resources.values()) {
+            if (resource.getName().equals(name)) return resource;
+        }
+        return null;
     }
 }

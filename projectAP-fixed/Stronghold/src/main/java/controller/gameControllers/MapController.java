@@ -421,14 +421,13 @@ public class MapController extends Controller {
         }
 
         if (type.equals("store")) {
-            if (!Store.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-//            targetTile.setBuilding(new Store(player, targetTile));
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
+            return STORE_DROP.getOutput();
         }
 
         if (type.equals("keep")) {
-            //check if this player has a keep
-            //make the keep if there is not any...
+            if (player.getKeep() != null) return KEEP_EXIST.getOutput();
+//            targetTile.setBuilding(new Keep(player, targetTile));
+            return SUCCESSFUL_DROP_BUILDING.getOutput();
         }
 
 

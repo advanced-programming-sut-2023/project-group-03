@@ -5,10 +5,10 @@ import Model.Units.Unit;
 import java.util.regex.Matcher;
 
 public class MoveUnitController {
-    GameMenuController gameMenuController;
+    GameController gameController;
 
-    public MoveUnitController(GameMenuController gameMenuController) {
-        this.gameMenuController = gameMenuController;
+    MoveUnitController(GameController gameController) {
+        this.gameController = gameController;
     }
 
     public boolean checkIfImpossibleDestination(int x, int y) {

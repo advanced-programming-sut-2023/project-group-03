@@ -5,10 +5,10 @@ import Model.Units.Unit;
 import java.util.regex.Matcher;
 
 public class UnitController {
-    GameMenuController gameMenuController;
+    GameController gameController;
 
-    public UnitController(GameMenuController gameMenuController) {
-        this.gameMenuController = gameMenuController;
+    UnitController(GameController gameController) {
+        this.gameController = gameController;
     }
     public String createUnit(Matcher matcher) {
         //check if you have the requirements

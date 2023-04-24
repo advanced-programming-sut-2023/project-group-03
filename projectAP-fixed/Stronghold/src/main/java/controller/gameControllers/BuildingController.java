@@ -3,10 +3,10 @@ package controller.gameControllers;
 import java.util.regex.Matcher;
 
 public class BuildingController {
-    GameMenuController gameMenuController;
+    GameController gameController;
 
-    public BuildingController(GameMenuController gameMenuController) {
-        this.gameMenuController = gameMenuController;
+    BuildingController(GameController gameController) {
+        this.gameController = gameController;
     }
 
     public String selectBuilding(Matcher matcher) {

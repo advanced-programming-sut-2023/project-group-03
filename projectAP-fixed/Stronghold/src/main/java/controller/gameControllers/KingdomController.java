@@ -3,10 +3,10 @@ package controller.gameControllers;
 import java.util.regex.Matcher;
 
 public class KingdomController {
-    GameMenuController gameMenuController;
+    GameController gameController;
 
-    public KingdomController(GameMenuController gameMenuController) {
-        this.gameMenuController = gameMenuController;
+    KingdomController(GameController gameController) {
+        this.gameController = gameController;
     }
     public String changeFoodRate(Matcher matcher) {
         //return a proper response if there is a problem

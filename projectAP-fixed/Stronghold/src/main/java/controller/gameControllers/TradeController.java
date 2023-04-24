@@ -2,10 +2,10 @@ package controller.gameControllers;
 
 import java.util.regex.Matcher;
 public class TradeController {
-    GameMenuController gameMenuController;
+    GameController gameController;
 
-    public TradeController(GameMenuController gameMenuController) {
-        this.gameMenuController = gameMenuController;
+    TradeController(GameController gameController) {
+        this.gameController = gameController;
     }
     public String requestTrade(Matcher matcher) {
         return "";
