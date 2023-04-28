@@ -103,6 +103,9 @@ public class GameMap {
         }
     }
 
+    public void setPlayerI(int numberOfPlayer, Player player) {
+        this.players[numberOfPlayer] = player;
+    }
     public Player[] getPlayers() {
         return players;
     }

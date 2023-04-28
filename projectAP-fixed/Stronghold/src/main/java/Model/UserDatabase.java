@@ -19,6 +19,7 @@ public class UserDatabase {
     private static ArrayList<GameMap> maps = new ArrayList<>();
     private static ArrayList<User> users = new ArrayList<>();
     private static ArrayList<User> ranking = new ArrayList<>();
+
     public UserDatabase() {
     }
 
@@ -31,7 +32,9 @@ public class UserDatabase {
         return null;
     }
 
-    public static User getUserByEmail(String email) {return null;}
+    public static User getUserByEmail(String email) {
+        return null;
+    }
 
     public static User getUserByNickName(String name) {
         return null;
@@ -118,8 +121,22 @@ public class UserDatabase {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type usersType = new TypeToken<ArrayList<User>>(){}.getType();
+        Type usersType = new TypeToken<ArrayList<User>>() {
+        }.getType();
 
         users = gson.fromJson(save, usersType);
+    }
+
+    public static ArrayList<GameMap> getMaps() {
+        return maps;
+    }
+
+    public static GameMap getMapByName(String name) {
+        for (int i = 0; i < maps.size(); i++) {
+            if (maps.get(i).getName().equals(name)) {
+                return maps.get(i);
+            }
+        }
+        return null;
     }
 }

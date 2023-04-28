@@ -38,4 +38,8 @@ public class Game {
         return turn;
     }
 
+    public void addPlayer(Player player) {
+        this.players.add(player);
+    }
+
 }

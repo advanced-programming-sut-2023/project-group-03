@@ -39,7 +39,10 @@ public class MapMenu extends Menu {
             output = intializeNumberOfPlayers();
             System.out.println(output);
         } while (output.equals(TEXT_RED + "Invalid command"+ TEXT_RESET));
-        System.out.println(intializeName());
+        do {
+            output = intializeName();
+            System.out.println(output);
+        } while (output.equals(TEXT_RED + "Invalid name"+ TEXT_RESET));
         map.showMap(displaySize);
         MapController mapController = new MapController(map);
         Player currentPlayer = map.getPlayers()[0];
@@ -99,8 +102,11 @@ public class MapMenu extends Menu {
             else if (command.matches(MapMenuCommands.CLEAR_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.CLEAR_ALI.getRegex());
                 System.out.println(mapController.clearField(matcher));
-            }
-            else {
+            } else if (command.matches(MapMenuCommands.SAVE_MAP.getRegex())) {
+                mapController.saveMap(map);
+                UserDatabase.addMap(map);
+                System.out.println("map saved");
+            } else {
                 colorPrint(TEXT_RED, "invalidCommand");
             }
             map.showMap(displaySize);
@@ -130,10 +136,19 @@ public class MapMenu extends Menu {
     private String intializeName() {
         colorPrint(ConsoleColors.TEXT_BRIGHT_YELLOW, "name of the map:");
         String command = scanner.nextLine();
-        map.setName(command);
-        map.setCenter(map.getSize()/ 2, map.getSize()/ 2);
-        UserDatabase.addMap(map);
-        return "setting name: "+command;
+        command = command.trim();
+        if (UserDatabase.getMapByName(command) != null) {
+            map = UserDatabase.getMapByName(command);
+            return "map loaded";
+        }
+        else if (command.matches("[a-z1-9A-Z]+")) {
+            map.setName(command);
+            map.setCenter(map.getSize() / 2, map.getSize() / 2);
+            UserDatabase.addMap(map);
+            return "setting name: " + command;
+        } else {
+            return TEXT_RED + "Invalid name"+ TEXT_RESET;
+        }
     }
 
     private String intializeNumberOfPlayers() {

@@ -22,8 +22,15 @@ import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
+import com.google.gson.Gson;
 import controller.Controller;
+import view.Game.MapMenu;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -465,5 +472,29 @@ public class MapController extends Controller {
         }
 
         return SUCCESSFUL_SET_OWNER.getOutput();
+    }
+
+    public String saveMap(GameMap map) {
+        File file = new File("src/main/resources/maps/"+map.getName()+".json");
+        //file.mkdirs();
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(new Gson().toJson(map));
+            fileWriter.close();
+            return "map saved";
+        } catch (IOException e) {
+            return "save error";
+        }
+    }
+
+    public static GameMap loadMap(File file) {
+        GameMap gameMap = null;
+        try {
+            String json = new String(Files.readAllBytes(Paths.get(file.getPath())));
+            gameMap = new Gson().fromJson(json, GameMap.class);
+        } catch (IOException e) {
+            System.out.println("erroorrr");
+        }
+        return gameMap;
     }
 }
