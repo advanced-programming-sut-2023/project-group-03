@@ -34,6 +34,7 @@ public class Inventory extends Building {
         return capacity;
     }
 
+
     @Override
     public void check() {
         if(shouldBreak()){

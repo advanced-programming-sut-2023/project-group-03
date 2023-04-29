@@ -1,12 +1,13 @@
 package controller.gameControllers;
 
+import Model.Field.GameMap;
 import Model.GamePlay.Player;
 import controller.Controller;
 import controller.interfaces.*;
 
 import java.util.regex.Matcher;
 
-public class GameController extends Controller implements GameMarketInterface{
+public class GameController extends Controller implements GameMarketInterface , BuildingInterface {
     private BuildingController buildingController;
     private KingdomController kingdomController;
     private MarketController marketController;
@@ -14,13 +15,20 @@ public class GameController extends Controller implements GameMarketInterface{
     private TradeController tradeController;
     private UnitController unitController;
 
-    public GameController() {
+    private GameMap gameMap;
+
+    public GameController(GameMap gameMap) {
         this.buildingController = new BuildingController(this);
         this.kingdomController = new KingdomController(this);
         this.marketController = new MarketController(this);
         this.moveUnitController = new MoveUnitController(this);
         this.tradeController = new TradeController(this);
         this.unitController = new UnitController(this);
+        this.gameMap = gameMap;
+    }
+
+    public GameMap getGameMap() {
+        return gameMap;
     }
 
     @Override
@@ -36,5 +44,10 @@ public class GameController extends Controller implements GameMarketInterface{
     @Override
     public String sellMatcherHandler(Matcher matcher, Player player) {
         return marketController.sellMatcherHandler(matcher, player);
+    }
+
+    @Override
+    public String buildTowerMatcherHandler(Matcher matcher, Player player) {
+        return buildingController.buildTowerMatcherHandler(matcher, player);
     }
 }

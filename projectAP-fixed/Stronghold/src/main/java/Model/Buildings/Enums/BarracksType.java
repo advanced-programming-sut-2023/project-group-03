@@ -15,14 +15,16 @@ public enum BarracksType {
     private String name;
     private int gold;
     private int wood;
+    private int stoneCost;
     private int oil;
     private Material material;
     private HashSet<Texture> textures;
 
-    private BarracksType(String name, int gold, int wood, int oil, Material material, HashSet<Texture> textures) {
+    private BarracksType(String name, int gold, int wood, int stoneCost, int oil, Material material, HashSet<Texture> textures) {
         this.name = name;
         this.gold = gold;
         this.wood = wood;
+        this.stoneCost = stoneCost;
         this.oil = oil;
         this.material = material;
         this.textures = textures;
@@ -34,6 +36,10 @@ public enum BarracksType {
 
     public int getWood() {
         return wood;
+    }
+
+    public int getStoneCost() {
+        return stoneCost;
     }
 
     public int getOil() {

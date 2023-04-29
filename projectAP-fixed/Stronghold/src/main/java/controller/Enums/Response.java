@@ -102,6 +102,23 @@ public enum Response {
     //drop building
     INVALID_BUILDING_TYPE("There is no building type same as the given type!"),
     BUILDING_ALREADY_EXISTS("This field already has a building!"),
+    ACQUISITION("You don't own this tile."),
+    ////tower
+    NOT_ENOUGH_STONE_TOWER("Not enough stone to build this tower."),
+    ////wall
+    INVALID_WALL_TYPE("There is no wall with this type."),
+    NOT_ENOUGH_STONE_WALL("Not enough stone to build this wall."),
+    ////barracks
+    INVALID_BARRACKS_TYPE("There is no barracks building with this type."),
+    NOT_ENOUGH_WOOD_BARRACKS("Not enough wood to build this barracks building."),
+    NOT_ENOUGH_GOLD_BARRACKS("Not enough gold to build this barracks building."),
+    NOT_ENOUGH_OIL_BARRACKS("Not enough oil to build this barracks building."),
+    ////inventory
+    INVALID_INVENTORY_TYPE("There is no inventory like this."),
+    NOT_ENOUGH_STONE_ARMOURY("Not enough stone to build armoury."),
+    NOT_ENOUGH_WOOD_INVENTORY("Not enough wood to build this storage."),
+    NO_INVENTORY_AROUND("There was no inventory like this around this tile."),
+
     //select building
     NO_BUILDING_EXIST("There is no building here!"),
     BUILDING_OWNERSHIP_PROBLEM("You don't own this building!"),
@@ -110,7 +127,7 @@ public enum Response {
     NOT_ENOUGH_POPULATION("You don't have enough population to make the given unit."),
     INVALID_TROOP_TYPE("There is no soldier type same as the given type!"),
     //repair
-    NOT_ENOUGH_STONE("There is not enough resources to repair!"),
+    NOT_ENOUGH_STONE_REPAIR("There is not enough resources to repair!"),
     UNABLE_TO_REPAIR("You can't repair right now. Enemies' soldiers are too close!"),
     ////units
     NO_UNIT_EXIST("There is no unit here!"),

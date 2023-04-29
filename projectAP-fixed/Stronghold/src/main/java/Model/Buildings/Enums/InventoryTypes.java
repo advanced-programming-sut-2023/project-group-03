@@ -5,23 +5,25 @@ import Model.Field.Texture;
 import java.util.HashSet;
 
 public enum  InventoryTypes {
-//    STOCKPILE,
-//    ARMOURY,
-//    FOOD_STORAGE
+    STOCKPILE(null, null, 0, null, 0, null),
+    ARMOURY(null, null, 0, null, 0, null),
+    FOOD_STORAGE(null, null, 0, null, 0, null),
     ;
     private ResourceTypes resource;
     private String name;
     private int capacity;
     private HashSet<Resources> resources;
     private int wood;
+    private int stoneCost;
     private HashSet<Texture> textures;
 
-    InventoryTypes(ResourceTypes resource, String name, int capacity, HashSet<Resources> resources, int wood, HashSet<Texture> textures) {
+    InventoryTypes(ResourceTypes resource, String name, int capacity, HashSet<Resources> resources, int wood, int stoneCost, HashSet<Texture> textures) {
         this.resource = resource;
         this.name = name;
         this.capacity = capacity;
         this.resources = resources;
         this.wood = wood;
+        this.stoneCost = stoneCost;
         this.textures = textures;
     }
 
@@ -43,6 +45,10 @@ public enum  InventoryTypes {
 
     public int getWood() {
         return wood;
+    }
+
+    public int getStoneCost() {
+        return stoneCost;
     }
 
     public HashSet<Texture> getTextures() {

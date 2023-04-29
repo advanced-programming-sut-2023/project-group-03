@@ -37,32 +37,11 @@ import java.util.regex.Matcher;
 import static controller.Enums.InputOptions.*;
 import static controller.Enums.Response.*;
 
-public class MapController extends Controller {
+public class MapController extends GeneralGameController {
     private final int gameWidth = 3;
     private final int gameLength = gameWidth * 2;
-    GameMap gameMap;
     public MapController(GameMap gameMap) {
-        this.gameMap = gameMap;
-    }
-
-    private String checkCoordinates(HashMap<String, String> coordinates, String xString, String yString) {
-        int x, y;
-
-        try {
-            x = Integer.parseInt(coordinates.get(xString)) - 1;
-        } catch (NumberFormatException e) {
-            return INVALID_X_MAP.getOutput();
-        }
-        try {
-            y = Integer.parseInt(coordinates.get(yString)) - 1;
-        } catch (NumberFormatException e) {
-            return INVALID_Y_MAP.getOutput();
-        }
-
-        if (x > gameMap.getSize() || x < 0) return INVALID_X_MAP.getOutput();
-        if (y > gameMap.getSize() || y < 0) return INVALID_Y_MAP.getOutput();
-
-        return null;
+        super(gameMap);
     }
 
     public String showMap(Matcher matcher) {
