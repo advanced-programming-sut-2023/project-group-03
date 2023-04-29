@@ -5,9 +5,9 @@ import Model.Field.Texture;
 import java.util.HashSet;
 
 public enum  InventoryTypes {
-    STOCKPILE(null, null, 0, null, 0, null),
-    ARMOURY(null, null, 0, null, 0, null),
-    FOOD_STORAGE(null, null, 0, null, 0, null),
+    STOCKPILE(null, null, 0, null, 0, 0, null),
+    ARMOURY(null, null, 0, null, 0, 0, null),
+    FOOD_STORAGE(null, null, 0, null, 0, 0, null),
     ;
     private ResourceTypes resource;
     private String name;
