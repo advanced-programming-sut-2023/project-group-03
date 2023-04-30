@@ -88,7 +88,7 @@ public enum Response {
     INVALID_RESOURCE_TYPE("Invalid resource type."),
     INVALID_RESOURCE_AMOUNT("Please enter an integer for 'amount'."),
     ////buy
-    NOT_ENOUGH_GOLD("You don't have enough gold to purchase."),
+    NOT_ENOUGH_GOLD_PURCHASE("You don't have enough gold to purchase."),
     SUCCESSFUL_PURCHASE("Successfully purchased."),
     ////sell
     NOT_ENOUGH_RESOURCE_SELL("You don't have that much resource to sell."),
@@ -103,6 +103,12 @@ public enum Response {
     INVALID_BUILDING_TYPE("There is no building type same as the given type!"),
     BUILDING_ALREADY_EXISTS("This field already has a building!"),
     ACQUISITION("You don't own this tile."),
+
+    NOT_ENOUGH_WOOD_BUILDING("Not enough wood to build this building."),
+    NOT_ENOUGH_GOLD_BUILDING("Not enough gold to build this building."),
+    NOT_ENOUGH_OIL_BUILDING("Not enough oil to build this building."),
+    NOT_ENOUGH_STONE_BUILDING("Not enough stone to build this building."),
+    NOT_ENOUGH_WORKER_BUILDING("Not enough workers for this building."),
     ////tower
     NOT_ENOUGH_STONE_TOWER("Not enough stone to build this tower."),
     ////wall
@@ -118,7 +124,17 @@ public enum Response {
     NOT_ENOUGH_STONE_ARMOURY("Not enough stone to build armoury."),
     NOT_ENOUGH_WOOD_INVENTORY("Not enough wood to build this storage."),
     NO_INVENTORY_AROUND("There was no inventory like this around this tile."),
-
+    ////rest
+    INVALID_REST_TYPE("Given type is neither stable nor hovel."),
+    NOT_ENOUGH_WOOD_REST("You don't have enough wood to build this."),
+    NOT_ENOUGH_GOLD_REST("You don't have enough gold to build this."),
+    ////generator
+    INVALID_GENERATOR_TYPE("There is no generator with this type. Pay more attention:("),
+    ////gates
+    INVALID_STONE_GATE_TYPE("The given type is neither big stone gate nor small stone gate."),
+    NOT_ENOUGH_STONE_STONE_GATE("You don't have enough stone to build this stone gate."),
+    ////drawbridge
+    INVALID_DIRECTION_DRAWBRIDGE("Invalid direction."),
     //select building
     NO_BUILDING_EXIST("There is no building here!"),
     BUILDING_OWNERSHIP_PROBLEM("You don't own this building!"),

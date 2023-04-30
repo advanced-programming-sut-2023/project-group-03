@@ -23,6 +23,10 @@ public enum InputOptions {
     BUILD_WALL(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_BARRACKS(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_INVENTORY(new ArrayList<>(Arrays.asList("x", "y", "t"))),
+    BUILD_REST(new ArrayList<>(Arrays.asList("x", "y", "t"))),
+    BUILD_GENERATOR(new ArrayList<>(Arrays.asList("x", "y", "t"))),
+    BUILD_STONE_GATE(new ArrayList<>(Arrays.asList("x", "y", "t"))),
+    BUILD_DRAWBRIDGE(new ArrayList<>(Arrays.asList("x", "y", "d"))),
 
     ;
     private ArrayList<String> keys;

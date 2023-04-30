@@ -1,14 +1,13 @@
 package Model.Buildings.Defending.Enums;
 
-import Model.Buildings.Enums.RestTypes;
 import Model.Field.Texture;
 
 import java.util.HashSet;
 
 public enum GateTypes {
-//    SMALL_STONE_GATE_HOUSE("", 0, 3, 5, 6)
-//    BIG_STONE_GATE_HOUSE,
-//    DRAWBBRIDGE
+    SMALL_STONE_GATE_HOUSE(null, 0, 3, 5, 6, 0, null),
+    BIG_STONE_GATE_HOUSE(null, 0, 3, 5, 6, 0, null),
+    DRAWBRIDGE(null, 0, 3, 5, 6, 0, null),
     ;
 
     private String name;
@@ -16,16 +15,18 @@ public enum GateTypes {
     private int length;
     private int width;
     private int stoneCost;
+    private int woodCost;
 
     private HashSet<Texture> textures;
 
-    GateTypes(String name, int HP, int length, int width, int stoneCost, HashSet textures) {
+    GateTypes(String name, int HP, int length, int width, int stoneCost, int woodCost, HashSet textures) {
         this.textures = textures;
         this.name = name;
         this.HP = HP;
         this.length = length;
         this.width = width;
         this.stoneCost = stoneCost;
+        this.woodCost = woodCost;
     }
 
     public String getName() {
@@ -46,6 +47,10 @@ public enum GateTypes {
 
     public int getStoneCost() {
         return stoneCost;
+    }
+
+    public int getWoodCost() {
+        return woodCost;
     }
 
     public HashSet<Texture> getTextures() {

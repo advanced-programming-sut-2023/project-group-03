@@ -10,4 +10,11 @@ public interface BuildingInterface {
     public String buildBarracksMatcherHandler(Matcher matcher, Player player);
     //inventory
     public String buildInventoryMatcherHandler(Matcher matcher, Player player);
+    //rest
+    public String buildRestMatcherHandler(Matcher matcher, Player player);
+    //generator
+    public String buildGeneratorMatcherHandler(Matcher matcher, Player player);
+    //gates
+    public String buildStoneGates(Matcher matcher, Player player);
+    public String buildDrawbridgeMatcherHandler(Matcher matcher, Player player);
 }

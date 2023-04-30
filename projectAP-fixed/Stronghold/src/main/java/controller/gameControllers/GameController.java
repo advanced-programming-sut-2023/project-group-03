@@ -65,4 +65,24 @@ public class GameController extends Controller implements GameMarketInterface , 
     public String buildInventoryMatcherHandler(Matcher matcher, Player player) {
         return buildingController.buildInventoryMatcherHandler(matcher, player);
     }
+
+    @Override
+    public String buildRestMatcherHandler(Matcher matcher, Player player) {
+        return buildingController.buildRestMatcherHandler(matcher, player);
+    }
+
+    @Override
+    public String buildGeneratorMatcherHandler(Matcher matcher, Player player) {
+        return buildingController.buildGeneratorMatcherHandler(matcher, player);
+    }
+
+    @Override
+    public String buildStoneGates(Matcher matcher, Player player) {
+        return buildingController.buildStoneGates(matcher, player);
+    }
+
+    @Override
+    public String buildDrawbridgeMatcherHandler(Matcher matcher, Player player) {
+        return buildingController.buildDrawbridgeMatcherHandler(matcher, player);
+    }
 }

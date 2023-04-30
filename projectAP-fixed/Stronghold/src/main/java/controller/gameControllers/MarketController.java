@@ -55,7 +55,7 @@ public class MarketController extends Controller implements GameMarketInterface{
 
     private String buyFromMarket(Resources resource, int amount, Player player) {
         int totalPrice = amount * resource.getGold();
-        if (totalPrice > player.getGold()) return NOT_ENOUGH_GOLD.getOutput();
+        if (totalPrice > player.getGold()) return NOT_ENOUGH_GOLD_PURCHASE.getOutput();
 
         player.setGold(player.getGold() - totalPrice);
         player.getInventory().put(resource, player.getInventory().get(resource) + amount);
