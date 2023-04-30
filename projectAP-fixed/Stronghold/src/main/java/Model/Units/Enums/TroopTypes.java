@@ -10,13 +10,13 @@ public enum TroopTypes {
     ;
     private String name;
     private int damage;
-    private int Speed;
+    private int speed;
     private int HP;
     private int range;
     private int gold;
     HashSet<Resources> equipment;
     TroopTypes(String name, int damage, int speed, int HP, int range, int gold, HashSet<Resources> equipment) {
-        this.Speed=speed;
+        this.speed =speed;
         this.name = name;
         this.damage = damage;
         this.HP = HP;
@@ -51,7 +51,7 @@ public enum TroopTypes {
     }
 
     public int getSpeed() {
-        return Speed;
+        return speed;
     }
 
     public CombatUnit create(String name) {
