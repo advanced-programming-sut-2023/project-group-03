@@ -27,6 +27,7 @@ public class Barracks extends Building{
         return Products;
     }
 
+
     public CombatUnit make(TroopTypes types) {
         return null;
     }

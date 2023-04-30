@@ -108,7 +108,7 @@ public enum Response {
     NOT_ENOUGH_GOLD_BUILDING("Not enough gold to build this building."),
     NOT_ENOUGH_OIL_BUILDING("Not enough oil to build this building."),
     NOT_ENOUGH_STONE_BUILDING("Not enough stone to build this building."),
-    NOT_ENOUGH_WORKER_BUILDING("Not enough workers for this building."),
+    NOT_ENOUGH_WORKER_BUILDING("Not enough population to get workers for this building."),
     ////tower
     NOT_ENOUGH_STONE_TOWER("Not enough stone to build this tower."),
     ////wall
@@ -135,6 +135,17 @@ public enum Response {
     NOT_ENOUGH_STONE_STONE_GATE("You don't have enough stone to build this stone gate."),
     ////drawbridge
     INVALID_DIRECTION_DRAWBRIDGE("Invalid direction."),
+    //unit
+    INVALID_AMOUNT_UNIT("Enter an integer for amount field."),
+    ////troop
+    INVALID_TROOP_TYPE_UNIT("Invalid troop type."),
+    NOT_ENOUGH_GOLD_UNIT("You don't have enough gold to make this amount of this troop."),
+    NOT_ENOUGH_RESOURCES_UNIT("You don't have enough of this resource: "),
+    NOT_RIGHT_PLACE_UNIT("You can't make this at this kinda building."),
+    ////engineer
+    NOT_ENOUGH_GOLD_ENGINEER("You don't have enough gold to make this amount of engineers."),
+    NOT_ENOUGH_POPULATION_ENGINEER("You don't have enough population."),
+    SUCCESSFUL_ADD_ENGINEER("Successfully added that amount of engineers."),
     //select building
     NO_BUILDING_EXIST("There is no building here!"),
     BUILDING_OWNERSHIP_PROBLEM("You don't own this building!"),

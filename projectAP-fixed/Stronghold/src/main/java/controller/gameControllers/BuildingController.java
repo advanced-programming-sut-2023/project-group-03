@@ -10,6 +10,7 @@ import Model.Buildings.Defending.Wall;
 import Model.Buildings.Enums.*;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.Units.Worker;
 import controller.interfaces.BuildingInterface;
 import static controller.Enums.InputOptions.*;
 import static controller.Enums.Response.*;
@@ -291,12 +292,19 @@ public class BuildingController extends GeneralGameController implements Buildin
             return NOT_ENOUGH_GOLD_BUILDING.getOutput();
         if (player.getInventory().get(Resources.WOOD) < generatorType.getWood())
             return NOT_ENOUGH_WOOD_BUILDING.getOutput();
-//        if (player.getWorder() < generatorType.getWorker())
-//            return NOT_ENOUGH_WORKER_BUILDING.getOutput();
+        if (player.getPopularity() < generatorType.getWorker())
+            return NOT_ENOUGH_WORKER_BUILDING.getOutput();
 
         if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
-        targetTile.setBuilding(new Generators(player, targetTile, generatorType));
+        Generators newGenerator = new Generators(player, targetTile, generatorType);
+
+        targetTile.setBuilding(newGenerator);
+        for (int i = 0; i < generatorType.getWorker(); i++) {
+            targetTile.addUnit(new Worker(player, targetTile, newGenerator));
+
+        }
+
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 

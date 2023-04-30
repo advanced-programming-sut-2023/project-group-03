@@ -4,10 +4,10 @@ import Model.Buildings.Generators;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 
-public class worker extends nonCombatUnit{
+public class Worker extends nonCombatUnit{
 
     Generators job;
-    public worker(Player owner, Tile position,Generators job) {
+    public Worker(Player owner, Tile position, Generators job) {
         super(owner, position);
     }
 

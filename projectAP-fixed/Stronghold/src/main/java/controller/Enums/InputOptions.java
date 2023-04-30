@@ -19,6 +19,7 @@ public enum InputOptions {
     DROP_UNIT(new ArrayList<>(Arrays.asList("x", "y", "t", "c"))),
     DROP_BUILDING(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUY_SELL(new ArrayList<>(Arrays.asList("i", "a"))),
+    //building
     BUILD_TOWER(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_WALL(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_BARRACKS(new ArrayList<>(Arrays.asList("x", "y", "t"))),
@@ -27,7 +28,8 @@ public enum InputOptions {
     BUILD_GENERATOR(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_STONE_GATE(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_DRAWBRIDGE(new ArrayList<>(Arrays.asList("x", "y", "d"))),
-
+    //unit
+    ADD_TROOP(new ArrayList<>(Arrays.asList("t", "a"))),
     ;
     private ArrayList<String> keys;
 
