@@ -1,13 +1,14 @@
 package Model.Buildings.Defending.Enums;
 
+import Model.Field.RegularTextureGroups;
 import Model.Field.Texture;
 
 import java.util.HashSet;
 
 public enum GateTypes {
-    SMALL_STONE_GATE_HOUSE(null, 0, 3, 5, 6, 0, null),
-    BIG_STONE_GATE_HOUSE(null, 0, 3, 5, 6, 0, null),
-    DRAWBRIDGE(null, 0, 3, 5, 6, 0, null),
+    SMALL_STONE_GATE_HOUSE("small stone gate", 1000, 3, 5, 0, 0, RegularTextureGroups.NORMAL.getTextures()),
+    BIG_STONE_GATE_HOUSE("big stone gate", 2000, 3, 5, 20, 0,  RegularTextureGroups.NORMAL.getTextures()),
+    DRAWBRIDGE("drawbridge", 1000, 2, 1, 0, 10,  RegularTextureGroups.NORMAL.getTextures()),
     ;
 
     private String name;

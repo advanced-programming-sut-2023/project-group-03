@@ -6,7 +6,7 @@ import Model.Buildings.Enums.Resources;
 import java.util.HashSet;
 
 public enum TroopTypes {
-
+    //ARCHER("archer",3,2,7,8,)
     ;
     private String name;
     private int damage;
@@ -16,7 +16,7 @@ public enum TroopTypes {
     private int gold;
     HashSet<Resources> equipment;
     TroopTypes(String name, int damage, int speed, int HP, int range, int gold, HashSet<Resources> equipment) {
-        this.speed =speed;
+        this.speed = speed;
         this.name = name;
         this.damage = damage;
         this.HP = HP;

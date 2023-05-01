@@ -1,15 +1,16 @@
 package Model.Buildings.Defending.Enums;
 
 import Model.Buildings.Enums.RestTypes;
+import Model.Field.RegularTextureGroups;
 import Model.Field.Texture;
 import org.w3c.dom.Text;
 
 import java.util.HashSet;
 
 public enum WallTypes {
-//    BIG("", 2, 2),
-    //SMALL,
-;
+    BIG("big wall", 700, 10, RegularTextureGroups.NORMAL.getTextures()),
+    SMALL("small wall", 300,6,RegularTextureGroups.NORMAL.getTextures())
+    ;
     private String name;
     private int HP;
     private int stoneCost;

@@ -7,7 +7,8 @@ import Model.GamePlay.Player;
 
 public class Generators extends Building{
     private GeneratorTypes type ;
-    private int rate;
+    private int useRate;
+    private int produceRate;
     private int inventory;
     private int capacity;
     private Resources product;
@@ -20,7 +21,9 @@ public class Generators extends Building{
 
     public Generators(Player owner, Tile position, GeneratorTypes type) {
         super(owner, position);
-        this.rate = type.getRate();
+        this.useRate = type.getUseRate();
+        this.produceRate = type.getProduceRate();
+        this.HP = type.getHP();
         this.inventory = type.getInventory();
         this.capacity = type.getCapacity();
         this.product = type.getProduct();
@@ -58,15 +61,16 @@ public class Generators extends Building{
     }
 
     public void makeResource(){
-        //// maybe use rate and produce rate must be different
-        if(capacity-inventory<=0){
+        // TODO add details for special cases
+        if(use!=null && useRate>owner.getResourceAmount(use)){
             return;
         }
-        if(owner.getResourceAmount(use)<rate){
-            return;
+        if(use!=null){
+            owner.decreaseInventory(use,useRate);
         }
-        owner.decreaseInventory(use,rate);
-        inventory += rate;
+        if(product!=null){
+            owner.increaseInventory(product,produceRate);
+        }
     }
 
     @Override

@@ -37,7 +37,6 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         return addTroop(troopType, amount, player, tile);
     }
-
     private String addTroop(TroopTypes troopType, int amount, Player player, Tile tile) {
         Barracks building = (Barracks) tile.getBuilding();
         if (!building.getProducts().contains(troopType)) return NOT_RIGHT_PLACE_UNIT.getOutput();

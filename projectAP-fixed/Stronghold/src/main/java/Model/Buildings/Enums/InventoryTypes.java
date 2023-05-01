@@ -1,23 +1,26 @@
 package Model.Buildings.Enums;
 
+import Model.Field.RegularTextureGroups;
 import Model.Field.Texture;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 public enum  InventoryTypes {
-    STOCKPILE(null, null, 0, null, 0, 0, null),
-    ARMOURY(null, null, 0, null, 0, 0, null),
-    FOOD_STORAGE(null, null, 0, null, 0, 0, null),
+    STOCKPILE(ResourceTypes.STOCK, "stockpile",400, 200, null, 0, 0, RegularTextureGroups.NORMAL.getTextures()),
+    ARMOURY(ResourceTypes.WEAPON, "armoury", 500, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextures()),
+    FOOD_STORAGE(ResourceTypes.FOOD, "food storage",200, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextures()),
     ;
     private ResourceTypes resource;
     private String name;
+    private int HP;
     private int capacity;
     private HashSet<Resources> resources;
     private int wood;
     private int stoneCost;
     private HashSet<Texture> textures;
 
-    InventoryTypes(ResourceTypes resource, String name, int capacity, HashSet<Resources> resources, int wood, int stoneCost, HashSet<Texture> textures) {
+    InventoryTypes(ResourceTypes resource, String name, int HP, int capacity, HashSet<Resources> resources, int wood, int stoneCost, HashSet<Texture> textures) {
         this.resource = resource;
         this.name = name;
         this.capacity = capacity;

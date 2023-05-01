@@ -28,6 +28,10 @@ public class Troop extends CombatUnit{
         owner.decreaseGold(type.getGold());
         this.equipment = type.getEquipment();
         this.mode = AttackingMode.STANDING;
+        
+        for (Resources now:equipment) {
+            owner.decreaseInventory(now,1);
+        }
     }
 
     public void attack() {
