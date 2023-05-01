@@ -1,6 +1,5 @@
 package controller.Enums;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -30,6 +29,8 @@ public enum InputOptions {
     BUILD_DRAWBRIDGE(new ArrayList<>(Arrays.asList("x", "y", "d"))),
     //unit
     ADD_TROOP(new ArrayList<>(Arrays.asList("t", "a"))),
+    //kingdom
+    CHANGE_RATE(new ArrayList<>(Arrays.asList("r"))),
     ;
     private ArrayList<String> keys;
 

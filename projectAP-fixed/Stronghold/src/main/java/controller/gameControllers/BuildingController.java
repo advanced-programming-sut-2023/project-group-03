@@ -444,14 +444,13 @@ public class BuildingController extends GeneralGameController implements Buildin
 
         String direction = infoMap.get("d");
 
-        if (!(direction.equals("down") || direction.equals("up") || direction.equals("right") || direction.equals("left"))) {
-            return INVALID_DIRECTION_DRAWBRIDGE.getOutput();
-        }
-
         return buildDrawbridge(x, y, direction);
     }
 
     private String buildDrawbridge(int x, int y, String direction) {
+        if (!(direction.equals("down") || direction.equals("up") || direction.equals("right") || direction.equals("left"))) {
+            return INVALID_DIRECTION_DRAWBRIDGE.getOutput();
+        }
         return null;
     }
 }

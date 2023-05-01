@@ -1,13 +1,17 @@
 package controller.gameControllers;
 
+import Model.Buildings.Building;
 import Model.Field.GameMap;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 import controller.Controller;
 import controller.interfaces.*;
 
 import java.util.regex.Matcher;
 
-public class GameController extends Controller implements GameMarketInterface , BuildingInterface {
+public class GameController extends Controller implements GameMarketInterface , BuildingInterface,
+        UnitInterface, KingdomInterface
+{
     private BuildingController buildingController;
     private KingdomController kingdomController;
     private MarketController marketController;
@@ -84,5 +88,40 @@ public class GameController extends Controller implements GameMarketInterface , 
     @Override
     public String buildDrawbridgeMatcherHandler(Matcher matcher, Player player) {
         return buildingController.buildDrawbridgeMatcherHandler(matcher, player);
+    }
+
+    @Override
+    public String repair(Building building, Player player) {
+        return buildingController.repair(building, player);
+    }
+
+    @Override
+    public String addTroopMatcherHandler(Matcher matcher, Player player, Tile tile) {
+        return unitController.addTroopMatcherHandler(matcher, player, tile);
+    }
+
+    @Override
+    public String addEngineer(Player player, String amountString, Tile tile) {
+        return unitController.addEngineer(player, amountString, tile);
+    }
+
+    @Override
+    public int showPopularity(Player player) {
+        return kingdomController.showPopularity(player);
+    }
+
+    @Override
+    public String changeFoodRate(Matcher matcher, Player player) {
+        return kingdomController.changeFoodRate(matcher, player);
+    }
+
+    @Override
+    public String changeTaxRate(Matcher matcher, Player player) {
+        return kingdomController.changeTaxRate(matcher, player);
+    }
+
+    @Override
+    public String changeFearRate(Matcher matcher, Player player) {
+        return kingdomController.changeFearRate(matcher, player);
     }
 }

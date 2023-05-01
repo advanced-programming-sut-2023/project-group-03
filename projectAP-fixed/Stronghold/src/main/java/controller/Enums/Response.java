@@ -94,9 +94,13 @@ public enum Response {
     NOT_ENOUGH_RESOURCE_SELL("You don't have that much resource to sell."),
     SUCCESSFUL_SELL("Successfully sold."),
     //kingdom
+    INVALID_INTEGER_KINGDOM("Enter an integer for rate field."),
     INVALID_FOOD_RATE("Invalid food rate! -3 < food rate < 3"),
+    SUCCESSFUL_CHANGE_FOOD_RATE("Food rate successfully changed."),
     INVALID_TAX_RATE("Invalid tax rate! -4 < tax rate < 9"),
+    SUCCESSFUL_CHANGE_TAX_RATE("Tax rate successfully changed."),
     INVALID_FEAR_RATE("Invalid fear rate! -6 < fear rate < 6"),
+    SUCCESSFUL_CHANGE_FEAR_RATE("Fear rate successfully changed."),
     ////buildings
     INVALID_LOCATION("Invalid x or y for location!"),
     //drop building

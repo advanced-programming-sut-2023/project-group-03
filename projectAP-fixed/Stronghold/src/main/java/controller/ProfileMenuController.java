@@ -1,9 +1,8 @@
 package controller;
 
 import Model.User;
-import controller.Enums.ControllerCommands;
 
-import java.util.ArrayList;
+import static controller.ControllerFunctions.*;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import static controller.Enums.Response.*;
@@ -18,12 +17,14 @@ public class ProfileMenuController extends UserBasedMenuController {
     }
 
     public String changeUsername(String username) {
+        username = unwrapQuotation(username);
         if (!checkUsernameNicknameFormat(username)) return INVALID_USERNAME_FORMAT.getOutput();
         user.setUsername(username);
         return SUCCESSFUL_CHANGE_USERNAME.getOutput();
     }
 
     public String changeNickname(String nickName) {
+        nickName = unwrapQuotation(nickName);
         if (!checkUsernameNicknameFormat(nickName)) return INVALID_NICKNAME_FORMAT.getOutput();
         user.setNickname(nickName);
         return SUCCESSFUL_CHANGE_NICKNAME.getOutput();
@@ -44,12 +45,14 @@ public class ProfileMenuController extends UserBasedMenuController {
     }
 
     public String changeEmail(String email) {
+        email = unwrapQuotation(email);
         if (checkEmailFormat(email)) return INVALID_EMAIL_FORMAT.getOutput();
         user.setEmail(email);
         return SUCCESSFUL_CHANGE_EMAIL.getOutput();
     }
 
     public String changeSlogan(String slogan) {
+        slogan = unwrapQuotation(slogan);
         user.setSlogan(slogan);
         return SUCCESSFUL_CHANGE_SLOGAN.getOutput();
     }
@@ -79,7 +82,7 @@ public class ProfileMenuController extends UserBasedMenuController {
         output += "username: " + user.getUsername() + "\n";
         output += "nickname: " + user.getNickname() + "\n";
         output += "email: " + user.getEmail() + "\n";
-        if (user.getSlogan() != null) output += "slogan: " + user.getSlogan();
+        if (user.getSlogan() != null) output += "slogan: " + user.getSlogan() + "\n";
         output += "highScore: " + user.getHighScore() + "\n";
         output += "rank: " + user.getRank();
         return output;
