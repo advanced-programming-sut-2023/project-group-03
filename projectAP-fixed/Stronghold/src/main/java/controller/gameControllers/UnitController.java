@@ -2,7 +2,6 @@ package controller.gameControllers;
 
 import Model.Buildings.Barracks;
 import Model.Buildings.Enums.Resources;
-import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
@@ -17,7 +16,6 @@ import java.util.regex.Matcher;
 
 public class UnitController extends GeneralGameController implements UnitInterface {
     GameController gameController;
-    GameMap gameMap;
 
     UnitController(GameController gameController) {
         super(gameController.getGameMap());

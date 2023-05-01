@@ -18,6 +18,7 @@ public class Barracks extends Building{
     public Barracks(Player owner, Tile position, BarracksType type) {
         super(owner, position);
         this.material = type.getMaterial();
+        this.type = type;
         owner.decreaseInventory(Resources.WOOD,type.getWood());
         owner.decreaseInventory(Resources.OIL,type.getOil());
         owner.decreaseGold(type.getGold());
@@ -27,6 +28,9 @@ public class Barracks extends Building{
         return Products;
     }
 
+    public BarracksType getType() {
+        return type;
+    }
 
     public CombatUnit make(TroopTypes types) {
         return null;

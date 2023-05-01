@@ -10,6 +10,7 @@ import Model.Buildings.Defending.Wall;
 import Model.Buildings.Enums.*;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.Units.Unit;
 import Model.Units.Worker;
 import controller.interfaces.BuildingInterface;
 import static controller.Enums.InputOptions.*;
@@ -32,9 +33,97 @@ public class BuildingController extends GeneralGameController implements Buildin
         return "";
     }
 
-    public String repair(Matcher matcher) {
+    public String repair(Building building, Player player) {
+        //gates, towers, barracks
+        if (building instanceof Gates) {
+            Gates gate = (Gates) building;
+            GateTypes gateType = gate.getType();
+            int lostHealth = gateType.getHP() - gate.getHP();
+            int stoneCost = (gateType.getStoneCost() * lostHealth) / gateType.getHP();
+            if (player.getInventory().get(Resources.STONE) < stoneCost)
+                return NOT_ENOUGH_STONE_REPAIR.getOutput();
+            if (!checkForEnemiesAround(building.getPosition(), player))
+                return UNABLE_TO_REPAIR.getOutput();
+
+            building.setHP(gateType.getHP());
+            player.decreaseInventory(Resources.STONE, stoneCost);
+            return SUCCESSFUL_REPAIR.getOutput();
+
+        }
+
+        if (building instanceof Towers) {
+            TowerTypes towerType = ((Towers) building).getType();
+            int lostHealth = towerType.getHP() - building.getHP();
+            int stoneCost = (towerType.getStoneCost() * lostHealth) / towerType.getHP();
+            if (player.getInventory().get(Resources.STONE) < stoneCost)
+                return NOT_ENOUGH_STONE_REPAIR.getOutput();
+            if (!checkForEnemiesAround(building.getPosition(), player))
+                return UNABLE_TO_REPAIR.getOutput();
+
+            building.setHP(towerType.getHP());
+            player.decreaseInventory(Resources.STONE, stoneCost);
+            return SUCCESSFUL_REPAIR.getOutput();
+        }
+
+        if (building instanceof  Barracks) {
+            BarracksType barracksType = ((Barracks) building).getType();
+            int lostHealth = barracksType.getHP() - building.getHP();
+            int stoneCost = (barracksType.getStoneCost() * lostHealth) / barracksType.getHP();
+            int woodCost = (barracksType.getWood() * lostHealth) / barracksType.getHP();
+            int goldCost = (barracksType.getGold() * lostHealth) / barracksType.getHP();
+            if ((player.getInventory().get(Resources.STONE) < stoneCost) ||
+                (player.getInventory().get(Resources.WOOD) < woodCost)) return NOT_ENOUGH_STONE_REPAIR.getOutput();
+            if (player.getGold() < goldCost) return NOT_ENOUGH_GOLD_REPAIR.getOutput();
+            if (!checkForEnemiesAround(building.getPosition(), player)) return UNABLE_TO_REPAIR.getOutput();
+
+            building.setHP(barracksType.getHP());
+            player.decreaseGold(goldCost);
+            player.decreaseInventory(Resources.STONE, stoneCost);
+            player.decreaseInventory(Resources.WOOD, woodCost);
+            return SUCCESSFUL_REPAIR.getOutput();
+        }
         //check if you have the elements and there is no enemy around
-        return "";
+        return INVALID_BUILDING_REPAIR.getOutput();
+    }
+
+    private boolean checkForEnemiesAround(Tile currentTile, Player player) {
+        for (Unit unit : currentTile.getUnits()) {
+            if (!unit.getOwner().equals(player)) return false;
+        }
+
+        int mapSize = gameMap.getSize();
+        int x = currentTile.getRowNum();
+        int y = currentTile.getColumnNum();
+
+        if ((x + 1) < mapSize) {
+            Tile neighbourTile = gameMap.getMap()[x + 1][y];
+            for (Unit unit : neighbourTile.getUnits()) {
+                if (!unit.getOwner().equals(player)) return false;
+            }
+        }
+
+        if ((x - 1) < mapSize) {
+            Tile neighbourTile = gameMap.getMap()[x - 1][y];
+            for (Unit unit : neighbourTile.getUnits()) {
+                if (!unit.getOwner().equals(player)) return false;
+            }
+        }
+
+        if ((y + 1) < mapSize) {
+            Tile neighbourTile = gameMap.getMap()[x][y + 1];
+            for (Unit unit : neighbourTile.getUnits()) {
+                if (!unit.getOwner().equals(player)) return false;
+            }
+        }
+
+        if ((y - 1) < mapSize) {
+            Tile neighbourTile = gameMap.getMap()[x][y - 1];
+            for (Unit unit : neighbourTile.getUnits()) {
+                if (!unit.getOwner().equals(player)) return false;
+            }
+        }
+
+        return true;
     }
 
     @Override

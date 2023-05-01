@@ -155,7 +155,10 @@ public enum Response {
     INVALID_TROOP_TYPE("There is no soldier type same as the given type!"),
     //repair
     NOT_ENOUGH_STONE_REPAIR("There is not enough resources to repair!"),
+    NOT_ENOUGH_GOLD_REPAIR("You don't have enough gold to repair this building."),
     UNABLE_TO_REPAIR("You can't repair right now. Enemies' soldiers are too close!"),
+    INVALID_BUILDING_REPAIR("You can't repair this kinda building."),
+    SUCCESSFUL_REPAIR("Your building got repaired successfully!"),
     ////units
     NO_UNIT_EXIST("There is no unit here!"),
     INVALID_DESTINATION("You can't go to that place. It is too high or too deap!"),
