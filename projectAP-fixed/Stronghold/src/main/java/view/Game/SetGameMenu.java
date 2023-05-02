@@ -24,6 +24,17 @@ public class SetGameMenu extends Menu {
 
     @Override
     public void run() throws Transition {
+        String output = null;
+        do {
+            output = SetMap();
+            System.out.println(output);
+        } while (!output.equals("map set successfull"));
+        for (int i = 0; i < game.getMap().getNumberOfPlayers(); i++) {
+            do {
+                output = setPlayerNumI(i);
+                System.out.println(output);
+            } while (!output.equals("player set successfull"));
+        }
 
     }
 
@@ -56,6 +67,7 @@ public class SetGameMenu extends Menu {
             return "player set successfull";
         }
     }
+
 
 
 }

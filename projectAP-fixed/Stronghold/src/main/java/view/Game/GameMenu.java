@@ -1,5 +1,6 @@
 package view.Game;
 
+import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
 import view.Menu;
 import view.Transition;
@@ -9,6 +10,7 @@ import java.util.regex.Matcher;
 
 public class GameMenu extends Menu {
     Game game;
+    Drawable selected;
 
     public GameMenu(Scanner scanner, Game game) {
         super(scanner);
