@@ -23,8 +23,9 @@ import java.util.regex.Matcher;
 import static view.Enums.ConsoleColors.*;
 
 public class GameMenu extends Menu {
-    Game game;
-    Drawable selected = null;
+    private Game game;
+
+    private Drawable selected = null;
     CastleBuildingMenu castleBuildingMenu;
     FarmBuidingMenu farmBuidingMenu;
     FoodProcessingMenu foodProcessingMenu;
@@ -170,6 +171,15 @@ public class GameMenu extends Menu {
         }
         return output;
     }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public Drawable getSelected() {
+        return selected;
+    }
+
     private void showMap(Matcher matcher){}
 
     private void moveMap(Matcher matcher){}
