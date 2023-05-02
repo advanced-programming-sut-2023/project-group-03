@@ -1,29 +1,175 @@
 package view.Game;
 
+import Model.Buildings.Barracks;
+import Model.Buildings.Defending.CastleBuilding;
+import Model.Buildings.Keep;
+import Model.Buildings.Store;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
+import Model.Units.Unit;
+import controller.ControllerFunctions;
+import controller.gameControllers.GameMenuController;
+import controller.gameControllers.MarketController;
+import view.Enums.ConsoleColors;
+import view.Enums.GameMenuCommands;
+import view.Enums.MapMenuCommands;
+import view.Enums.ShopMenuCommands;
 import view.Menu;
 import view.Transition;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
+import static view.Enums.ConsoleColors.*;
+
 public class GameMenu extends Menu {
     Game game;
-    Drawable selected;
+    Drawable selected = null;
+    CastleBuildingMenu castleBuildingMenu;
+    FarmBuidingMenu farmBuidingMenu;
+    FoodProcessingMenu foodProcessingMenu;
+    IndustryBuildingMenu industryBuildingMenu;
+    TownBuidingMenu townBuidingMenu;
+    WeaponBuidingMenu weaponBuidingMenu;
+    BaracksMenu baracksMenu;
+    KeepMenu keepMenu;
 
     public GameMenu(Scanner scanner, Game game) {
         super(scanner);
         this.game = game;
+        castleBuildingMenu = new CastleBuildingMenu(scanner, this);
+        farmBuidingMenu = new FarmBuidingMenu(scanner, this);
+        foodProcessingMenu = new FoodProcessingMenu(scanner, this);
+        industryBuildingMenu = new IndustryBuildingMenu(scanner, this);
+        townBuidingMenu = new TownBuidingMenu(scanner, this);
+        weaponBuidingMenu = new WeaponBuidingMenu(scanner, this);
+        baracksMenu = new BaracksMenu(scanner, this);
+        keepMenu = new KeepMenu(scanner, this);
     }
 
     @Override
     public void run() throws Transition {
+        String command = scanner.nextLine();
+        GameMenuController gameMenuController = new GameMenuController(game.getCurrentPlayer().getUser(), game);
+        if (command.matches("select menu")) {
+            SelectMenuGuide();
+            Menu next = handleMenu();
+            if (next == null) {
+                throw new Transition(this);
+            } else {
+                throw new Transition(next);
+            }
+        } else if (command.matches(GameMenuCommands.SELECT_BUILDING.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_BUILDING.toString());
+        } else if (command.matches(GameMenuCommands.SELECT_UNIT.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_UNIT.toString());
+        } else if (command.matches(GameMenuCommands.MAP_MOVE.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.MAP_MOVE.toString());
+        } else if (command.matches("next turn")) {
 
+        }
+        else if (selected instanceof CastleBuilding) {
+            if (command.matches(GameMenuCommands.REPAIR.toString())) {
+
+            }
+        }
+        else if (selected instanceof Barracks) {
+            if (command.matches(GameMenuCommands.CREATE_UNIT.toString())) {
+
+            }
+        }
+        else if (selected instanceof Store) {
+            if (command.matches(ShopMenuCommands.BUY.toString())) {
+
+            } else if (command.matches(ShopMenuCommands.SELL.toString())) {
+
+            } else if (command.matches(ShopMenuCommands.SHOW_PRICE_LIST.toString())) {
+
+            }
+        }
+        else if (selected instanceof Unit) {
+            if (command.matches(GameMenuCommands.DISBAND_UNIT.toString())) {
+
+            } else if (command.matches(GameMenuCommands.ATTACK_ENEMY.toString())) {
+
+            } else if (command.matches(GameMenuCommands.ATTACK_PLACE.toString())) {
+
+            }
+        }
     }
 
     // map
+    public void showGuide() {
+        String selectedName = "nothing selected";
+        if (selected != null) {
+            selectedName = selected.getClass().getSimpleName();
+        }
+        System.out.println(formatPrinter(TEXT_YELLOW, "", "turn:" + game.getTurn() +
+                "current player:" + " user " + game.getCurrentPlayer().getUser().getUsername() + "selected:" + selectedName));
+        System.out.println(formatPrinter(TEXT_YELLOW, "", "common possible command formats:\n" +
+                "1.select menu 2." + GameMenuCommands.SELECT_BUILDING.toString() +
+                " 3." + GameMenuCommands.SELECT_UNIT.toString() + " 4." + GameMenuCommands.MAP_MOVE.toString() + " 5." +
+                "next turn"));
+        if (selected instanceof Barracks) {
+            Barracks barracks = ((Barracks) selected);
+            System.out.println(formatPrinter(TEXT_BG_CYAN, "", "Type: " + barracks.getType() +
+                    " HP:" + barracks.getHP() + "\ncommand to create unit: " + GameMenuCommands.CREATE_UNIT.toString()));
+        }
+        if (selected instanceof Store) {
+            Store store = ((Store) selected);
+            System.out.println(formatPrinter(TEXT_BG_CYAN, "", "Type: " + "Market" +
+                    " HP:" + store.getHP() + "\npossible format of command: 1." + ShopMenuCommands.SELL.toString() +
+                    " 2." + ShopMenuCommands.BUY.toString() + " 3." + ShopMenuCommands.SHOW_PRICE_LIST.toString()));
+        }
+        if (selected instanceof CastleBuilding) {
+            CastleBuilding castleBuilding = ((CastleBuilding) selected);
+            System.out.println(formatPrinter(TEXT_BG_CYAN, "", "Type: " + castleBuilding.getClass().getSimpleName() +
+                    " HP:" + castleBuilding.getHP() + "\ncommand to repair:" + GameMenuCommands.REPAIR.toString()));
+        }
+        if (selected instanceof Keep) {
 
+        }
+        if (selected instanceof Unit) {
+            Unit unit = ((Unit) selected);
+            System.out.println(formatPrinter(TEXT_BG_CYAN, "", "Type: " + unit.getClass().getSimpleName() +
+                    " HP:" + unit.getHP() + "\npossible format of command: 1." + GameMenuCommands.ATTACK_ENEMY.toString() +
+                    " 2." + GameMenuCommands.ATTACK_PLACE.toString() + " 3." + GameMenuCommands.MOVE_UNIT.toString() + " 4." +
+                    GameMenuCommands.DISBAND_UNIT.toString()));
+        }
+    }
+
+    public void SelectMenuGuide() {
+        System.out.println(formatPrinter(TEXT_GREEN, "", "select a menu:" +
+                " 1.Castle Buildings 2.Town Buildings 3.Farm Buildings 4.Food Processing 5.Industry 6.Weopon Buildings"
+                + "\n" + "or select a building: 1.Market 2.Keep 3.Barracks 4.Engineer Guild"));
+    }
+
+    public Menu handleMenu() {
+        Menu output = null;
+        String input = scanner.nextLine();
+        if (input.matches("Castle Buildings")) {
+            return castleBuildingMenu;
+        } else if (input.matches("Town Buildings")) {
+            return townBuidingMenu;
+        } else if (input.matches("Farm Buidings")) {
+            return farmBuidingMenu;
+        } else if (input.matches("Food Processing")) {
+            return foodProcessingMenu;
+        } else if (input.matches("Industry")) {
+            return industryBuildingMenu;
+        } else if (input.matches("Weopon Buildings")) {
+            return weaponBuidingMenu;
+        } else if (input.matches("Market")) {
+
+        } else if (input.matches("Keep")) {
+
+        } else if (input.matches("Barracks")) {
+
+        } else if (input.matches("Engineer Guild")) {
+
+        }
+        return output;
+    }
     private void showMap(Matcher matcher){}
 
     private void moveMap(Matcher matcher){}

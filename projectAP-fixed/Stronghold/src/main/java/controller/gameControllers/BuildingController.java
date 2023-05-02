@@ -13,11 +13,12 @@ import Model.GamePlay.Player;
 import Model.Units.Unit;
 import Model.Units.Worker;
 import controller.interfaces.BuildingInterface;
-import static controller.Enums.InputOptions.*;
-import static controller.Enums.Response.*;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
+
+import static controller.Enums.InputOptions.*;
+import static controller.Enums.Response.*;
 
 public class BuildingController extends GeneralGameController implements BuildingInterface {
     GameController gameController;

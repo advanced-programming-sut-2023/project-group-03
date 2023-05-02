@@ -8,7 +8,7 @@ public class Game {
     private GameMap map;
     private ArrayList<Player> players;
     private int turn;
-
+    private Player currentPlayer;
     public Game(GameMap map, ArrayList<Player> players) {
         this.map = map;
         this.players = players;
@@ -42,4 +42,11 @@ public class Game {
         this.players.add(player);
     }
 
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 }
