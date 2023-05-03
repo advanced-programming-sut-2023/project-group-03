@@ -8,9 +8,11 @@ import Model.Buildings.Enums.Resources;
 import Model.Field.Texture;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.Units.Combat.CombatUnit;
 import Model.Units.Combat.Throwers;
 import Model.Units.Combat.Troop;
 import Model.Units.Engineer;
+import Model.Units.Enums.AttackingMode;
 import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
@@ -32,6 +34,22 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         this.gameController = gameController;
     }
 
+    public String setState(Matcher matcher, Player player, GameMenu gameMenu) {
+        ArrayList<Unit> units = gameMenu.getSelectedUnits();
+        if (units.size() == 0) return SET_STATE_NO_SELECTED_UNIT.getOutput();
+        String stateString = matcher.group("stateInfo");
+        AttackingMode state = AttackingMode.getAttackingModeByName(stateString);
+        if (state == null) return INVALID_UNIT_STATE.getOutput();
+
+        for (Unit unit : units) {
+            if (unit instanceof Troop) {
+                Troop troop = (Troop) unit;
+                troop.setMode(state);
+            }
+        }
+
+        return SUCCESSFUL_SET_STATE.getOutput();
+    }
     public String addTroopMatcherHandler(Matcher matcher, Player player, Tile tile) {
         String troopInfo = matcher.group("troopInfo");
         HashMap<String, String> infoMap = getOptions(ADD_TROOP.getKeys(), troopInfo);

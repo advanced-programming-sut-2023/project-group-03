@@ -130,6 +130,11 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
+    public String setState(Matcher matcher, Player player, GameMenu gameMenu) {
+        return unitController.setState(matcher, player, gameMenu);
+    }
+
+    @Override
     public int showPopularity(Player player) {
         return kingdomController.showPopularity(player);
     }

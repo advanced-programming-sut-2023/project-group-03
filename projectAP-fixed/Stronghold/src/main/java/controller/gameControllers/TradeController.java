@@ -1,7 +1,6 @@
 package controller.gameControllers;
 
 import Model.Buildings.Enums.Resources;
-import Model.GamePlay.Game;
 import Model.GamePlay.Player;
 import Model.GamePlay.Request;
 import controller.Controller;
@@ -75,7 +74,7 @@ public class TradeController extends Controller {
             return "not enough gold";
         }
         owner.getRequestById(id).setAcceptedBy(owner);
-        return Response.SUCCESSRUL_TRADE_ACCEPT.getOutput();
+        return Response.SUCCESSFUL_TRADE_ACCEPT.getOutput();
     }
 
     public String showTradeHistory() {

@@ -30,7 +30,7 @@ public enum GameMenuCommands {
     SELECT_UNIT(""),
     MOVE_UNIT(""),
     PATROL_UNIT(""),
-    SET(""),
+    SET("^set -s (?<stateInfo>\\w+)$"),
     ATTACK_ENEMY(""),
     ATTACK_PLACE(""),
     POUR_OIL(""),
