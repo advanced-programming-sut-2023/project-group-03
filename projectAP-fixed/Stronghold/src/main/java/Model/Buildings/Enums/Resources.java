@@ -1,7 +1,5 @@
 package Model.Buildings.Enums;
 
-import javax.naming.spi.ResolveResult;
-
 public enum Resources
 {
      FLOUR("flour", ResourceTypes.FOOD, 10),

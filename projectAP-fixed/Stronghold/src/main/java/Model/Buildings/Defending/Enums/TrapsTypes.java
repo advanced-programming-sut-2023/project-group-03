@@ -13,7 +13,8 @@ public enum TrapsTypes {
     KILLING_PIT("killing pit", 0, 6,0,0,RegularTextureGroups.NORMAL.getTextures())
     ;
 
-    String name;
+    private String name;
+    private final int size = 3;
     private int gold;
     private int wood;
     private int oil;
@@ -27,6 +28,14 @@ public enum TrapsTypes {
         this.wood = wood;
         this.oil = oil;
         this.worker = worker;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public int getGold() {

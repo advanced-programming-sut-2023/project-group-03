@@ -28,10 +28,23 @@ public class BuildingController extends GeneralGameController implements Buildin
         this.gameController = gameController;
     }
 
-    public String selectBuilding(Matcher matcher) {
-        //return a proper response if there is no building
-        //select if there is no problem
-        return "";
+    public String selectBuilding(Matcher matcher, Player player) {
+        String buildingInfo = matcher.group("buildingInfo");
+        HashMap<String, String> infoMap = getOptions(SELECT_BUILDING.getKeys(), buildingInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String coordinatesError = checkCoordinates(infoMap, "x", "y");
+        if (coordinatesError != null) return coordinatesError;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        Tile targetTile = gameMap.getMap()[x][y];
+        if (targetTile.getBuilding() == null) return BUILDING_NOT_EXIST_SELECT.getOutput();
+
+        if (!targetTile.getOwner().equals(player)) return ACQUISITION_SELECT.getOutput();
+        return SUCCESSFUL_SELECT.getOutput();
     }
 
     public String repair(Building building, Player player) {
@@ -127,6 +140,13 @@ public class BuildingController extends GeneralGameController implements Buildin
         return true;
     }
 
+    private boolean checkIfFit(int x, int y, int size) {
+        size = size / 2;
+        if (x - size < 0 || x + size > gameMap.getSize() || y - size < 0 || y + size > gameMap.getSize())
+            return false;
+        return true;
+    }
+
     @Override
     public String buildTowerMatcherHandler(Matcher matcher, Player player) {
         String towerInfo = matcher.group("towerInfo");
@@ -137,8 +157,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         String coordinatesError = checkCoordinates(infoMap, "x", "y");
         if (coordinatesError != null) return coordinatesError;
 
-        int x = Integer.parseInt(infoMap.get("x"));
-        int y = Integer.parseInt(infoMap.get("y"));
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         TowerTypes towerType = TowerTypes.getTypeByName(infoMap.get("t"));
         if (towerType == null) return INVALID_BUILDING_TYPE.getOutput();
@@ -146,16 +166,30 @@ public class BuildingController extends GeneralGameController implements Buildin
         return buildTower(x, y, towerType, player);
     }
 
-    private String buildTower(int x, int y, TowerTypes towerType, Player player) {
-        Tile targetTile = gameMap.getMap()[x][y];
-        if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
-        if (!towerType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
+    private String buildTower(int xTemp, int yTemp, TowerTypes towerType, Player player) {
+        if (player.getInventory().get(Resources.STONE) < towerType.getStoneCost())
+            return NOT_ENOUGH_STONE_TOWER.getOutput();
 
-        if (player.getInventory().get(Resources.STONE) < towerType.getStoneCost()) return NOT_ENOUGH_STONE_TOWER.getOutput();
+        if (!checkIfFit(xTemp, yTemp, towerType.getSize())) return NOT_FIT.getOutput();
 
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        int size = towerType.getSize() / 2;
+        Tile targetTile;
+        for (int x = xTemp - size; x <= xTemp + size; x++) {
+            for (int y = yTemp - size; y < yTemp + size; y++) {
+                targetTile = gameMap.getMap()[x][y];
+                if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
+                if (!towerType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
+                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+            }
+        }
 
-        targetTile.setBuilding(new Towers(player, targetTile, towerType));
+        Towers newTower = new Towers(player, gameMap.getMap()[xTemp][yTemp], towerType);
+
+        for (int x = xTemp - size; x <= xTemp + size; x++) {
+            for (int y = yTemp - size; y < yTemp + size; y++) {
+                ;gameMap.getMap()[x][y].setBuilding(newTower);
+            }
+        }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -170,8 +204,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         String coordinatesError = checkCoordinates(infoMap, "x", "y");
         if (coordinatesError != null) return coordinatesError;
 
-        int x = Integer.parseInt(infoMap.get("x"));
-        int y = Integer.parseInt(infoMap.get("y"));
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         WallTypes wallType = WallTypes.getTypeByName(infoMap.get("t"));
         if (wallType == null) return INVALID_WALL_TYPE.getOutput();
@@ -202,8 +236,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         String coordinatesError = checkCoordinates(infoMap, "x", "y");
         if (coordinatesError != null) return coordinatesError;
 
-        int x = Integer.parseInt(infoMap.get("x"));
-        int y = Integer.parseInt(infoMap.get("y"));
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         BarracksType barracksType = BarracksType.getTypeByName(infoMap.get("t"));
         if (barracksType == null) return INVALID_BARRACKS_TYPE.getOutput();
@@ -211,11 +245,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         return buildBarracks(x, y, barracksType, player);
     }
 
-    private String buildBarracks(int x, int y, BarracksType barracksType, Player player) {
-        Tile targetTile = gameMap.getMap()[x][y];
-        if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
-        if (!barracksType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-
+    private String buildBarracks(int xTemp, int yTemp, BarracksType barracksType, Player player) {
         if ((player.getInventory().get(Resources.STONE) < barracksType.getStoneCost()))
             return NOT_ENOUGH_STONE_TOWER.getOutput();
         if ((player.getInventory().get(Resources.WOOD) < barracksType.getWood()))
@@ -225,7 +255,26 @@ public class BuildingController extends GeneralGameController implements Buildin
         if ((player.getInventory().get(Resources.OIL) < barracksType.getOil()))
             return NOT_ENOUGH_OIL_BARRACKS.getOutput();
 
-        targetTile.setBuilding(new Barracks(player, targetTile, barracksType));
+        if (!checkIfFit(xTemp, yTemp, barracksType.getSize())) return NOT_FIT.getOutput();
+
+        int size = barracksType.getSize() / 2;
+        Tile targetTile;
+        for (int x = xTemp - size; x <= xTemp + size; x++) {
+            for (int y = yTemp - size; y < yTemp + size; y++) {
+                targetTile = gameMap.getMap()[x][y];
+                if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
+                if (!barracksType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
+                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+            }
+        }
+
+        Barracks newBarracks = new Barracks(player, gameMap.getMap()[xTemp][yTemp], barracksType);
+
+        for (int x = xTemp - size; x <= xTemp + size; x++) {
+            for (int y = yTemp - size; y < yTemp + size; y++) {
+                gameMap.getMap()[x][y].setBuilding(newBarracks);
+            }
+        }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -240,8 +289,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         String coordinatesError = checkCoordinates(infoMap, "x", "y");
         if (coordinatesError != null) return coordinatesError;
 
-        int x = Integer.parseInt(infoMap.get("x"));
-        int y = Integer.parseInt(infoMap.get("y"));
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         InventoryTypes inventoryType = InventoryTypes.getTypeByName(infoMap.get("t"));
         if (inventoryType == null) return INVALID_INVENTORY_TYPE.getOutput();
@@ -330,8 +379,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         String coordinatesError = checkCoordinates(infoMap, "x", "y");
         if (coordinatesError != null) return coordinatesError;
 
-        int x = Integer.parseInt(infoMap.get("x"));
-        int y = Integer.parseInt(infoMap.get("y"));
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         RestTypes restType = RestTypes.getTypeByName(infoMap.get("t"));
         if (restType == null) return INVALID_REST_TYPE.getOutput();
@@ -364,8 +413,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         String coordinatesError = checkCoordinates(infoMap, "x", "y");
         if (coordinatesError != null) return coordinatesError;
 
-        int x = Integer.parseInt(infoMap.get("x"));
-        int y = Integer.parseInt(infoMap.get("y"));
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         GeneratorTypes generatorType = GeneratorTypes.getTypeByName(infoMap.get("t"));
         if (generatorType == null) return INVALID_GENERATOR_TYPE.getOutput();
@@ -373,11 +422,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         return buildGenerator(x, y, generatorType, player);
     }
 
-    private String buildGenerator(int x, int y, GeneratorTypes generatorType, Player player) {
-        Tile targetTile = gameMap.getMap()[x][y];
-        if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
-        if (!generatorType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-
+    private String buildGenerator(int xTemp, int yTemp, GeneratorTypes generatorType, Player player) {
         if (player.getGold() < generatorType.getGold())
             return NOT_ENOUGH_GOLD_BUILDING.getOutput();
         if (player.getInventory().get(Resources.WOOD) < generatorType.getWood())
@@ -385,14 +430,29 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (player.getPopularity() < generatorType.getWorker())
             return NOT_ENOUGH_WORKER_BUILDING.getOutput();
 
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (!checkIfFit(xTemp, yTemp, generatorType.getSize())) return NOT_FIT.getOutput();
 
+        int size = generatorType.getSize() / 2;
+        Tile targetTile;
+        for (int x = xTemp - size; x <= xTemp + size; x++) {
+            for (int y = yTemp - size; y < yTemp + size; y++) {
+                targetTile = gameMap.getMap()[x][y];
+                if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
+                if (!generatorType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
+                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+            }
+        }
+
+        targetTile = gameMap.getMap()[xTemp][yTemp];
         Generators newGenerator = new Generators(player, targetTile, generatorType);
+//        for (int i = 0; i < generatorType.getWorker(); i++) {     TODO adding workers needed
+//            targetTile.addUnit(new Worker(player, targetTile, newGenerator));
+//        }
 
-        targetTile.setBuilding(newGenerator);
-        for (int i = 0; i < generatorType.getWorker(); i++) {
-            targetTile.addUnit(new Worker(player, targetTile, newGenerator));
-
+        for (int x = xTemp - size; x <= xTemp + size; x++) {
+            for (int y = yTemp - size; y < yTemp + size; y++) {
+                gameMap.getMap()[x][y].setBuilding(newGenerator);
+            }
         }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
@@ -407,8 +467,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         String coordinatesError = checkCoordinates(infoMap, "x", "y");
         if (coordinatesError != null) return coordinatesError;
 
-        int x = Integer.parseInt(infoMap.get("x"));
-        int y = Integer.parseInt(infoMap.get("y"));
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         GateTypes gateType = GateTypes.getTypeByName(infoMap.get("t"));
         if (gateType == null) return INVALID_STONE_GATE_TYPE.getOutput();
@@ -417,17 +477,30 @@ public class BuildingController extends GeneralGameController implements Buildin
         return buildStoneGate(x, y, gateType, player);
     }
 
-    private String buildStoneGate(int x, int y, GateTypes gateType, Player player) {
-        Tile targetTile = gameMap.getMap()[x][y];
-        if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
-        if (!gateType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-
+    private String buildStoneGate(int xTemp, int yTemp, GateTypes gateType, Player player) {
         if (player.getInventory().get(Resources.STONE) < gateType.getStoneCost())
             return NOT_ENOUGH_STONE_STONE_GATE.getOutput();
 
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (!checkIfFit(xTemp, yTemp, gateType.getSize())) return NOT_FIT.getOutput();
 
-        targetTile.setBuilding(new Gates(player, targetTile, gateType));
+        int size = gateType.getSize() / 2;
+        Tile targetTile;
+        for (int x = xTemp - size; x <= xTemp + size; x++) {
+            for (int y = yTemp - size; y < yTemp + size; y++) {
+                targetTile = gameMap.getMap()[x][y];
+                if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
+                if (!gateType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
+                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+            }
+        }
+
+        Gates newGate = new Gates(player, gameMap.getMap()[xTemp][yTemp], gateType);
+
+        for (int x = xTemp - size; x <= xTemp + size; x++) {
+            for (int y = yTemp - size; y < yTemp + size; y++) {
+                gameMap.getMap()[x][y].setBuilding(newGate);
+            }
+        }
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
@@ -440,8 +513,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         String coordinatesError = checkCoordinates(infoMap, "x", "y");
         if (coordinatesError != null) return coordinatesError;
 
-        int x = Integer.parseInt(infoMap.get("x"));
-        int y = Integer.parseInt(infoMap.get("y"));
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         String direction = infoMap.get("d");
 

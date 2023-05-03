@@ -11,27 +11,23 @@ public enum RestTypes {
 
     RestTypes(String name, int length, int width, int gold, int wood, HashSet<Texture> textures) {
         this.name = name;
-        this.length = length;
-        this.width = width;
         this.gold = gold;
         this.wood = wood;
         this.textures = textures;
     }
 
     private String name;
-
-    private int length;
-    private int width;
+    private final int size = 1;
     private int gold;
     private int wood;
     private HashSet<Texture> textures;
 
-    public int getLength() {
-        return length;
+    public String getName() {
+        return name;
     }
 
-    public int getWidth() {
-        return width;
+    public int getSize() {
+        return size;
     }
 
     public int getGold() {

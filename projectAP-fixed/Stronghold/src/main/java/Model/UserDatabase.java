@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class UserDatabase {
-    static String dataPath = "hello.json";
-    static String backupData = "backup.json";
+    static String dataPath = "resources/users/users.json";
+    static String backupData = "resources/users/backup.json";
 
     private static ArrayList<GameMap> maps = new ArrayList<>();
     private static ArrayList<User> users = new ArrayList<>();

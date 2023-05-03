@@ -104,9 +104,15 @@ public enum Response {
     ////buildings
     INVALID_LOCATION("Invalid x or y for location!"),
     //drop building
+    ////select
+    BUILDING_NOT_EXIST_SELECT("There is no building here to select."),
+    ACQUISITION_SELECT("You don't own this building!"),
+    SUCCESSFUL_SELECT("Building successfully selected."),
+    ////rest of the building responses
+    NOT_FIT("You are close to edges of the map and can't drop your building here."),
     INVALID_BUILDING_TYPE("There is no building type same as the given type!"),
-    BUILDING_ALREADY_EXISTS("This field already has a building!"),
-    ACQUISITION("You don't own this tile."),
+    BUILDING_ALREADY_EXISTS("One of the required fields already has a building!"),
+    ACQUISITION("You don't own all of the required tiles."),
 
     NOT_ENOUGH_WOOD_BUILDING("Not enough wood to build this building."),
     NOT_ENOUGH_GOLD_BUILDING("Not enough gold to build this building."),

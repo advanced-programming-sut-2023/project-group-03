@@ -6,26 +6,24 @@ import Model.Field.Texture;
 import java.util.HashSet;
 
 public enum GateTypes {
-    SMALL_STONE_GATE_HOUSE("small stone gate", 1000, 3, 5, 0, 0, RegularTextureGroups.NORMAL.getTextures()),
-    BIG_STONE_GATE_HOUSE("big stone gate", 2000, 3, 5, 20, 0,  RegularTextureGroups.NORMAL.getTextures()),
-    DRAWBRIDGE("drawbridge", 1000, 2, 1, 0, 10,  RegularTextureGroups.NORMAL.getTextures()),
+    SMALL_STONE_GATE_HOUSE("small stone gate", 1000, 3, 0, 0, RegularTextureGroups.NORMAL.getTextures()),
+    BIG_STONE_GATE_HOUSE("big stone gate", 2000, 5, 20, 0,  RegularTextureGroups.NORMAL.getTextures()),
+    DRAWBRIDGE("drawbridge", 1000, 1,  0, 10,  RegularTextureGroups.NORMAL.getTextures()),
     ;
 
     private String name;
     private int HP;
-    private int length;
-    private int width;
+    private int size;
     private int stoneCost;
     private int woodCost;
 
     private HashSet<Texture> textures;
 
-    GateTypes(String name, int HP, int length, int width, int stoneCost, int woodCost, HashSet textures) {
+    GateTypes(String name, int HP, int size, int stoneCost, int woodCost, HashSet<Texture> textures) {
         this.textures = textures;
         this.name = name;
         this.HP = HP;
-        this.length = length;
-        this.width = width;
+        this.size = size;
         this.stoneCost = stoneCost;
         this.woodCost = woodCost;
     }
@@ -38,12 +36,8 @@ public enum GateTypes {
         return HP;
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public int getWidth() {
-        return width;
+    public int getSize() {
+        return size;
     }
 
     public int getStoneCost() {

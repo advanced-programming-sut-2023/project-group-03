@@ -14,8 +14,7 @@ public enum GameMenuCommands {
     TAX_RATE_SHOW("^tax rate show$"),
     FEAR_RATE("^fear rate (?<rateInfo>.+)"),
     FEAR_RATE_SHOW("^fear rate show$"),
-    DROP_BUILDING(""),
-    SELECT_BUILDING(""),
+    SELECT_BUILDING("^select building (?<buildingInfo>.+)"),
     //build building
     BUILD_TOWER("^build Tower (?<towerInfo>.+)"),
     BUILD_WALL("^build Wall (?<wallInfo>.+)"),

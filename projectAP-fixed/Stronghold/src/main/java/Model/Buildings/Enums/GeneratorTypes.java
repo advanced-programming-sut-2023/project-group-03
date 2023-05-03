@@ -36,6 +36,7 @@ public enum GeneratorTypes {
     ;
     private String name;
     private int HP;
+    private final int size = 3;
     private int produceRate;
     private int useRate;
     private int inventory;
@@ -64,6 +65,10 @@ public enum GeneratorTypes {
 
     public int getInventory() {
         return inventory;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public int getCapacity() {
