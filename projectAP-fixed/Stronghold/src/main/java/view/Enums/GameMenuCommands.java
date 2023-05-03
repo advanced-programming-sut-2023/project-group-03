@@ -40,16 +40,21 @@ public enum GameMenuCommands {
     DISBAND_UNIT(""),
     SET_TEXTURE(""),
     SET_MASS_TEXTURE(""),
+    TRADE_REQUEST("trade (?<TradeInfo>.+"),
+    TRADE_ACCEPT("trade accept (?<AcceptInfo>"),
+    TRADE_LIST("trade list"),
+    TRADE_HISTORY("trade history"),
     ;
 
     String regex;
-    private GameMenuCommands(String regex){
+
+    private GameMenuCommands(String regex) {
         this.regex = regex;
     }
 
     @Override
 
-    public String toString(){
+    public String toString() {
         return this.regex;
     }
 }

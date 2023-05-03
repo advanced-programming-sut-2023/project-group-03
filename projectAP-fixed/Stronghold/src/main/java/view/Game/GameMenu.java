@@ -63,6 +63,7 @@ public class GameMenu extends Menu {
             }
         } else if (command.matches(GameMenuCommands.SELECT_BUILDING.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_BUILDING.toString());
+
         } else if (command.matches(GameMenuCommands.SELECT_UNIT.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_UNIT.toString());
         } else if (command.matches(GameMenuCommands.MAP_MOVE.toString())) {

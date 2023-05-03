@@ -172,6 +172,9 @@ public enum Response {
     NOT_ARCHER("Selected unit is not Archer!"),
     NOT_ENGINEER("Selected unit is not Engineer!"),
     NOT_TUNNELLER("Selected unit is not Tunneller!"),
+    //trade
+    INVALID_PRICE("invalid price format"),
+    INVALID_RESOURCE("invalid resource format")
     ;
     private String output;
 

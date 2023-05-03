@@ -10,9 +10,12 @@ public class Request {
     Player owner;
     HashMap<Resources, Integer> list;
     ArrayList<Player> target;
-
+    private static int counter = 1000;
+    private int id;
     public Request(Player owner) {
         this.owner = owner;
+        counter++;
+        id = counter;
     }
 
     public void addToList(Resources resources, int number) {
@@ -45,5 +48,9 @@ public class Request {
 
     public ArrayList<Player> getTarget() {
         return target;
+    }
+
+    public int getId() {
+        return id;
     }
 }

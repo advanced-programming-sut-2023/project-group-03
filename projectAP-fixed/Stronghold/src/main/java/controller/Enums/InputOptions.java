@@ -31,6 +31,8 @@ public enum InputOptions {
     ADD_TROOP(new ArrayList<>(Arrays.asList("t", "a"))),
     //kingdom
     CHANGE_RATE(new ArrayList<>(Arrays.asList("r"))),
+    TRADE_REQUEST(new ArrayList<>(Arrays.asList("t", "a", "p", "m"))),
+    TRADE_ACCEPT(new ArrayList<>(Arrays.asList("i", "m"))),
     ;
     private ArrayList<String> keys;
 
