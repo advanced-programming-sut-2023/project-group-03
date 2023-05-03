@@ -9,6 +9,7 @@ public enum GeneratorTypes {
     MILL("mill", 100,10,10,0,100,Resources.FLOUR,Resources.WHEAT,20,0,3, RegularTextureGroups.NORMAL.getTextures()),
     INN("inn",300, 0, 5,0,60,null,Resources.WINE,20,100,1,RegularTextureGroups.NORMAL.getTextures()),
     IRON_MINE("iron mine", 100,5,0,0,80,Resources.IRON,null,20,0,2,RegularTextureGroups.IRON_MINE.getTextures()),
+    STONE_MINE("stone mine", 100,8,0,0,80,Resources.STONE,null,20,0,2,RegularTextureGroups.IRON_MINE.getTextures()),
     //OX_TETHER,
     PITCH_RIG("pitch rig", 40,10,0,0,0,Resources.OIL,null,20,0,1,RegularTextureGroups.NORMAL.getTextures()),
     QUARRY("quarry", 150, 15,0,0,0,Resources.STONE,null,20,0,3,RegularTextureGroups.STONE_SLAB.getTextures()),
@@ -107,5 +108,9 @@ public enum GeneratorTypes {
             if (type.name.equals(name)) return type;
         }
         return null;
+    }
+
+    public String getName() {
+        return name;
     }
 }

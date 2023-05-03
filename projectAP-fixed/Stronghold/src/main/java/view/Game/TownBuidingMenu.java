@@ -18,4 +18,8 @@ public class TownBuidingMenu extends Menu {
     public void run() throws Transition {
 
     }
+
+    public void guid() {
+
+    }
 }
