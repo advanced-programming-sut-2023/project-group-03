@@ -34,6 +34,10 @@ public class GameController extends Controller implements GameMarketInterface , 
         return gameMap;
     }
 
+    public void nextTurn() {
+
+    }
+
     @Override
     public String showPriceList(Player player) {
         return marketController.showPriceList(player);

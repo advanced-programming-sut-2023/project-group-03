@@ -170,11 +170,11 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         int y2 = Integer.parseInt(infoMap.get("y2")) - 1;
 
         Tile endTile = gameMap.getMap()[x2][y2];
-        if (endTile.getTexture().equals(Texture.WATER) || endTile.getTexture().equals(Texture.OIL)
+        if (endTile.getTexture().equals(Texture.WATER)
          || endTile.getTexture().equals(Texture.STONE_SLAB)) return BAD_TEXTURE_END.getOutput();
 
         Tile startTile = gameMap.getMap()[x2][y2];
-        if (startTile.getTexture().equals(Texture.WATER) || startTile.getTexture().equals(Texture.OIL)
+        if (startTile.getTexture().equals(Texture.WATER)
                 || startTile.getTexture().equals(Texture.STONE_SLAB)) return BAD_TEXTURE_START.getOutput();
 
         ArrayList<Unit> units = gameMenu.getSelectedUnits();
