@@ -180,6 +180,8 @@ public enum Response {
     NOT_ENOUGH_RESOURCES("There is not enough resources to make the given unit."),
     NOT_ENOUGH_POPULATION("You don't have enough population to make the given unit."),
     INVALID_TROOP_TYPE("There is no soldier type same as the given type!"),
+    SET_STATE_NO_SELECTED_UNIT("There is no selected unit to begin with..."),
+    SUCCESSFUL_SET_STATE("Successfully changed the states."),
     //repair
     NOT_ENOUGH_STONE_REPAIR("There is not enough resources to repair!"),
     NOT_ENOUGH_GOLD_REPAIR("You don't have enough gold to repair this building."),
@@ -205,7 +207,7 @@ public enum Response {
     INVALID_ID("invalid ID format"),
     INVALID_RESOURCE("invalid resource format"),
     SUCCESSFUL_TRADE_REQUEST("successful trade request"),
-    SUCCESSRUL_TRADE_ACCEPT("trade accepted"),
+    SUCCESSFUL_TRADE_ACCEPT("trade accepted"),
     INVALID_REQUEST_ID("invalid request id"),
     ;
     private String output;
