@@ -13,6 +13,7 @@ public enum WallTypes {
     ;
     private String name;
     private int HP;
+    private final int size = 1;
     private int stoneCost;
     private HashSet<Texture> textures;
 
@@ -29,6 +30,10 @@ public enum WallTypes {
 
     public int getHP() {
         return HP;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public int getStoneCost() {

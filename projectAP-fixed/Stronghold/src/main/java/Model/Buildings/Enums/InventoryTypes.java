@@ -14,6 +14,7 @@ public enum  InventoryTypes {
     private ResourceTypes resource;
     private String name;
     private int HP;
+    private final int size = 3;
     private int capacity;
     private HashSet<Resources> resources;
     private int wood;
@@ -28,6 +29,14 @@ public enum  InventoryTypes {
         this.wood = wood;
         this.stoneCost = stoneCost;
         this.textures = textures;
+    }
+
+    public int getHP() {
+        return HP;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public ResourceTypes getResource() {

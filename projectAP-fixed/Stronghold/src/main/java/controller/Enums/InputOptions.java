@@ -19,6 +19,7 @@ public enum InputOptions {
     DROP_BUILDING(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUY_SELL(new ArrayList<>(Arrays.asList("i", "a"))),
     //building
+    SELECT_BUILDING(new ArrayList<>(Arrays.asList("x", "y"))),
     BUILD_TOWER(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_WALL(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_BARRACKS(new ArrayList<>(Arrays.asList("x", "y", "t"))),

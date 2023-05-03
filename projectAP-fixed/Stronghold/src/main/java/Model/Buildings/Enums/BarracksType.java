@@ -15,6 +15,7 @@ public enum BarracksType {
     ;
     private String name;
     private int HP;
+    private final int size = 5;
     private int gold;
     private int wood;
     private int stoneCost;
@@ -41,6 +42,10 @@ public enum BarracksType {
 
     public int getHP() {
         return HP;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public int getGold() {

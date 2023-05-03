@@ -15,6 +15,7 @@ public enum TowerTypes {
     ;
 
     private String name;
+    private final int size = 5;
     private int HP;
     private int length;
     private int width;
@@ -48,6 +49,10 @@ public enum TowerTypes {
 
     public void setHP(int HP) {
         this.HP = HP;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public int getLength() {

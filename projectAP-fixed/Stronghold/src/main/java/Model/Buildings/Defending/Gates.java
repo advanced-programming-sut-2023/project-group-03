@@ -12,8 +12,6 @@ public class Gates extends CastleBuilding {
     public Gates(Player owner, Tile position, GateTypes type) {
         super(owner, position);
         this.HP=type.getHP();
-        this.length = type.getLength();
-        this.width = type.getWidth();
         this.stoneCost = type.getStoneCost();
 
     }

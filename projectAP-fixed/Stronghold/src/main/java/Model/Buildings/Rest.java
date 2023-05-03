@@ -10,8 +10,6 @@ public class Rest extends Building {
 
     public Rest(Player owner, Tile position, RestTypes type) {
         super(owner, position);
-        this.length = type.getLength();
-        this.width = type.getWidth();
         owner.decreaseGold(type.getGold());
         owner.decreaseInventory(Resources.WOOD,type.getWood());
     }
