@@ -151,7 +151,19 @@ public enum Response {
     BUILDING_EXIST_TRAP("There is a building here so you can't build this trap here."),
     UNIT_EXIST_TRAP("There are some units here so you can't build your trap here."),
     //unit
+    ////select unit
+    INVALID_AMOUNT_SELECT_UNIT("Enter an integer for amount of troops."),
+    NOT_ENOUGH_UNIT("You don't have enough og that kinda unit in that tile."),
+    SUCCESSFUL_SELECT_UNIT("Successfully selected the given units."),
+    INVALID_UNIT_TYPE_SELECT_UNIT("There is no unit type like this which is possible to get selected."),
+    ////rest unit:
     INVALID_AMOUNT_UNIT("Enter an integer for amount field."),
+    ////thrower
+    INVALID_THROWER_TYPE("There is no thrower with the given type."),
+    NOT_ENOUGH_GOLD_THROWER("You don't have enough gold to make this thrower."),
+    BUILDING_NOT_EXIST_THROWER("There is no building here for you to add your thrower on it."),
+    ACQUISITION_THROWER("You don't own this building to put a thrower on it!"),
+    BUILDING_NOT_PROPER_TOWER("You can only put throwers on round and square towers."),
     ////troop
     INVALID_TROOP_TYPE_UNIT("Invalid troop type."),
     NOT_ENOUGH_GOLD_UNIT("You don't have enough gold to make this amount of this troop."),
