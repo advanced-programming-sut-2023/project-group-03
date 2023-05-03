@@ -112,6 +112,11 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
+    public String patrol(Matcher matcher, GameMenu gameMenu) {
+        return unitController.patrol(matcher, gameMenu);
+    }
+
+    @Override
     public int showPopularity(Player player) {
         return kingdomController.showPopularity(player);
     }
