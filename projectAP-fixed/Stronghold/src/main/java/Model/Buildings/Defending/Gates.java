@@ -1,18 +1,23 @@
 package Model.Buildings.Defending;
 
 import Model.Buildings.Defending.Enums.GateTypes;
+import Model.Field.Direction;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
 
+import java.util.ArrayList;
+
 public class Gates extends CastleBuilding {
     private GateTypes type;
     private boolean isOpen;
+    private Direction direction;
+    private ArrayList<Tile> terminals = new ArrayList<>();
+
     public Gates(Player owner, Tile position, GateTypes type) {
         super(owner, position);
-        this.HP=type.getHP();
+        this.HP = type.getHP();
         this.stoneCost = type.getStoneCost();
-
     }
 
     private void updateOwner() {
@@ -58,6 +63,22 @@ public class Gates extends CastleBuilding {
         }
         updateOwner();
         updateCloseOrOpen();
+    }
+
+    public void setTerminals(ArrayList<Tile> terminals) {
+        this.terminals = terminals;
+    }
+
+    public ArrayList<Tile> getTerminals() {
+        return terminals;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     @Override

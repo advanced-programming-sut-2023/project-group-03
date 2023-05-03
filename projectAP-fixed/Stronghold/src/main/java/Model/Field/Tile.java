@@ -29,13 +29,19 @@ public class Tile {
         this.texture = texture;
     }
 
-    public void destroyBuilding(){}
+//    public void destroyBuilding(){
+//        this.building = null;
+//        setHeight();
+//    }
 
-    public boolean addBuilding(Building building) {
-        return false;
-    }
+//    public boolean addBuilding(Building building) {
+//        return false;
+//    }
 
     public void removeBuilding() {
+        this.building = null;
+        setHeight();
+        updateNeighbours();
     }
 
     public boolean addUnit(Unit unit) {
@@ -92,6 +98,8 @@ public class Tile {
 
     public void setBuilding(Building building) {
         this.building = building;
+        setHeight();
+        updateNeighbours();
     }
 
     public Model.Field.mazafaza getMazafaza() {
@@ -109,12 +117,23 @@ public class Tile {
     public void updateNeighbours() {
         for (Direction direction : neighbours.keySet()) {
             if (neighbours.get(direction) != null) {
-                neighboursConnected.remove(neighbours.get(direction));
                 Tile current = neighbours.get(direction);
+                neighboursConnected.remove(neighbours.get(direction));
+                current.neighboursConnected.remove(this);
+
+                if (current.getBuilding() instanceof Gates) {
+                    Gates gates = ((Gates) current.getBuilding());
+                    if (gates.getTerminals().contains(this)) {
+                        neighboursConnected.add(neighbours.get(direction));
+                        current.neighboursConnected.add(this);
+                        return;
+                    }
+                }
                 if (Math.abs(this.height.getValue() - current.height.getValue()) > 1) {
                     neighboursConnected.remove(neighbours.get(direction));
                 } else {
                     neighboursConnected.add(neighbours.get(direction));
+                    current.neighboursConnected.add(this);
                 }
             }
         }
@@ -131,7 +150,8 @@ public class Tile {
                 this.height = Height.SMALL_WALL;
             }
         } else if (this.building instanceof Gates) {
-
+            Gates gates = ((Gates) building);
+            this.height = Height.GATE;
         } else if (this.building instanceof Towers) {
             Towers towers = ((Towers) building);
             this.height = Height.BIG_TOWER;

@@ -24,7 +24,7 @@ public abstract class Building extends Drawable {
     }
     protected boolean shouldBreak(){
         if(HP<=0){
-            position.destroyBuilding();
+            //position.destroyBuilding();
             return true;
         }
         return false;
