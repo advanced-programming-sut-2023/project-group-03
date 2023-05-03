@@ -41,9 +41,11 @@ public class Player {
     public void decreaseGold(int number){
         gold-=number;
     }
+
     public int getResourceAmount(Resources resources){
         return inventory.get(resources);
     }
+
     public void increaseInventory(Resources resources, int number) {
         inventory.replace(resources,Integer.sum(inventory.get(resources), number));
     }
@@ -172,5 +174,14 @@ public class Player {
     }
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public Request getRequestById(int id) {
+        for (int i = 0; i < incomeRequests.size(); i++) {
+            if (incomeRequests.get(i).getId() == id) {
+                return incomeRequests.get(i);
+            }
+        }
+        return null;
     }
 }

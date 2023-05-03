@@ -11,9 +11,12 @@ public class Request {
     Resources resource;
     int amount;
     int price;
+    String massage;
     ArrayList<Player> target;
     private static int counter = 1000;
     private int id;
+    Player acceptedBy = null;
+
     public Request(Player owner,Resources resource,int amount,int price) {
         this.owner = owner;
         this.resource = resource;
@@ -92,13 +95,32 @@ public class Request {
         this.price = price;
     }
 
+    public String getMassage() {
+        return massage;
+    }
+
+    public void setMassage(String massage) {
+        this.massage = massage;
+    }
+
+    public void setAcceptedBy(Player acceptedBy) {
+        this.acceptedBy = acceptedBy;
+        acceptedBy.decreaseInventory(resource, amount);
+        owner.increaseInventory(resource, amount);
+        acceptedBy.increaseGold(price);
+        owner.decreaseGold(price);
+    }
+
     @Override
     public String toString() {
         return "Request{" +
-                "resource=" + resource +
+                "owner=" + owner +
+                ", resource=" + resource +
                 ", amount=" + amount +
                 ", price=" + price +
+                ", massage='" + massage + '\'' +
                 ", id=" + id +
+                ", acceptedBy=" + acceptedBy.getUser().getUsername() +
                 '}';
     }
 }

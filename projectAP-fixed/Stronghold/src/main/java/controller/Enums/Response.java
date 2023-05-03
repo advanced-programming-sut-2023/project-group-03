@@ -181,9 +181,11 @@ public enum Response {
     //trade
     INVALID_PRICE("invalid price format"),
     INVALID_AMOUNT("invalid amount format"),
+    INVALID_ID("invalid ID format"),
     INVALID_RESOURCE("invalid resource format"),
     SUCCESSFUL_TRADE_REQUEST("successful trade request"),
-    SUCCESSRUL_TRADE_ACCEPT("trade accepted")
+    SUCCESSRUL_TRADE_ACCEPT("trade accepted"),
+    INVALID_REQUEST_ID("invalid request id"),
     ;
     private String output;
 
