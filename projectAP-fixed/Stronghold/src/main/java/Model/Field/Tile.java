@@ -136,7 +136,7 @@ public class Tile {
             Towers towers = ((Towers) building);
             this.height = Height.BIG_TOWER;
         } else if (this.texture == texture.STONE_SLAB) {
-
+            this.height = Height.STONE_SLAB;
         }
     }
 

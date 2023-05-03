@@ -8,7 +8,6 @@ import Model.Units.Combat.Troop;
 public class Gates extends CastleBuilding {
     private GateTypes type;
     private boolean isOpen;
-
     public Gates(Player owner, Tile position, GateTypes type) {
         super(owner, position);
         this.HP=type.getHP();
