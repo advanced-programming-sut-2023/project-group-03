@@ -1,24 +1,30 @@
 package Model.Field;
 
 import Model.Buildings.Building;
+import Model.Buildings.Defending.Enums.TowerTypes;
+import Model.Buildings.Defending.Enums.WallTypes;
+import Model.Buildings.Defending.Gates;
+import Model.Buildings.Defending.Towers;
+import Model.Buildings.Defending.Wall;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
 import view.Enums.ConsoleColors;
-import view.Game.MapMenu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 public class Tile {
     int rowNum;
     int columnNum;
-    private height height;
+    private boolean isLadder = false;
+    private Height height;
     private Texture texture;
     private Building building;
     private mazafaza mazafaza;
     private ArrayList<Unit> units=new ArrayList<>();
-    private HashMap<Direction,Tile> neighbours;
+    private HashMap<Direction,Tile> neighbours=new HashMap<>();
+    private ArrayList<Tile> neighboursConnected=new ArrayList<>();
     private Player owner;
-    public Tile(height height, Texture texture) {
+    public Tile(Height height, Texture texture) {
         this.height = height;
         this.texture = texture;
     }
@@ -40,6 +46,7 @@ public class Tile {
     public boolean removeUnit(Unit unit) {
         return true;
     }
+
     public int getRowNum() {
         return rowNum;
     }
@@ -55,11 +62,11 @@ public class Tile {
     public void setColumnNum(int columnNum) {
         this.columnNum = columnNum;}
 
-    public height getHeight() {
+    public Height getHeight() {
         return height;
     }
 
-    public void setHeight(height height) {
+    public void setHeight(Height height) {
         this.height = height;
     }
 
@@ -97,6 +104,40 @@ public class Tile {
 
     public ArrayList<Unit> getUnits() {
         return units;
+    }
+
+    public void updateNeighbours() {
+        for (Direction direction : neighbours.keySet()) {
+            if (neighbours.get(direction) != null) {
+                neighboursConnected.remove(neighbours.get(direction));
+                Tile current = neighbours.get(direction);
+                if (Math.abs(this.height.getValue() - current.height.getValue()) > 1) {
+                    neighboursConnected.remove(neighbours.get(direction));
+                } else {
+                    neighboursConnected.add(neighbours.get(direction));
+                }
+            }
+        }
+    }
+
+    public void setHeight() {
+        if (this.texture == Texture.WATER) {
+            this.height = Height.WATER;
+        } else if (this.building instanceof Wall) {
+            Wall wall = ((Wall) building);
+            if (wall.getType() == WallTypes.BIG) {
+                this.height = Height.BIG_WALL;
+            } else {
+                this.height = Height.SMALL_WALL;
+            }
+        } else if (this.building instanceof Gates) {
+
+        } else if (this.building instanceof Towers) {
+            Towers towers = ((Towers) building);
+            this.height = Height.BIG_TOWER;
+        } else if (this.texture == texture.STONE_SLAB) {
+
+        }
     }
 
     public String[] show() {

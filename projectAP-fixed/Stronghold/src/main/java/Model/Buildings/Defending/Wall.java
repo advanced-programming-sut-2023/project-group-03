@@ -28,13 +28,9 @@ public class Wall extends CastleBuilding {
 
     @Override
     public void check() {
-//<<<<<<< HEAD
-//
-//=======
-//        if(shouldBreak()){
-//            return;
-//        }
-//>>>>>>> origin/phase1pouria
+        if(shouldBreak()){
+            return;
+        }
     }
 
     @Override
@@ -42,4 +38,7 @@ public class Wall extends CastleBuilding {
 
     }
 
+    public WallTypes getType() {
+        return type;
+    }
 }

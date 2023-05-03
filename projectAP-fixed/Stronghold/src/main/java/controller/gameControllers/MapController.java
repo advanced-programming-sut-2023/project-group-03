@@ -23,8 +23,6 @@ import Model.Units.Enums.TroopTypes;
 import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
 import com.google.gson.Gson;
-import controller.Controller;
-import view.Game.MapMenu;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -215,7 +213,7 @@ public class MapController extends GeneralGameController {
         Building building = targetTile.getBuilding();
         if (building != null) building.remove();
 
-        Tile newTile = new Tile(height.GROUND, Texture.GROUND);
+        Tile newTile = new Tile(Height.GROUND, Texture.GROUND);
         gameMap.getMap()[x][y] = newTile;
         newTile.setRowNum(x);
         newTile.setColumnNum(y);
