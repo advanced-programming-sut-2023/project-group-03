@@ -45,7 +45,7 @@ public class Request {
     public HashMap<Resources, Integer> getList() {
         return list;
     }
-
+    
     public ArrayList<Player> getTarget() {
         return target;
     }

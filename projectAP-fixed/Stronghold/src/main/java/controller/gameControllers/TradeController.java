@@ -28,6 +28,7 @@ public class TradeController extends Controller {
             return Response.INVALID_RESOURCE.getOutput();
         }
         Request request = new Request(player);
+
         return "";
     }
 
