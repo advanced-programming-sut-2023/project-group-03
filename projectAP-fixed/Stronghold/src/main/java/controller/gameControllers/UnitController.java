@@ -2,15 +2,21 @@ package controller.gameControllers;
 
 import Model.Buildings.Barracks;
 import Model.Buildings.Enums.Resources;
+import Model.Field.GameMap;
+import Model.Field.Texture;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
 import Model.Units.Engineer;
 import Model.Units.Enums.TroopTypes;
+import Model.Units.Unit;
 import controller.interfaces.UnitInterface;
+import view.Game.GameMenu;
+
 import static controller.Enums.InputOptions.*;
 import static controller.Enums.Response.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 
@@ -72,5 +78,39 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         }
 
         return SUCCESSFUL_ADD_ENGINEER.getOutput();
+    }
+
+    public String patrol(Matcher matcher, GameMenu gameMenu) {
+        String patrolInfo = matcher.group("patrolInfo");
+        HashMap<String, String> infoMap = getOptions(PATROL_UNIT.getKeys(), patrolInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String checkCoordinatesError = checkCoordinates(infoMap, "x1", "y1");
+        String checkCoordinatesError2 = checkCoordinates(infoMap, "x2", "y2");
+        if (checkCoordinatesError != null || checkCoordinatesError2 != null)
+            return INVALID_COORDINATES_PATROL.getOutput();
+
+        int x1 = Integer.parseInt(infoMap.get("x1")) - 1;
+        int y1 = Integer.parseInt(infoMap.get("y1")) - 1;
+        int x2 = Integer.parseInt(infoMap.get("x2")) - 1;
+        int y2 = Integer.parseInt(infoMap.get("y2")) - 1;
+
+        Tile endTile = gameMap.getMap()[x2][y2];
+        if (endTile.getTexture().equals(Texture.WATER) || endTile.getTexture().equals(Texture.OIL)
+         || endTile.getTexture().equals(Texture.STONE_SLAB)) return BAD_TEXTURE_END.getOutput();
+
+        Tile startTile = gameMap.getMap()[x2][y2];
+        if (startTile.getTexture().equals(Texture.WATER) || startTile.getTexture().equals(Texture.OIL)
+                || startTile.getTexture().equals(Texture.STONE_SLAB)) return BAD_TEXTURE_START.getOutput();
+
+        ArrayList<Unit> units = gameMenu.getSelectedUnits();
+        for (Unit unit : units) {
+            unit.setPatrol(true);
+            unit.setStart(gameMap.getMap()[x1][y1]);
+            unit.setEnd(gameMap.getMap()[x2][y2]);
+        }
+
+        return SUCCESSFUL_PATROL.getOutput();
     }
 }
