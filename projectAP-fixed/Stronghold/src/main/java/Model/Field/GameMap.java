@@ -1,6 +1,9 @@
 package Model.Field;
 
 import Model.GamePlay.Player;
+
+import java.util.HashMap;
+
 public class GameMap {
     private int size;
     private Tile center;
@@ -17,6 +20,28 @@ public class GameMap {
                 map[i][j] = new Tile(Height.GROUND,Texture.GROUND);
                 map[i][j].setColumnNum(j);
                 map[i][j].setRowNum(i);
+            }
+        }
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++) {
+                HashMap<Direction, Tile> neighbours = new HashMap<>();
+                if (j - 1 >= 0) {
+                    neighbours.put(Direction.LEFT, map[i][j - 1]);
+                }
+                if (i - 1 >= 0) {
+                    neighbours.put(Direction.UP, map[i - 1][j]);
+                }
+                if (j + 1 < map.length) {
+                    neighbours.put(Direction.RIGHT, map[i][j + 1]);
+                }
+                if (i + 1 < map.length) {
+                    neighbours.put(Direction.DOWN, map[i + 1][j]);
+                }
+            }
+        }
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++) {
+                map[i][j].updateHeight();
             }
         }
     }

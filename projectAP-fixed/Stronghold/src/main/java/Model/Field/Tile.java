@@ -1,7 +1,6 @@
 package Model.Field;
 
 import Model.Buildings.Building;
-import Model.Buildings.Defending.Enums.TowerTypes;
 import Model.Buildings.Defending.Enums.WallTypes;
 import Model.Buildings.Defending.Gates;
 import Model.Buildings.Defending.Towers;
@@ -21,8 +20,8 @@ public class Tile {
     private Building building;
     private mazafaza mazafaza;
     private ArrayList<Unit> units=new ArrayList<>();
-    private HashMap<Direction,Tile> neighbours=new HashMap<>();
-    private ArrayList<Tile> neighboursConnected=new ArrayList<>();
+    private HashMap<Direction, Tile> neighbours = new HashMap<>();
+    private ArrayList<Tile> neighboursConnected = new ArrayList<>();
     private Player owner;
     public Tile(Height height, Texture texture) {
         this.height = height;
@@ -40,7 +39,7 @@ public class Tile {
 
     public void removeBuilding() {
         this.building = null;
-        setHeight();
+        updateHeight();
         updateNeighbours();
     }
 
@@ -72,7 +71,7 @@ public class Tile {
         return height;
     }
 
-    public void setHeight(Height height) {
+    public void updateHeight(Height height) {
         this.height = height;
     }
 
@@ -98,7 +97,7 @@ public class Tile {
 
     public void setBuilding(Building building) {
         this.building = building;
-        setHeight();
+        updateHeight();
         updateNeighbours();
     }
 
@@ -132,14 +131,14 @@ public class Tile {
                 if (Math.abs(this.height.getValue() - current.height.getValue()) > 1) {
                     neighboursConnected.remove(neighbours.get(direction));
                 } else {
-                    neighboursConnected.add(neighbours.get(direction));
+                    neighboursConnected.add(current);
                     current.neighboursConnected.add(this);
                 }
             }
         }
     }
 
-    public void setHeight() {
+    public void updateHeight() {
         if (this.texture == Texture.WATER) {
             this.height = Height.WATER;
         } else if (this.building instanceof Wall) {
@@ -177,5 +176,13 @@ public class Tile {
         ans[1] = ConsoleColors.formatPrinter("", texture.getColor(), coordinate) + "║";
         ans[2] = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), texture.getColor(), "║░flag░")+"║";
         return ans;
+    }
+
+    public HashMap<Direction, Tile> getNeighbours() {
+        return neighbours;
+    }
+
+    public void setNeighbours(HashMap<Direction, Tile> neighbours) {
+        this.neighbours = neighbours;
     }
 }
