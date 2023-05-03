@@ -98,7 +98,6 @@ public class GameMenu extends Menu {
                 Barracks barracks = ((Barracks) selected);
                 //Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
                 if (barracks.getType().equals(BarracksType.SIEGE_TENT)) {
-                    gameController.addThrowerMatcherHandler()
                 } else {
 
                 }
