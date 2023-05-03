@@ -292,7 +292,7 @@ public class MapController extends GeneralGameController {
         Tile targetTile = gameMap.getMap()[x][y];
         Texture targetTileTexture = targetTile.getTexture();
 
-        if (targetTileTexture.getName().equals("water") || targetTileTexture.getName().equals("oil"))
+        if (targetTileTexture.getName().equals("water"))
             return INVALID_TILE_DROP_UNIT.getOutput();
 
         if (!infoMap.get("c").matches("\\d+")) return INVALID_UNIT_AMOUNT.getOutput();
