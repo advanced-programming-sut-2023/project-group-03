@@ -18,7 +18,10 @@ public interface BuildingInterface {
     //generator
     String buildGeneratorMatcherHandler(Matcher matcher, Player player);
     //gates
-    String buildStoneGates(Matcher matcher, Player player);
+    String buildStoneGatesMatcherHandler(Matcher matcher, Player player);
     String buildDrawbridgeMatcherHandler(Matcher matcher, Player player);
+    //traps
+    String buildTrapMatcherHandler(Matcher matcher, Player player);
+    //repair
     String repair(Building building, Player player);
 }

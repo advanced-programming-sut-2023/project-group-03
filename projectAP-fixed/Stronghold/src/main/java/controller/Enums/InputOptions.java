@@ -28,8 +28,10 @@ public enum InputOptions {
     BUILD_GENERATOR(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_STONE_GATE(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_DRAWBRIDGE(new ArrayList<>(Arrays.asList("x", "y", "d"))),
+    BUILD_TRAP(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     //unit
     ADD_TROOP(new ArrayList<>(Arrays.asList("t", "a"))),
+    PATROL_UNIT(new ArrayList<>(Arrays.asList("x1", "y1", "x2", "y2"))),
     //kingdom
     CHANGE_RATE(new ArrayList<>(Arrays.asList("r"))),
     TRADE_REQUEST(new ArrayList<>(Arrays.asList("t", "a", "p", "m"))),

@@ -17,7 +17,6 @@ public class GameController extends Controller implements GameMarketInterface , 
     private KingdomController kingdomController;
     private MarketController marketController;
     private MoveUnitController moveUnitController;
-    private TradeController tradeController;
     private UnitController unitController;
 
     private GameMap gameMap;
@@ -86,13 +85,18 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
-    public String buildStoneGates(Matcher matcher, Player player) {
-        return buildingController.buildStoneGates(matcher, player);
+    public String buildStoneGatesMatcherHandler(Matcher matcher, Player player) {
+        return buildingController.buildStoneGatesMatcherHandler(matcher, player);
     }
 
     @Override
     public String buildDrawbridgeMatcherHandler(Matcher matcher, Player player) {
         return buildingController.buildDrawbridgeMatcherHandler(matcher, player);
+    }
+
+    @Override
+    public String buildTrapMatcherHandler(Matcher matcher, Player player) {
+        return buildingController.buildTrapMatcherHandler(matcher, player);
     }
 
     @Override
@@ -108,6 +112,11 @@ public class GameController extends Controller implements GameMarketInterface , 
     @Override
     public String addEngineer(Player player, String amountString, Tile tile) {
         return unitController.addEngineer(player, amountString, tile);
+    }
+
+    @Override
+    public String patrol(Matcher matcher, GameMenu gameMenu) {
+        return unitController.patrol(matcher, gameMenu);
     }
 
     @Override

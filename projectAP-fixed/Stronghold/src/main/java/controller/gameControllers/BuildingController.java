@@ -1,12 +1,11 @@
 package controller.gameControllers;
 
 import Model.Buildings.*;
+import Model.Buildings.Defending.*;
 import Model.Buildings.Defending.Enums.GateTypes;
 import Model.Buildings.Defending.Enums.TowerTypes;
+import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Buildings.Defending.Enums.WallTypes;
-import Model.Buildings.Defending.Gates;
-import Model.Buildings.Defending.Towers;
-import Model.Buildings.Defending.Wall;
 import Model.Buildings.Enums.*;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
@@ -460,7 +459,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
-    public String buildStoneGates(Matcher matcher, Player player) {
+    public String buildStoneGatesMatcherHandler(Matcher matcher, Player player) {
         String stoneGateInfo = matcher.group("stoneGateInfo");
         HashMap<String, String> infoMap = getOptions(BUILD_STONE_GATE.getKeys(), stoneGateInfo);
         String error = infoMap.get("error");
@@ -528,5 +527,64 @@ public class BuildingController extends GeneralGameController implements Buildin
             return INVALID_DIRECTION_DRAWBRIDGE.getOutput();
         }
         return null;
+    }
+
+    public String buildTrapMatcherHandler(Matcher matcher, Player player) {
+        String trapInfo = matcher.group("trapInfo");
+        HashMap<String, String> infoMap = getOptions(BUILD_STONE_GATE.getKeys(), trapInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String coordinatesError = checkCoordinates(infoMap, "x", "y");
+        if (coordinatesError != null) return coordinatesError;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        TrapsTypes trapsType = TrapsTypes.getTypeByName(infoMap.get("t"));
+        if (trapsType == null) return INVALID_TRAP_TYPE.getOutput();
+
+        if (trapsType.equals("pitch ditch")) return buildPitchDitch(x, y, player);
+        if (trapsType.equals("caged war dogs")) return buildCagedWarDogs(x, y, player);
+        return buildKillingPit(x, y, player);
+    }
+
+    private String checkTrapErrors(int x, int y, Player player, TrapsTypes trapsType) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        if (!trapsType.getTextures().contains(targetTile.getTexture())) return BAD_TEXTURE_TRAP.getOutput();
+
+        if (targetTile.getBuilding() != null) return BUILDING_EXIST_TRAP.getOutput();
+        if (targetTile.getUnits().size() > 0) return UNIT_EXIST_TRAP.getOutput();
+
+        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+
+        return null;
+    }
+
+    private String buildPitchDitch(int x, int y, Player player) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        String errorCheck = checkTrapErrors(x, y, player, TrapsTypes.CAGED_WAR_DOGS);
+        if (errorCheck != null) return errorCheck;
+
+        targetTile.setBuilding(new PitchDitch(player, targetTile, TrapsTypes.PITCH_DITCH));
+        return SUCCESSFUL_DROP_BUILDING.getOutput();
+    }
+
+    private String buildCagedWarDogs(int x, int y, Player player) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        String errorCheck = checkTrapErrors(x, y, player, TrapsTypes.CAGED_WAR_DOGS);
+        if (errorCheck != null) return errorCheck;
+
+        targetTile.setBuilding(new CagedWarDogs(player, targetTile, TrapsTypes.CAGED_WAR_DOGS));
+        return SUCCESSFUL_DROP_BUILDING.getOutput();
+    }
+
+    private String buildKillingPit(int x, int y, Player player) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        String errorCheck = checkTrapErrors(x, y, player, TrapsTypes.CAGED_WAR_DOGS);
+        if (errorCheck != null) return errorCheck;
+
+        targetTile.setBuilding(new KillingPit(player, targetTile, TrapsTypes.KILLING_PIT));
+        return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 }

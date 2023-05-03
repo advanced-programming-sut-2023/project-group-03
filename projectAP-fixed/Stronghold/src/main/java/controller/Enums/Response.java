@@ -104,7 +104,7 @@ public enum Response {
     ////buildings
     INVALID_LOCATION("Invalid x or y for location!"),
     //drop building
-    ////select
+    ////select building
     BUILDING_NOT_EXIST_SELECT("There is no building here to select."),
     ACQUISITION_SELECT("You don't own this building!"),
     SUCCESSFUL_SELECT("Building successfully selected."),
@@ -145,6 +145,11 @@ public enum Response {
     NOT_ENOUGH_STONE_STONE_GATE("You don't have enough stone to build this stone gate."),
     ////drawbridge
     INVALID_DIRECTION_DRAWBRIDGE("Invalid direction."),
+    ////trap
+    INVALID_TRAP_TYPE("Invalid trap type."),
+    BAD_TEXTURE_TRAP("You can't build this trap on this kinda textures."),
+    BUILDING_EXIST_TRAP("There is a building here so you can't build this trap here."),
+    UNIT_EXIST_TRAP("There are some units here so you can't build your trap here."),
     //unit
     INVALID_AMOUNT_UNIT("Enter an integer for amount field."),
     ////troop
@@ -170,6 +175,10 @@ public enum Response {
     INVALID_BUILDING_REPAIR("You can't repair this kinda building."),
     SUCCESSFUL_REPAIR("Your building got repaired successfully!"),
     ////units
+    INVALID_COORDINATES_PATROL("Enter integer for your positions."),
+    BAD_TEXTURE_START("Your units can't go to the start tile."),
+    BAD_TEXTURE_END("Your units can't go to the end tile."),
+    SUCCESSFUL_PATROL("Your units are gonna patrol!"),
     NO_UNIT_EXIST("There is no unit here!"),
     INVALID_DESTINATION("You can't go to that place. It is too high or too deap!"),
     LONG_DESTINATION("Please choose a closer destination."),
