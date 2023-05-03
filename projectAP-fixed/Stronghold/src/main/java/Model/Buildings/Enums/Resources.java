@@ -1,5 +1,7 @@
 package Model.Buildings.Enums;
 
+import java.util.HashSet;
+
 public enum Resources
 {
      FLOUR("flour", ResourceTypes.FOOD, 10),
@@ -31,8 +33,14 @@ public enum Resources
     private ResourceTypes type;
     private int gold;
     private String name;
-
+    private static HashSet<Resources> foods = new HashSet<>();
     private int sellPrice;
+    static {
+        foods.add(APPLE);
+        foods.add(BREAD);
+        foods.add(CHEESE);
+        foods.add(MEAT);
+    }
     Resources(String name, ResourceTypes type, int gold) {
         this.type = type;
         this.gold = gold;
@@ -61,5 +69,9 @@ public enum Resources
             if (resource.getName().equals(name)) return resource;
         }
         return null;
+    }
+
+    public static HashSet<Resources> getFoods() {
+        return foods;
     }
 }

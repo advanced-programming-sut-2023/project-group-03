@@ -11,15 +11,19 @@ public abstract class Drawable {
     protected ArrayList<Tile> tiles;
     protected Material material;
     protected int HP;
+    private static ArrayList<Drawable> drawables;
+
 
     public Drawable(Player owner, Tile position) {
         this.owner = owner;
         this.position = position;
+        drawables.add(this);
     }
 
     public void getHit(int value) {
 
     }
+
     public abstract void check();
 
     public abstract void print();
@@ -56,5 +60,6 @@ public abstract class Drawable {
         this.HP = HP;
     }
 
-    public void remove(){}
+    public void remove() {
+    }
 }

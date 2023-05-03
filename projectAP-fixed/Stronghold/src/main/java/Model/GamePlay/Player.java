@@ -18,6 +18,7 @@ public class Player {
     ArrayList<Request> incomeRequests;
     ArrayList<Request> myRequests;
     ArrayList<Unit> allUnits;
+    int population;
     int gold;
     int popularity;
     int fearFactor;
@@ -39,7 +40,11 @@ public class Player {
     }
 
     public void decreaseGold(int number){
-        gold-=number;
+        if (gold > number) {
+            gold -= number;
+        } else {
+            gold = 0;
+        }
     }
 
     public int getResourceAmount(Resources resources){
@@ -51,7 +56,11 @@ public class Player {
     }
 
     public void decreaseInventory(Resources resources, int number) {
-        inventory.replace(resources,Integer.sum(inventory.get(resources), -number));
+        if (inventory.get(resources) > number) {
+            inventory.replace(resources, Integer.sum(inventory.get(resources), -number));
+        } else {
+            inventory.replace(resources, 0);
+        }
     }
 
     public void addUnit(Unit unit) {
@@ -183,5 +192,13 @@ public class Player {
             }
         }
         return null;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
     }
 }
