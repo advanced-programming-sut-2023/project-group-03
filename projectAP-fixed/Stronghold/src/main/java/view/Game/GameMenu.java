@@ -8,6 +8,7 @@ import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
 import Model.Units.Unit;
 import controller.ControllerFunctions;
+import controller.gameControllers.GameController;
 import controller.gameControllers.GameMenuController;
 import controller.gameControllers.MarketController;
 import view.Enums.ConsoleColors;
@@ -52,7 +53,8 @@ public class GameMenu extends Menu {
     public void run() throws Transition {
         showGuide();
         String command = scanner.nextLine();
-        GameMenuController gameMenuController = new GameMenuController(game.getCurrentPlayer().getUser(), game);
+
+        GameController gameController = new GameController(game.getMap());
         if (command.matches("select menu")) {
             SelectMenuGuide();
             Menu next = handleMenu();
@@ -63,11 +65,14 @@ public class GameMenu extends Menu {
             }
         } else if (command.matches(GameMenuCommands.SELECT_BUILDING.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_BUILDING.toString());
-
+            String output = gameController.selectBuilding(matcher, game.getCurrentPlayer(), this);
+            System.out.println(output);
         } else if (command.matches(GameMenuCommands.SELECT_UNIT.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_UNIT.toString());
+
         } else if (command.matches(GameMenuCommands.MAP_MOVE.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.MAP_MOVE.toString());
+            
         } else if (command.matches("next turn")) {
 
         }
@@ -181,6 +186,14 @@ public class GameMenu extends Menu {
 
     public Drawable getSelected() {
         return selected;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public void setSelected(Drawable selected) {
+        this.selected = selected;
     }
 
     private void showMap(Matcher matcher){}

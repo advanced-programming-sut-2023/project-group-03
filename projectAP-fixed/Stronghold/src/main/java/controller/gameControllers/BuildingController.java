@@ -13,6 +13,7 @@ import Model.GamePlay.Player;
 import Model.Units.Unit;
 import Model.Units.Worker;
 import controller.interfaces.BuildingInterface;
+import view.Game.GameMenu;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -28,7 +29,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         this.gameController = gameController;
     }
 
-    public String selectBuilding(Matcher matcher, Player player) {
+    public String selectBuilding(Matcher matcher, Player player, GameMenu gameMenu) {
         String buildingInfo = matcher.group("buildingInfo");
         HashMap<String, String> infoMap = getOptions(SELECT_BUILDING.getKeys(), buildingInfo);
         String error = infoMap.get("error");
@@ -44,6 +45,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (targetTile.getBuilding() == null) return BUILDING_NOT_EXIST_SELECT.getOutput();
 
         if (!targetTile.getOwner().equals(player)) return ACQUISITION_SELECT.getOutput();
+        gameMenu.setSelected(targetTile.getBuilding());
         return SUCCESSFUL_SELECT.getOutput();
     }
 

@@ -6,6 +6,7 @@ import Model.Field.Tile;
 import Model.GamePlay.Player;
 import controller.Controller;
 import controller.interfaces.*;
+import view.Game.GameMenu;
 
 import java.util.regex.Matcher;
 
@@ -51,8 +52,8 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
-    public String selectBuilding(Matcher matcher, Player player) {
-        return buildingController.selectBuilding(matcher, player);
+    public String selectBuilding(Matcher matcher, Player player, GameMenu gameMenu) {
+        return buildingController.selectBuilding(matcher, player, gameMenu);
     }
 
     @Override
