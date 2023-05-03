@@ -37,6 +37,7 @@ public class IndustryBuildingMenu extends Menu {
     }
 
     public void guide() {
+        colorPrint(TEXT_RED,"================================================");
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", ">>Industry Buildings<<"));
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", "possible commands:"));
         System.out.println(formatPrinter(TEXT_YELLOW, "", "1." + BUILD_INVENTORY.toString()+

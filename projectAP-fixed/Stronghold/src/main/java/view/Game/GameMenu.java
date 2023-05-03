@@ -50,6 +50,7 @@ public class GameMenu extends Menu {
 
     @Override
     public void run() throws Transition {
+        showGuide();
         String command = scanner.nextLine();
         GameMenuController gameMenuController = new GameMenuController(game.getCurrentPlayer().getUser(), game);
         if (command.matches("select menu")) {
@@ -101,6 +102,7 @@ public class GameMenu extends Menu {
 
     // map
     public void showGuide() {
+        colorPrint(TEXT_RED,"================================================");
         String selectedName = "nothing selected";
         if (selected != null) {
             selectedName = selected.getClass().getSimpleName();
