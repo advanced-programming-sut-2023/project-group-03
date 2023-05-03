@@ -12,13 +12,17 @@ public enum ThrowerTypes {
     private int damage;
     private int speed;
     private int HP;
+    private int stoneCost;
+    private int woodCost;
     private int range;
     private int gold;
-    ThrowerTypes(String name, int damage, int speed, int HP, int range, int gold) {
+    ThrowerTypes(String name, int damage, int speed, int HP, int stoneCost, int woodCost, int range, int gold) {
         this.speed =speed;
         this.name = name;
         this.damage = damage;
         this.HP = HP;
+        this.stoneCost = stoneCost;
+        this.woodCost = woodCost;
         this.range = range;
         this.gold = gold;
     }
@@ -33,6 +37,14 @@ public enum ThrowerTypes {
 
     public int getHP() {
         return HP;
+    }
+
+    public int getStoneCost() {
+        return stoneCost;
+    }
+
+    public int getWoodCost() {
+        return woodCost;
     }
 
     public int getRange() {

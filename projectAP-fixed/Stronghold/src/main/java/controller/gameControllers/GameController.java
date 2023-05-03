@@ -110,6 +110,11 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
+    public String addThrowerMatcherHandler(Matcher matcher, Player player) {
+        return unitController.addThrowerMatcherHandler(matcher, player);
+    }
+
+    @Override
     public String addEngineer(Player player, String amountString, Tile tile) {
         return unitController.addEngineer(player, amountString, tile);
     }
@@ -117,6 +122,11 @@ public class GameController extends Controller implements GameMarketInterface , 
     @Override
     public String patrol(Matcher matcher, GameMenu gameMenu) {
         return unitController.patrol(matcher, gameMenu);
+    }
+
+    @Override
+    public String selectUnitMatcherHandler(Matcher matcher, Player player, GameMenu gameMenu) {
+        return unitController.selectUnitMatcherHandler(matcher, player, gameMenu);
     }
 
     @Override
