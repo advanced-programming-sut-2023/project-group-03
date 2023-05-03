@@ -145,6 +145,11 @@ public enum Response {
     NOT_ENOUGH_STONE_STONE_GATE("You don't have enough stone to build this stone gate."),
     ////drawbridge
     INVALID_DIRECTION_DRAWBRIDGE("Invalid direction."),
+    ////trap
+    INVALID_TRAP_TYPE("Invalid trap type."),
+    BAD_TEXTURE_TRAP("You can't build this trap on this kinda textures."),
+    BUILDING_EXIST_TRAP("There is a building here so you can't build this trap here."),
+    UNIT_EXIST_TRAP("There are some units here so you can't build your trap here."),
     //unit
     INVALID_AMOUNT_UNIT("Enter an integer for amount field."),
     ////troop
