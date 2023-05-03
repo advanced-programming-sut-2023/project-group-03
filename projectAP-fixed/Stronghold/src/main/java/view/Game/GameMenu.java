@@ -18,6 +18,7 @@ import view.Enums.ShopMenuCommands;
 import view.Menu;
 import view.Transition;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -27,6 +28,8 @@ public class GameMenu extends Menu {
     private Game game;
 
     private Drawable selected = null;
+    private ArrayList<Unit> selectedUnits = new ArrayList<>();
+
     CastleBuildingMenu castleBuildingMenu;
     FarmBuidingMenu farmBuidingMenu;
     FoodProcessingMenu foodProcessingMenu;
@@ -94,8 +97,7 @@ public class GameMenu extends Menu {
             } else if (command.matches(ShopMenuCommands.SHOW_PRICE_LIST.toString())) {
 
             }
-        }
-        else if (selected instanceof Unit) {
+        } else if (selectedUnits.size() != 0) {
             if (command.matches(GameMenuCommands.DISBAND_UNIT.toString())) {
 
             } else if (command.matches(GameMenuCommands.ATTACK_ENEMY.toString())) {
@@ -194,6 +196,14 @@ public class GameMenu extends Menu {
 
     public void setSelected(Drawable selected) {
         this.selected = selected;
+    }
+
+    public ArrayList<Unit> getSelectedUnits() {
+        return selectedUnits;
+    }
+
+    public void setSelectedUnits(ArrayList<Unit> selectedUnits) {
+        this.selectedUnits = selectedUnits;
     }
 
     private void showMap(Matcher matcher){}
