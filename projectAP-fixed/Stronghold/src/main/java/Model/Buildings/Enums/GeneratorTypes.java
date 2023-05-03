@@ -15,10 +15,12 @@ public enum GeneratorTypes {
     QUARRY("quarry", 150, 15,0,0,0,Resources.STONE,null,20,0,3,RegularTextureGroups.STONE_SLAB.getTextures()),
     WOODCUTTER("woodcutter", 40,15,0,0,0,Resources.WOOD,null,3,0,1,RegularTextureGroups.NORMAL.getTextures()),
     ARMOURER("armourer",80,2,3,0,0,Resources.METAL_ARMOUR,Resources.IRON,20,100,1,RegularTextureGroups.NORMAL.getTextures()),
+    TANNER("tanner",80,2,3,0,0,Resources.METAL_ARMOUR,null,20,50,1,RegularTextureGroups.NORMAL.getTextures()),
     //TANNER,
-    BLACKSMITH("blacksmith", 120,2,3,0,0,Resources.SWORD,Resources.IRON,20,100,1,RegularTextureGroups.NORMAL.getTextures()),
-    FLETCHER("fletcher", 100, 4, 8,0,0,Resources.BOW,Resources.WOOD,20,100,1,RegularTextureGroups.NORMAL.getTextures()),
-    POLE_TURNER("pole turner",110,2,3,0,0,Resources.SPEAR,Resources.IRON,20,100,1,RegularTextureGroups.NORMAL.getTextures()),
+    SWORD_MAKER("swordMaker", 120,2,3,0,0,Resources.SWORD,Resources.IRON,20,100,1,RegularTextureGroups.NORMAL.getTextures()),
+    BOW_MAKER("bowMaker", 100, 4, 8,0,0,Resources.BOW,Resources.WOOD,20,100,1,RegularTextureGroups.NORMAL.getTextures()),
+    SPEAR_MAKER("SpearMaker",110,2,3,0,0,Resources.SPEAR,Resources.IRON,20,100,1,RegularTextureGroups.NORMAL.getTextures()),
+    PIKE_MAKER("pikeMaker",110,2,3,0,0,Resources.PIKE,Resources.IRON,20,100,1,RegularTextureGroups.NORMAL.getTextures()),
     //OIL_SMELTER,
     ORCHARD("apple orchard", 30, 10,0,0,0,Resources.APPLE,null,5,0,1,RegularTextureGroups.NORMAL.getTextures()),
     DAIRY_FARM("dairy farm", 50,7,0,0,0,Resources.CHEESE,null,10,0,1,RegularTextureGroups.NORMAL.getTextures()),
@@ -28,8 +30,9 @@ public enum GeneratorTypes {
     BAKERY("bakery", 40,10,10,0,0,Resources.BREAD,Resources.FLOUR,10,0,1,RegularTextureGroups.NORMAL.getTextures()),
     BREWERY("brewery",60,10,10,0,0,Resources.WINE,Resources.BARLEY,10,0,1,RegularTextureGroups.NORMAL.getTextures()),
     STABLE("stable",20,1,0,0,4,Resources.HORSE,null,20,400,0,RegularTextureGroups.NORMAL.getTextures()),
-    //HOVEL("hovel",70,),
-    CHURCH("church",150,0,0,0,0,null,null,0,250,0,RegularTextureGroups.NORMAL.getTextures())
+    HOVEL("hovel",20,0,0,0,8,null,null,15,0,0,RegularTextureGroups.NORMAL.getTextures()),
+    CHURCH("church",150,0,0,0,0,null,null,0,250,0,RegularTextureGroups.NORMAL.getTextures()),
+    CATHEDRAL("cathedral",250,0,0,0,0,null,null,0,250,0,RegularTextureGroups.NORMAL.getTextures())
     ;
     private String name;
     private int HP;

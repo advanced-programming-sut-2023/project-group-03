@@ -17,6 +17,7 @@ public class CastleBuildingMenu extends Menu {
 
     @Override
     public void run() throws Transition {
+        Guide();
         String command = scanner.nextLine();
         if (command.matches("back")) {
 
@@ -34,6 +35,7 @@ public class CastleBuildingMenu extends Menu {
     }
 
     public void Guide() {
+        colorPrint(TEXT_RED,"================================================");
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", ">>Castle Buildings<<"));
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", "possible commands:"));
         System.out.println(formatPrinter(TEXT_YELLOW, "", "1." + BUILD_STONE_GATES.toString()+

@@ -20,6 +20,7 @@ public class KeepMenu extends Menu {
 
     @Override
     public void run() throws Transition {
+        guide();
         String command = scanner.nextLine();
         if (command.matches("back")) {
             throw new Transition(gameMenu);
@@ -35,6 +36,7 @@ public class KeepMenu extends Menu {
     }
 
     public void guide() {
+        colorPrint(TEXT_RED,"================================================");
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", ">>Keep<<"));
         System.out.println(formatPrinter(TEXT_YELLOW, "", "fearRate:" +
                 game.getCurrentPlayer().getFearFactor() + " taxRate:" + game.getCurrentPlayer().getTaxRate() +
