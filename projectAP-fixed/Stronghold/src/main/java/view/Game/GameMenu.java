@@ -1,7 +1,9 @@
 package view.Game;
 
 import Model.Buildings.Barracks;
+import Model.Buildings.Building;
 import Model.Buildings.Defending.CastleBuilding;
+import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Keep;
 import Model.Buildings.Store;
 import Model.GamePlay.Drawable;
@@ -66,27 +68,40 @@ public class GameMenu extends Menu {
             } else {
                 throw new Transition(next);
             }
-        } else if (command.matches(GameMenuCommands.SELECT_BUILDING.toString())) {
+        }
+        else if (command.matches(GameMenuCommands.SELECT_BUILDING.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_BUILDING.toString());
             String output = gameController.selectBuilding(matcher, game.getCurrentPlayer(), this);
             System.out.println(output);
-        } else if (command.matches(GameMenuCommands.SELECT_UNIT.toString())) {
+        }
+        else if (command.matches(GameMenuCommands.SELECT_UNIT.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_UNIT.toString());
-
-        } else if (command.matches(GameMenuCommands.MAP_MOVE.toString())) {
+            String output = gameController.selectUnitMatcherHandler(matcher, game.getCurrentPlayer(), this);
+            System.out.println(output);
+        }
+        else if (command.matches(GameMenuCommands.MAP_MOVE.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.MAP_MOVE.toString());
 
-        } else if (command.matches("next turn")) {
+        }
+        else if (command.matches("next turn")) {
 
         }
-        else if (selected instanceof CastleBuilding) {
+        else if (selected instanceof Building) {
             if (command.matches(GameMenuCommands.REPAIR.toString())) {
-
+                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.REPAIR.toString());
+                String output = gameController.repair(((Building) selected), game.getCurrentPlayer());
+                System.out.println(output);
             }
         }
         else if (selected instanceof Barracks) {
             if (command.matches(GameMenuCommands.CREATE_UNIT.toString())) {
+                Barracks barracks = ((Barracks) selected);
+                //Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
+                if (barracks.getType().equals(BarracksType.SIEGE_TENT)) {
+                    gameController.addThrowerMatcherHandler()
+                } else {
 
+                }
             }
         }
         else if (selected instanceof Store) {
