@@ -12,27 +12,37 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 public class TradeController extends Controller {
     GameController gameController;
-
-    TradeController(GameController gameController) {
-        this.gameController = gameController;
+    Player owner;
+    TradeController(Player owner) {
+        this.owner = owner;
     }
 
-    public String requestTrade(Matcher matcher, Player player) {
+    public String requestTrade(Matcher matcher) {
         String requestInfo = (matcher.group("TradeInfo"));
         HashMap<String, String> infoMap = getOptions(InputOptions.TRADE_REQUEST.getKeys(), requestInfo);
         String error = infoMap.get("error");
         if (!infoMap.get("p").matches("\\d+")) {
             return Response.INVALID_PRICE.getOutput();
         }
+        if (!infoMap.get("a").matches("\\d+")) {
+            return  Response.INVALID_AMOUNT.getOutput();
+        }
         if (Resources.getResourceByName(infoMap.get("t")) == null) {
             return Response.INVALID_RESOURCE.getOutput();
         }
-        Request request = new Request(player);
-
-        return "";
+        int price = Integer.parseInt(infoMap.get("p"));
+        int amount = Integer.parseInt(infoMap.get("a"));
+        Resources resource = Resources.getResourceByName(infoMap.get("t"));
+        Request request = new Request(owner, resource, amount, price);
+        request.sendToAll();
+        return Response.SUCCESSFUL_TRADE_REQUEST.getOutput();
     }
 
     public String showTradeList() {
+        String output = "";
+        for (Request myRequest : owner.getMyRequests()) {
+            output+=myRequest.
+        }
         return "";
     }
 

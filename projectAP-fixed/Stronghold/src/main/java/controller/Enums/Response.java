@@ -180,7 +180,10 @@ public enum Response {
     NOT_TUNNELLER("Selected unit is not Tunneller!"),
     //trade
     INVALID_PRICE("invalid price format"),
-    INVALID_RESOURCE("invalid resource format")
+    INVALID_AMOUNT("invalid amount format"),
+    INVALID_RESOURCE("invalid resource format"),
+    SUCCESSFUL_TRADE_REQUEST("successful trade request"),
+    SUCCESSRUL_TRADE_ACCEPT("trade accepted")
     ;
     private String output;
 
