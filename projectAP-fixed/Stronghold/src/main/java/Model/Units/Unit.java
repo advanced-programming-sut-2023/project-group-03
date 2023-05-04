@@ -1,8 +1,10 @@
 package Model.Units;
 
+import Model.Buildings.Defending.CastleBuilding;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
+import Model.Units.Combat.Troop;
 
 public abstract class Unit extends Drawable {
     private boolean isPatrol = false;
@@ -10,6 +12,13 @@ public abstract class Unit extends Drawable {
     private Tile end;
     public Unit(Player owner, Tile position) {
         super(owner, position);
+        owner.addUnit(this);
+        position.addUnit(this);
+        if (position.getBuilding() != null) {
+            if (position.getBuilding() instanceof CastleBuilding && this instanceof Troop) {
+                ((CastleBuilding) position.getBuilding()).addTroop(((Troop) this));
+            }
+        }
     }
 
     public boolean moveTo(Tile tile) {
@@ -44,5 +53,17 @@ public abstract class Unit extends Drawable {
 
     public void setEnd(Tile end) {
         this.end = end;
+    }
+
+    @Override
+    public void erase() {
+        super.erase();
+        position.removeUnit(this);
+        owner.getAllUnits().remove(this);
+        if (position.getBuilding() != null) {
+            if (position.getBuilding() instanceof CastleBuilding && this instanceof Troop) {
+                ((CastleBuilding) position.getBuilding()).getTroops().remove(this);
+            }
+        }
     }
 }

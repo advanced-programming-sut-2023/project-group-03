@@ -24,6 +24,9 @@ public abstract class Drawable {
 
     }
 
+    public void erase() {
+        drawables.remove(this);
+    }
     public abstract void check();
 
     public abstract void print();

@@ -44,11 +44,13 @@ public class Tile {
     }
 
     public boolean addUnit(Unit unit) {
+        units.add(unit);
         return false;
     }
 
 
     public boolean removeUnit(Unit unit) {
+        units.remove(unit);
         return true;
     }
 
