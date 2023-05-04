@@ -187,4 +187,8 @@ public class Tile {
     public void setNeighbours(HashMap<Direction, Tile> neighbours) {
         this.neighbours = neighbours;
     }
+
+    public ArrayList<Tile> getNeighboursConnected() {
+        return neighboursConnected;
+    }
 }
