@@ -24,6 +24,7 @@ public enum GameMenuCommands {
     BUILD_GENERATOR("^build (?<generatorInfo>.+)"),
     BUILD_STONE_GATES("^build Gate (?<stoneGateInfo>.+)"),
     BUILD_DRAW_BRIDGE("^build Bridge (?<drawbridgeInfo>.+)"),
+    BUILD_TRAP("^build trap (?<trapInfo>.+)"),
     BUILD_MARKET(""),
     CREATE_UNIT(""),
     REPAIR("^repair$"),

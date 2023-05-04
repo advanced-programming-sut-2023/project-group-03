@@ -30,6 +30,10 @@ public class KeepMenu extends Menu {
 
         } else if (command.matches(GameMenuCommands.TAX_RATE.toString())) {
 
+        } else if (command.matches(GameMenuCommands.TRADE_REQUEST.toString())) {
+
+        } else if (command.matches(GameMenuCommands.TRADE_ACCEPT.toString())) {
+
         } else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
         }
@@ -45,7 +49,8 @@ public class KeepMenu extends Menu {
                 " gold: " + game.getCurrentPlayer().getGold()));
         System.out.println(formatPrinter(TEXT_YELLOW,"","possible commands:"));
         System.out.println(formatPrinter(TEXT_GREEN, "", "1." + GameMenuCommands.FEAR_RATE.toString() +
-                " 2." + GameMenuCommands.TAX_RATE + " 3." + GameMenuCommands.FOOD_RATE + " 4." + GameMenuCommands.SHOW_FOOD_LIST));
-        //trade...
+                " 2." + GameMenuCommands.TAX_RATE.toString() + " 3." + GameMenuCommands.FOOD_RATE.toString()
+                + " 4." + GameMenuCommands.SHOW_FOOD_LIST.toString() +
+                "\n5." + GameMenuCommands.TRADE_REQUEST.toString() + " 6." + GameMenuCommands.TRADE_ACCEPT.toString()));
     }
 }

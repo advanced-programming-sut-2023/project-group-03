@@ -60,6 +60,14 @@ public abstract class Drawable {
         this.HP = HP;
     }
 
+    public static ArrayList<Drawable> getDrawables() {
+        return drawables;
+    }
+
+    public static void setDrawables(ArrayList<Drawable> drawables) {
+        Drawable.drawables = drawables;
+    }
+
     public void remove() {
     }
 }
