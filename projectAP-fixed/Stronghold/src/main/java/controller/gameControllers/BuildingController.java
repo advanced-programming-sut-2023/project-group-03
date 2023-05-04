@@ -340,5 +340,17 @@ public class BuildingController extends GeneralGameController implements Buildin
         return buildKillingPit(x, y, player);
     }
 
+    public String buildStoreMatcherHandler(Matcher matcher, Player player) {
+        String storeInfo = matcher.group("storeInfo");
+        HashMap<String, String> infoMap = getOptions(BUILD_STONE_GATE.getKeys(), storeInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
 
+        String coordinatesError = checkCoordinates(infoMap, "x", "y");
+        if (coordinatesError != null) return coordinatesError;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+        return buildStore(x, y, player);
+    }
 }

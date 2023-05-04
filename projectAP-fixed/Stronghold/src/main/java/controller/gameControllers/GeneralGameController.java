@@ -7,6 +7,7 @@ import Model.Buildings.Defending.Enums.TowerTypes;
 import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Buildings.Enums.*;
 import Model.Field.GameMap;
+import Model.Field.RegularTextureGroups;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
@@ -153,16 +154,16 @@ public class GeneralGameController extends Controller {
     }
 
 
-    protected String buildTower(int xTemp, int yTemp, TowerTypes towerType, Player player) {
+    protected String buildTower(int xCenter, int yCenter, TowerTypes towerType, Player player) {
         if (player.getInventory().get(Resources.STONE) < towerType.getStoneCost())
             return NOT_ENOUGH_STONE_TOWER.getOutput();
 
-        if (!checkIfFit(xTemp, yTemp, towerType.getSize())) return NOT_FIT.getOutput();
+        if (!checkIfFit(xCenter, yCenter, towerType.getSize())) return NOT_FIT.getOutput();
 
         int size = towerType.getSize() / 2;
         Tile targetTile;
-        for (int x = xTemp - size; x <= xTemp + size; x++) {
-            for (int y = yTemp - size; y < yTemp + size; y++) {
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!towerType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
@@ -170,10 +171,10 @@ public class GeneralGameController extends Controller {
             }
         }
 
-        Towers newTower = new Towers(player, gameMap.getMap()[xTemp][yTemp], towerType);
+        Towers newTower = new Towers(player, gameMap.getMap()[xCenter][yCenter], towerType);
 
-        for (int x = xTemp - size; x <= xTemp + size; x++) {
-            for (int y = yTemp - size; y < yTemp + size; y++) {
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
                 ;gameMap.getMap()[x][y].setBuilding(newTower);
             }
         }
@@ -182,7 +183,7 @@ public class GeneralGameController extends Controller {
     }
 
 
-    protected String buildBarracks(int xTemp, int yTemp, BarracksType barracksType, Player player) {
+    protected String buildBarracks(int xCenter, int yCenter, BarracksType barracksType, Player player) {
         if ((player.getInventory().get(Resources.STONE) < barracksType.getStoneCost()))
             return NOT_ENOUGH_STONE_TOWER.getOutput();
         if ((player.getInventory().get(Resources.WOOD) < barracksType.getWood()))
@@ -192,12 +193,12 @@ public class GeneralGameController extends Controller {
         if ((player.getInventory().get(Resources.OIL) < barracksType.getOil()))
             return NOT_ENOUGH_OIL_BARRACKS.getOutput();
 
-        if (!checkIfFit(xTemp, yTemp, barracksType.getSize())) return NOT_FIT.getOutput();
+        if (!checkIfFit(xCenter, yCenter, barracksType.getSize())) return NOT_FIT.getOutput();
 
         int size = barracksType.getSize() / 2;
         Tile targetTile;
-        for (int x = xTemp - size; x <= xTemp + size; x++) {
-            for (int y = yTemp - size; y < yTemp + size; y++) {
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!barracksType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
@@ -205,10 +206,10 @@ public class GeneralGameController extends Controller {
             }
         }
 
-        Barracks newBarracks = new Barracks(player, gameMap.getMap()[xTemp][yTemp], barracksType);
+        Barracks newBarracks = new Barracks(player, gameMap.getMap()[xCenter][yCenter], barracksType);
 
-        for (int x = xTemp - size; x <= xTemp + size; x++) {
-            for (int y = yTemp - size; y < yTemp + size; y++) {
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
                 gameMap.getMap()[x][y].setBuilding(newBarracks);
             }
         }
@@ -301,7 +302,7 @@ public class GeneralGameController extends Controller {
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
-    protected String buildGenerator(int xTemp, int yTemp, GeneratorTypes generatorType, Player player) {
+    protected String buildGenerator(int xCenter, int yCenter, GeneratorTypes generatorType, Player player) {
         if (player.getGold() < generatorType.getGold())
             return NOT_ENOUGH_GOLD_BUILDING.getOutput();
         if (player.getInventory().get(Resources.WOOD) < generatorType.getWood())
@@ -309,12 +310,12 @@ public class GeneralGameController extends Controller {
         if (player.getPopularity() < generatorType.getWorker())
             return NOT_ENOUGH_WORKER_BUILDING.getOutput();
 
-        if (!checkIfFit(xTemp, yTemp, generatorType.getSize())) return NOT_FIT.getOutput();
+        if (!checkIfFit(xCenter, yCenter, generatorType.getSize())) return NOT_FIT.getOutput();
 
         int size = generatorType.getSize() / 2;
         Tile targetTile;
-        for (int x = xTemp - size; x <= xTemp + size; x++) {
-            for (int y = yTemp - size; y < yTemp + size; y++) {
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!generatorType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
@@ -322,14 +323,14 @@ public class GeneralGameController extends Controller {
             }
         }
 
-        targetTile = gameMap.getMap()[xTemp][yTemp];
+        targetTile = gameMap.getMap()[xCenter][yCenter];
         Generators newGenerator = new Generators(player, targetTile, generatorType);
 //        for (int i = 0; i < generatorType.getWorker(); i++) {     TODO adding workers needed
 //            targetTile.addUnit(new Worker(player, targetTile, newGenerator));
 //        }
 
-        for (int x = xTemp - size; x <= xTemp + size; x++) {
-            for (int y = yTemp - size; y < yTemp + size; y++) {
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
                 gameMap.getMap()[x][y].setBuilding(newGenerator);
             }
         }
@@ -337,16 +338,16 @@ public class GeneralGameController extends Controller {
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
-    protected String buildStoneGate(int xTemp, int yTemp, GateTypes gateType, Player player) {
+    protected String buildStoneGate(int xCenter, int yCenter, GateTypes gateType, Player player) {
         if (player.getInventory().get(Resources.STONE) < gateType.getStoneCost())
             return NOT_ENOUGH_STONE_STONE_GATE.getOutput();
 
-        if (!checkIfFit(xTemp, yTemp, gateType.getSize())) return NOT_FIT.getOutput();
+        if (!checkIfFit(xCenter, yCenter, gateType.getSize())) return NOT_FIT.getOutput();
 
         int size = gateType.getSize() / 2;
         Tile targetTile;
-        for (int x = xTemp - size; x <= xTemp + size; x++) {
-            for (int y = yTemp - size; y < yTemp + size; y++) {
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!gateType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
@@ -354,10 +355,10 @@ public class GeneralGameController extends Controller {
             }
         }
 
-        Gates newGate = new Gates(player, gameMap.getMap()[xTemp][yTemp], gateType);
+        Gates newGate = new Gates(player, gameMap.getMap()[xCenter][yCenter], gateType);
 
-        for (int x = xTemp - size; x <= xTemp + size; x++) {
-            for (int y = yTemp - size; y < yTemp + size; y++) {
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
                 gameMap.getMap()[x][y].setBuilding(newGate);
             }
         }
@@ -403,12 +404,28 @@ public class GeneralGameController extends Controller {
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
-    protected String buildStore(int x, int y, Player player) {
-        Tile targetTile = gameMap.getMap()[x][y];
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
-        //todo
+    protected String buildStore(int xCenter, int yCenter, Player player) {
+        Tile targetTile = gameMap.getMap()[xCenter][yCenter];
+        int size = 3;
+        if (!checkIfFit(xCenter, yCenter, size)) return NOT_FIT.getOutput();
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
+                targetTile = gameMap.getMap()[x][y];
+                if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
+                if (RegularTextureGroups.NORMAL.getTextures().contains(targetTile.getTexture()))
+                    return DROP_BUILDING_TEXTURE.getOutput();
+                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+            }
+        }
 
+        targetTile = gameMap.getMap()[xCenter][yCenter];
+        Store newStore = new Store(player, targetTile);
 
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y < yCenter + size; y++) {
+                gameMap.getMap()[x][y].setBuilding(newStore);
+            }
+        }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }

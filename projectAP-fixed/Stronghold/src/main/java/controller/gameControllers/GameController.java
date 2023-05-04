@@ -104,6 +104,11 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
+    public String buildStoreMatcherHandler(Matcher matcher, Player player) {
+        return buildingController.buildStoreMatcherHandler(matcher, player);
+    }
+
+    @Override
     public String repair(Building building, Player player) {
         return buildingController.repair(building, player);
     }

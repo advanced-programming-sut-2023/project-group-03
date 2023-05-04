@@ -22,6 +22,8 @@ public interface BuildingInterface {
     String buildDrawbridgeMatcherHandler(Matcher matcher, Player player);
     //traps
     String buildTrapMatcherHandler(Matcher matcher, Player player);
+    //store
+    String buildStoreMatcherHandler(Matcher matcher, Player player);
     //repair
     String repair(Building building, Player player);
 }
