@@ -328,8 +328,8 @@ public class MapController extends GeneralGameController {
     }
 
     public String dropBuilding(Matcher matcher, Player player) {
-        String unitInfo = matcher.group("buildingInfo");
-        HashMap<String, String> infoMap = getOptions(DROP_BUILDING.getKeys(), unitInfo);
+        String buildingInfo = matcher.group("buildingInfo");
+        HashMap<String, String> infoMap = getOptions(DROP_BUILDING.getKeys(), buildingInfo);
         String error = infoMap.get("error");
         if (error != null) return error;
 
@@ -374,7 +374,10 @@ public class MapController extends GeneralGameController {
 
         GateTypes gateType = GateTypes.getTypeByName(type);
         if (gateType != null) {
-            return buildStoneGate(targetTile.getRowNum(), targetTile.getColumnNum(), gateType, player);
+            infoMap = getOptions(BUILD_STONE_GATE.getKeys(), buildingInfo);
+            Direction direction = Direction.getDirectionByName(infoMap.get("d"));
+            if (direction == null) return INVALID_DIRECTION_STONE_GATE.getOutput();
+            return buildStoneGate(targetTile.getRowNum(), targetTile.getColumnNum(), gateType, player, direction);
         }
 
         TowerTypes towerType = TowerTypes.getTypeByName(type);

@@ -7,6 +7,7 @@ import Model.Buildings.Defending.Enums.TowerTypes;
 import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Buildings.Defending.Enums.WallTypes;
 import Model.Buildings.Enums.*;
+import Model.Field.Direction;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
@@ -293,7 +294,10 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (gateType == null) return INVALID_STONE_GATE_TYPE.getOutput();
         if (gateType.equals(GateTypes.DRAWBRIDGE)) return INVALID_STONE_GATE_TYPE.getOutput();
 
-        return buildStoneGate(x, y, gateType, player);
+        Direction direction = Direction.getDirectionByName(infoMap.get("d"));
+
+        if (direction == null) return INVALID_DIRECTION_STONE_GATE.getOutput();
+        return buildStoneGate(x, y, gateType, player, direction);
     }
 
     public String buildDrawbridgeMatcherHandler(Matcher matcher, Player player) {

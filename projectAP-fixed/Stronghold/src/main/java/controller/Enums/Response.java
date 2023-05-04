@@ -143,6 +143,9 @@ public enum Response {
     ////gates
     INVALID_STONE_GATE_TYPE("The given type is neither big stone gate nor small stone gate."),
     NOT_ENOUGH_STONE_STONE_GATE("You don't have enough stone to build this stone gate."),
+    INVALID_DIRECTION_STONE_GATE("Invalid direction. Enter up, right, down or left."),
+    NOT_ENOUGH_SPACE_TERMINALS_STONE_GATE("You don't have enough space for terminals."),
+    BUILDING_ON_TERMINAL("There is a building on terminal fields."),
     ////drawbridge
     INVALID_DIRECTION_DRAWBRIDGE("Invalid direction."),
     ////trap

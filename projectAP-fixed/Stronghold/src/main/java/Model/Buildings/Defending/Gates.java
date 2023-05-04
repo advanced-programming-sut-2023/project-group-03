@@ -69,6 +69,10 @@ public class Gates extends CastleBuilding {
         this.terminals = terminals;
     }
 
+    public void addTerminal(Tile tile) {
+        terminals.add(tile);
+    }
+
     public ArrayList<Tile> getTerminals() {
         return terminals;
     }

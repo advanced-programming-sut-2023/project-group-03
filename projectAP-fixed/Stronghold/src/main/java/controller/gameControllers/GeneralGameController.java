@@ -6,6 +6,7 @@ import Model.Buildings.Defending.Enums.GateTypes;
 import Model.Buildings.Defending.Enums.TowerTypes;
 import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Buildings.Enums.*;
+import Model.Field.Direction;
 import Model.Field.GameMap;
 import Model.Field.RegularTextureGroups;
 import Model.Field.Tile;
@@ -148,7 +149,7 @@ public class GeneralGameController extends Controller {
 
     private boolean checkIfFit(int x, int y, int size) {
         size = size / 2;
-        if (x - size < 0 || x + size > gameMap.getSize() || y - size < 0 || y + size > gameMap.getSize())
+        if (x - size < 0 || x + size >= gameMap.getSize() || y - size < 0 || y + size >= gameMap.getSize())
             return false;
         return true;
     }
@@ -175,7 +176,7 @@ public class GeneralGameController extends Controller {
 
         for (int x = xCenter - size; x <= xCenter + size; x++) {
             for (int y = yCenter - size; y < yCenter + size; y++) {
-                ;gameMap.getMap()[x][y].setBuilding(newTower);
+                gameMap.getMap()[x][y].setBuilding(newTower);
             }
         }
 
@@ -338,7 +339,7 @@ public class GeneralGameController extends Controller {
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
-    protected String buildStoneGate(int xCenter, int yCenter, GateTypes gateType, Player player) {
+    protected String buildStoneGate(int xCenter, int yCenter, GateTypes gateType, Player player, Direction direction) {
         if (player.getInventory().get(Resources.STONE) < gateType.getStoneCost())
             return NOT_ENOUGH_STONE_STONE_GATE.getOutput();
 
@@ -355,7 +356,30 @@ public class GeneralGameController extends Controller {
             }
         }
 
+        Tile terminalTile1;
+        Tile terminalTile2;
+        if (direction.equals(Direction.DOWN) || direction.equals(Direction.UP)) {
+            if (xCenter + size + 1 >= gameMap.getSize() || xCenter - size - 1 < 0)
+                return NOT_ENOUGH_SPACE_TERMINALS_STONE_GATE.getOutput();
+            terminalTile1 = gameMap.getMap()[xCenter + size + 1][yCenter];
+            terminalTile2 = gameMap.getMap()[xCenter - size - 1][yCenter];
+
+        } else {
+            if (yCenter + size + 1 >= gameMap.getSize() || yCenter - size - 1 < 0)
+                return NOT_ENOUGH_SPACE_TERMINALS_STONE_GATE.getOutput();
+            terminalTile1 = gameMap.getMap()[xCenter][yCenter + size + 1];
+            terminalTile2 = gameMap.getMap()[xCenter][yCenter - size - 1];
+        }
+        if (!terminalTile2.getOwner().equals(player) || !terminalTile1.getOwner().equals(player))
+            return ACQUISITION.getOutput();
+        if (terminalTile2.getBuilding() != null || terminalTile1.getBuilding() != null)
+            return BUILDING_ON_TERMINAL.getOutput();
+
         Gates newGate = new Gates(player, gameMap.getMap()[xCenter][yCenter], gateType);
+        newGate.addTerminal(terminalTile1);
+        newGate.addTerminal(terminalTile2);
+        terminalTile1.setBuilding(newGate);
+        terminalTile2.setBuilding(newGate);
 
         for (int x = xCenter - size; x <= xCenter + size; x++) {
             for (int y = yCenter - size; y < yCenter + size; y++) {
