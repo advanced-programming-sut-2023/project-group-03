@@ -24,6 +24,14 @@ public abstract class Drawable {
 
     }
 
+    protected boolean shouldBreak(){
+        if(HP<=0){
+            this.erase();
+            return true;
+        }
+        return false;
+    }
+
     public void erase() {
         drawables.remove(this);
     }

@@ -15,7 +15,7 @@ public class Towers extends CastleBuilding {
         super(owner, position);
         this.HP = type.getHP();
         this.length = type.getLength();
-        this.width = type.getWidth();
+        this.size = type.getWidth();
         this.stoneCost = type.getStoneCost();
         this.defenseIncrease = type.getDefenseIncrease();
         this.rangeIncrease = type.getRangeIncrease();

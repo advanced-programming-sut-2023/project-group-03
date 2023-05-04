@@ -2,6 +2,7 @@ package Model.Buildings;
 
 import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
+import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 
 public class Store extends Building{
@@ -17,6 +18,12 @@ public class Store extends Building{
 
     private Store(Player owner, Tile position) {
         super(owner, position);
+        this.setMaterial(Material.STONE);
+        this.setHP(200);
+        this.setSize(3);
+        this.setGoldCost(0);
+        this.setStoneCost(20);
+        this.setWoodCost(0);
     }
 
     public void buy(Resources resources, int number) {
@@ -31,13 +38,14 @@ public class Store extends Building{
 
     @Override
     public void check() {
-
+        shouldBreak();
     }
 
     @Override
     public void print() {
 
     }
+
 
 
 }
