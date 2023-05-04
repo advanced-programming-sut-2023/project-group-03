@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public abstract class CastleBuilding extends Building {
     protected int stoneCost;
     protected ArrayList<Troop> troops;
-    public CastleBuilding(Player owner, Tile position) {
-        super(owner, position);
+    public CastleBuilding(Player owner, Tile position, int size) {
+        super(owner, position, size);
         this.setMaterial(Material.STONE);
         this.troops = new ArrayList<>();
         owner.decreaseInventory(Resources.STONE,stoneCost);

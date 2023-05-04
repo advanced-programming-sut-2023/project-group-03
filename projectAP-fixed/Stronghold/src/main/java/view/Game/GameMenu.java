@@ -6,6 +6,7 @@ import Model.Buildings.Defending.CastleBuilding;
 import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Keep;
 import Model.Buildings.Store;
+import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
 import Model.Units.Unit;
@@ -44,6 +45,7 @@ public class GameMenu extends Menu {
     public GameMenu(Scanner scanner, Game game) {
         super(scanner);
         this.game = game;
+        Tile.setGameMap(game.getMap());
         castleBuildingMenu = new CastleBuildingMenu(scanner, this);
         farmBuidingMenu = new FarmBuidingMenu(scanner, this);
         foodProcessingMenu = new FoodProcessingMenu(scanner, this);

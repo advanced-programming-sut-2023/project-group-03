@@ -9,7 +9,7 @@ public class Rest extends Building {
     private RestTypes type;
 
     public Rest(Player owner, Tile position, RestTypes type) {
-        super(owner, position);
+        super(owner, position, type.getSize());
         owner.decreaseGold(type.getGold());
         owner.decreaseInventory(Resources.WOOD,type.getWood());
     }

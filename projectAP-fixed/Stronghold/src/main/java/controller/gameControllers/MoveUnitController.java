@@ -52,6 +52,7 @@ public class MoveUnitController {
                     break search;
                 }
             }
+            if (queueTiles.size() == 0) return new ArrayList<>();
             currentPathTile = queueTiles.get(0);
             queueTiles.remove(0);
         }

@@ -13,7 +13,7 @@ public class Keep extends Building {
     private int foodRate;
     private int typeOfFood;
     public Keep(Player owner, Tile position) {
-        super(owner, position);
+        super(owner, position, 1);
         taxRate = 0;
         foodRate = -2;
         fearRate =  0;
