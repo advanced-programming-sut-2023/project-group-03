@@ -12,8 +12,13 @@ public class Keep extends Building {
     private int fearRate;
     private int foodRate;
     private int typeOfFood;
-    private Keep(Player owner, Tile position) {
+    public Keep(Player owner, Tile position) {
         super(owner, position);
+        taxRate = 0;
+        foodRate = -2;
+        fearRate =  0;
+        typeOfFood = 0;
+
     }
 
     public static void setInstance(Player owner, Tile tile) {

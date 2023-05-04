@@ -347,54 +347,47 @@ public class MapController extends GeneralGameController {
         String type = infoMap.get("t");
 
         //targetTile owner changes
+        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
         BarracksType barracksType = BarracksType.getTypeByName(type);
         if (barracksType != null) {
-            if (!barracksType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-            targetTile.setBuilding(new Barracks(player, targetTile, barracksType));
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
+            return buildBarracks(targetTile.getRowNum(), targetTile.getColumnNum(), barracksType, player);
         }
 
         GeneratorTypes generatorType = GeneratorTypes.getTypeByName(type);
         if (generatorType != null) {
-            if (!generatorType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-            targetTile.setBuilding(new Generators(player, targetTile, generatorType));
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
+            return buildGenerator(targetTile.getRowNum(), targetTile.getColumnNum(), generatorType, player);
         }
 
         RestTypes restType = RestTypes.getTypeByName(type);
         if (restType != null) {
-            if (!restType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-            targetTile.setBuilding(new Rest(player, targetTile, restType));
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
+            return buildRest(targetTile.getRowNum(), targetTile.getColumnNum(), restType, player);
         }
 
         InventoryTypes inventoryType = InventoryTypes.getTypeByName(type);
         if (inventoryType != null) {
-            if (!inventoryType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-            targetTile.setBuilding(new Inventory(player, targetTile, inventoryType));
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
+            if (inventoryType.getName().equals("armoury"))
+                return buildArmoury(targetTile.getRowNum(), targetTile.getColumnNum(), player);
+            else
+                return buildStockPileFoodStorage(targetTile.getRowNum(), targetTile.getColumnNum(), inventoryType, player);
         }
 
         GateTypes gateType = GateTypes.getTypeByName(type);
         if (gateType != null) {
-            if (!gateType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-            targetTile.setBuilding(new Gates(player, targetTile, gateType));
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
+            return buildStoneGate(targetTile.getRowNum(), targetTile.getColumnNum(), gateType, player);
         }
 
         TowerTypes towerType = TowerTypes.getTypeByName(type);
         if (towerType != null) {
-            if (!towerType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-            targetTile.setBuilding(new Towers(player, targetTile, towerType));
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
+            return buildTower(targetTile.getRowNum(), targetTile.getColumnNum(), towerType, player);
         }
 
         TrapsTypes trapsType = TrapsTypes.getTypeByName(type);
         if (trapsType != null) {
-            if (!trapsType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-            targetTile.setBuilding(new Trap(player, targetTile, trapsType));
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
+            if (trapsType.getName().equals("pitch ditch")) return buildPitchDitch(x, y, player);
+            if (trapsType.getName().equals("caged war dogs")) return buildCagedWarDogs(x, y, player);
+            if (trapsType.getName().equals("killing pit")) return buildKillingPit(x, y, player);
+            return INVALID_TRAP_TYPE.getOutput();
         }
 
         WallTypes wallType = WallTypes.getTypeByName(type);
@@ -405,12 +398,13 @@ public class MapController extends GeneralGameController {
         }
 
         if (type.equals("store")) {
+            targetTile.setBuilding(new Store(player, targetTile));
             return STORE_DROP.getOutput();
         }
 
         if (type.equals("keep")) {
             if (player.getKeep() != null) return KEEP_EXIST.getOutput();
-//            targetTile.setBuilding(new Keep(player, targetTile));
+            new Keep(player, targetTile);
             return SUCCESSFUL_DROP_BUILDING.getOutput();
         }
 

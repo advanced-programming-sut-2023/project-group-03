@@ -15,7 +15,7 @@ public class Store extends Building{
 
     }
 
-    private Store(Player owner, Tile position) {
+    public Store(Player owner, Tile position) {
         super(owner, position);
     }
 
