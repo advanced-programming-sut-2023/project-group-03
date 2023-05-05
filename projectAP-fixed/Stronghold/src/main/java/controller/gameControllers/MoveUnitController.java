@@ -39,6 +39,8 @@ public class MoveUnitController {
         LinkedList<PathTile> queueTiles = new LinkedList<>();
         PathTile currentPathTile = new PathTile(endTile, null);
         queueTiles.addLast(currentPathTile);
+        ArrayList<Tile> path = new ArrayList<>();
+        path.add(startTile);
 
         for (int i = 0; i < mapSize; i++) for (int j = 0; j < mapSize; j++) visitedTiles[i][j] = false;
         visitedTiles[endTile.getRowNum()][endTile.getColumnNum()] = true;
@@ -53,12 +55,10 @@ public class MoveUnitController {
                     break search;
                 }
             }
-            if (queueTiles.size() == 0) return new ArrayList<>();
+            if (queueTiles.size() == 0) return path;
             currentPathTile = queueTiles.getFirst();
             queueTiles.removeFirst();
         }
-
-        ArrayList<Tile> path = new ArrayList<>();
 
         while (currentPathTile.getParentTile() != null) {
             currentPathTile = currentPathTile.getParentTile();
@@ -79,6 +79,7 @@ public class MoveUnitController {
         visitedTiles[tile.getRowNum()][tile.getColumnNum()] = true;
         int currentDistances = 1;
         ArrayList<Tile> answer = new ArrayList<>();
+        answer.add(tile);
 
         while (currentDistances < distance) {
             for (Tile neigbour : currentPathTile.getTile().getNeighboursConnected()) {
@@ -108,6 +109,7 @@ public class MoveUnitController {
         visitedTiles[tile.getRowNum()][tile.getColumnNum()] = true;
         int currentDistances = 1;
         ArrayList<Tile> answer = new ArrayList<>();
+        answer.add(tile);
 
         while (currentDistances < distance) {
             int xCurrent = currentTile.getRowNum();
