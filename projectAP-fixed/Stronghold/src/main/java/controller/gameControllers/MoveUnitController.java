@@ -54,8 +54,8 @@ public class MoveUnitController {
                 }
             }
             if (queueTiles.size() == 0) return new ArrayList<>();
-            currentPathTile = queueTiles.get(0);
-            queueTiles.remove(0);
+            currentPathTile = queueTiles.getFirst();
+            queueTiles.removeFirst();
         }
 
         ArrayList<Tile> path = new ArrayList<>();
