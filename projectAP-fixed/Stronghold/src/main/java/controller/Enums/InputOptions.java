@@ -26,7 +26,7 @@ public enum InputOptions {
     BUILD_INVENTORY(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_REST(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     BUILD_GENERATOR(new ArrayList<>(Arrays.asList("x", "y", "t"))),
-    BUILD_STONE_GATE(new ArrayList<>(Arrays.asList("x", "y", "t"))),
+    BUILD_STONE_GATE(new ArrayList<>(Arrays.asList("x", "y", "t", "d"))),
     BUILD_DRAWBRIDGE(new ArrayList<>(Arrays.asList("x", "y", "d"))),
     BUILD_TRAP(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     //unit

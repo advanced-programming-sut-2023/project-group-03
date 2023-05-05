@@ -1,15 +1,21 @@
 package Model.Units.Combat;
 
+import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class BatteringRam extends CombatUnit {
-    protected int cost;
+    private final static int goldCost = 10;
+    private final static int stoneCost = 10;
+    private final static int woodCost = 10;
     private Tile target;
 
     public BatteringRam(Player owner, Tile position) {
         super(owner, position);
-        cost = 10;// TODO
+        owner.decreaseGold(goldCost);
+        owner.decreaseInventory(Resources.WOOD, woodCost);
+        owner.decreaseInventory(Resources.STONE, stoneCost);
+        // TODO
     }
 
     @Override
@@ -17,12 +23,16 @@ public class BatteringRam extends CombatUnit {
         super.attackTo(tile);
     }
 
-    public int getCost() {
-        return cost;
+    public static int getGoldCost() {
+        return goldCost;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
+    public static int getStoneCost() {
+        return stoneCost;
+    }
+
+    public static int getWoodCost() {
+        return woodCost;
     }
 
     public Tile getTarget() {

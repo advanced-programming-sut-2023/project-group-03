@@ -16,15 +16,9 @@ public class Store extends Building{
 
     }
 
-    private Store(Player owner, Tile position) {
-        super(owner, position);
-        this.setMaterial(Material.STONE);
-        this.setHP(200);
-        this.setSize(3);
-        this.setGoldCost(0);
-        this.setStoneCost(20);
-        this.setWoodCost(0);
-        manageCost();
+
+    public Store(Player owner, Tile position) {
+        super(owner, position, 3);
     }
 
     public void buy(Resources resources, int number) {

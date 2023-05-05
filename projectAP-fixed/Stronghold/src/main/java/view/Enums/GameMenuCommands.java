@@ -26,7 +26,7 @@ public enum GameMenuCommands {
     BUILD_DRAW_BRIDGE("^build Bridge (?<drawbridgeInfo>.+)"),
     BUILD_TRAP("^build trap (?<trapInfo>.+)"),
     BUILD_MARKET(""),
-    CREATE_UNIT(""),
+    CREATE_UNIT("^create unit (?<unitInfo>.+)"),
     REPAIR("^repair$"),
     SELECT_UNIT(""),
     MOVE_UNIT(""),

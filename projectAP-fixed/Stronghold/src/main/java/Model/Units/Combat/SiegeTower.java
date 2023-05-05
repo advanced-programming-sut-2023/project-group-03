@@ -1,12 +1,38 @@
 package Model.Units.Combat;
 
+import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 import java.util.ArrayList;
 
 public class SiegeTower extends CombatUnit{
-    private int cost;
+    private final static int goldCost = 10;
+    private final static int stoneCost = 10;
+    private final static int woodCost = 10;
+
+    public SiegeTower(Player owner, Tile position, Tile target) {
+        super(owner, position);
+        owner.decreaseGold(goldCost);
+        owner.decreaseInventory(Resources.WOOD, woodCost);
+        owner.decreaseInventory(Resources.STONE, stoneCost);
+        //maybe TODO
+    }
+
+    public static int getGoldCost() {return goldCost;}
+
+    public static int getWoodCost() {return woodCost;}
+
+    public static int getStoneCost() {return stoneCost;}
+
+    public int getRangeIncreaseRate() {
+        return RangeIncreaseRate;
+    }
+
+    public ArrayList<Troop> getTroops() {
+        return troops;
+    }
+
     private int RangeIncreaseRate;
     private ArrayList<Troop> troops;
     private Tile target;

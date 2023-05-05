@@ -4,17 +4,18 @@ import Model.Buildings.Barracks;
 import Model.Buildings.Building;
 import Model.Buildings.Defending.Enums.TowerTypes;
 import Model.Buildings.Defending.Towers;
+import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.Resources;
+import Model.Field.GameMap;
 import Model.Field.Texture;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
-import Model.Units.Combat.CombatUnit;
-import Model.Units.Combat.Throwers;
-import Model.Units.Combat.Troop;
+import Model.Units.Combat.*;
 import Model.Units.Engineer;
 import Model.Units.Enums.AttackingMode;
 import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
+import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
 import controller.interfaces.UnitInterface;
 import view.Game.GameMenu;
@@ -27,11 +28,9 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class UnitController extends GeneralGameController implements UnitInterface {
-    GameController gameController;
 
-    UnitController(GameController gameController) {
-        super(gameController.getGameMap());
-        this.gameController = gameController;
+    UnitController(GameMap gameMap) {
+        super(gameMap);
     }
 
     public String setState(Matcher matcher, Player player, GameMenu gameMenu) {
@@ -50,24 +49,100 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         return SUCCESSFUL_SET_STATE.getOutput();
     }
-    public String addTroopMatcherHandler(Matcher matcher, Player player, Tile tile) {
-        String troopInfo = matcher.group("troopInfo");
-        HashMap<String, String> infoMap = getOptions(ADD_TROOP.getKeys(), troopInfo);
+
+    public String addUnitMatcherHandler(Matcher matcher, Player player, Barracks barracks) {
+        String unitInfo = matcher.group("unitInfo");
+        HashMap<String, String> infoMap = getOptions(DROP_UNIT.getKeys(), unitInfo);
         String error = infoMap.get("error");
         if (error != null) return error;
 
-        if (!infoMap.get("a").matches("\\d+")) return INVALID_AMOUNT_UNIT.getOutput();
+        String checkCoordinatesResult = checkCoordinates(infoMap, "x", "y");
+        if (checkCoordinatesResult != null) return checkCoordinatesResult;
 
-        int amount = Integer.parseInt(infoMap.get("a"));
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
 
-        TroopTypes troopType = TroopTypes.getTroopTypeByName(infoMap.get("t"));
-        if (troopType == null) return INVALID_TROOP_TYPE_UNIT.getOutput();
+        Tile targetTile = gameMap.getMap()[x][y];
+        Texture targetTileTexture = targetTile.getTexture();
 
-        return addTroop(troopType, amount, player, tile);
+        if (targetTileTexture.getName().equals("water"))
+            return INVALID_TILE_DROP_UNIT.getOutput();
+
+        if (!infoMap.get("c").matches("\\d+")) return INVALID_UNIT_AMOUNT.getOutput();
+        int amount = Integer.parseInt(infoMap.get("c"));
+
+        String type = infoMap.get("t");
+
+        ThrowerTypes throwerType = ThrowerTypes.getThrowerTypeByName(type);
+        if (throwerType != null) {
+            return addThrower(x, y, throwerType, player, barracks);
+        }
+
+        if (type.equals("battering ram")) {
+            return addBatteringRam(x, y, player, barracks);
+        }
+
+        if (type.equals("siege tower")) {
+            return addSiegeTower(x, y, player, barracks);
+        }
+
+        TroopTypes troopType = TroopTypes.getTroopTypeByName(type);
+        if (troopType != null) {
+            return addTroop(troopType, amount, player, gameMap.getMap()[x][y], barracks);
+        }
+
+        if (type.equals("wall climber")) {
+            for (int i = 0; i < amount; i++) {
+                new WallClimber(player, targetTile);
+            }
+            return SUCCESSFUL_DROP_UNIT.getOutput();
+        }
+
+        if (type.equals("engineer")) {
+            return addEngineer(player, amount, gameMap.getMap()[x][y], barracks);
+        }
+        if (type.equals("ladder man")) {
+
+        }
+        if (type.equals("assassin")) {
+
+        }
+        if (type.equals("tunneller")) {
+
+        }
+        return INVALID_UNIT_TYPE.getOutput();
     }
-    private String addTroop(TroopTypes troopType, int amount, Player player, Tile tile) {
-        Barracks building = (Barracks) tile.getBuilding();
-        if (!building.getProducts().contains(troopType)) return NOT_RIGHT_PLACE_UNIT.getOutput();
+
+    private String addBatteringRam(int x, int y, Player player, Barracks barracks) {
+        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null) return NOT_RIGHT_PLACE_UNIT.getOutput();
+
+        if (player.getGold() < BatteringRam.getGoldCost())
+            return NOT_ENOUGH_GOLD_UNIT.getOutput();
+        if (player.getInventory().get(Resources.STONE) < BatteringRam.getStoneCost())
+            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " stone";
+        if (player.getInventory().get(Resources.WOOD) < BatteringRam.getWoodCost())
+            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " wood";
+
+        new BatteringRam(player, gameMap.getMap()[x][y]);
+        return SUCCESSFUL_DROP_UNIT.getOutput();
+    }
+
+    private String addSiegeTower(int x, int y, Player player, Barracks barracks) {
+        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null) return NOT_RIGHT_PLACE_UNIT.getOutput();
+
+        if (player.getGold() < SiegeTower.getGoldCost())
+            return NOT_ENOUGH_GOLD_UNIT.getOutput();
+        if (player.getInventory().get(Resources.STONE) < SiegeTower.getStoneCost())
+            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " stone";
+        if (player.getInventory().get(Resources.WOOD) < SiegeTower.getWoodCost())
+            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " wood";
+
+        new SiegeTower(player, gameMap.getMap()[x][y]);
+        return SUCCESSFUL_DROP_UNIT.getOutput();
+    }
+
+    private String addTroop(TroopTypes troopType, int amount, Player player, Tile tile, Barracks barracks) {
+        if (!barracks.getProducts().contains(troopType) && barracks != null) return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         //should i check our popularity?
 
@@ -80,47 +155,29 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         }
 
         for (int i = 0; i < amount; i++) {
-            Troop newTroop = new Troop(player, tile, troopType);
-            tile.addUnit(newTroop);
+            new Troop(player, tile, troopType);
         }
 
         return SUCCESSFUL_DROP_UNIT.getOutput();
     }
 
-    public String addEngineer(Player player, String amountString, Tile tile) {
-        if (!amountString.matches("\\d+")) return INVALID_AMOUNT_UNIT.getOutput();
-        int amount = Integer.parseInt(amountString);
+    public String addEngineer(Player player, int amount, Tile tile, Barracks barracks) {
+        if (!barracks.getType().equals(BarracksType.ENGINEER_GUILD) && barracks != null)
+            return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         if (player.getGold() < amount * Engineer.price) return NOT_ENOUGH_GOLD_ENGINEER.getOutput();
         if (player.getPopularity() < amount) return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();
 
         for (int i = 0; i < amount; i++) {
-            Engineer newEngineer = new Engineer(player, tile);
-            tile.addUnit(newEngineer);
+            new Engineer(player, tile);
         }
 
         return SUCCESSFUL_ADD_ENGINEER.getOutput();
     }
+    private String addThrower(int x, int y, ThrowerTypes throwerType, Player player, Barracks barracks) {
+        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null)
+            return NOT_RIGHT_PLACE_UNIT.getOutput();
 
-    public String addThrowerMatcherHandler(Matcher matcher, Player player) {
-        String throwerInfo = matcher.group("throwerInfo");
-        HashMap<String, String> infoMap = getOptions(SELECT_BUILDING.getKeys(), throwerInfo);
-        String error = infoMap.get("error");
-        if (error != null) return error;
-
-        String checkCoordinatesError = checkCoordinates(infoMap, "x", "y");
-        if (checkCoordinatesError != null) return checkCoordinatesError;
-
-        int x = Integer.parseInt(infoMap.get("x")) - 1;
-        int y = Integer.parseInt(infoMap.get("y")) - 1;
-
-        ThrowerTypes throwerType = ThrowerTypes.getThrowerTypeByName(infoMap.get("t"));
-        if (throwerType == null) return INVALID_THROWER_TYPE.getOutput();
-
-        return addThrower(x, y, throwerType, player);
-    }
-
-    private String addThrower(int x, int y, ThrowerTypes throwerType, Player player) {
         if (player.getInventory().get(Resources.WOOD) < throwerType.getWoodCost())
             return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + "wood";
 
@@ -130,7 +187,6 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (player.getGold() < throwerType.getGold()) return NOT_ENOUGH_GOLD_THROWER.getOutput();
 
         Tile targetTile = gameMap.getMap()[x][y];
-        if (!targetTile.getOwner().equals(player) && !(targetTile.getOwner() == null)) return ACQUISITION.getOutput();
 
         if (!throwerType.getName().contains("tower")) {
             targetTile.addUnit(new Throwers(player, targetTile, throwerType));
@@ -261,5 +317,21 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             }
         }
         return SUCCESSFUL_SELECT_UNIT.getOutput();
+    }
+
+    public String attackMatcherHandler(Matcher matcher, Unit unit) {
+        String attackInfo = matcher.group("attackInfo");
+        HashMap<String, String> infoMap = getOptions(COORDINATES.getKeys(), attackInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String coordinatesCheck = checkCoordinates(infoMap, "x", "y");
+        if (coordinatesCheck != null) return coordinatesCheck;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        //todo
+        return SUCCESSFUL_ATTACK.getOutput();
     }
 }

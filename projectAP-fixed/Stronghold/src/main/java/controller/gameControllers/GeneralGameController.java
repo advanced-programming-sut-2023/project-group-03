@@ -1,7 +1,16 @@
 package controller.gameControllers;
 
+import Model.Buildings.*;
+import Model.Buildings.Defending.*;
+import Model.Buildings.Defending.Enums.GateTypes;
+import Model.Buildings.Defending.Enums.TowerTypes;
+import Model.Buildings.Defending.Enums.TrapsTypes;
+import Model.Buildings.Enums.*;
+import Model.Field.Direction;
 import Model.Field.GameMap;
+import Model.Field.RegularTextureGroups;
 import Model.Field.Tile;
+import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
@@ -61,6 +70,7 @@ public class GeneralGameController extends Controller {
         gameMap.setCenter(gameMap.getMap()[x][y]);
         return SUCCESSFUL_SHOW_MAP.getOutput();
     }
+
     public String moveMap(Matcher matcher) {
         String verticalDir = matcher.group("verticalDir");
         String verticalNumString = matcher.group("verticalNum");
@@ -104,6 +114,7 @@ public class GeneralGameController extends Controller {
         gameMap.setCenter(gameMap.getMap()[finalRow][finalColumn]);
         return SUCCESSFUL_MOVE_MAP.getOutput();
     }
+
     public String showDetails(Matcher matcher) {
         String mapCoordinates = matcher.group("coordinatesInfo");
         HashMap<String, String> coordinates = getOptions(COORDINATES.getKeys(), mapCoordinates);
@@ -137,8 +148,4 @@ public class GeneralGameController extends Controller {
         //need to add building too
         return output;
     }
-
-
-
 }
-

@@ -10,15 +10,9 @@ public class Rest extends Building {
     private RestTypes type;
 
     public Rest(Player owner, Tile position, RestTypes type) {
-        super(owner, position);
-        this.setGoldCost(type.getGold());
-        this.setHP(50);
-        this.setMaterial(Material.WOOD);
-        this.set
-        if (type.equals(RestTypes.HOVEL)) {
-
-        }
-        manageCost();
+        super(owner, position, type.getSize());
+        owner.decreaseGold(type.getGold());
+        owner.decreaseInventory(Resources.WOOD,type.getWood());
     }
 
     @Override

@@ -11,6 +11,8 @@ public class Engineer extends nonCombatUnit{
 
     public Engineer(Player owner, Tile position) {
         super(owner, position);
+        position.addUnit(this);
+        owner.decreaseGold(price);
     }
 
     public Drawable getJob() {

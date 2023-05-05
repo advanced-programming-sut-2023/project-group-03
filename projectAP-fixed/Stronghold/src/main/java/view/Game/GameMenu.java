@@ -6,6 +6,7 @@ import Model.Buildings.Defending.CastleBuilding;
 import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Keep;
 import Model.Buildings.Store;
+import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
 import Model.Units.Unit;
@@ -44,6 +45,7 @@ public class GameMenu extends Menu {
     public GameMenu(Scanner scanner, Game game) {
         super(scanner);
         this.game = game;
+        Tile.setGameMap(game.getMap());
         castleBuildingMenu = new CastleBuildingMenu(scanner, this);
         farmBuidingMenu = new FarmBuidingMenu(scanner, this);
         foodProcessingMenu = new FoodProcessingMenu(scanner, this);
@@ -95,12 +97,8 @@ public class GameMenu extends Menu {
         }
         else if (selected instanceof Barracks) {
             if (command.matches(GameMenuCommands.CREATE_UNIT.toString())) {
-                Barracks barracks = ((Barracks) selected);
-                //Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
-                if (barracks.getType().equals(BarracksType.SIEGE_TENT)) {
-                } else {
-
-                }
+                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
+                System.out.println(gameController.addUnitMatcherHandler(matcher, game.getCurrentPlayer(), ((Barracks) selected)));
             }
         }
         else if (selected instanceof Store) {

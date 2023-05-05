@@ -143,6 +143,9 @@ public enum Response {
     ////gates
     INVALID_STONE_GATE_TYPE("The given type is neither big stone gate nor small stone gate."),
     NOT_ENOUGH_STONE_STONE_GATE("You don't have enough stone to build this stone gate."),
+    INVALID_DIRECTION_STONE_GATE("Invalid direction. Enter up, right, down or left."),
+    NOT_ENOUGH_SPACE_TERMINALS_STONE_GATE("You don't have enough space for terminals."),
+    BUILDING_ON_TERMINAL("There is a building on terminal fields."),
     ////drawbridge
     INVALID_DIRECTION_DRAWBRIDGE("Invalid direction."),
     ////trap
@@ -189,6 +192,7 @@ public enum Response {
     INVALID_BUILDING_REPAIR("You can't repair this kinda building."),
     SUCCESSFUL_REPAIR("Your building got repaired successfully!"),
     ////units
+    SUCCESSFUL_ATTACK("Your selected units are gonna get there!"),
     INVALID_COORDINATES_PATROL("Enter integer for your positions."),
     BAD_TEXTURE_START("Your units can't go to the start tile."),
     BAD_TEXTURE_END("Your units can't go to the end tile."),
@@ -197,6 +201,7 @@ public enum Response {
     INVALID_DESTINATION("You can't go to that place. It is too high or too deap!"),
     LONG_DESTINATION("Please choose a closer destination."),
     INVALID_UNIT_STATE("Invalid unit state! You can only choose : standing, defensive, offensive."),
+    //batteringRam and siegeTower
     //attack
     NOT_ARCHER("Selected unit is not Archer!"),
     NOT_ENGINEER("Selected unit is not Engineer!"),

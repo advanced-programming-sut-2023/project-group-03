@@ -12,6 +12,7 @@ import view.Enums.ConsoleColors;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class Tile {
+    private static GameMap gameMap;
     int rowNum;
     int columnNum;
     private boolean isLadder = false;
@@ -36,6 +37,14 @@ public class Tile {
 //    public boolean addBuilding(Building building) {
 //        return false;
 //    }
+
+    public static void setGameMap(GameMap map) {
+        gameMap = map;
+    }
+
+    public static GameMap getGameMap() {
+        return gameMap;
+    }
 
     public void removeBuilding() {
         this.building = null;
@@ -186,5 +195,9 @@ public class Tile {
 
     public void setNeighbours(HashMap<Direction, Tile> neighbours) {
         this.neighbours = neighbours;
+    }
+
+    public ArrayList<Tile> getNeighboursConnected() {
+        return neighboursConnected;
     }
 }
