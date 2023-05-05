@@ -2,6 +2,7 @@ package Model.Units.Combat;
 
 import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
+import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class SiegeTower extends CombatUnit{
     public SiegeTower(Player owner, Tile position, Tile target) {
         super(owner, position);
         owner.decreaseGold(goldCost);
+        Targets.add(Material.STONE);
         owner.decreaseInventory(Resources.WOOD, woodCost);
         owner.decreaseInventory(Resources.STONE, stoneCost);
         //maybe TODO
@@ -64,6 +66,13 @@ public class SiegeTower extends CombatUnit{
 
     public void setTarget(Tile target) {
         this.target = target;
+    }
+
+    @Override
+    public void check() {
+        super.check();
+        attackToEnemy();
+        AutoMove();
     }
 
     @Override

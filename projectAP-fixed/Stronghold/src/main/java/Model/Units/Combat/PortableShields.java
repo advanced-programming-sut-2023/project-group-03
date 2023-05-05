@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class PortableShields extends CombatUnit{
 
     private ArrayList<Troop> underShield;
-    private int defenseRate;
-    private int cost;
+    private int defenseRate = 2;
+    private int cost = 10;
 
     public void addToShield(Troop troop) {
 
@@ -25,6 +25,7 @@ public class PortableShields extends CombatUnit{
 
     public PortableShields(Player owner, Tile position) {
         super(owner, position);
+        owner.decreaseGold(10);
     }
 
     public ArrayList<Troop> getUnderShield() {
@@ -37,6 +38,12 @@ public class PortableShields extends CombatUnit{
 
     public int getCost() {
         return cost;
+    }
+
+    @Override
+    public void check() {
+        super.check();
+        AutoMove();
     }
 
     @Override

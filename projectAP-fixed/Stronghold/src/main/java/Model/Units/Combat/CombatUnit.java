@@ -119,7 +119,7 @@ public abstract class CombatUnit extends Unit {
         if (EnemyTarget != null) {
             GameMap map = owner.getGame().getMap();
             ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(modifiedRange, position, map);
-            if (area.contains(EnemyTarget)) {
+            if (area.contains(EnemyTarget.getPosition())) {
                 EnemyTarget.setHP(EnemyTarget.getHP() - damage);
             } else {
                 currentTarget = EnemyTarget.getPosition();
