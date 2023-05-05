@@ -14,8 +14,6 @@ public class Inventory extends Building {
 
     public Inventory(Player owner, Tile position, InventoryTypes type) {
         super(owner, position, type.getSize());
-        this.type = type;
-        size = type.getSize();
         inventory = new HashMap<>();
         for (Resources now : type.getResources()) {
             inventory.put(now,0);
@@ -50,7 +48,7 @@ public class Inventory extends Building {
         if(shouldBreak()){
             return;
         }
-        // should do sth else??
+        // should do sth else?? //NO
     }
 
     @Override

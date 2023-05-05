@@ -10,7 +10,6 @@ public class Worker extends nonCombatUnit{
     Generators job;
     public Worker(Player owner, Tile position, Generators job) {
         super(owner, position);
-        owner.addUnit(this);
     }
 
 
@@ -36,7 +35,8 @@ public class Worker extends nonCombatUnit{
         this.setStart(building.getPosition());
         if (building instanceof Generators) {
             Generators generators = ((Generators) building);
-            this.setEnd(generators.getProduct().getType().);
+            this.setEnd(owner.getKeep().getInventoryByType(generators.getProduct().getType()).getPosition());
+            this.setPatrol(true);
         }
     }
 }

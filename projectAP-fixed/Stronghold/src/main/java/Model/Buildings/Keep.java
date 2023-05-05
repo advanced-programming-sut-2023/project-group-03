@@ -1,5 +1,6 @@
 package Model.Buildings;
 
+import Model.Buildings.Enums.ResourceTypes;
 import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
@@ -7,9 +8,9 @@ import Model.GamePlay.Player;
 import static Model.Buildings.Enums.Resources.*;
 
 public class Keep extends Building {
-    private Inventory armoury;
-    private Inventory stockPile;
-    private Inventory foodStorage;
+    private Inventory armoury = null;
+    private Inventory stockPile = null;
+    private Inventory foodStorage = null;
 
     private static Keep instance;
     private int taxRate;
@@ -17,7 +18,7 @@ public class Keep extends Building {
     private int foodRate;
     private int typeOfFood;
     public Keep(Player owner, Tile position) {
-        super(owner, position, 1);
+        super(owner, position, 5);
         taxRate = 0;
         foodRate = -2;
         fearRate =  0;
@@ -174,5 +175,18 @@ public class Keep extends Building {
 
     public void setFoodStorage(Inventory foodStorage) {
         this.foodStorage = foodStorage;
+    }
+
+    public Inventory getInventoryByType(ResourceTypes resourceTypes) {
+        if (resourceTypes.equals(ResourceTypes.FOOD)) {
+            return this.foodStorage;
+        }
+        if (resourceTypes.equals(ResourceTypes.STOCK)) {
+            return this.stockPile;
+        }
+        if (resourceTypes.equals(ResourceTypes.WEAPON)) {
+            return this.armoury;
+        }
+        return null;
     }
 }

@@ -10,11 +10,11 @@ import Model.Units.Enums.TroopTypes;
 import java.util.HashSet;
 
 public class Troop extends CombatUnit{
-    TroopTypes type;
-    AttackingMode mode;
-    HashSet <Resources> equipment;
-    int gold;
-    Drawable currentTarget;
+    protected TroopTypes type;
+    protected AttackingMode mode;
+    protected HashSet <Resources> equipment;
+    protected int gold;
+    protected Drawable currentTarget;
 
     public Troop(Player owner, Tile position, TroopTypes type) {
         super(owner, position);

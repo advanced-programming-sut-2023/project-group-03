@@ -55,6 +55,7 @@ public abstract class Unit extends Drawable {
         this.end = end;
     }
 
+
     @Override
     protected boolean shouldBreak() {
         if (this.HP <= 0) {
