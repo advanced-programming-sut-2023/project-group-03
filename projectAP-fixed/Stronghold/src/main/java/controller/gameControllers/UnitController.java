@@ -4,6 +4,7 @@ import Model.Buildings.Barracks;
 import Model.Buildings.Building;
 import Model.Buildings.Defending.Enums.TowerTypes;
 import Model.Buildings.Defending.Towers;
+import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.Resources;
 import Model.Field.Texture;
 import Model.Field.Tile;
@@ -11,10 +12,12 @@ import Model.GamePlay.Player;
 import Model.Units.Combat.CombatUnit;
 import Model.Units.Combat.Throwers;
 import Model.Units.Combat.Troop;
+import Model.Units.Combat.WallClimber;
 import Model.Units.Engineer;
 import Model.Units.Enums.AttackingMode;
 import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
+import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
 import controller.interfaces.UnitInterface;
 import view.Game.GameMenu;
@@ -50,6 +53,62 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         return SUCCESSFUL_SET_STATE.getOutput();
     }
+
+    public String addUnitMatcherHandler(Matcher matcher, Player player) {
+        String unitInfo = matcher.group("unitInfo");
+        HashMap<String, String> infoMap = getOptions(DROP_UNIT.getKeys(), unitInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String checkCoordinatesResult = checkCoordinates(infoMap, "x", "y");
+        if (checkCoordinatesResult != null) return checkCoordinatesResult;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        Tile targetTile = gameMap.getMap()[x][y];
+        Texture targetTileTexture = targetTile.getTexture();
+
+        if (targetTileTexture.getName().equals("water"))
+            return INVALID_TILE_DROP_UNIT.getOutput();
+
+        if (!infoMap.get("c").matches("\\d+")) return INVALID_UNIT_AMOUNT.getOutput();
+        int amount = Integer.parseInt(infoMap.get("c"));
+
+        String type = infoMap.get("t");
+
+        ThrowerTypes throwerType = ThrowerTypes.getThrowerTypeByName(type);
+        if (throwerType != null) {
+            return addThrower(x, y, throwerType, player);
+        }
+
+        TroopTypes troopType = TroopTypes.getTroopTypeByName(type);
+        if (troopType != null) {
+            return addTroop(troopType, amount, player, gameMap.getMap()[x][y]);
+        }
+
+        if (type.equals("wall climber")) {
+            for (int i = 0; i < amount; i++) {
+                new WallClimber(player, targetTile);
+            }
+            return SUCCESSFUL_DROP_UNIT.getOutput();
+        }
+
+        if (type.equals("engineer")) {
+            return addEngineer(player, amount, gameMap.getMap()[x][y]);
+        }
+        if (type.equals("ladder man")) {
+
+        }
+        if (type.equals("assassin")) {
+
+        }
+        if (type.equals("tunneller")) {
+
+        }
+        return INVALID_UNIT_TYPE.getOutput();
+    }
+
     public String addTroopMatcherHandler(Matcher matcher, Player player, Tile tile) {
         String troopInfo = matcher.group("troopInfo");
         HashMap<String, String> infoMap = getOptions(ADD_TROOP.getKeys(), troopInfo);
@@ -80,23 +139,22 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         }
 
         for (int i = 0; i < amount; i++) {
-            Troop newTroop = new Troop(player, tile, troopType);
-            tile.addUnit(newTroop);
+            new Troop(player, tile, troopType);
         }
 
         return SUCCESSFUL_DROP_UNIT.getOutput();
     }
 
-    public String addEngineer(Player player, String amountString, Tile tile) {
-        if (!amountString.matches("\\d+")) return INVALID_AMOUNT_UNIT.getOutput();
-        int amount = Integer.parseInt(amountString);
+    public String addEngineer(Player player, int amount, Tile tile) {
+        Building building = tile.getBuilding();
+        if (!(building instanceof Barracks && ((Barracks) building).getType().equals(BarracksType.ENGINEER_GUILD)))
+            return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         if (player.getGold() < amount * Engineer.price) return NOT_ENOUGH_GOLD_ENGINEER.getOutput();
         if (player.getPopularity() < amount) return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();
 
         for (int i = 0; i < amount; i++) {
-            Engineer newEngineer = new Engineer(player, tile);
-            tile.addUnit(newEngineer);
+            new Engineer(player, tile);
         }
 
         return SUCCESSFUL_ADD_ENGINEER.getOutput();

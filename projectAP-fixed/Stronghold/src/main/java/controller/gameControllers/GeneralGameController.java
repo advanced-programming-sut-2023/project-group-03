@@ -164,7 +164,7 @@ public class GeneralGameController extends Controller {
         int size = towerType.getSize() / 2;
         Tile targetTile;
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!towerType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
@@ -175,7 +175,7 @@ public class GeneralGameController extends Controller {
         Towers newTower = new Towers(player, gameMap.getMap()[xCenter][yCenter], towerType);
 
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 gameMap.getMap()[x][y].setBuilding(newTower);
             }
         }
@@ -199,7 +199,7 @@ public class GeneralGameController extends Controller {
         int size = barracksType.getSize() / 2;
         Tile targetTile;
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!barracksType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
@@ -210,7 +210,7 @@ public class GeneralGameController extends Controller {
         Barracks newBarracks = new Barracks(player, gameMap.getMap()[xCenter][yCenter], barracksType);
 
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 gameMap.getMap()[x][y].setBuilding(newBarracks);
             }
         }
@@ -316,7 +316,7 @@ public class GeneralGameController extends Controller {
         int size = generatorType.getSize() / 2;
         Tile targetTile;
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!generatorType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
@@ -331,7 +331,7 @@ public class GeneralGameController extends Controller {
 //        }
 
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 gameMap.getMap()[x][y].setBuilding(newGenerator);
             }
         }
@@ -348,7 +348,7 @@ public class GeneralGameController extends Controller {
         int size = gateType.getSize() / 2;
         Tile targetTile;
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!gateType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
@@ -382,7 +382,7 @@ public class GeneralGameController extends Controller {
         terminalTile2.setBuilding(newGate);
 
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 gameMap.getMap()[x][y].setBuilding(newGate);
             }
         }
@@ -433,7 +433,7 @@ public class GeneralGameController extends Controller {
         int size = 3;
         if (!checkIfFit(xCenter, yCenter, size)) return NOT_FIT.getOutput();
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (RegularTextureGroups.NORMAL.getTextures().contains(targetTile.getTexture()))
@@ -446,7 +446,7 @@ public class GeneralGameController extends Controller {
         Store newStore = new Store(player, targetTile);
 
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y < yCenter + size; y++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 gameMap.getMap()[x][y].setBuilding(newStore);
             }
         }

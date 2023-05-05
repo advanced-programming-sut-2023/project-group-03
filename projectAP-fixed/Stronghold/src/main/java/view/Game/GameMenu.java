@@ -97,12 +97,8 @@ public class GameMenu extends Menu {
         }
         else if (selected instanceof Barracks) {
             if (command.matches(GameMenuCommands.CREATE_UNIT.toString())) {
-                Barracks barracks = ((Barracks) selected);
-                //Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
-                if (barracks.getType().equals(BarracksType.SIEGE_TENT)) {
-                } else {
-
-                }
+                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
+                System.out.println(gameController.addUnitMatcherHandler(matcher, game.getCurrentPlayer()));
             }
         }
         else if (selected instanceof Store) {

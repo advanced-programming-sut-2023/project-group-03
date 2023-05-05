@@ -25,7 +25,7 @@ public class GameController extends Controller implements GameMarketInterface , 
         this.buildingController = new BuildingController(this);
         this.kingdomController = new KingdomController(this);
         this.marketController = new MarketController(this);
-        this.moveUnitController = new MoveUnitController(this);
+        this.moveUnitController = new MoveUnitController();
         this.unitController = new UnitController(this);
         this.gameMap = gameMap;
     }
@@ -114,18 +114,8 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
-    public String addTroopMatcherHandler(Matcher matcher, Player player, Tile tile) {
-        return unitController.addTroopMatcherHandler(matcher, player, tile);
-    }
-
-    @Override
-    public String addThrowerMatcherHandler(Matcher matcher, Player player) {
-        return unitController.addThrowerMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String addEngineer(Player player, String amountString, Tile tile) {
-        return unitController.addEngineer(player, amountString, tile);
+    public String addUnitMatcherHandler(Matcher matcher, Player player) {
+        return unitController.addUnitMatcherHandler(matcher, player);
     }
 
     @Override
