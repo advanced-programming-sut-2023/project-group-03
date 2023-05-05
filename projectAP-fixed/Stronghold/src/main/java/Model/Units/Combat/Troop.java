@@ -14,7 +14,7 @@ public class Troop extends CombatUnit{
     protected AttackingMode mode;
     protected HashSet <Resources> equipment;
     protected int gold;
-    protected Drawable currentTarget;
+    protected Drawable EnemyTarget;
 
     public Troop(Player owner, Tile position, TroopTypes type) {
         super(owner, position);
@@ -67,22 +67,35 @@ public class Troop extends CombatUnit{
     }
 
     public Drawable getCurrentTarget() {
-        return currentTarget;
+        return EnemyTarget;
     }
 
     public void setCurrentTarget(Drawable currentTarget) {
-        this.currentTarget = currentTarget;
+        this.EnemyTarget = currentTarget;
     }
 
     protected void standingModAttack() {
-        
+        if (currentTarget.equals(position)) {
+
+        } else {
+            return;
+        }
     }
 
     protected void defenseModAttack() {
+        if (currentTarget.equals(position)) {
 
+        } else {
+            return;
+        }
     }
 
     protected void AttackingModAttack() {
+        if (currentTarget.equals(position)) {
+
+        } else {
+            return;
+        }
     }
 
     @Override
