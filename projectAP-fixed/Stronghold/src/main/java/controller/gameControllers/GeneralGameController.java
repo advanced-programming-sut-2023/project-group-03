@@ -46,8 +46,8 @@ public class GeneralGameController extends Controller {
             return INVALID_Y_MAP.getOutput();
         }
 
-        if (x > gameMap.getSize() || x < 0) return INVALID_X_MAP.getOutput();
-        if (y > gameMap.getSize() || y < 0) return INVALID_Y_MAP.getOutput();
+        if (x >= gameMap.getSize() || x < 0) return INVALID_X_MAP.getOutput();
+        if (y >= gameMap.getSize() || y < 0) return INVALID_Y_MAP.getOutput();
 
         return null;
     }

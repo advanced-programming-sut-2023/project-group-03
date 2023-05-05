@@ -31,7 +31,7 @@ public enum TroopTypes {
     private int range;
     private int gold;
     Material target;
-    HashSet<Resources> equipment;
+    HashSet<Resources> equipment = new HashSet<>();
 
     TroopTypes(String name, int damage, int speed, int HP, int range, int gold,Material target, Resources... equipments) {
 

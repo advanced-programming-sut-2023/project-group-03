@@ -17,6 +17,7 @@ public class User implements  Comparable<User>{
         this.nickname = nickname;
         this.email = email;
         this.slogan = slogan;
+        UserDatabase.addUser(this);
     }
 
     public String getPassword() {

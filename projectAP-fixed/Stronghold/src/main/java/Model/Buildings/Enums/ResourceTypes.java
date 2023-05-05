@@ -11,11 +11,12 @@ public enum ResourceTypes {
     private InventoryTypes inventoryType;
 
     ResourceTypes(InventoryTypes inventoryType) {
-        for (Resources now : Resources.values()) {
-            if(now.getType().equals(this)){
-                this.subset.add(now);
-            }
-        }
+        //TODO
+//        for (Resources now : Resources.values()) {
+//            if(now.getType().equals(this)){
+//                this.subset.add(now);
+//            }
+//        }
     }
 
     public ArrayList<Resources> getSubset() {

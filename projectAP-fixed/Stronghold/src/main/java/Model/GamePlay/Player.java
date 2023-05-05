@@ -30,10 +30,10 @@ public class Player {
     public Player(User user, Government government) {
         this.user = user;
         this.government = government;
-        gold = Integer.MAX_VALUE;
+        gold = Integer.MAX_VALUE / 2;
         Resources[] RList = Resources.values();
         for (Resources now : RList) {
-            inventory.put(now, Integer.MAX_VALUE);
+            inventory.put(now, Integer.MAX_VALUE / 2);
         }
     }
 
