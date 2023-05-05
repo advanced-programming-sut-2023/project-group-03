@@ -92,6 +92,9 @@ public abstract class CombatUnit extends Unit {
                 number++;
             }
         }
+        if (number == 0) {
+            return null;
+        }
         Random random = new Random();
         int randomNumber = Math.abs(random.nextInt()) % number;
         number = 0;

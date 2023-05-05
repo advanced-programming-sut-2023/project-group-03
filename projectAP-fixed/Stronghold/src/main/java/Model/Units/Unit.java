@@ -8,6 +8,7 @@ import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
 import controller.gameControllers.MoveUnitController;
 
+import javax.swing.text.TabableView;
 import java.util.ArrayList;
 
 public abstract class Unit extends Drawable {
@@ -39,9 +40,9 @@ public abstract class Unit extends Drawable {
         GameMap map = owner.getGame().getMap();
         currentPath = MoveUnitController.findPath(position, currentTarget, map);
         if (speed >= currentPath.size() - 1) {
-            position = currentPath.get(currentPath.size() - 1);
+            moveToTile(currentTarget);
         } else {
-            position = currentPath.get(speed);
+            moveToTile(currentPath.get(speed));
         }
     }
 
@@ -51,6 +52,19 @@ public abstract class Unit extends Drawable {
         if (isPatrol) {
             Patrol();
             return;
+        }
+    }
+
+    public void moveToTile(Tile goal) {
+        position.getUnits().remove(this);
+        if (position.getBuilding() != null && position.getBuilding() instanceof CastleBuilding) {
+            ((CastleBuilding) position.getBuilding()).getTroops().remove(this);
+        }
+        position = goal;
+        goal.addUnit(this);
+        if (position.getBuilding() != null && position.getBuilding() instanceof CastleBuilding
+        && this instanceof Troop) {
+            ((CastleBuilding) position.getBuilding()).getTroops().add(((Troop) this));
         }
     }
 
@@ -65,14 +79,14 @@ public abstract class Unit extends Drawable {
             }
             currentPath = MoveUnitController.findPath(position, currentTarget, owner.getGame().getMap());
             if (speed >= currentPath.size() - 1) {
-                position = currentPath.get(currentPath.size() - 1);
+                moveToTile(currentTarget);
                 if (currentTarget.equals(end)) {
                     currentTarget = Start;
                 } else {
                     currentTarget = end;
                 }
             } else {
-                position = currentPath.get(speed);
+                moveToTile(currentPath.get(speed));
             }
         }
     }

@@ -1,6 +1,7 @@
 package Model.Units.Combat;
 
 import Model.Buildings.Enums.Resources;
+import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
@@ -9,6 +10,7 @@ import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
 import controller.gameControllers.MoveUnitController;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Troop extends CombatUnit{
@@ -77,8 +79,14 @@ public class Troop extends CombatUnit{
     }
 
     protected void defensiveModAttack() {
+        GameMap map = owner.getGame().getMap();
         if (currentTarget.equals(position)) {
-            
+            if (AttackEnemyInRange()) {
+                return;
+            } else if (baseRange == 0) {
+                ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(15, position, map);
+                currentTarget=
+            }
         } else {
             return;
         }
@@ -86,12 +94,7 @@ public class Troop extends CombatUnit{
 
     protected void standingModAttack() {
         if (currentTarget.equals(position)) {
-            if (this.getBaseRange() == 0) {
-                Unit toHit = selectRandomEnemy(position);
-                toHit.setHP(toHit.getHP() - damage);
-            } else {
-
-            }
+            AttackEnemyInRange();
         } else {
             return;
         }
@@ -102,6 +105,31 @@ public class Troop extends CombatUnit{
 
         } else {
             return;
+        }
+    }
+
+    protected boolean AttackEnemyInRange() {
+        if (this.getBaseRange() == 0) {
+            Unit toHit = selectRandomEnemy(position);
+            if (toHit == null) {
+                return false;
+            }
+            toHit.setHP(toHit.getHP() - damage);
+            return true;
+        } else {
+            GameMap map = owner.getGame().getMap();
+            ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(getModifiedRange(), position, map);
+            for (int i = 0; i < area.size(); i++) {
+                Tile targetTile = area.get(i);
+                for (Unit unit : targetTile.getUnits()) {
+                    if (!unit.getOwner().equals(owner)) {
+                        Unit toHit = selectRandomEnemy(targetTile);
+                        toHit.setHP(toHit.getHP() - damage);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 
