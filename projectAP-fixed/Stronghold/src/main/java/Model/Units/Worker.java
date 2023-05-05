@@ -1,5 +1,6 @@
 package Model.Units;
 
+import Model.Buildings.Building;
 import Model.Buildings.Generators;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
@@ -29,5 +30,13 @@ public class Worker extends nonCombatUnit{
     @Override
     public void print() {
 
+    }
+
+    public void goToWork(Building building) {
+        this.setStart(building.getPosition());
+        if (building instanceof Generators) {
+            Generators generators = ((Generators) building);
+            this.setEnd(generators.getProduct().getType().);
+        }
     }
 }

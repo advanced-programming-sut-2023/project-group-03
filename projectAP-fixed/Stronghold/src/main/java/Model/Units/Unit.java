@@ -56,6 +56,15 @@ public abstract class Unit extends Drawable {
     }
 
     @Override
+    protected boolean shouldBreak() {
+        if (this.HP <= 0) {
+            erase();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void erase() {
         super.erase();
         position.removeUnit(this);

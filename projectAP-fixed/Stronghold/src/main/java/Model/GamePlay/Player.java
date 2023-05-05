@@ -18,7 +18,8 @@ public class Player {
     ArrayList<Request> incomeRequests;
     ArrayList<Request> myRequests;
     ArrayList<Unit> allUnits;
-    int population;
+    int maxPopulation;
+    int currentPopulation;
     int gold;
     int popularity;
     int fearFactor;
@@ -195,11 +196,19 @@ public class Player {
         return null;
     }
 
-    public int getPopulation() {
-        return population;
+    public int getMaxPopulation() {
+        return maxPopulation;
     }
 
-    public void setPopulation(int population) {
-        this.population = population;
+    public void setMaxPopulation(int maxPopulation) {
+        this.maxPopulation = maxPopulation;
+    }
+
+    public int getCurrentPopulation() {
+        return currentPopulation;
+    }
+
+    public void setCurrentPopulation(int currentPopulation) {
+        this.currentPopulation = currentPopulation;
     }
 }

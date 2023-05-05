@@ -31,6 +31,7 @@ public class Generators extends Building{
         this.wood = type.getWood();
         this.gold = type.getGold();
         this.worker = type.getWorker();
+        owner.setCurrentPopulation(owner.getCurrentPopulation() + worker);
         owner.decreaseInventory(Resources.WOOD,type.getWood());
         owner.decreaseGold(type.getGold());
         /////////////////////////////////////////////////////////worker ro bayad chikar kard?

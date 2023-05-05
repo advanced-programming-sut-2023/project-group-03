@@ -14,12 +14,22 @@ public class Inventory extends Building {
 
     public Inventory(Player owner, Tile position, InventoryTypes type) {
         super(owner, position, type.getSize());
+        this.type = type;
+        size = type.getSize();
         inventory = new HashMap<>();
         for (Resources now : type.getResources()) {
             inventory.put(now,0);
         }
-        this.type = type;
         this.capacity = type.getCapacity();
+        if (type.equals(InventoryTypes.ARMOURY)) {
+            owner.getKeep().setArmoury(this);
+        }
+        if (type.equals(InventoryTypes.STOCKPILE)) {
+            owner.getKeep().setStockPile(this);
+        }
+        if (type.equals(InventoryTypes.FOOD_STORAGE)) {
+            owner.getKeep().setFoodStorage(this);
+        }
     }
 
     public InventoryTypes getType() {

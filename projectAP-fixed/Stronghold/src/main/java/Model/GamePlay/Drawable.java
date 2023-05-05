@@ -24,17 +24,10 @@ public abstract class Drawable {
 
     }
 
-    protected boolean shouldBreak(){
-        if(HP<=0){
-            this.erase();
-            return true;
-        }
-        return false;
-    }
-
     public void erase() {
         drawables.remove(this);
     }
+
     public abstract void check();
 
     public abstract void print();
@@ -71,6 +64,7 @@ public abstract class Drawable {
         this.HP = HP;
     }
 
+    protected abstract boolean shouldBreak();
     public static ArrayList<Drawable> getDrawables() {
         return drawables;
     }

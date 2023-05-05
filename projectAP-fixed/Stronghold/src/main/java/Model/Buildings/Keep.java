@@ -7,6 +7,10 @@ import Model.GamePlay.Player;
 import static Model.Buildings.Enums.Resources.*;
 
 public class Keep extends Building {
+    private Inventory armoury;
+    private Inventory stockPile;
+    private Inventory foodStorage;
+
     private static Keep instance;
     private int taxRate;
     private int fearRate;
@@ -88,7 +92,7 @@ public class Keep extends Building {
             owner.setPopularity(owner.getPopularity() + 8);
         }
         owner.setPopularity(owner.getPopularity() + typeOfFood - 1);
-        int amountToDecrease = ((int) Math.ceil(owner.getPopulation() * Avrage / typeOfFood));
+        int amountToDecrease = ((int) Math.ceil(owner.getCurrentPopulation() * Avrage / typeOfFood));
         for (Resources food : getFoods()) {
             owner.decreaseInventory(food, amountToDecrease);
         }
@@ -144,7 +148,31 @@ public class Keep extends Building {
             avrage = 2;
             owner.setPopularity(owner.getPopularity() + 24);
         }
-        int cost = ((int) Math.ceil(owner.getPopulation() * avrage));
+        int cost = ((int) Math.ceil(owner.getCurrentPopulation() * avrage));
         owner.decreaseGold(cost);
+    }
+
+    public Inventory getArmoury() {
+        return armoury;
+    }
+
+    public void setArmoury(Inventory armoury) {
+        this.armoury = armoury;
+    }
+
+    public Inventory getStockPile() {
+        return stockPile;
+    }
+
+    public void setStockPile(Inventory stockPile) {
+        this.stockPile = stockPile;
+    }
+
+    public Inventory getFoodStorage() {
+        return foodStorage;
+    }
+
+    public void setFoodStorage(Inventory foodStorage) {
+        this.foodStorage = foodStorage;
     }
 }

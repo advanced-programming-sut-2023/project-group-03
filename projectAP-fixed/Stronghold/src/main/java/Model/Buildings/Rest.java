@@ -13,6 +13,9 @@ public class Rest extends Building {
         super(owner, position, type.getSize());
         owner.decreaseGold(type.getGold());
         owner.decreaseInventory(Resources.WOOD,type.getWood());
+        if (type.equals(RestTypes.HOVEL)) {
+            owner.setMaxPopulation(owner.getMaxPopulation() + 8);
+        }
     }
 
     @Override

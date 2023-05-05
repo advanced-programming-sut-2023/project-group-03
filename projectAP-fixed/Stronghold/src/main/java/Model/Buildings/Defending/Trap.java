@@ -4,6 +4,7 @@ import Model.Buildings.Building;
 import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.Units.Unit;
 
 public class Trap extends Building {
 
@@ -12,6 +13,7 @@ public class Trap extends Building {
     private int wood;
     private int oil;
     private int worker;
+    private int damage;
 
     public Trap(Player owner, Tile position, TrapsTypes type) {
         super(owner, position, type.getSize());
@@ -19,19 +21,17 @@ public class Trap extends Building {
         this.wood = type.getWood();
         this.oil = type.getOil();
         this.worker = type.getWorker();
+        this.damage = type.getDamage();
+        owner.setCurrentPopulation(owner.getMaxPopulation() + type.getWorker());
     }
 
     @Override
     public void check() {
-//<<<<<<< HEAD
-//
-//=======
-//        if(shouldBreak()){
-//            return;
-//        }
-//        //TODO check damage for soldier inside
-//        // format UseTrap() where if trap is used it is taken from the building
-//>>>>>>> origin/phase1pouria
+        for (Unit unit : position.getUnits()) {
+            if (!unit.getOwner().equals(this.owner)) {
+                unit.setHP(unit.getHP() - type.getDamage());
+            }
+        }
     }
 
     @Override
