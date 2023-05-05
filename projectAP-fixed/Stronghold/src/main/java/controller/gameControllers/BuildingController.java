@@ -58,7 +58,7 @@ public class BuildingController extends GeneralGameController implements Buildin
             int stoneCost = (gateType.getStoneCost() * lostHealth) / gateType.getHP();
             if (player.getInventory().get(Resources.STONE) < stoneCost)
                 return NOT_ENOUGH_STONE_REPAIR.getOutput();
-            if (!checkForEnemiesAround(building.getPosition(), player))
+            if (!checkForEnemiesAround(building.getPosition(), player, gateType.getSize()))
                 return UNABLE_TO_REPAIR.getOutput();
 
             building.setHP(gateType.getHP());
@@ -73,7 +73,7 @@ public class BuildingController extends GeneralGameController implements Buildin
             int stoneCost = (towerType.getStoneCost() * lostHealth) / towerType.getHP();
             if (player.getInventory().get(Resources.STONE) < stoneCost)
                 return NOT_ENOUGH_STONE_REPAIR.getOutput();
-            if (!checkForEnemiesAround(building.getPosition(), player))
+            if (!checkForEnemiesAround(building.getPosition(), player, towerType.getSize()))
                 return UNABLE_TO_REPAIR.getOutput();
 
             building.setHP(towerType.getHP());
@@ -88,9 +88,12 @@ public class BuildingController extends GeneralGameController implements Buildin
             int woodCost = (barracksType.getWood() * lostHealth) / barracksType.getHP();
             int goldCost = (barracksType.getGold() * lostHealth) / barracksType.getHP();
             if ((player.getInventory().get(Resources.STONE) < stoneCost) ||
-                (player.getInventory().get(Resources.WOOD) < woodCost)) return NOT_ENOUGH_STONE_REPAIR.getOutput();
-            if (player.getGold() < goldCost) return NOT_ENOUGH_GOLD_REPAIR.getOutput();
-            if (!checkForEnemiesAround(building.getPosition(), player)) return UNABLE_TO_REPAIR.getOutput();
+                (player.getInventory().get(Resources.WOOD) < woodCost))
+                return NOT_ENOUGH_STONE_REPAIR.getOutput();
+            if (player.getGold() < goldCost)
+                return NOT_ENOUGH_GOLD_REPAIR.getOutput();
+            if (!checkForEnemiesAround(building.getPosition(), player, barracksType.getSize()))
+                return UNABLE_TO_REPAIR.getOutput();
 
             building.setHP(barracksType.getHP());
             player.decreaseGold(goldCost);
@@ -102,40 +105,24 @@ public class BuildingController extends GeneralGameController implements Buildin
         return INVALID_BUILDING_REPAIR.getOutput();
     }
 
-    private boolean checkForEnemiesAround(Tile currentTile, Player player) {
+    private boolean checkForEnemiesAround(Tile currentTile, Player player, int size) {
         for (Unit unit : currentTile.getUnits()) {
             if (!unit.getOwner().equals(player)) return false;
         }
 
         int mapSize = gameMap.getSize();
-        int x = currentTile.getRowNum();
-        int y = currentTile.getColumnNum();
+        int xCenter = currentTile.getRowNum();
+        int yCenter = currentTile.getColumnNum();
+        size = size / 2 + 1;
 
-        if ((x + 1) < mapSize) {
-            Tile neighbourTile = gameMap.getMap()[x + 1][y];
-            for (Unit unit : neighbourTile.getUnits()) {
-                if (!unit.getOwner().equals(player)) return false;
-            }
-        }
-
-        if ((x - 1) < mapSize) {
-            Tile neighbourTile = gameMap.getMap()[x - 1][y];
-            for (Unit unit : neighbourTile.getUnits()) {
-                if (!unit.getOwner().equals(player)) return false;
-            }
-        }
-
-        if ((y + 1) < mapSize) {
-            Tile neighbourTile = gameMap.getMap()[x][y + 1];
-            for (Unit unit : neighbourTile.getUnits()) {
-                if (!unit.getOwner().equals(player)) return false;
-            }
-        }
-
-        if ((y - 1) < mapSize) {
-            Tile neighbourTile = gameMap.getMap()[x][y - 1];
-            for (Unit unit : neighbourTile.getUnits()) {
-                if (!unit.getOwner().equals(player)) return false;
+        outer:
+        for (int x = xCenter - size; x <= xCenter + size; x++) {
+            for (int y = yCenter - size; y <= yCenter + size; y++) {
+                if (x < 0 || x >= mapSize) continue outer;
+                if (y < 0 || y >= mapSize) continue;
+                for (Unit unit : gameMap.getMap()[x][y].getUnits()) {
+                    if (!unit.getOwner().equals(player)) return false;
+                }
             }
         }
 
