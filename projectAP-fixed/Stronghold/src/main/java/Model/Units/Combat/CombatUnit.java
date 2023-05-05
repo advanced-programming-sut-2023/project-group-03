@@ -5,16 +5,15 @@ import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public abstract class CombatUnit extends Unit {
     protected HashSet<Material> Targets;
     protected int damage;
-    protected int speed;
     protected int baseRange;
     protected int modifiedRange;
     protected int defenseRate;
-    protected Tile target;
 
     public CombatUnit(Player owner, Tile position) {
         super(owner, position);
@@ -78,10 +77,10 @@ public abstract class CombatUnit extends Unit {
     }
 
     public Tile getTarget() {
-        return target;
+        return currentTarget;
     }
 
     public void setTarget(Tile target) {
-        this.target = target;
+        this.currentTarget = target;
     }
 }

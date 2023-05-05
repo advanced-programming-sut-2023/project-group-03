@@ -21,8 +21,8 @@ public class Throwers extends CombatUnit{
     }
 
     @Override
-    public boolean moveTo(Tile tile) {
-        return super.moveTo(tile);
+    public void AutoMove() {
+        super.AutoMove();
     }
 
     @Override

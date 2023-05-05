@@ -6,7 +6,7 @@ import Model.GamePlay.Player;
 
 public class BatteringRam extends CombatUnit {
     private final static int goldCost = 10;
-    private final static int stoneCost = 10;
+    private final static int stoneCost = 0;
     private final static int woodCost = 10;
     private Tile target;
 

@@ -74,6 +74,22 @@ public class Troop extends CombatUnit{
         this.currentTarget = currentTarget;
     }
 
+    protected void standingModAttack() {
+        
+    }
+
+    protected void defenseModAttack() {
+
+    }
+
+    protected void AttackingModAttack() {
+    }
+
+    @Override
+    public void check() {
+        super.check();
+    }
+
     @Override
     public void print() {
 
