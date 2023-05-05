@@ -3,6 +3,7 @@ package Model.Buildings;
 import Model.Buildings.Enums.Resources;
 import Model.Buildings.Enums.RestTypes;
 import Model.Field.Tile;
+import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 
 public class Rest extends Building {
@@ -10,8 +11,14 @@ public class Rest extends Building {
 
     public Rest(Player owner, Tile position, RestTypes type) {
         super(owner, position);
-        owner.decreaseGold(type.getGold());
-        owner.decreaseInventory(Resources.WOOD,type.getWood());
+        this.setGoldCost(type.getGold());
+        this.setHP(50);
+        this.setMaterial(Material.WOOD);
+        this.set
+        if (type.equals(RestTypes.HOVEL)) {
+
+        }
+        manageCost();
     }
 
     @Override

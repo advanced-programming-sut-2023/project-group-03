@@ -17,11 +17,13 @@ public abstract class Building extends Drawable {
     protected static HashSet<Texture> textures;
     public Building(Player owner, Tile position) {
         super(owner, position);
+    }
+
+    protected void manageCost() {
         owner.decreaseGold(goldCost);
         owner.decreaseInventory(Resources.WOOD, woodCost);
         owner.decreaseInventory(Resources.STONE, stoneCost);
     }
-
     public static HashSet<Texture> getTextures() {
         return textures;
     }

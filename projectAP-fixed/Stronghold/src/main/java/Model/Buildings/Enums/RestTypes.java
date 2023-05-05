@@ -1,15 +1,16 @@
 package Model.Buildings.Enums;
 
+import Model.Field.RegularTextureGroups;
 import Model.Field.Texture;
 
 import java.util.HashSet;
 
 public enum RestTypes {
-    //STABLE,
-    // HOVEL;
+    STABLE("stable", 50, 25, RegularTextureGroups.NORMAL.getTextures()),
+    HOVEL("hovel", 0, 30, RegularTextureGroups.NORMAL.getTextures()),
     ;
 
-    RestTypes(String name, int length, int width, int gold, int wood, HashSet<Texture> textures) {
+    RestTypes(String name,int gold, int wood, HashSet<Texture> textures) {
         this.name = name;
         this.gold = gold;
         this.wood = wood;

@@ -29,8 +29,8 @@ public enum GeneratorTypes {
     WHEAT_FARM("wheat farm",30,10,0,0,0,Resources.WHEAT,null,15,0,1,RegularTextureGroups.FARM.getTextures()),
     BAKERY("bakery", 40,10,10,0,0,Resources.BREAD,Resources.FLOUR,10,0,1,RegularTextureGroups.NORMAL.getTextures()),
     BREWERY("brewery",60,10,10,0,0,Resources.WINE,Resources.BARLEY,10,0,1,RegularTextureGroups.NORMAL.getTextures()),
-    STABLE("stable",20,1,0,0,4,Resources.HORSE,null,20,400,0,RegularTextureGroups.NORMAL.getTextures()),
-    HOVEL("hovel",20,0,0,0,8,null,null,15,0,0,RegularTextureGroups.NORMAL.getTextures()),
+    //STABLE("stable",20,1,0,0,4,Resources.HORSE,null,20,400,0,RegularTextureGroups.NORMAL.getTextures()),
+    //HOVEL("hovel",20,0,0,0,8,null,null,15,0,0,RegularTextureGroups.NORMAL.getTextures()),
     CHURCH("church",150,0,0,0,0,null,null,0,250,0,RegularTextureGroups.NORMAL.getTextures()),
     CATHEDRAL("cathedral",250,0,0,0,0,null,null,0,250,0,RegularTextureGroups.NORMAL.getTextures())
     ;

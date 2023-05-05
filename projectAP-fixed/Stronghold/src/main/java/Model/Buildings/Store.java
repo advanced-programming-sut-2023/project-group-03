@@ -24,6 +24,7 @@ public class Store extends Building{
         this.setGoldCost(0);
         this.setStoneCost(20);
         this.setWoodCost(0);
+        manageCost();
     }
 
     public void buy(Resources resources, int number) {
