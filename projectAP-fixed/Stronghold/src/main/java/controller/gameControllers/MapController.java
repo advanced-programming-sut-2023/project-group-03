@@ -38,6 +38,8 @@ import static controller.Enums.Response.*;
 public class MapController extends GeneralGameController {
     private final int gameWidth = 3;
     private final int gameLength = gameWidth * 2;
+    private BuildingController buildingController = new BuildingController(gameMap);
+    private UnitController unitController = new UnitController(gameMap);
     public MapController(GameMap gameMap) {
         super(gameMap);
     }
@@ -278,141 +280,11 @@ public class MapController extends GeneralGameController {
     }
 
     public String dropUnit(Matcher matcher, Player player) {
-        String unitInfo = matcher.group("unitInfo");
-        HashMap<String, String> infoMap = getOptions(DROP_UNIT.getKeys(), unitInfo);
-        String error = infoMap.get("error");
-        if (error != null) return error;
-
-        String checkCoordinatesResult = checkCoordinates(infoMap, "x", "y");
-        if (checkCoordinatesResult != null) return checkCoordinatesResult;
-
-        int x = Integer.parseInt(infoMap.get("x")) - 1;
-        int y = Integer.parseInt(infoMap.get("y")) - 1;
-
-        Tile targetTile = gameMap.getMap()[x][y];
-        Texture targetTileTexture = targetTile.getTexture();
-
-        if (targetTileTexture.getName().equals("water"))
-            return INVALID_TILE_DROP_UNIT.getOutput();
-
-        if (!infoMap.get("c").matches("\\d+")) return INVALID_UNIT_AMOUNT.getOutput();
-        int amount = Integer.parseInt(infoMap.get("c"));
-
-        String type = infoMap.get("t");
-
-        ThrowerTypes throwerType = ThrowerTypes.getThrowerTypeByName(type);
-        if (throwerType != null) {
-            for (int i = 0; i < amount; i++) {
-                new Throwers(player, targetTile, throwerType);
-            }
-            return SUCCESSFUL_DROP_UNIT.getOutput();
-        }
-
-        TroopTypes troopType = TroopTypes.getTroopTypeByName(type);
-        if (troopType != null) {
-            for (int i = 0; i < amount; i++) {
-                new Troop(player, targetTile, troopType);
-            }
-            return SUCCESSFUL_DROP_UNIT.getOutput();
-        }
-
-        WallClimberTypes wallClimberType = WallClimberTypes.getWallClimberType(type);
-        if (wallClimberType != null) {
-            for (int i = 0; i < amount; i++) {
-                new WallClimber(player, targetTile);
-            }
-            return SUCCESSFUL_DROP_UNIT.getOutput();
-        }
-
-        return INVALID_UNIT_TYPE.getOutput();
+        return unitController.addUnitMatcherHandler(matcher, player);
     }
 
     public String dropBuilding(Matcher matcher, Player player) {
-        String buildingInfo = matcher.group("buildingInfo");
-        HashMap<String, String> infoMap = getOptions(DROP_BUILDING.getKeys(), buildingInfo);
-        String error = infoMap.get("error");
-        if (error != null) return error;
-
-        String checkCoordinatesResult = checkCoordinates(infoMap, "x", "y");
-        if (checkCoordinatesResult != null) return checkCoordinatesResult;
-
-        int x = Integer.parseInt(infoMap.get("x")) - 1;
-        int y = Integer.parseInt(infoMap.get("y")) - 1;
-
-        Tile targetTile = gameMap.getMap()[x][y];
-        Texture tileTexture = targetTile.getTexture();
-
-        if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
-
-        String type = infoMap.get("t");
-
-        //targetTile owner changes
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
-
-        BarracksType barracksType = BarracksType.getTypeByName(type);
-        if (barracksType != null) {
-            return buildBarracks(targetTile.getRowNum(), targetTile.getColumnNum(), barracksType, player);
-        }
-
-        GeneratorTypes generatorType = GeneratorTypes.getTypeByName(type);
-        if (generatorType != null) {
-            return buildGenerator(targetTile.getRowNum(), targetTile.getColumnNum(), generatorType, player);
-        }
-
-        RestTypes restType = RestTypes.getTypeByName(type);
-        if (restType != null) {
-            return buildRest(targetTile.getRowNum(), targetTile.getColumnNum(), restType, player);
-        }
-
-        InventoryTypes inventoryType = InventoryTypes.getTypeByName(type);
-        if (inventoryType != null) {
-            if (inventoryType.getName().equals("armoury"))
-                return buildArmoury(targetTile.getRowNum(), targetTile.getColumnNum(), player);
-            else
-                return buildStockPileFoodStorage(targetTile.getRowNum(), targetTile.getColumnNum(), inventoryType, player);
-        }
-
-        GateTypes gateType = GateTypes.getTypeByName(type);
-        if (gateType != null) {
-            infoMap = getOptions(BUILD_STONE_GATE.getKeys(), buildingInfo);
-            Direction direction = Direction.getDirectionByName(infoMap.get("d"));
-            if (direction == null) return INVALID_DIRECTION_STONE_GATE.getOutput();
-            return buildStoneGate(targetTile.getRowNum(), targetTile.getColumnNum(), gateType, player, direction);
-        }
-
-        TowerTypes towerType = TowerTypes.getTypeByName(type);
-        if (towerType != null) {
-            return buildTower(targetTile.getRowNum(), targetTile.getColumnNum(), towerType, player);
-        }
-
-        TrapsTypes trapsType = TrapsTypes.getTypeByName(type);
-        if (trapsType != null) {
-            if (trapsType.getName().equals("pitch ditch")) return buildPitchDitch(x, y, player);
-            if (trapsType.getName().equals("caged war dogs")) return buildCagedWarDogs(x, y, player);
-            if (trapsType.getName().equals("killing pit")) return buildKillingPit(x, y, player);
-            return INVALID_TRAP_TYPE.getOutput();
-        }
-
-        WallTypes wallType = WallTypes.getTypeByName(type);
-        if (wallType != null) {
-            if (!wallType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-            targetTile.setBuilding(new Wall(player, targetTile, wallType));
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
-        }
-
-        if (type.equals("store")) {
-            targetTile.setBuilding(new Store(player, targetTile));
-            return STORE_DROP.getOutput();
-        }
-
-        if (type.equals("keep")) {
-            if (player.getKeep() != null) return KEEP_EXIST.getOutput();
-            new Keep(player, targetTile);
-            return SUCCESSFUL_DROP_BUILDING.getOutput();
-        }
-
-
-        return INVALID_BUILDING_TYPE.getOutput();
+        return buildingController.dropBuildingMatcherHandler(matcher, player);
     }
 
     public String setOwner(Matcher matcher, Player player) {

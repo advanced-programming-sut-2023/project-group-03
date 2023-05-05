@@ -22,11 +22,11 @@ public class GameController extends Controller implements GameMarketInterface , 
     private GameMap gameMap;
 
     public GameController(GameMap gameMap) {
-        this.buildingController = new BuildingController(this);
+        this.buildingController = new BuildingController(gameMap);
         this.kingdomController = new KingdomController(this);
         this.marketController = new MarketController(this);
         this.moveUnitController = new MoveUnitController();
-        this.unitController = new UnitController(this);
+        this.unitController = new UnitController(gameMap);
         this.gameMap = gameMap;
     }
 
@@ -58,54 +58,8 @@ public class GameController extends Controller implements GameMarketInterface , 
         return buildingController.selectBuilding(matcher, player, gameMenu);
     }
 
-    @Override
-    public String buildTowerMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildTowerMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String buildWallMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildWallMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String buildBarracksMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildBarracksMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String buildInventoryMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildInventoryMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String buildRestMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildRestMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String buildGeneratorMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildGeneratorMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String buildStoneGatesMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildStoneGatesMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String buildDrawbridgeMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildDrawbridgeMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String buildTrapMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildTrapMatcherHandler(matcher, player);
-    }
-
-    @Override
-    public String buildStoreMatcherHandler(Matcher matcher, Player player) {
-        return buildingController.buildStoreMatcherHandler(matcher, player);
+    public String dropBuildingMatcherHandler(Matcher matcher, Player player) {
+        return buildingController.dropBuildingMatcherHandler(matcher, player);
     }
 
     @Override

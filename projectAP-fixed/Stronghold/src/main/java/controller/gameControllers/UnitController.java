@@ -6,6 +6,7 @@ import Model.Buildings.Defending.Enums.TowerTypes;
 import Model.Buildings.Defending.Towers;
 import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.Resources;
+import Model.Field.GameMap;
 import Model.Field.Texture;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
@@ -30,11 +31,9 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class UnitController extends GeneralGameController implements UnitInterface {
-    GameController gameController;
 
-    UnitController(GameController gameController) {
-        super(gameController.getGameMap());
-        this.gameController = gameController;
+    UnitController(GameMap gameMap) {
+        super(gameMap);
     }
 
     public String setState(Matcher matcher, Player player, GameMenu gameMenu) {
