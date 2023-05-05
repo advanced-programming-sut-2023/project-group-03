@@ -7,6 +7,7 @@ import Model.Buildings.Enums.Resources;
 import java.util.HashSet;
 
 public enum TroopTypes {
+    KING("king",100,10,300,0,0,Material.WOOD),
     ARCHER("archer", 20, 15, 50, 15, 0,Material.FLESH, Resources.BOW),
     CROSSBOWMEN("crossbowmen", 30, 10, 100, 12, 0,Material.FLESH, Resources.LEATHER_ARMOUR, Resources.CROSSBOW),
     SPEARMEN("spearmen", 30, 15, 80, 0, 0,Material.WOOD, Resources.SPEAR),
