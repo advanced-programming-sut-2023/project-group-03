@@ -7,13 +7,12 @@ import Model.Field.Texture;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
-
 import java.util.HashSet;
 
 public abstract class Building extends Drawable {
     protected int length;
     protected int width;
-    protected final int size;
+    protected static int size;
     protected int stoneCost;
     protected int woodCost;
     protected int goldCost;
@@ -29,8 +28,18 @@ public abstract class Building extends Drawable {
         owner.decreaseInventory(Resources.WOOD, woodCost);
         owner.decreaseInventory(Resources.STONE, stoneCost);
     }
+
     public static HashSet<Texture> getTextures() {
         return textures;
+    }
+
+
+    protected boolean shouldBreak(){
+        if(HP<=0){
+            this.erase();
+            return true;
+        }
+        return false;
     }
 
     public void erase() {

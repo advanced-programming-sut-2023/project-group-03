@@ -5,6 +5,7 @@ import Model.Field.Direction;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
+import Model.Units.Unit;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,13 @@ public class Gates extends CastleBuilding {
     }
 
     private void updateCloseOrOpen() {
-
+        for (Tile terminal : terminals) {
+            for (Unit unit : terminal.getUnits()) {
+                if (unit.getOwner().equals(owner)) {
+                    this.isOpen = true;
+                }
+            }
+        }
     }
 
     public GateTypes getType() {
