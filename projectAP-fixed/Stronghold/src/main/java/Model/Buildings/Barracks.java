@@ -22,6 +22,7 @@ public class Barracks extends Building{
         owner.decreaseInventory(Resources.WOOD,type.getWood());
         owner.decreaseInventory(Resources.OIL,type.getOil());
         owner.decreaseGold(type.getGold());
+        owner.getKeep().getBarracks().put(type, this);
     }
 
     public HashSet<TroopTypes> getProducts() {

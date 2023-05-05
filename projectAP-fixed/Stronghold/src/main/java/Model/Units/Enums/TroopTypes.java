@@ -1,12 +1,27 @@
 package Model.Units.Enums;
 
+import Model.GamePlay.Material;
 import Model.Units.Combat.CombatUnit;
 import Model.Buildings.Enums.Resources;
 
 import java.util.HashSet;
 
 public enum TroopTypes {
-    //ARCHER("archer",3,2,7,8,)
+    ARCHER("archer", 20, 15, 50, 15, 0,Material.FLESH, Resources.BOW),
+    CROSSBOWMEN("crossbowmen", 30, 10, 100, 12, 0,Material.FLESH, Resources.LEATHER_ARMOUR, Resources.CROSSBOW),
+    SPEARMEN("spearmen", 30, 15, 80, 0, 0,Material.WOOD, Resources.SPEAR),
+    PIKEMEN("pikemen", 40, 10, 120, 0, 0,Material.WOOD, Resources.METAL_ARMOUR, Resources.PIKE),
+    MACEMEN("macemen", 40, 20, 90, 0, 0,Material.WOOD, Resources.LEATHER_ARMOUR),
+    SWORDMEN("swordmen", 60, 8, 150, 0, 0,Material.WOOD, Resources.SWORD, Resources.METAL_ARMOUR),
+    KNIGHT("knight", 80, 25, 200, 0, 20,Material.WOOD, Resources.SWORD, Resources.HORSE, Resources.METAL_ARMOUR),
+    TUNELLER("tunneler",30,20,60,0,30,Material.STONE),
+    LADDERMEN("laddermen",0,30,30,1,3,Material.FLESH),
+    BLACKMONK("blackmonk", 40, 13, 120, 0, 40,Material.WOOD),
+    ARABIAN_BOWS("arabian bows",30,15,60,20,30,Material.FLESH),
+    SLAVES("slaves",20,15,40,15,10,Material.STONE),
+    SLINGERS("slingers",30,15,60,15,30,Material.STONE),
+    ASSASSINS("assassins",50,15,60,0,30,Material.WOOD),
+    HORSE_ARCHERS("horse archers",30,25,50,25,40,Material.FLESH),
     ;
     private String name;
     private int damage;
@@ -14,15 +29,20 @@ public enum TroopTypes {
     private int HP;
     private int range;
     private int gold;
+    Material target;
     HashSet<Resources> equipment;
-    TroopTypes(String name, int damage, int speed, int HP, int range, int gold, HashSet<Resources> equipment) {
+
+    TroopTypes(String name, int damage, int speed, int HP, int range, int gold,Material target, Resources... equipments) {
+
         this.speed = speed;
         this.name = name;
         this.damage = damage;
         this.HP = HP;
         this.range = range;
         this.gold = gold;
-        this.equipment = equipment;
+        for (Resources equipment : equipments) {
+            this.equipment.add(equipment);
+        }
     }
 
     public HashSet<Resources> getEquipment() {

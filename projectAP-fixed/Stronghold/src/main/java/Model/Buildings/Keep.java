@@ -1,9 +1,12 @@
 package Model.Buildings;
 
+import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.ResourceTypes;
 import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+
+import java.util.HashMap;
 
 import static Model.Buildings.Enums.Resources.*;
 
@@ -11,17 +14,18 @@ public class Keep extends Building {
     private Inventory armoury = null;
     private Inventory stockPile = null;
     private Inventory foodStorage = null;
-
+    protected HashMap<BarracksType, Barracks> barracks = new HashMap<>();
     private static Keep instance;
     private int taxRate;
     private int fearRate;
     private int foodRate;
     private int typeOfFood;
+
     public Keep(Player owner, Tile position) {
         super(owner, position, 5);
         taxRate = 0;
         foodRate = -2;
-        fearRate =  0;
+        fearRate = 0;
         typeOfFood = 0;
 
     }
@@ -66,6 +70,7 @@ public class Keep extends Building {
             foodRate = owner.getFoodRate();
         }
     }
+
     private void FearHandler() {
         owner.setPopularity(owner.getPopularity() + fearRate);
     }
@@ -143,7 +148,7 @@ public class Keep extends Building {
         }
         if (taxRate == 7) {
             avrage = 1.8;
-            owner.setPopularity(owner.getPopularity() -20);
+            owner.setPopularity(owner.getPopularity() - 20);
         }
         if (taxRate == 8) {
             avrage = 2;
@@ -188,5 +193,13 @@ public class Keep extends Building {
             return this.armoury;
         }
         return null;
+    }
+
+    public HashMap<BarracksType, Barracks> getBarracks() {
+        return barracks;
+    }
+
+    public void setBarracks(HashMap<BarracksType, Barracks> barracks) {
+        this.barracks = barracks;
     }
 }
