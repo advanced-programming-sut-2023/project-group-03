@@ -192,6 +192,7 @@ public enum Response {
     INVALID_BUILDING_REPAIR("You can't repair this kinda building."),
     SUCCESSFUL_REPAIR("Your building got repaired successfully!"),
     ////units
+    SUCCESSFUL_ATTACK("Your selected units are gonna get there!"),
     INVALID_COORDINATES_PATROL("Enter integer for your positions."),
     BAD_TEXTURE_START("Your units can't go to the start tile."),
     BAD_TEXTURE_END("Your units can't go to the end tile."),
@@ -200,6 +201,7 @@ public enum Response {
     INVALID_DESTINATION("You can't go to that place. It is too high or too deap!"),
     LONG_DESTINATION("Please choose a closer destination."),
     INVALID_UNIT_STATE("Invalid unit state! You can only choose : standing, defensive, offensive."),
+    //batteringRam and siegeTower
     //attack
     NOT_ARCHER("Selected unit is not Archer!"),
     NOT_ENGINEER("Selected unit is not Engineer!"),

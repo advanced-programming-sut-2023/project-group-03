@@ -280,7 +280,7 @@ public class MapController extends GeneralGameController {
     }
 
     public String dropUnit(Matcher matcher, Player player) {
-        return unitController.addUnitMatcherHandler(matcher, player);
+        return unitController.addUnitMatcherHandler(matcher, player, null);
     }
 
     public String dropBuilding(Matcher matcher, Player player) {

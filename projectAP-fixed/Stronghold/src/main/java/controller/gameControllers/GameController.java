@@ -1,9 +1,11 @@
 package controller.gameControllers;
 
+import Model.Buildings.Barracks;
 import Model.Buildings.Building;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.Units.Unit;
 import controller.Controller;
 import controller.interfaces.*;
 import view.Game.GameMenu;
@@ -68,8 +70,8 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
-    public String addUnitMatcherHandler(Matcher matcher, Player player) {
-        return unitController.addUnitMatcherHandler(matcher, player);
+    public String addUnitMatcherHandler(Matcher matcher, Player player, Barracks barracks) {
+        return unitController.addUnitMatcherHandler(matcher, player, barracks);
     }
 
     @Override
@@ -85,6 +87,11 @@ public class GameController extends Controller implements GameMarketInterface , 
     @Override
     public String setState(Matcher matcher, Player player, GameMenu gameMenu) {
         return unitController.setState(matcher, player, gameMenu);
+    }
+
+    @Override
+    public String attackMatcherHandler(Matcher matcher, Unit unit) {
+        return unitController.attackMatcherHandler(matcher, unit);
     }
 
     @Override

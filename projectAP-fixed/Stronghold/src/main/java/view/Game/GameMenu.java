@@ -98,7 +98,7 @@ public class GameMenu extends Menu {
         else if (selected instanceof Barracks) {
             if (command.matches(GameMenuCommands.CREATE_UNIT.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
-                System.out.println(gameController.addUnitMatcherHandler(matcher, game.getCurrentPlayer()));
+                System.out.println(gameController.addUnitMatcherHandler(matcher, game.getCurrentPlayer(), ((Barracks) selected)));
             }
         }
         else if (selected instanceof Store) {
