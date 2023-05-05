@@ -67,6 +67,33 @@ public class MoveUnitController {
         return path;
     }
 
+    public ArrayList<Tile> manhattanCloseTiles(int distance, Tile tile, GameMap gameMap) {
+        int mapSize = gameMap.getSize();
+        boolean[][] visitedTiles = new boolean[mapSize][mapSize];
+        ArrayList<PathTile> queueTiles = new ArrayList<>();
+        PathTile currentPathTile = new PathTile(tile, null);
+        queueTiles.add(currentPathTile);
+
+        for (int i = 0; i < mapSize; i++) for (int j = 0; j < mapSize; j++) visitedTiles[i][j] = false;
+        visitedTiles[tile.getRowNum()][tile.getColumnNum()] = true;
+        int currentDistances = 1;
+        ArrayList<Tile> answer = new ArrayList<>();
+
+        while (currentDistances < distance) {
+            for (Tile neigbour : currentPathTile.getTile().getNeighboursConnected()) {
+                if (!visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()]) {
+                    queueTiles.add(new PathTile(neigbour, currentPathTile));
+                    answer.add(neigbour);
+                }
+            }
+            if (queueTiles.size() == 0) break;
+            currentPathTile = queueTiles.get(0);
+            queueTiles.remove(0);
+            currentDistances++;
+        }
+        return answer;
+    }
+
     public boolean checkIfImpossibleDestination(int x, int y) {
         return false;
     }
