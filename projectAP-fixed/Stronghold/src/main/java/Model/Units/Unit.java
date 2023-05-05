@@ -21,6 +21,7 @@ public abstract class Unit extends Drawable {
 
     public Unit(Player owner, Tile position) {
         super(owner, position);
+        currentTarget = position;
         owner.addUnit(this);
         position.addUnit(this);
         if (position.getBuilding() != null) {
@@ -40,7 +41,7 @@ public abstract class Unit extends Drawable {
         GameMap map = owner.getGame().getMap();
         currentPath = MoveUnitController.findPath(position, currentTarget, map);
         if (speed >= currentPath.size() - 1) {
-            moveToTile(currentTarget);
+            moveToTile(currentPath.get(currentPath.size() - 1));
         } else {
             moveToTile(currentPath.get(speed));
         }
@@ -66,25 +67,25 @@ public abstract class Unit extends Drawable {
         && this instanceof Troop) {
             ((CastleBuilding) position.getBuilding()).getTroops().add(((Troop) this));
         }
+        currentTarget = position;
     }
 
     public void Patrol() {
         if (isPatrol) {
-            if (currentTarget == null) {
-                if (position != end) {
-                    currentTarget = end;
-                } else {
-                    currentTarget = Start;
-                }
-            }
+//            if (currentTarget == null) {
+//                if (position != end) {
+//                    currentTarget = end;
+//                } else {
+//                    currentTarget = Start;
+//                }
+//            }
+            currentTarget = end;
             currentPath = MoveUnitController.findPath(position, currentTarget, owner.getGame().getMap());
             if (speed >= currentPath.size() - 1) {
-                moveToTile(currentTarget);
-                if (currentTarget.equals(end)) {
-                    currentTarget = Start;
-                } else {
-                    currentTarget = end;
-                }
+                moveToTile(currentPath.get(currentPath.size() - 1));
+                Tile buff = end;
+                end = Start;
+                Start = buff;
             } else {
                 moveToTile(currentPath.get(speed));
             }

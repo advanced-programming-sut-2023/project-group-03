@@ -1,9 +1,12 @@
 package Model.Units.Combat;
 
+import Model.Field.GameMap;
 import Model.Field.Tile;
+import Model.GamePlay.Drawable;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
+import controller.gameControllers.MoveUnitController;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,6 +18,7 @@ public abstract class CombatUnit extends Unit {
     protected int baseRange;
     protected int modifiedRange;
     protected int defenseRate;
+    protected Drawable EnemyTarget;
 
     public CombatUnit(Player owner, Tile position) {
         super(owner, position);
@@ -109,5 +113,17 @@ public abstract class CombatUnit extends Unit {
             }
         }
         return null;
+    }
+
+    public void attackToEnemy() {
+        if (EnemyTarget != null) {
+            GameMap map = owner.getGame().getMap();
+            ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(modifiedRange, position, map);
+            if (area.contains(EnemyTarget)) {
+                EnemyTarget.setHP(EnemyTarget.getHP() - damage);
+            } else {
+                currentTarget = EnemyTarget.getPosition();
+            }
+        }
     }
 }

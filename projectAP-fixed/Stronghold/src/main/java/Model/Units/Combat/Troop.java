@@ -18,8 +18,6 @@ public class Troop extends CombatUnit{
     protected AttackingMode mode;
     protected HashSet <Resources> equipment;
     protected int gold;
-    protected Drawable EnemyTarget;
-
     public Troop(Player owner, Tile position, TroopTypes type) {
         super(owner, position);
         this.type = type;
@@ -80,12 +78,21 @@ public class Troop extends CombatUnit{
 
     protected void defensiveModAttack() {
         GameMap map = owner.getGame().getMap();
-        if (currentTarget.equals(position)) {
+        if (currentTarget.equals(position) && EnemyTarget.equals(null)) {
             if (AttackEnemyInRange()) {
                 return;
             } else if (baseRange == 0) {
                 ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(15, position, map);
-                currentTarget=
+                for (int i = 0; i < area.size(); i++) {
+                    Tile targetTile = area.get(i);
+                    for (Unit unit : targetTile.getUnits()) {
+                        if (!unit.getOwner().equals(owner)) {
+                            currentTarget = targetTile;
+                            return;
+                        }
+                    }
+                }
+                return;
             }
         } else {
             return;
@@ -93,7 +100,7 @@ public class Troop extends CombatUnit{
     }
 
     protected void standingModAttack() {
-        if (currentTarget.equals(position)) {
+        if (currentTarget.equals(position) && EnemyTarget == null) {
             AttackEnemyInRange();
         } else {
             return;
@@ -101,8 +108,23 @@ public class Troop extends CombatUnit{
     }
 
     protected void AttackingModAttack() {
-        if (currentTarget.equals(position)) {
-
+        GameMap map = owner.getGame().getMap();
+        if (currentTarget.equals(position) && EnemyTarget.equals(null)) {
+            if (AttackEnemyInRange()) {
+                return;
+            } else if (baseRange == 0) {
+                ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(35, position, map);
+                for (int i = 0; i < area.size(); i++) {
+                    Tile targetTile = area.get(i);
+                    for (Unit unit : targetTile.getUnits()) {
+                        if (!unit.getOwner().equals(owner)) {
+                            currentTarget = targetTile;
+                            return;
+                        }
+                    }
+                }
+                return;
+            }
         } else {
             return;
         }
@@ -136,6 +158,29 @@ public class Troop extends CombatUnit{
     @Override
     public void check() {
         super.check();
+        if (isPatrol()) {
+            return;
+        }
+        if (EnemyTarget != null) {
+            attackToEnemy();
+            AutoMove();
+            return;
+        }
+        if (!currentTarget.equals(position)) {
+            AutoMove();
+            return;
+        }
+        if (mode.equals(AttackingMode.DEFENSIVE)) {
+            defensiveModAttack();
+        }
+        else if (mode.equals(AttackingMode.STANDING)) {
+            standingModAttack();
+        } else if (mode.equals(AttackingMode.AGGRESSIVE)) {
+            AttackingModAttack();
+        } else {
+            AttackEnemyInRange();
+        }
+        AutoMove();
     }
 
     @Override
