@@ -67,7 +67,7 @@ public class MoveUnitController {
         return path;
     }
 
-    public ArrayList<Tile> manhattanCloseTiles(int distance, Tile tile, GameMap gameMap) {
+    public static ArrayList<Tile> manhattanCloseTiles(int distance, Tile tile, GameMap gameMap) {
         int mapSize = gameMap.getSize();
         boolean[][] visitedTiles = new boolean[mapSize][mapSize];
         ArrayList<PathTile> queueTiles = new ArrayList<>();

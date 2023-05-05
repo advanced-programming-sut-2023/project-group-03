@@ -6,6 +6,8 @@ import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.Units.Enums.AttackingMode;
 import Model.Units.Enums.TroopTypes;
+import Model.Units.Unit;
+import controller.gameControllers.MoveUnitController;
 
 import java.util.HashSet;
 
@@ -74,17 +76,22 @@ public class Troop extends CombatUnit{
         this.EnemyTarget = currentTarget;
     }
 
-    protected void standingModAttack() {
+    protected void defensiveModAttack() {
         if (currentTarget.equals(position)) {
-
+            
         } else {
             return;
         }
     }
 
-    protected void defenseModAttack() {
+    protected void standingModAttack() {
         if (currentTarget.equals(position)) {
+            if (this.getBaseRange() == 0) {
+                Unit toHit = selectRandomEnemy(position);
+                toHit.setHP(toHit.getHP() - damage);
+            } else {
 
+            }
         } else {
             return;
         }
@@ -107,4 +114,5 @@ public class Troop extends CombatUnit{
     public void print() {
 
     }
+
 }

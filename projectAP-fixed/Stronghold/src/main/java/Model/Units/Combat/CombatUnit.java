@@ -7,6 +7,7 @@ import Model.Units.Unit;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 
 public abstract class CombatUnit extends Unit {
     protected HashSet<Material> Targets;
@@ -82,5 +83,28 @@ public abstract class CombatUnit extends Unit {
 
     public void setTarget(Tile target) {
         this.currentTarget = target;
+    }
+
+    public Unit selectRandomEnemy(Tile target) {
+        int number = 0;
+        for (Unit unit : target.getUnits()) {
+            if (!unit.getOwner().equals(owner)) {
+                number++;
+            }
+        }
+        Random random = new Random();
+        int randomNumber = Math.abs(random.nextInt()) % number;
+        number = 0;
+        for (int i = 0; i < target.getUnits().size(); i++) {
+            Unit unit = target.getUnits().get(i);
+            if (!unit.getOwner().equals(owner)) {
+                if (number == randomNumber) {
+                    return unit;
+                } else {
+                    number++;
+                }
+            }
+        }
+        return null;
     }
 }
