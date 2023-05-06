@@ -7,11 +7,11 @@ import Model.GamePlay.Material;
 import java.util.HashSet;
 
 public enum BarracksType {
-    BARRACK("barrack",150,0,0,15,0,0,Material.STONE, RegularTextureGroups.NORMAL.getTextures()),
-    MERCENARY_POST("mercenary post", 150, 0,10,0,0,0,Material.WOOD,RegularTextureGroups.NORMAL.getTextures()),
-    ENGINEER_GUILD("engineer guild", 180,100,10,0,0,0,Material.WOOD,RegularTextureGroups.NORMAL.getTextures()),
-    TUNNELER_GUILD("tunneler guild", 180,100,0,15,5,0,Material.STONE,RegularTextureGroups.NORMAL.getTextures()),
-    SIEGE_TENT("siege tent",0,0,0,0,0,1,Material.WOOD,RegularTextureGroups.NORMAL.getTextures())
+    BARRACK("barrack",150,0,0,15,0,0,Material.STONE, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    MERCENARY_POST("mercenary post", 150, 0,10,0,0,0,Material.WOOD,RegularTextureGroups.NORMAL.getTextureHashSet()),
+    ENGINEER_GUILD("engineer guild", 180,100,10,0,0,0,Material.WOOD,RegularTextureGroups.NORMAL.getTextureHashSet()),
+    TUNNELER_GUILD("tunneler guild", 180,100,0,15,5,0,Material.STONE,RegularTextureGroups.NORMAL.getTextureHashSet()),
+    SIEGE_TENT("siege tent",0,0,0,0,0,1,Material.WOOD,RegularTextureGroups.NORMAL.getTextureHashSet())
     ;
     private String name;
     private int HP;

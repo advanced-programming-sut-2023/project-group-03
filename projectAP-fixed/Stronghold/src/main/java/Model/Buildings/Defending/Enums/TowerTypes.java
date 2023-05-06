@@ -1,17 +1,16 @@
 package Model.Buildings.Defending.Enums;
 
-import Model.Buildings.Enums.RestTypes;
 import Model.Field.RegularTextureGroups;
 import Model.Field.Texture;
 
 import java.util.HashSet;
 
 public enum TowerTypes {
-    LOOKOUT_TOWER("lookout tower", 1000, 1, 1, 10, 10, 20,  RegularTextureGroups.NORMAL.getTextures()),
-    PERIMETER_TOWER("perimeter tower",1200,1,1,10,10,10, RegularTextureGroups.NORMAL.getTextures() ),
-    TURRET("turret", 1500,1,1,15,10,10, RegularTextureGroups.NORMAL.getTextures()),
-    SQUARE_TOWER("square tower", 3000, 3,3,35,15,5, RegularTextureGroups.NORMAL.getTextures()),
-    ROUND_TOWER("round tower",4000,3,3,40,18,5, RegularTextureGroups.NORMAL.getTextures())
+    LOOKOUT_TOWER("lookout tower", 1000, 1, 1, 10, 10, 20,  RegularTextureGroups.NORMAL.getTextureHashSet()),
+    PERIMETER_TOWER("perimeter tower",1200,1,1,10,10,10, RegularTextureGroups.NORMAL.getTextureHashSet() ),
+    TURRET("turret", 1500,1,1,15,10,10, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    SQUARE_TOWER("square tower", 3000, 3,3,35,15,5, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    ROUND_TOWER("round tower",4000,3,3,40,18,5, RegularTextureGroups.NORMAL.getTextureHashSet())
     ;
 
     private String name;

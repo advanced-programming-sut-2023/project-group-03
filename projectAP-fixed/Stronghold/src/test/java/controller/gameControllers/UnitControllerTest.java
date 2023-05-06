@@ -161,6 +161,10 @@ class UnitControllerTest {
         assertEquals(SUCCESSFUL_DROP_UNIT.getOutput(),
                 unitController.addUnitMatcherHandler(getMatcher("create unit -x 23 -t swordmen -y 2 -c 2", CREATE_UNIT.toString()),
                         player, barracks));
+        barracks = new Barracks(player, targetTile, BarracksType.MERCENARY_POST);
+        assertEquals(SUCCESSFUL_DROP_UNIT.getOutput(),
+                unitController.addUnitMatcherHandler(getMatcher("create unit -x 23 -t \"horse archers\" -y 2 -c 2", CREATE_UNIT.toString()),
+                        player, barracks));
     }
 
 }

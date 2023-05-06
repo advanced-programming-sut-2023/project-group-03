@@ -147,7 +147,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         String type = infoMap.get("t");
 
         //targetTile owner changes
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
         BarracksType barracksType = BarracksType.getTypeByName(type);
         if (barracksType != null) {
@@ -258,7 +258,7 @@ public class BuildingController extends GeneralGameController implements Buildin
 
         if (player.getInventory().get(Resources.STONE) < wallType.getStoneCost()) return NOT_ENOUGH_STONE_WALL.getOutput();
 
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
         targetTile.setBuilding(new Wall(player, targetTile, wallType));
 
@@ -442,17 +442,11 @@ public class BuildingController extends GeneralGameController implements Buildin
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!towerType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
             }
         }
 
         Towers newTower = new Towers(player, gameMap.getMap()[xCenter][yCenter], towerType);
-
-        for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
-                gameMap.getMap()[x][y].setBuilding(newTower);
-            }
-        }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -460,7 +454,7 @@ public class BuildingController extends GeneralGameController implements Buildin
 
     protected String buildBarracks(int xCenter, int yCenter, BarracksType barracksType, Player player) {
         if ((player.getInventory().get(Resources.STONE) < barracksType.getStoneCost()))
-            return NOT_ENOUGH_STONE_TOWER.getOutput();
+            return NOT_ENOUGH_STONE_BUILDING.getOutput();
         if ((player.getInventory().get(Resources.WOOD) < barracksType.getWood()))
             return NOT_ENOUGH_WOOD_BARRACKS.getOutput();
         if ((player.getGold() < barracksType.getGold()))
@@ -477,17 +471,11 @@ public class BuildingController extends GeneralGameController implements Buildin
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!barracksType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
             }
         }
 
         Barracks newBarracks = new Barracks(player, gameMap.getMap()[xCenter][yCenter], barracksType);
-
-        for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
-                gameMap.getMap()[x][y].setBuilding(newBarracks);
-            }
-        }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -502,7 +490,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (player.getInventory().get(Resources.STONE) < InventoryTypes.ARMOURY.getStoneCost())
             return NOT_ENOUGH_STONE_ARMOURY.getOutput();
 
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
         targetTile.setBuilding(new Inventory(player, targetTile, InventoryTypes.ARMOURY));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
@@ -517,49 +505,55 @@ public class BuildingController extends GeneralGameController implements Buildin
             return NOT_ENOUGH_WOOD_INVENTORY.getOutput();
 
         int mapSize = gameMap.getSize();
-        boolean existInventory = false;
 
-        if ((x + 1) < mapSize) {
-            Building building = gameMap.getMap()[x + 1][y].getBuilding();
-            if (building instanceof Inventory) {
-                Inventory inventory = (Inventory) building;
-                if (inventory.getType().equals(inventoryType)) existInventory = true;
+        if ((inventoryType.equals(InventoryTypes.STOCKPILE) && player.getKeep().getStockPile() != null) ||
+                (inventoryType.equals(InventoryTypes.FOOD_STORAGE) && player.getKeep().getFoodStorage() != null)) {
+
+            boolean existInventory = false;
+
+            if ((x + 1) < mapSize) {
+                Building building = gameMap.getMap()[x + 1][y].getBuilding();
+                if (building instanceof Inventory) {
+                    Inventory inventory = (Inventory) building;
+                    if (inventory.getType().equals(inventoryType)) existInventory = true;
+
+                }
             }
+
+            if ((x - 1) >= 0) {
+                Building building = gameMap.getMap()[x - 1][y].getBuilding();
+                if (building instanceof Inventory) {
+                    Inventory inventory = (Inventory) building;
+                    if (inventory.getType().equals(inventoryType)) existInventory = true;
+
+                }
+            }
+
+            if ((y + 1) < mapSize) {
+                Building building = gameMap.getMap()[x][y + 1].getBuilding();
+                if (building instanceof Inventory) {
+                    Inventory inventory = (Inventory) building;
+                    if (inventory.getType().equals(inventoryType)) existInventory = true;
+                }
+            }
+
+            if ((y - 1) >= 0) {
+                Building building = gameMap.getMap()[x][y - 1].getBuilding();
+                if (building instanceof Inventory) {
+                    Inventory inventory = (Inventory) building;
+                    if (inventory.getType().equals(inventoryType)) existInventory = true;
+                }
+            }
+
+            if (!existInventory) return NO_INVENTORY_AROUND.getOutput();
         }
 
-        if ((x - 1) < mapSize) {
-            Building building = gameMap.getMap()[x - 1][y].getBuilding();
-            if (building instanceof Inventory) {
-                Inventory inventory = (Inventory) building;
-                if (inventory.getType().equals(inventoryType)) existInventory = true;
-            }
-        }
-
-        if ((y + 1) < mapSize) {
-            Building building = gameMap.getMap()[x][y + 1].getBuilding();
-            if (building instanceof Inventory) {
-                Inventory inventory = (Inventory) building;
-                if (inventory.getType().equals(inventoryType)) existInventory = true;
-            }
-        }
-
-        if ((y - 1) < mapSize) {
-            Building building = gameMap.getMap()[x][y - 1].getBuilding();
-            if (building instanceof Inventory) {
-                Inventory inventory = (Inventory) building;
-                if (inventory.getType().equals(inventoryType)) existInventory = true;
-            }
-        }
-
-        if (!existInventory) return NO_INVENTORY_AROUND.getOutput();
-
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
         targetTile.setBuilding(new Inventory(player, targetTile, inventoryType));
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
-
 
     protected String buildRest(int x, int y, RestTypes restType, Player player) {
         Tile targetTile = gameMap.getMap()[x][y];
@@ -571,7 +565,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (player.getGold() < restType.getGold())
             return NOT_ENOUGH_GOLD_REST.getOutput();
 
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
         targetTile.setBuilding(new Rest(player, targetTile, restType));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
@@ -582,7 +576,7 @@ public class BuildingController extends GeneralGameController implements Buildin
             return NOT_ENOUGH_GOLD_BUILDING.getOutput();
         if (player.getInventory().get(Resources.WOOD) < generatorType.getWood())
             return NOT_ENOUGH_WOOD_BUILDING.getOutput();
-        if (player.getPopularity() < generatorType.getWorker())
+        if (player.getCurrentPopulation() < generatorType.getWorker())
             return NOT_ENOUGH_WORKER_BUILDING.getOutput();
 
         if (!checkIfFit(xCenter, yCenter, generatorType.getSize())) return NOT_FIT.getOutput();
@@ -594,7 +588,7 @@ public class BuildingController extends GeneralGameController implements Buildin
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!generatorType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
             }
         }
 
@@ -603,12 +597,6 @@ public class BuildingController extends GeneralGameController implements Buildin
 //        for (int i = 0; i < generatorType.getWorker(); i++) {     TODO adding workers needed
 //            targetTile.addUnit(new Worker(player, targetTile, newGenerator));
 //        }
-
-        for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
-                gameMap.getMap()[x][y].setBuilding(newGenerator);
-            }
-        }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -626,7 +614,7 @@ public class BuildingController extends GeneralGameController implements Buildin
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!gateType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
             }
         }
 
@@ -655,11 +643,6 @@ public class BuildingController extends GeneralGameController implements Buildin
         terminalTile1.setBuilding(newGate);
         terminalTile2.setBuilding(newGate);
 
-        for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
-                gameMap.getMap()[x][y].setBuilding(newGate);
-            }
-        }
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
@@ -670,7 +653,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (targetTile.getBuilding() != null) return BUILDING_EXIST_TRAP.getOutput();
         if (targetTile.getUnits().size() > 0) return UNIT_EXIST_TRAP.getOutput();
 
-        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
         return null;
     }
@@ -710,20 +693,14 @@ public class BuildingController extends GeneralGameController implements Buildin
             for (int y = yCenter - size; y <= yCenter + size; y++)  {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
-                if (RegularTextureGroups.NORMAL.getTextures().contains(targetTile.getTexture()))
+                if (RegularTextureGroups.NORMAL.getTextureHashSet().contains(targetTile.getTexture()))
                     return DROP_BUILDING_TEXTURE.getOutput();
-                if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
             }
         }
 
         targetTile = gameMap.getMap()[xCenter][yCenter];
         Store newStore = new Store(player, targetTile);
-
-        for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
-                gameMap.getMap()[x][y].setBuilding(newStore);
-            }
-        }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }

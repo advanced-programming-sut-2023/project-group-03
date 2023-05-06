@@ -166,7 +166,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         if (player.getGold() < amount * Engineer.price) return NOT_ENOUGH_GOLD_ENGINEER.getOutput();
-        if (player.getCurrentPopulation() < amount) return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();
+        if (player.getCurrentPopulation() < amount) return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();//todo engineer amount
 
         for (int i = 0; i < amount; i++) {
             new Engineer(player, tile);

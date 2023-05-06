@@ -21,6 +21,16 @@ public abstract class Building extends Drawable {
     public Building(Player owner, Tile position, int size) {
         super(owner, position);
         this.size = size;
+
+        GameMap gameMap = Tile.getGameMap();
+        int xCenter = position.getRowNum();
+        int yCenter = position.getColumnNum();
+        int halfSize = size / 2;
+        for (int x = xCenter - halfSize; x <= xCenter + halfSize; x++) {
+            for (int y = yCenter - halfSize; y <= yCenter + halfSize; y++) {
+                gameMap.getMap()[x][y].setBuilding(this);
+            }
+        }
     }
 
     protected void manageCost() {

@@ -13,13 +13,13 @@ public enum RegularTextureGroups {
     ALL_LAND(new HashSet<>(Arrays.asList(Texture.IRON,Texture.STONE_SLAB,Texture.STONE,Texture.GROUND,Texture.GRASS,Texture.GRASSLAND,Texture.DENSE_GRASSLAND,Texture.PEBBLE)))
     ;
 
-    HashSet<Texture> textures;
+    private final HashSet<Texture> textureHashSet;
 
     RegularTextureGroups(HashSet<Texture> textures) {
-        this.textures = textures;
+        this.textureHashSet = textures;
     }
 
-    public HashSet<Texture> getTextures() {
-        return textures;
+    public HashSet<Texture> getTextureHashSet() {
+        return textureHashSet;
     }
 }

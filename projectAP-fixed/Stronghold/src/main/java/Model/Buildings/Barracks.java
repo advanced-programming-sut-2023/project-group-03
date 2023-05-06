@@ -29,13 +29,15 @@ public class Barracks extends Building{
         owner.getKeep().getBarracks().put(type, this);
         if (type.equals(BarracksType.BARRACK))
             Products = new HashSet<>(
-                    Arrays.asList(SWORDMEN));
+                    Arrays.asList(ARCHER, CROSSBOWMEN, SPEARMEN, PIKEMEN, MACEMEN, SWORDMEN,KNIGHT, BLACKMONK));
         else if (type.equals(BarracksType.ENGINEER_GUILD))
             Products = new HashSet<>(
                     Arrays.asList(LADDERMEN));
         else if (type.equals(BarracksType.MERCENARY_POST))
             Products = new HashSet<>(
-                    Arrays.asList());
+                    Arrays.asList(
+                            SLAVES, SLINGERS, ASSASSINS,HORSE_ARCHERS, ARABIAN_BOWS
+                    ));
         else if (type.equals(BarracksType.TUNNELER_GUILD))
             Products = new HashSet<>(
                     Arrays.asList(TUNELLER));

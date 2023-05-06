@@ -5,18 +5,17 @@ import Model.Field.Texture;
 import static Model.Buildings.Enums.Resources.*;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 
 public enum  InventoryTypes {
-    STOCKPILE(ResourceTypes.STOCK, "stockpile",400, 200, null, 0, 0, RegularTextureGroups.NORMAL.getTextures()),
-    ARMOURY(ResourceTypes.WEAPON, "armoury", 500, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextures()),
-    FOOD_STORAGE(ResourceTypes.FOOD, "food storage",200, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextures()),
+    STOCKPILE(ResourceTypes.STOCK, "stockpile",400, 200, null, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    ARMOURY(ResourceTypes.WEAPON, "armoury", 500, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
+    FOOD_STORAGE(ResourceTypes.FOOD, "food storage",200, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
     private ResourceTypes resource;
     private String name;
     private int HP;
-    private final int size = 3;
+    private final int size = 1;
     private int capacity;
     private HashSet<Resources> resources;
     private int wood;

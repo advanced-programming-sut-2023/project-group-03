@@ -6,9 +6,9 @@ import Model.Field.Texture;
 import java.util.HashSet;
 
 public enum GateTypes {
-    SMALL_STONE_GATE_HOUSE("small stone gate", 1000, 3, 0, 0, RegularTextureGroups.NORMAL.getTextures()),
-    BIG_STONE_GATE_HOUSE("big stone gate", 2000, 5, 20, 0,  RegularTextureGroups.NORMAL.getTextures()),
-    DRAWBRIDGE("drawbridge", 1000, 1,  0, 10,  RegularTextureGroups.NORMAL.getTextures()),
+    SMALL_STONE_GATE_HOUSE("small stone gate", 1000, 3, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    BIG_STONE_GATE_HOUSE("big stone gate", 2000, 5, 20, 0,  RegularTextureGroups.NORMAL.getTextureHashSet()),
+    DRAWBRIDGE("drawbridge", 1000, 1,  0, 10,  RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
 
     private String name;

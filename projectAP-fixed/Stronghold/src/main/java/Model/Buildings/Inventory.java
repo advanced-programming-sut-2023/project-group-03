@@ -15,6 +15,7 @@ public class Inventory extends Building {
     public Inventory(Player owner, Tile position, InventoryTypes type) {
         super(owner, position, type.getSize());
         inventory = new HashMap<>();
+        this.type = type;
         for (Resources now : type.getResources()) {
             inventory.put(now,0);
         }

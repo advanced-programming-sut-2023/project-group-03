@@ -20,7 +20,7 @@ public enum Texture
     private String name;
     private Resources resource;
 
-    private Texture(String name, Resources resource) {
+    Texture(String name, Resources resource) {
         this.name = name;
         this.resource = resource;
     }
