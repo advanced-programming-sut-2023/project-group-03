@@ -10,7 +10,7 @@ public class Throwers extends CombatUnit{
 
     public Throwers(Player owner, Tile position, ThrowerTypes type) {
         super(owner, position);
-        Targets.add(type.getTarget());
+        targets.add(type.getTarget());
         this.type = type;
         this.speed = type.getSpeed();
         this.damage = type.getDamage();

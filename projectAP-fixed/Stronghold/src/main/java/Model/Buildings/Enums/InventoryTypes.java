@@ -2,8 +2,10 @@ package Model.Buildings.Enums;
 
 import Model.Field.RegularTextureGroups;
 import Model.Field.Texture;
+import static Model.Buildings.Enums.Resources.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 public enum  InventoryTypes {
@@ -21,14 +23,28 @@ public enum  InventoryTypes {
     private int stoneCost;
     private HashSet<Texture> textures;
 
+    private HashSet<Resources> stockPileResources = new HashSet<Resources>(
+            Arrays.asList(IRON, STONE, OIL, WOOD, CROSSBOW,LAVA)
+    );
+
+    private HashSet<Resources> armouryResources = new HashSet<Resources>(
+            Arrays.asList(METAL_ARMOUR, SWORD, PIKE, SPEAR, LEATHER_ARMOUR, BOW, HORSE)
+    );
+
+    private HashSet<Resources> foodStorageResources = new HashSet<Resources>(
+            Arrays.asList(FLOUR, APPLE, CHEESE, BARLEY, MEAT,
+                    WHEAT, BREAD, WINE)
+    );
     InventoryTypes(ResourceTypes resource, String name, int HP, int capacity, HashSet<Resources> resources, int wood, int stoneCost, HashSet<Texture> textures) {
         this.resource = resource;
         this.name = name;
         this.capacity = capacity;
-        this.resources = resources;
         this.wood = wood;
         this.stoneCost = stoneCost;
         this.textures = textures;
+        if (name.equals("stockpile")) this.resources = stockPileResources;
+        else if (name.equals("armoury")) this.resources = armouryResources;
+        else this.resources = foodStorageResources;
     }
 
     public int getHP() {

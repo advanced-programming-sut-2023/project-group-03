@@ -142,7 +142,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
     }
 
     private String addTroop(TroopTypes troopType, int amount, Player player, Tile tile, Barracks barracks) {
-        if (!barracks.getProducts().contains(troopType) && barracks != null) return NOT_RIGHT_PLACE_UNIT.getOutput();
+        if (barracks != null && !barracks.getProducts().contains(troopType)) return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         //should i check our popularity?
 
@@ -162,11 +162,11 @@ public class UnitController extends GeneralGameController implements UnitInterfa
     }
 
     public String addEngineer(Player player, int amount, Tile tile, Barracks barracks) {
-        if (!barracks.getType().equals(BarracksType.ENGINEER_GUILD) && barracks != null)
+        if (barracks != null && !barracks.getType().equals(BarracksType.ENGINEER_GUILD))
             return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         if (player.getGold() < amount * Engineer.price) return NOT_ENOUGH_GOLD_ENGINEER.getOutput();
-        if (player.getPopularity() < amount) return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();
+        if (player.getCurrentPopulation() < amount) return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();
 
         for (int i = 0; i < amount; i++) {
             new Engineer(player, tile);
@@ -175,14 +175,14 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         return SUCCESSFUL_ADD_ENGINEER.getOutput();
     }
     private String addThrower(int x, int y, ThrowerTypes throwerType, Player player, Barracks barracks) {
-        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null)
+        if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT))
             return NOT_RIGHT_PLACE_UNIT.getOutput();
 
-        if (player.getInventory().get(Resources.WOOD) < throwerType.getWoodCost())
-            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + "wood";
-
-        if (player.getInventory().get(Resources.STONE) < throwerType.getStoneCost())
-            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + "stone";
+//        if (player.getInventory().get(Resources.WOOD) < throwerType.getWoodCost())
+//            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + "wood";
+//
+//        if (player.getInventory().get(Resources.STONE) < throwerType.getStoneCost())
+//            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + "stone";
 
         if (player.getGold() < throwerType.getGold()) return NOT_ENOUGH_GOLD_THROWER.getOutput();
 

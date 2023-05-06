@@ -11,7 +11,7 @@ public abstract class Drawable {
     protected ArrayList<Tile> tiles;
     protected Material material;
     protected int HP;
-    private static ArrayList<Drawable> drawables;
+    private static ArrayList<Drawable> drawables = new ArrayList<>();
 
 
     public Drawable(Player owner, Tile position) {

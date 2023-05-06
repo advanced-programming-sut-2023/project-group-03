@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 public abstract class CombatUnit extends Unit {
-    protected HashSet<Material> Targets;
+    protected HashSet<Material> targets = new HashSet<>();
     protected int damage;
     protected int baseRange;
     protected int modifiedRange;
@@ -34,11 +34,11 @@ public abstract class CombatUnit extends Unit {
     }
 
     public HashSet<Material> getTargets() {
-        return Targets;
+        return targets;
     }
 
     public void setTargets(HashSet<Material> targets) {
-        Targets = targets;
+        this.targets = targets;
     }
 
     public int getDamage() {

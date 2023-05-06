@@ -15,7 +15,7 @@ public class SiegeTower extends CombatUnit{
     public SiegeTower(Player owner, Tile position, Tile target) {
         super(owner, position);
         owner.decreaseGold(goldCost);
-        Targets.add(Material.STONE);
+        targets.add(Material.STONE);
         owner.decreaseInventory(Resources.WOOD, woodCost);
         owner.decreaseInventory(Resources.STONE, stoneCost);
         //maybe TODO

@@ -5,9 +5,9 @@ import Model.GamePlay.Material;
 public enum ThrowerTypes {
     CATAPULTS("catapults", 120, 5, 100, 40, 80,Material.STONE),
     TREBUCHETS("trebuchets", 80, 8, 80, 20, 50,Material.STONE),
-    FIRE_BALLISTA("fireBalista",100,10,90,30,60,Material.WOOD),
-    TREBUCHETS_ON_TOWER("trebuchetsOnTower",80,0,120,35,70,Material.STONE),
-    FIRE_BALLISTA_ON_TOWER("fireBalistaOnTower",100,0,90,40,90,Material.STONE);
+    FIRE_BALLISTA("fire Ballista",100,10,90,30,60,Material.WOOD),
+    TREBUCHETS_ON_TOWER("trebuchets on tower",80,0,120,35,70,Material.STONE),
+    FIRE_BALLISTA_ON_TOWER("fire ballista on tower",100,0,90,40,90,Material.STONE);
     ;
     private Material target;
     private String name;
@@ -23,6 +23,7 @@ public enum ThrowerTypes {
         this.HP = HP;
         this.range = range;
         this.gold = gold;
+        this.target = target;
     }
 
     public String getName() {

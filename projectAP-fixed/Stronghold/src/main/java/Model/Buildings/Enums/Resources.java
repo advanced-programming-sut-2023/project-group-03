@@ -24,7 +24,7 @@ public enum Resources
     WHEAT("wheat", ResourceTypes.FOOD,10),
     BREAD("bread", ResourceTypes.FOOD,10),
     WINE("wine", ResourceTypes.FOOD,10),
-    HORSE("horse", ResourceTypes.FOOD,10)
+    HORSE("horse", ResourceTypes.WEAPON,10)
     ;
 
      // TODO

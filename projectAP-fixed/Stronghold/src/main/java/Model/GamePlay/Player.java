@@ -17,7 +17,7 @@ public class Player {
     private Keep keep = null;
     ArrayList<Request> incomeRequests;
     ArrayList<Request> myRequests;
-    ArrayList<Unit> allUnits;
+    ArrayList<Unit> allUnits = new ArrayList<>();
     int maxPopulation;
     int currentPopulation;
     int gold;

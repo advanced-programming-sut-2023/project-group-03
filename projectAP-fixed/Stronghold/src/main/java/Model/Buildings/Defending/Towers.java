@@ -13,6 +13,7 @@ public class Towers extends CastleBuilding {
 
     public Towers(Player owner, Tile position, TowerTypes type) {
         super(owner, position, type.getSize());
+        this.type = type;
         this.HP = type.getHP();
         this.length = type.getLength();
         this.size = type.getWidth();
