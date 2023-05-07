@@ -1,12 +1,15 @@
 package view.Game;
 
 import Model.Buildings.Defending.Enums.TrapsTypes;
+import controller.ControllerFunctions;
+import controller.gameControllers.GameController;
 import view.Enums.BuildingMenuTypes;
 import view.Enums.GameMenuCommands;
 import view.Menu;
 import view.Transition;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
 
 import static view.Enums.ConsoleColors.*;
 import static view.Enums.GameMenuCommands.*;
@@ -21,21 +24,21 @@ public class CastleBuildingMenu extends Menu {
     public void run() throws Transition {
         Guide();
         String command = scanner.nextLine();
+        String output = "";
+        GameController gameController = new GameController(this.gameMenu.getGame().getMap());
         if (command.matches("back")) {
 
-        } else if (command.matches(GameMenuCommands.BUILD_STONE_GATES.toString())) {
+        }
+        else if (command.matches(GameMenuCommands.BUILD_STONE_GATES.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_STONE_GATES.toString());
+        }
+        else if (command.matches(DROP_BUILDING.toString())) {
 
-        } else if (command.matches(GameMenuCommands.BUILD_TOWER.toString())) {
+        }
+        else if (command.matches(BUILD_DRAW_BRIDGE.toString())) {
 
-        } else if (command.matches(GameMenuCommands.BUILD_WALL.toString())) {
-
-        } else if (command.matches(GameMenuCommands.BUILD_BARRACKS.toString())) {
-
-        } else if (command.matches(BUILD_DRAW_BRIDGE.toString())) {
-
-        } else if (command.matches(BUILD_TRAP.toString())) {
-
-        } else {
+        }
+        else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
         }
     }
