@@ -13,6 +13,7 @@ public enum MapMenuCommands {
     MOVE("map ((?<verticalDir>\\w+) (?<verticalNum>\\d+))? " +
             "((?<horizontalDir>\\w+) (?<horizontalNum>\\d+))?"),
     SET_TEXTURE_ALI("^settexture (?<setTextureInfo>.+)$"),
+    SET_TEXTURE_REC_ALI("^settexture rectangle (?<setTextureInfo>.+)$"),
     SET_TEXTURE("settexture (?=.*-x\\s+(?<x>\\d+))" +
             "(?=.*-y\\s+(?<y>\\d+))(?=.*-type\\s+(?<type>\\S+))"),
     SET_TEXTURE_REC("settexture (?=.*-x1\\s+(?<x1>\\d+))(?=.*-x2\\s+(?<x2>\\d+))" +

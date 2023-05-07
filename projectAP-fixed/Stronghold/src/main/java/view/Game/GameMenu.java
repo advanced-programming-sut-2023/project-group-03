@@ -83,10 +83,10 @@ public class GameMenu extends Menu {
         }
         else if (command.matches(GameMenuCommands.MAP_MOVE.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.MAP_MOVE.toString());
-
+            //String output=gameController.
         }
         else if (command.matches("next turn")) {
-
+            gameController.nextTurn();
         }
         else if (selected instanceof Building) {
             if (command.matches(GameMenuCommands.REPAIR.toString())) {
