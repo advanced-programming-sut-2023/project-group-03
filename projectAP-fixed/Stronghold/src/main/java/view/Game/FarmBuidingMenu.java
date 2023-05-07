@@ -30,9 +30,10 @@ public class FarmBuidingMenu extends Menu {
         GameController gameController = new GameController(this.gameMenu.getGame().getMap());
         if (command.matches("back")) {
 
-        } else if (command.matches(GameMenuCommands.BUILD_GENERATOR.toString())) {
+        }
+        else if (command.matches(GameMenuCommands.BUILD_GENERATOR.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_GENERATOR.toString());
-            output = gameController.dropBuildingMatcherHandler(matcher, player);
+            output = gameController.buildGeneratorMatcherHandler(matcher, player);
             System.out.println(output);
         }
         else {

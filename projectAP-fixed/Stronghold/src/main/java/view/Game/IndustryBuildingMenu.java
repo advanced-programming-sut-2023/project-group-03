@@ -35,16 +35,18 @@ public class IndustryBuildingMenu extends Menu {
         }
         else if (command.matches(BUILD_INVENTORY.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_INVENTORY.toString());
-            output = gameController.dropBuildingMatcherHandler(matcher, player);
+            output = gameController.buildInventoryMatcherHandler(matcher, player);
             System.out.println(output);
         }
         else if (command.matches(BUILD_MARKET.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_MARKET.toString());
-            output = gameController.dropBuildingMatcherHandler(matcher, player);
+            output = gameController.buildStoreMatcherHandler(matcher, player);
             System.out.println(output);
         }
         else if (command.matches(BUILD_GENERATOR.toString())) {
-
+            Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_GENERATOR.toString());
+            output = gameController.buildGeneratorMatcherHandler(matcher, player);
+            System.out.println(output);
         }
         else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));

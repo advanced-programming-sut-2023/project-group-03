@@ -1,11 +1,16 @@
 package view.Game;
 
 import Model.GamePlay.Game;
+import Model.GamePlay.Player;
+import controller.ControllerFunctions;
+import controller.gameControllers.GameController;
+import controller.gameControllers.TradeController;
 import view.Enums.GameMenuCommands;
 import view.Menu;
 import view.Transition;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
 
 import static view.Enums.ConsoleColors.*;
 
@@ -22,19 +27,40 @@ public class KeepMenu extends Menu {
     public void run() throws Transition {
         guide();
         String command = scanner.nextLine();
+        String output = "";
+        Player player = gameMenu.getGame().getCurrentPlayer();
+        GameController gameController = new GameController(this.gameMenu.getGame().getMap());
+        TradeController tradeController = new TradeController(player);
+
         if (command.matches("back")) {
             throw new Transition(gameMenu);
-        } else if (command.matches(GameMenuCommands.FEAR_RATE.toString())) {
-
-        } else if (command.matches(GameMenuCommands.FOOD_RATE.toString())) {
-
-        } else if (command.matches(GameMenuCommands.TAX_RATE.toString())) {
-
-        } else if (command.matches(GameMenuCommands.TRADE_REQUEST.toString())) {
-
-        } else if (command.matches(GameMenuCommands.TRADE_ACCEPT.toString())) {
-
-        } else {
+        }
+        else if (command.matches(GameMenuCommands.FEAR_RATE.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.FEAR_RATE.toString());
+            output = gameController.changeFearRate(matcher, player);
+            System.out.println(output);
+        }
+        else if (command.matches(GameMenuCommands.FOOD_RATE.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.FOOD_RATE.toString());
+            output = gameController.changeFoodRate(matcher, player);
+            System.out.println(output);
+        }
+        else if (command.matches(GameMenuCommands.TAX_RATE.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.TAX_RATE.toString());
+            output = gameController.changeTaxRate(matcher, player);
+            System.out.println(output);
+        }
+        else if (command.matches(GameMenuCommands.TRADE_REQUEST.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.TRADE_REQUEST.toString());
+            output = tradeController.requestTrade(matcher);
+            System.out.println(output);
+        }
+        else if (command.matches(GameMenuCommands.TRADE_ACCEPT.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.TRADE_ACCEPT.toString());
+            output = tradeController.acceptTrade(matcher);
+            System.out.println(output);
+        }
+        else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
         }
     }

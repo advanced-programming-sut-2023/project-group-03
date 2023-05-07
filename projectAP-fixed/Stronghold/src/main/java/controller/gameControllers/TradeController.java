@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 public class TradeController extends Controller {
     GameController gameController;
     Player owner;
-    TradeController(Player owner) {
+    public TradeController(Player owner) {
         this.owner = owner;
     }
 
