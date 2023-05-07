@@ -11,18 +11,14 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class MarketController extends Controller implements GameMarketInterface{
-    GameController gameController;
-    MarketController(GameController gameController) {
-        this.gameController = gameController;
-    }
     public String showPriceList(Player player) {
         String output = "";
         for (Resources resource : Resources.values()) {
             output = output.concat("name: " + resource.getName() +
-                    " in your inventory: " + player.getInventory().get(resource) +
-                    " price for buy: " + resource.getGold() +
-                    " price for sell" + resource.getSellPrice() +
-                    "\n");
+                    ", in your inventory: " + player.getInventory().get(resource) +
+                    ", price for buy: " + resource.getGold() +
+                    ", price for sell " + resource.getSellPrice() +
+                    "\n---------------------\n");
         }
         return output;
     }

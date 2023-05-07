@@ -17,6 +17,7 @@ public enum InputOptions {
     DROP_TREE(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     DROP_UNIT(new ArrayList<>(Arrays.asList("x", "y", "t", "c"))),
     DROP_BUILDING(new ArrayList<>(Arrays.asList("x", "y", "t"))),
+    //market
     BUY_SELL(new ArrayList<>(Arrays.asList("i", "a"))),
     //building
     SELECT_BUILDING(new ArrayList<>(Arrays.asList("x", "y"))),

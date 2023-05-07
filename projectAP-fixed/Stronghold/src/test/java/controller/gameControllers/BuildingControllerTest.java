@@ -5,16 +5,13 @@ import static view.Enums.GameMenuCommands.*;
 import static controller.ControllerFunctions.*;
 import static controller.Enums.Response.*;
 
-import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Buildings.Defending.Enums.WallTypes;
-import Model.Buildings.Defending.PitchDitch;
 import Model.Buildings.Defending.Wall;
 import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.GeneratorTypes;
 import Model.Buildings.Enums.Resources;
 import Model.Buildings.Keep;
 import Model.Field.GameMap;
-import Model.Field.RegularTextureGroups;
 import Model.Field.Texture;
 import Model.Field.Tile;
 import Model.GamePlay.Player;

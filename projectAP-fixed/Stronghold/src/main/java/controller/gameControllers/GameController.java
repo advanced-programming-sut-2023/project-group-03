@@ -26,7 +26,7 @@ public class GameController extends Controller implements GameMarketInterface , 
     public GameController(GameMap gameMap) {
         this.buildingController = new BuildingController(gameMap);
         this.kingdomController = new KingdomController(this);
-        this.marketController = new MarketController(this);
+        this.marketController = new MarketController();
         this.moveUnitController = new MoveUnitController();
         this.unitController = new UnitController(gameMap);
         this.gameMap = gameMap;
