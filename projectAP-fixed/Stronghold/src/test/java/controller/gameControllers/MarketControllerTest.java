@@ -1,6 +1,5 @@
 package controller.gameControllers;
 
-import static view.Enums.GameMenuCommands.*;
 import static controller.ControllerFunctions.*;
 import static controller.Enums.Response.*;
 import static view.Enums.ShopMenuCommands.*;

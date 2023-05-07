@@ -105,10 +105,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         }
         if (type.equals("assassin")) {
-
-        }
-        if (type.equals("tunneller")) {
-
+            //todo
         }
         return INVALID_UNIT_TYPE.getOutput();
     }
@@ -144,8 +141,6 @@ public class UnitController extends GeneralGameController implements UnitInterfa
     private String addTroop(TroopTypes troopType, int amount, Player player, Tile tile, Barracks barracks) {
         if (barracks != null && !barracks.getProducts().contains(troopType)) return NOT_RIGHT_PLACE_UNIT.getOutput();
 
-        //should i check our popularity?
-
         int allGold = amount * troopType.getGold();
         if (player.getGold() < allGold) return NOT_ENOUGH_GOLD_UNIT.getOutput();
 
@@ -177,12 +172,6 @@ public class UnitController extends GeneralGameController implements UnitInterfa
     private String addThrower(int x, int y, ThrowerTypes throwerType, Player player, Barracks barracks) {
         if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT))
             return NOT_RIGHT_PLACE_UNIT.getOutput();
-
-//        if (player.getInventory().get(Resources.WOOD) < throwerType.getWoodCost())
-//            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + "wood";
-//
-//        if (player.getInventory().get(Resources.STONE) < throwerType.getStoneCost())
-//            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + "stone";
 
         if (player.getGold() < throwerType.getGold()) return NOT_ENOUGH_GOLD_THROWER.getOutput();
 
@@ -283,6 +272,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
         ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
         gameMenuUnits.clear();
+        gameMenu.setSelected(null);
         for (Unit unit : units) {
             if (counter <= 0) break;
             if (unit.getOwner().equals(player) && unit instanceof Troop) {

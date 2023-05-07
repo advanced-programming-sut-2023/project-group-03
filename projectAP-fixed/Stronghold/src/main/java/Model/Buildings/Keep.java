@@ -14,7 +14,7 @@ public class Keep extends Building {
     private Inventory armoury = null;
     private Inventory stockPile = null;
     private Inventory foodStorage = null;
-    protected HashMap<BarracksType, Barracks> barracks = new HashMap<>();
+    protected HashMap<BarracksType, Barracks> barracks = new HashMap<>();//todo
     private static Keep instance;
     private int taxRate;
     private int fearRate;
@@ -83,7 +83,7 @@ public class Keep extends Building {
             owner.setPopularity(owner.getPopularity() - 8);
         }
         if (foodRate == -1) {
-            Avrage = 1 / 2;
+            Avrage = 0.5;
             owner.setPopularity(owner.getPopularity() - 4);
         }
         if (foodRate == 0) {
@@ -91,7 +91,7 @@ public class Keep extends Building {
             owner.setPopularity(owner.getPopularity());
         }
         if (foodRate == 1) {
-            Avrage = 3 / 2;
+            Avrage = 1.5;
             owner.setPopularity(owner.getPopularity() + 4);
         }
         if (foodRate == 2) {
