@@ -18,7 +18,7 @@ public abstract class CombatUnit extends Unit {
     protected int baseRange;
     protected int modifiedRange;
     protected int defenseRate;
-    protected Drawable EnemyTarget;
+    protected Drawable EnemyTarget = null;
 
     public CombatUnit(Player owner, Tile position) {
         super(owner, position);

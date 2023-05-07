@@ -81,9 +81,19 @@ public class GameMenu extends Menu {
             String output = gameController.selectUnitMatcherHandler(matcher, game.getCurrentPlayer(), this);
             System.out.println(output);
         }
-        else if (command.matches(GameMenuCommands.MAP_MOVE.toString())) {
-            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.MAP_MOVE.toString());
-            //String output=gameController.
+        else if (command.matches(MapMenuCommands.MOVE_ALI.getRegex())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.MOVE_ALI.getRegex());
+            String output = gameController.moveMap(matcher);
+            System.out.println(output);
+        }
+        else if (command.matches(MapMenuCommands.SHOW_MAP.getRegex())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SHOW_MAP.getRegex());
+            String output = gameController.moveMap(matcher);
+            System.out.println(output);
+        } else if (command.matches(MapMenuCommands.SHOW_DETAILS_ALI.getRegex())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SHOW_DETAILS_ALI.getRegex());
+            String output = gameController.showDetail(matcher);
+            System.out.println(output);
         }
         else if (command.matches("next turn")) {
             gameController.nextTurn();
@@ -103,18 +113,29 @@ public class GameMenu extends Menu {
         }
         else if (selected instanceof Store) {
             if (command.matches(ShopMenuCommands.BUY.toString())) {
-
-            } else if (command.matches(ShopMenuCommands.SELL.toString())) {
-
-            } else if (command.matches(ShopMenuCommands.SHOW_PRICE_LIST.toString())) {
-
+                Matcher matcher = ControllerFunctions.getMatcher(command, ShopMenuCommands.BUY.toString());
+                String output = gameController.buyMatcherHandler(matcher, game.getCurrentPlayer());
+                System.out.println(output);
             }
-        } else if (selectedUnits.size() != 0) {
+            else if (command.matches(ShopMenuCommands.SELL.toString())) {
+                Matcher matcher = ControllerFunctions.getMatcher(command, ShopMenuCommands.SELL.toString());
+                String output = gameController.sellMatcherHandler(matcher, game.getCurrentPlayer());
+                System.out.println(output);
+            }
+            else if (command.matches(ShopMenuCommands.SHOW_PRICE_LIST.toString())) {
+                Matcher matcher = ControllerFunctions.getMatcher(command, ShopMenuCommands.SHOW_PRICE_LIST.toString());
+                String output = gameController.showPriceList(game.getCurrentPlayer());
+                System.out.println(output);
+            }
+        }
+        else if (selectedUnits.size() != 0) {
             if (command.matches(GameMenuCommands.DISBAND_UNIT.toString())) {
 
-            } else if (command.matches(GameMenuCommands.ATTACK_ENEMY.toString())) {
+            }
+            else if (command.matches(GameMenuCommands.ATTACK_ENEMY.toString())) {
 
-            } else if (command.matches(GameMenuCommands.ATTACK_PLACE.toString())) {
+            }
+            else if (command.matches(GameMenuCommands.ATTACK_PLACE.toString())) {
 
             }
         }

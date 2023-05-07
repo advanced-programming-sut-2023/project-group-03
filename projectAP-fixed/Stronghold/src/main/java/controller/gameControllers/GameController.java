@@ -48,6 +48,10 @@ public class GameController extends Controller implements GameMarketInterface , 
         return buildingController.showMap(matcher);
     }
 
+    public String showDetail(Matcher matcher) {
+        return buildingController.showDetails(matcher);
+    }
+
     @Override
     public String showPriceList(Player player) {
         return marketController.showPriceList(player);
