@@ -181,7 +181,7 @@ public class Tile {
             numberOfUnits += "║N";
         }
         String[] ans = new String[4];
-        String coordinate = String.format("%3d,%3d", rowNum, columnNum);
+        String coordinate = String.format("%3d,%3d", rowNum + 1, columnNum + 1);
         ans[3]="═══════╬";
         ans[0] = ConsoleColors.formatPrinter("", texture.getColor(), numberOfUnits)+"║";
         ans[1] = ConsoleColors.formatPrinter("", texture.getColor(), coordinate) + "║";

@@ -305,14 +305,14 @@ public class MapController extends GeneralGameController {
 
         if (row1 > row2 || col1 > col2) return INVALID_RECTANGLE.getOutput();
 
-        for (int row = row1; row < row2; row++) {
-            for (int col = col1; col < col2; col++) {
+        for (int row = row1; row <= row2; row++) {
+            for (int col = col1; col <= col2; col++) {
                 if (gameMap.getMap()[row][col].getBuilding() != null) return BUILDING_EXIST_RECTANGLE.getOutput();
             }
         }
 
-        for (int row = row1; row < row2; row++) {
-            for (int col = col1; col < col2; col++) {
+        for (int row = row1; row <= row2; row++) {
+            for (int col = col1; col <= col2; col++) {
                 gameMap.getMap()[row][col].setOwner(player);
             }
         }

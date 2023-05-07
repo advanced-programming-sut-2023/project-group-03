@@ -52,7 +52,8 @@ public class MapMenu extends Menu {
         while (true) {
             ConsoleColors.colorPrint(TEXT_GREEN, "your command:");
             String command = scanner.nextLine();
-            if (command.matches("switch player: choose number of players from 1 to " + map.getNumberOfPlayers())) {
+            if (command.matches("change player")) {
+                System.out.println("switch player: choose number of players from 1 to " + map.getNumberOfPlayers());
                 while (true) {
                     command = scanner.nextLine();
                     if (!command.matches("\\d+")) {
@@ -71,7 +72,8 @@ public class MapMenu extends Menu {
             else if (command.matches(MapMenuCommands.SET_OWNER_REC.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_OWNER_REC.getRegex());
                 System.out.println(mapController.setOwner(matcher, currentPlayer));
-            } else if (command.matches(MapMenuCommands.MOVE_ALI.getRegex())) {
+            }
+            else if (command.matches(MapMenuCommands.MOVE_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.MOVE_ALI.getRegex());
                 System.out.println(mapController.moveMap(matcher));
             }

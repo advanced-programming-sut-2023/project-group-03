@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public enum MapMenuCommands {
     SAVE_MAP("save map"),
-    SET_OWNER_REC(""),
+    SET_OWNER_REC("set owner rectangle (?<setOwnerInfo>.+)"),
     BACK("back to main menu"),
     SHOW_MAP("^show map (?<coordinatesInfo>.+)$"),
     SHOW_DETAILS_ALI("^show details (?<coordinatesInfo>.+)"),

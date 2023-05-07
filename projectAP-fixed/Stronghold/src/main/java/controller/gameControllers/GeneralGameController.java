@@ -98,7 +98,7 @@ public class GeneralGameController extends Controller {
 
         if (verticalDir != null) {
             if (!(verticalDir.equals("up") || verticalDir.equals("down"))) return INVALID_VERTICAL_DIRECTION.getOutput();
-            finalRow = centerTile.getRowNum() + (verticalDir.equals("up") ? verticalNum : -verticalNum);
+            finalRow = centerTile.getRowNum() + (verticalDir.equals("up") ? -verticalNum : verticalNum);
 
         }
 
