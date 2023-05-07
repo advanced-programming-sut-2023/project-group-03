@@ -1,6 +1,7 @@
 package view.Game;
 
 import Model.Buildings.Defending.Enums.TrapsTypes;
+import Model.GamePlay.Player;
 import controller.ControllerFunctions;
 import controller.gameControllers.GameController;
 import view.Enums.BuildingMenuTypes;
@@ -25,18 +26,25 @@ public class CastleBuildingMenu extends Menu {
         Guide();
         String command = scanner.nextLine();
         String output = "";
+        Player player = gameMenu.getGame().getCurrentPlayer();
         GameController gameController = new GameController(this.gameMenu.getGame().getMap());
         if (command.matches("back")) {
 
         }
         else if (command.matches(GameMenuCommands.BUILD_STONE_GATES.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_STONE_GATES.toString());
+            output = gameController.buildStoneGatesMatcherHandler(matcher, player);
+            System.out.println(output);
         }
         else if (command.matches(DROP_BUILDING.toString())) {
-
+            Matcher matcher = ControllerFunctions.getMatcher(command, DROP_BUILDING.toString());
+            output = gameController.dropBuildingMatcherHandler(matcher, player);
+            System.out.println(output);
         }
         else if (command.matches(BUILD_DRAW_BRIDGE.toString())) {
-
+            Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_DRAW_BRIDGE.toString());
+            output = gameController.buildDrawbridgeMatcherHandler(matcher, player);
+            System.out.println(output);
         }
         else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
