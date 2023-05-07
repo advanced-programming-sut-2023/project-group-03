@@ -91,4 +91,5 @@ class RegisterMenuControllerTest {
         matcher = getMatcher("user create -u ali2 -p pAssw0r! pAssw0r! -e ali@gm34ail.com -n nickname", NEW_USER.getRegex());
         assertThrows(NullPointerException.class, () -> registerMenuController.registerNewUser(matcher, scanner));
     }
+
 }
