@@ -15,7 +15,17 @@ public class Game {
     }
 
     public void nextTurn() {
-
+        if (!currentPlayer.equals(players.get(players.size() - 1))) {
+            for (int i = 0; i < players.size(); i++) {
+                if (currentPlayer.equals(players.get(i))) {
+                    currentPlayer = players.get(i + 1);
+                    return;
+                }
+            }
+        }
+        for (Drawable drawable : Drawable.getDrawables()) {
+            drawable.check();
+        }
     }
 
     public GameMap getMap() {

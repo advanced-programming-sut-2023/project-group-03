@@ -1,6 +1,7 @@
 package view.Game;
 
 import Model.Field.GameMap;
+import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.User;
 import Model.UserDatabase;
@@ -13,6 +14,7 @@ import view.Menu;
 import view.StartingMenu;
 import view.Transition;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -29,6 +31,7 @@ public class MapMenu extends Menu {
 
     @Override
     public void run() throws Transition {
+        Drawable.setDrawables(new ArrayList<>());
         int displaySize = 3;
         String output;
         do {
@@ -103,6 +106,7 @@ public class MapMenu extends Menu {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.CLEAR_ALI.getRegex());
                 System.out.println(mapController.clearField(matcher));
             } else if (command.matches(MapMenuCommands.SAVE_MAP.getRegex())) {
+                map.setDrawables(Drawable.getDrawables());
                 mapController.saveMap(map);
                 UserDatabase.addMap(map);
                 System.out.println("map saved");

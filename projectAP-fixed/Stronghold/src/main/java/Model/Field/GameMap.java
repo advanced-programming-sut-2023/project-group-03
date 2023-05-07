@@ -1,7 +1,9 @@
 package Model.Field;
 
+import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameMap {
@@ -10,6 +12,16 @@ public class GameMap {
     private Tile[][] map;
     private int numberOfPlayers;
     private String name;
+    private ArrayList<Drawable> drawables = new ArrayList<>();
+
+    public ArrayList<Drawable> getDrawables() {
+        return drawables;
+    }
+
+    public void setDrawables(ArrayList<Drawable> drawables) {
+        this.drawables = drawables;
+    }
+
     private Player[] players = new Player[4];
     public GameMap(int size) {
         this.size=size;

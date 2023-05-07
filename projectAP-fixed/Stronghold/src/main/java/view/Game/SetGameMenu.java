@@ -1,5 +1,6 @@
 package view.Game;
 
+import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
 import Model.GamePlay.Government;
 import Model.GamePlay.Player;
@@ -9,6 +10,7 @@ import view.Enums.ConsoleColors;
 import view.Menu;
 import view.Transition;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static view.Enums.ConsoleColors.TEXT_RED;
@@ -24,6 +26,7 @@ public class SetGameMenu extends Menu {
 
     @Override
     public void run() throws Transition {
+        Drawable.setDrawables(new ArrayList<>());
         String output = null;
         do {
             output = SetMap();
@@ -35,7 +38,7 @@ public class SetGameMenu extends Menu {
                 System.out.println(output);
             } while (!output.equals("player set successfull"));
         }
-
+        Drawable.setDrawables(new ArrayList<>(this.game.getMap().getDrawables()));
     }
 
     private void showGuide() {
