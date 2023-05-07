@@ -40,6 +40,14 @@ public class GameController extends Controller implements GameMarketInterface , 
 
     }
 
+    public String moveMap(Matcher matcher) {
+        return buildingController.moveMap(matcher);
+    }
+
+    public String showMap(Matcher matcher) {
+        return buildingController.showMap(matcher);
+    }
+
     @Override
     public String showPriceList(Player player) {
         return marketController.showPriceList(player);
