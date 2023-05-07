@@ -649,11 +649,17 @@ public class BuildingController extends GeneralGameController implements Buildin
     protected String checkTrapErrors(int x, int y, Player player, TrapsTypes trapsType) {
         Tile targetTile = gameMap.getMap()[x][y];
         if (!trapsType.getTextures().contains(targetTile.getTexture())) return BAD_TEXTURE_TRAP.getOutput();
+        if (!checkIfFit(x, y, trapsType.getSize())) return NOT_FIT.getOutput();
 
-        if (targetTile.getBuilding() != null) return BUILDING_EXIST_TRAP.getOutput();
-        if (targetTile.getUnits().size() > 0) return UNIT_EXIST_TRAP.getOutput();
+        for (int xTemp = x - trapsType.getSize() / 2; xTemp <= x + trapsType.getSize() / 2; xTemp++) {
+            for (int yTemp = y - trapsType.getSize() / 2; yTemp <= y + trapsType.getSize() / 2; yTemp++) {
+                targetTile = gameMap.getMap()[xTemp][yTemp];
+                if (targetTile.getBuilding() != null) return BUILDING_EXIST_TRAP.getOutput();
+                if (targetTile.getUnits().size() > 0) return UNIT_EXIST_TRAP.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+            }
+        }
 
-        if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
         return null;
     }
@@ -663,7 +669,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         String errorCheck = checkTrapErrors(x, y, player, TrapsTypes.PITCH_DITCH);
         if (errorCheck != null) return errorCheck;
 
-        targetTile.setBuilding(new PitchDitch(player, targetTile, TrapsTypes.PITCH_DITCH));
+        targetTile.setBuilding(new PitchDitch(player, targetTile));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
@@ -672,7 +678,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         String errorCheck = checkTrapErrors(x, y, player, TrapsTypes.CAGED_WAR_DOGS);
         if (errorCheck != null) return errorCheck;
 
-        targetTile.setBuilding(new CagedWarDogs(player, targetTile, TrapsTypes.CAGED_WAR_DOGS));
+        targetTile.setBuilding(new CagedWarDogs(player, targetTile));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
@@ -681,7 +687,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         String errorCheck = checkTrapErrors(x, y, player, TrapsTypes.KILLING_PIT);
         if (errorCheck != null) return errorCheck;
 
-        targetTile.setBuilding(new KillingPit(player, targetTile, TrapsTypes.KILLING_PIT));
+        targetTile.setBuilding(new KillingPit(player, targetTile));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 

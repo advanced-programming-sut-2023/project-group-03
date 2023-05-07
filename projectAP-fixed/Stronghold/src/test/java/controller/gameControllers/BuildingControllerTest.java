@@ -7,6 +7,7 @@ import static controller.Enums.Response.*;
 
 import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Buildings.Defending.Enums.WallTypes;
+import Model.Buildings.Defending.PitchDitch;
 import Model.Buildings.Defending.Wall;
 import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.GeneratorTypes;
@@ -147,17 +148,12 @@ class BuildingControllerTest {
         class checkTrap {
             @Test
             void checkUnitExist() {
-                Tile targetTile = gameMap.getMap()[0][0];
+                Tile targetTile = gameMap.getMap()[5][5];
                 new Troop(player, targetTile, TroopTypes.SWORDMEN);
                 assertEquals(UNIT_EXIST_TRAP.getOutput(),
                         buildingController.dropBuildingMatcherHandler(
-                                getMatcher("drop building -x 1 -t \"caged war dogs\" -y 1", DROP_BUILDING.toString()), player
+                                getMatcher("drop building -x 5 -t \"caged war dogs\" -y 5", DROP_BUILDING.toString()), player
                         ), "the needed tile has a unit");
-
-                assertEquals(UNIT_EXIST_TRAP.getOutput(),
-                        buildingController.dropBuildingMatcherHandler(
-                                getMatcher("drop building -x 1 -t \"killing pit\" -y 1", DROP_BUILDING.toString()), player
-                        ), "not giving error for putting the first stockpile");
             }
 
             @Test
@@ -168,14 +164,19 @@ class BuildingControllerTest {
                                 getMatcher("drop building -x 1 -t \"pitch ditch\" -y 1", DROP_BUILDING.toString()), player
                         ), "not a valid texture for the given trap");
 
+                assertEquals(NOT_FIT.getOutput(),
+                        buildingController.dropBuildingMatcherHandler(
+                                getMatcher("drop building -x 1 -t \"caged war dogs\" -y 1", DROP_BUILDING.toString()), player
+                        ), "check if fit");
+
                 targetTile.setTexture(Texture.OIL);
-                System.out.println(TrapsTypes.PITCH_DITCH.getTextures().contains(Texture.OIL));
-                for (Texture texture : RegularTextureGroups.NORMAL.getTextureHashSet()) System.out.println(texture.getName());
-//                assertEquals(SUCCESSFUL_DROP_BUILDING.getOutput(),
-//                        buildingController.dropBuildingMatcherHandler(
-//                                getMatcher("drop building -x 1 -t \"pitch ditch\" -y 1", DROP_BUILDING.toString()), player
-//                        ), "not a valid texture for the given trap");
+                assertEquals(SUCCESSFUL_DROP_BUILDING.getOutput(),
+                        buildingController.dropBuildingMatcherHandler(
+                                getMatcher("drop building -x 1 -t \"pitch ditch\" -y 1", DROP_BUILDING.toString()), player
+                        ), "valid size for trap");
+
             }
+
         }
 
         @Test

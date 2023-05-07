@@ -15,8 +15,8 @@ public enum RegularTextureGroups {
 
     private final HashSet<Texture> textureHashSet;
 
-    RegularTextureGroups(HashSet<Texture> textures) {
-        this.textureHashSet = textures;
+    RegularTextureGroups(HashSet<Texture> textureHashSet) {
+        this.textureHashSet = textureHashSet;
     }
 
     public HashSet<Texture> getTextureHashSet() {

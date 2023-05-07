@@ -5,8 +5,8 @@ import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class CagedWarDogs extends Trap{
-    public CagedWarDogs(Player owner, Tile position, TrapsTypes trapsType) {
-        super(owner, position, trapsType);
+    public CagedWarDogs(Player owner, Tile position) {
+        super(owner, position,TrapsTypes.CAGED_WAR_DOGS);
     }
 
     public void check() {

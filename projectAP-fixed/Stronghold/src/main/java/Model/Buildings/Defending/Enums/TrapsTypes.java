@@ -6,14 +6,14 @@ import Model.Field.Texture;
 import java.util.HashSet;
 
 public enum TrapsTypes {
-    BOILING_OIL("boiling oil", 3, 3, 3, 50, 3, RegularTextureGroups.ALL_LAND.getTextureHashSet()),
-    PITCH_DITCH("pitch ditch", 0, 0, 2, 100, 0, RegularTextureGroups.OIL_RIG.getTextureHashSet()),
-    CAGED_WAR_DOGS("caged war dogs", 100, 10, 0, 50, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
-    KILLING_PIT("killing pit", 0, 6, 0, 150, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    BOILING_OIL("boiling oil", 1, 3, 3, 3, 50, 3, RegularTextureGroups.ALL_LAND.getTextureHashSet()),
+    PITCH_DITCH("pitch ditch", 1, 0, 0, 2, 100, 0, RegularTextureGroups.OIL_RIG.getTextureHashSet()),
+    CAGED_WAR_DOGS("caged war dogs", 3, 100, 10, 0, 50, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    KILLING_PIT("killing pit",  3, 0, 6, 0, 150, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
 
     private String name;
-    private final int size = 3;
+    private int size;
     private int gold;
     private int wood;
     private int oil;
@@ -21,7 +21,8 @@ public enum TrapsTypes {
     private int damage;
     private HashSet<Texture> textures;
 
-    TrapsTypes(String name, int gold, int wood, int oil, int damage, int worker, HashSet<Texture> textures) {
+    TrapsTypes(String name, int size, int gold, int wood, int oil, int damage, int worker, HashSet<Texture> textures) {
+        this.size = size;
         this.textures = textures;
         this.name = name;
         this.gold = gold;
