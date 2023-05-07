@@ -1,8 +1,18 @@
 package Model.GamePlay;
 
 public enum Material {
-    FLESH,
-    WOOD,
-    STONE,
-    IRON;
+    FLESH(1),
+    WOOD(2),
+    STONE(3),
+    IRON(4);
+    private int value;
+
+    Material(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
 }

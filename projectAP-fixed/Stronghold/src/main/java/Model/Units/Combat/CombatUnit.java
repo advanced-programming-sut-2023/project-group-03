@@ -18,6 +18,7 @@ public abstract class CombatUnit extends Unit {
     protected int baseRange;
     protected int modifiedRange;
     protected int defenseRate;
+    protected Tile tileToAttack = null;
     protected Drawable EnemyTarget = null;
 
     public CombatUnit(Player owner, Tile position) {
@@ -151,5 +152,13 @@ public abstract class CombatUnit extends Unit {
             }
             return false;
         }
+    }
+
+    public Tile getTileToAttack() {
+        return tileToAttack;
+    }
+
+    public void setTileToAttack(Tile tileToAttack) {
+        this.tileToAttack = tileToAttack;
     }
 }

@@ -94,23 +94,29 @@ public class MapMenu extends Menu {
             else if (command.matches(MapMenuCommands.SET_TEXTURE_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_TEXTURE_ALI.getRegex());
                 System.out.println(mapController.setTexture(matcher));
-            } else if (command.matches(MapMenuCommands.SET_TEXTURE_REC_ALI.getRegex())) {
+            }
+            else if (command.matches(MapMenuCommands.SET_TEXTURE_REC_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_TEXTURE_REC_ALI.getRegex());
                 System.out.println(mapController.setTextureRectangle(matcher));
-            } else if (command.matches(MapMenuCommands.SHOW_DETAILS_ALI.getRegex())) {
+            }
+            else if (command.matches(MapMenuCommands.SHOW_DETAILS_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SHOW_DETAILS_ALI.getRegex());
                 System.out.println(mapController.showDetails(matcher));
-            } else if (command.matches(MapMenuCommands.BACK.getRegex())) {
+            }
+            else if (command.matches(MapMenuCommands.BACK.getRegex())) {
                 throw new Transition(new MainMenu(scanner, user));
-            } else if (command.matches(MapMenuCommands.CLEAR_ALI.getRegex())) {
+            }
+            else if (command.matches(MapMenuCommands.CLEAR_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.CLEAR_ALI.getRegex());
                 System.out.println(mapController.clearField(matcher));
-            } else if (command.matches(MapMenuCommands.SAVE_MAP.getRegex())) {
+            }
+            else if (command.matches(MapMenuCommands.SAVE_MAP.getRegex())) {
                 map.setDrawables(Drawable.getDrawables());
                 mapController.saveMap(map);
                 UserDatabase.addMap(map);
                 System.out.println("map saved");
-            } else {
+            }
+            else {
                 colorPrint(TEXT_RED, "invalidCommand");
             }
             map.showMap(displaySize);

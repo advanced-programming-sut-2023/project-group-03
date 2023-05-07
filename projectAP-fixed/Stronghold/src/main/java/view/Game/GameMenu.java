@@ -132,10 +132,13 @@ public class GameMenu extends Menu {
             if (command.matches(GameMenuCommands.DISBAND_UNIT.toString())) {
 
             }
-            else if (command.matches(GameMenuCommands.ATTACK_ENEMY.toString())) {
+            else if (command.matches(GameMenuCommands.ATTACK_PLACE.toString())) {
 
             }
-            else if (command.matches(GameMenuCommands.ATTACK_PLACE.toString())) {
+            else if (command.matches(GameMenuCommands.ATTACK_BUILDING.toString())) {
+
+            }
+            else if (command.matches(GameMenuCommands.MOVE_UNIT.toString())) {
 
             }
         }
@@ -176,7 +179,7 @@ public class GameMenu extends Menu {
         if (selected instanceof Unit) {
             Unit unit = ((Unit) selected);
             System.out.println(formatPrinter(TEXT_BG_CYAN, "", "Type: " + unit.getClass().getSimpleName() +
-                    " HP:" + unit.getHP() + "\npossible format of command: 1." + GameMenuCommands.ATTACK_ENEMY.toString() +
+                    " HP:" + unit.getHP() + "\npossible format of command: 1." + GameMenuCommands.ATTACK_BUILDING.toString() +
                     " 2." + GameMenuCommands.ATTACK_PLACE.toString() + " 3." + GameMenuCommands.MOVE_UNIT.toString() + " 4." +
                     GameMenuCommands.DISBAND_UNIT.toString()));
         }
