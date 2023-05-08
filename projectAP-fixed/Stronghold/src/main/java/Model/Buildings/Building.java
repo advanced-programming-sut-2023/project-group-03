@@ -17,15 +17,9 @@ public abstract class Building extends Drawable {
     protected int woodCost;
     protected int goldCost;
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
-
-    protected String name;
 
     protected static HashSet<Texture> textures;
 

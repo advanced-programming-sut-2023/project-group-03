@@ -14,6 +14,10 @@ public abstract class Drawable {
     private static ArrayList<Drawable> drawables = new ArrayList<>();
 
 
+    public String getName() {
+        return name;
+    }
+
     public Drawable(Player owner, Tile position, String name) {
         this.name = name;
         this.owner = owner;
