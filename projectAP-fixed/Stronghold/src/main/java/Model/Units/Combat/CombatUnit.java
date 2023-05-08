@@ -21,8 +21,8 @@ public abstract class CombatUnit extends Unit {
     protected Tile tileToAttack = null;
     protected Drawable EnemyTarget = null;
 
-    public CombatUnit(Player owner, Tile position) {
-        super(owner, position);
+    public CombatUnit(Player owner, Tile position,String name) {
+        super(owner, position,name);
     }
 
     public void attackTo(Tile tile) {

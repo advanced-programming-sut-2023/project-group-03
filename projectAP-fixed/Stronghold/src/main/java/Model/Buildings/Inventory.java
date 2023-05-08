@@ -13,7 +13,7 @@ public class Inventory extends Building {
     int capacity;
 
     public Inventory(Player owner, Tile position, InventoryTypes type) {
-        super(owner, position, type.getSize());
+        super(owner, position, type.getSize(),type.getName());
         inventory = new HashMap<>();
         this.type = type;
         for (Resources now : type.getResources()) {

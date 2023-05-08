@@ -16,10 +16,12 @@ public abstract class Building extends Drawable {
     protected int stoneCost;
     protected int woodCost;
     protected int goldCost;
+    String name;
 
     protected static HashSet<Texture> textures;
-    public Building(Player owner, Tile position, int size) {
-        super(owner, position);
+
+    public Building(Player owner, Tile position, int size,String name) {
+        super(owner, position, name);
         this.size = size;
 
         GameMap gameMap = Tile.getGameMap();

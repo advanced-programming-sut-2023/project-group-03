@@ -13,7 +13,7 @@ public class SiegeTower extends CombatUnit{
     private final static int woodCost = 10;
 
     public SiegeTower(Player owner, Tile position, Tile target) {
-        super(owner, position);
+        super(owner, position,"siege tower");
         owner.decreaseGold(goldCost);
         targets.add(Material.STONE);
         owner.decreaseInventory(Resources.WOOD, woodCost);
@@ -57,7 +57,7 @@ public class SiegeTower extends CombatUnit{
     }
 
     public SiegeTower(Player owner, Tile position) {
-        super(owner, position);
+        super(owner, position,"siege tower");
     }
 
     public Tile getTarget() {

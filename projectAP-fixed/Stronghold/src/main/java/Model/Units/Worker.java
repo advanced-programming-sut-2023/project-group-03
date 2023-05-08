@@ -9,7 +9,7 @@ public class Worker extends nonCombatUnit{
 
     Generators job;
     public Worker(Player owner, Tile position, Generators job) {
-        super(owner, position);
+        super(owner, position,"worker");
     }
 
 

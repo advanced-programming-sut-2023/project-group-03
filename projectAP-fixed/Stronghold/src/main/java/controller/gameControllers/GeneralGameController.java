@@ -129,9 +129,17 @@ public class GeneralGameController extends Controller {
         Tile targetTile = gameMap.getMap()[x][y];
         String output = "";
         output += "texture: " + targetTile.getTexture().name() + "\n";
-        if (targetTile.getTexture().getResource() != null)
+        if (targetTile.getTexture().getResource() != null) {
             output += "resource: " + targetTile.getTexture().getResource() + "\n";
+        } else {
+            output += "resource: " + "nothing\n";
+        }
 
+        if (targetTile.getBuilding() == null) {
+            output += "building: nothing\n";
+        } else {
+            output += "building: " + targetTile.getBuilding();
+        }
         HashMap<TroopTypes, Integer> troopTypesCounter = new HashMap<>();
         for (TroopTypes troopType : TroopTypes.values()) troopTypesCounter.put(troopType, 0);
         for (Unit unit : targetTile.getUnits()) {
