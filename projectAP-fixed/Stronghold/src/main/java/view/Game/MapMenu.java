@@ -93,13 +93,13 @@ public class MapMenu extends Menu {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.DROP_BUILDING_ALI.getRegex());
                 System.out.println(mapController.dropBuilding(matcher, currentPlayer));
             }
-            else if (command.matches(MapMenuCommands.SET_TEXTURE_ALI.getRegex())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_TEXTURE_ALI.getRegex());
-                System.out.println(mapController.setTexture(matcher));
-            }
             else if (command.matches(MapMenuCommands.SET_TEXTURE_REC_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_TEXTURE_REC_ALI.getRegex());
                 System.out.println(mapController.setTextureRectangle(matcher));
+            }
+            else if (command.matches(MapMenuCommands.SET_TEXTURE_ALI.getRegex())) {
+                Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SET_TEXTURE_ALI.getRegex());
+                System.out.println(mapController.setTexture(matcher));
             }
             else if (command.matches(MapMenuCommands.SHOW_DETAILS_ALI.getRegex())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SHOW_DETAILS_ALI.getRegex());
