@@ -138,7 +138,7 @@ public class GeneralGameController extends Controller {
         if (targetTile.getBuilding() == null) {
             output += "building: nothing\n";
         } else {
-            output += "building: " + targetTile.getBuilding();
+            output += "building: " + targetTile.getBuilding()+"\n";
         }
         HashMap<TroopTypes, Integer> troopTypesCounter = new HashMap<>();
         for (TroopTypes troopType : TroopTypes.values()) troopTypesCounter.put(troopType, 0);

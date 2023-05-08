@@ -17,7 +17,7 @@ public class WallClimber extends CombatUnit{
     }
 
     public WallClimber(Player owner, Tile position) {
-        super(owner, position);
+        super(owner, position,"wall climber");
     }
 
     @Override

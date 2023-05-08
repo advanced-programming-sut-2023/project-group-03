@@ -16,7 +16,7 @@ public class Trap extends Building {
     private int damage;
 
     public Trap(Player owner, Tile position, TrapsTypes type) {
-        super(owner, position, type.getSize());
+        super(owner, position, type.getSize(), type.getName());
         this.gold = type.getGold();
         this.wood = type.getWood();
         this.oil = type.getOil();
