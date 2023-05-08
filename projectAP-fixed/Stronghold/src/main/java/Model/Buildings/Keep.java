@@ -22,7 +22,7 @@ public class Keep extends Building {
     private int typeOfFood;
 
     public Keep(Player owner, Tile position) {
-        super(owner, position, 5);
+        super(owner, position, 5,"keep");
         owner.setKeep(this);
         taxRate = 0;
         foodRate = -2;

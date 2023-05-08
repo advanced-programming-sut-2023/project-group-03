@@ -12,7 +12,7 @@ public class Towers extends CastleBuilding {
     private int rangeIncrease;
 
     public Towers(Player owner, Tile position, TowerTypes type) {
-        super(owner, position, type.getSize());
+        super(owner, position, type.getSize(), type.getName());
         this.type = type;
         this.HP = type.getHP();
         this.length = type.getLength();

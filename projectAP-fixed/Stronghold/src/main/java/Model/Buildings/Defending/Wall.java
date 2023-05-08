@@ -9,7 +9,7 @@ public class Wall extends CastleBuilding {
     private Trap trap;
 
     public Wall(Player owner, Tile position,WallTypes type) {
-        super(owner, position, 1);
+        super(owner, position, 1, type.getName());
         this.HP = type.getHP();
         this.stoneCost = type.getStoneCost();
     }

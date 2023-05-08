@@ -175,7 +175,7 @@ public class Tile {
         if (this.building != null) {
             numberOfUnits += "║B";
         }
-        if (this.mazafaza != null) {
+        else if (this.mazafaza != null) {
             numberOfUnits += "║T";
         } else {
             numberOfUnits += "║N";

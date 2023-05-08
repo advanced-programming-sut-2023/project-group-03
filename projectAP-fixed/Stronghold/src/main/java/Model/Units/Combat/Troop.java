@@ -19,7 +19,7 @@ public class Troop extends CombatUnit{
     protected HashSet <Resources> equipment;
     protected int gold;
     public Troop(Player owner, Tile position, TroopTypes type) {
-        super(owner, position);
+        super(owner, position, type.getName());
         this.type = type;
         this.speed = type.getSpeed();
         this.damage = type.getDamage();

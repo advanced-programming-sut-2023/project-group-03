@@ -24,7 +24,7 @@ public class PortableShields extends CombatUnit{
     }
 
     public PortableShields(Player owner, Tile position) {
-        super(owner, position);
+        super(owner, position,"portable shields");
         owner.decreaseGold(10);
     }
 

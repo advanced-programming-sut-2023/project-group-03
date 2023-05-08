@@ -18,7 +18,7 @@ public class Store extends Building{
 
 
     public Store(Player owner, Tile position) {
-        super(owner, position, 3);
+        super(owner, position, 3, "store");
     }
 
     public void buy(Resources resources, int number) {

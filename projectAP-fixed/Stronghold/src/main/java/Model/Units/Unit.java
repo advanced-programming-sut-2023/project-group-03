@@ -19,8 +19,8 @@ public abstract class Unit extends Drawable {
     protected Tile currentTarget = null;
     protected ArrayList<Tile> currentPath = new ArrayList<>();
 
-    public Unit(Player owner, Tile position) {
-        super(owner, position);
+    public Unit(Player owner, Tile position,String name) {
+        super(owner, position,name);
         currentTarget = position;
         owner.addUnit(this);
         position.addUnit(this);

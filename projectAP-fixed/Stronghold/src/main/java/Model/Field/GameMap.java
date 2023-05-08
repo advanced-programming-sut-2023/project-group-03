@@ -26,6 +26,7 @@ public class GameMap {
     public GameMap(int size) {
         this.size=size;
         map = new Tile[size][size];
+        Tile.setGameMap(this);
         //...
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {

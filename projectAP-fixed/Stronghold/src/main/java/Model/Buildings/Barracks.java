@@ -20,7 +20,7 @@ public class Barracks extends Building{
     HashSet<TroopTypes> Products = new HashSet<>();
 
     public Barracks(Player owner, Tile position, BarracksType type) {
-        super(owner, position, type.getSize());
+        super(owner, position, type.getSize(),type.getName());
         this.material = type.getMaterial();
         this.type = type;
         owner.decreaseInventory(Resources.WOOD,type.getWood());

@@ -11,7 +11,7 @@ public class BatteringRam extends CombatUnit {
     private Tile target;
 
     public BatteringRam(Player owner, Tile position) {
-        super(owner, position);
+        super(owner, position,"battering ram");
         owner.decreaseGold(goldCost);
         owner.decreaseInventory(Resources.WOOD, woodCost);
         owner.decreaseInventory(Resources.STONE, stoneCost);

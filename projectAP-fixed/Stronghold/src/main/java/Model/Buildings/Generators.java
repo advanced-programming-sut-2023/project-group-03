@@ -20,7 +20,7 @@ public class Generators extends Building{
     private boolean isInFire;
 
     public Generators(Player owner, Tile position, GeneratorTypes type) {
-        super(owner, position, type.getSize());
+        super(owner, position, type.getSize(),type.getName());
         this.useRate = type.getUseRate();
         this.produceRate = type.getProduceRate();
         this.HP = type.getHP();
