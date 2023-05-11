@@ -79,6 +79,8 @@ public class SetGameMenu extends Menu {
                 player.getInventory().replace(resources, amount);
                 player.setGold(1000);
                 player.setPopularity(100);
+                player.setCurrentPopulation(0);
+                player.setMaxPopulation(64);
             }
         }
     }
