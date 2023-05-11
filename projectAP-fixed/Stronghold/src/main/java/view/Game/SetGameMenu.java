@@ -1,5 +1,6 @@
 package view.Game;
 
+import Model.Buildings.Enums.Resources;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
 import Model.GamePlay.Government;
@@ -39,6 +40,7 @@ public class SetGameMenu extends Menu {
             } while (!output.equals("player set successfull"));
         }
         Drawable.setDrawables(new ArrayList<>(this.game.getMap().getDrawables()));
+        setResourses(500);
     }
 
     private void showGuide() {
@@ -68,6 +70,16 @@ public class SetGameMenu extends Menu {
             game.getMap().setPlayerI(i, buff);
             game.addPlayer(buff);
             return "player set successfull";
+        }
+    }
+
+    private void setResourses(int amount) {
+        for (Player player : game.getPlayers()) {
+            for (Resources resources : player.getInventory().keySet()) {
+                player.getInventory().replace(resources, amount);
+                player.setGold(1000);
+                player.setPopularity(100);
+            }
         }
     }
 

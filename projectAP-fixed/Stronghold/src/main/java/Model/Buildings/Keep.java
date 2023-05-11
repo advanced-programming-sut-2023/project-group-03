@@ -45,6 +45,7 @@ public class Keep extends Building {
         FearHandler();
         foodHandler();
         TaxHandler();
+        popularityHandler();
     }
 
     @Override
@@ -194,6 +195,12 @@ public class Keep extends Building {
             return this.armoury;
         }
         return null;
+    }
+
+    public void popularityHandler() {
+        if (this.getOwner().getPopularity() > 100) {
+            this.getOwner().setPopularity(100);
+        }
     }
 
     public HashMap<BarracksType, Barracks> getBarracks() {
