@@ -3,6 +3,7 @@ package controller.gameControllers;
 import Model.Buildings.Building;
 import Model.Field.GameMap;
 import Model.Field.Tile;
+import Model.GamePlay.Player;
 import Model.Units.Unit;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class MoveUnitController {
         }
     }
 
-    public static ArrayList<Tile> findPath(Tile startTile, Tile endTile, GameMap gameMap) {
+    public static ArrayList<Tile> findPath(Tile startTile, Tile endTile, GameMap gameMap, Player player) {
         int mapSize = gameMap.getSize();
         boolean[][] visitedTiles = new boolean[mapSize][mapSize];
         LinkedList<PathTile> queueTiles = new LinkedList<>();
@@ -49,7 +50,8 @@ public class MoveUnitController {
         search:
         while (true) {
             for (Tile neigbour : currentPathTile.getTile().getNeighboursConnected()) {
-                if (!neigbour.equals(startTile) && !visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()]) {
+                if (!visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()] && !neigbour.equals(startTile) ) {
+                    if (neigbour.getBuilding() != null && !neigbour.getBuilding().getOwner().equals(player)) continue;
                     queueTiles.addLast(new PathTile(neigbour, currentPathTile));
                 } else if (neigbour.equals(startTile)) {
                     currentPathTile = new PathTile(neigbour, currentPathTile);
@@ -69,7 +71,7 @@ public class MoveUnitController {
         return path;
     }
 
-    public static ArrayList<Tile> findPathToBuilding(Tile startTile, Building building, GameMap gameMap) {
+    public static ArrayList<Tile> findPathToBuilding(Tile startTile, Building building, GameMap gameMap, Player player) {
         int mapSize = gameMap.getSize();
         boolean[][] visitedTiles = new boolean[mapSize][mapSize];
         LinkedList<PathTile> queueTiles = new LinkedList<>();
@@ -85,9 +87,10 @@ public class MoveUnitController {
         search:
         while (true) {
             for (Tile neigbour : currentPathTile.getTile().getNeighboursConnected()) {
-                if (!checkIfTargetBuilding(neigbour, building) && !visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()]) {
+                if (!neigbour.getBuilding().equals(building) && !visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()]) {
+                    if (neigbour.getBuilding() != null && !neigbour.getOwner().equals(player)) continue;
                     queueTiles.addLast(new PathTile(neigbour, currentPathTile));
-                } else if (checkIfTargetBuilding(neigbour, building)) {
+                } else if (neigbour.getBuilding().equals(building)) {
                     break search;
                 }
             }
@@ -106,13 +109,6 @@ public class MoveUnitController {
         }
 
         return path;
-    }
-
-    static boolean checkIfTargetBuilding(Tile tile, Building building) {
-        for (Tile n : tile.getNeighboursConnected()) {
-            if (n.getBuilding().equals(building)) return true;
-        }
-        return false;
     }
 
     public static ArrayList<Tile> manhattanCloseTiles(int distance, Tile tile, GameMap gameMap) {
@@ -178,7 +174,7 @@ public class MoveUnitController {
                 queueTiles.addLast(gameMap.getMap()[xCurrent][yCurrent + 1]);
                 answer.add(gameMap.getMap()[xCurrent][yCurrent + 1]);
             }
-            
+
             if (queueTiles.size() == 0) break;
             currentTile = queueTiles.getFirst();
             queueTiles.removeFirst();
@@ -186,7 +182,7 @@ public class MoveUnitController {
         }
         return answer;
     }
-    
+
     public boolean checkIfImpossibleDestination(int x, int y) {
         return false;
     }
