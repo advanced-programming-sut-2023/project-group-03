@@ -149,6 +149,7 @@ public class GameMenu extends Menu {
                 //String output = gameController.move;
                 //System.out.println(output);
             }
+            throw new Transition(this);
         }
     }
 

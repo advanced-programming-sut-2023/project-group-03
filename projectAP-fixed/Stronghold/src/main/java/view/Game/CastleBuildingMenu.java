@@ -29,7 +29,7 @@ public class CastleBuildingMenu extends Menu {
         Player player = gameMenu.getGame().getCurrentPlayer();
         GameController gameController = new GameController(this.gameMenu.getGame().getMap());
         if (command.matches("back")) {
-
+            throw new Transition(gameMenu);
         }
         else if (command.matches(GameMenuCommands.BUILD_STONE_GATES.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_STONE_GATES.toString());
@@ -49,6 +49,7 @@ public class CastleBuildingMenu extends Menu {
         else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
         }
+        throw new Transition(this);
     }
 
     public void Guide() {

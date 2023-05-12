@@ -27,6 +27,7 @@ public class SetGameMenu extends Menu {
 
     @Override
     public void run() throws Transition {
+        showGuide();
         Drawable.setDrawables(new ArrayList<>());
         String output = null;
         do {

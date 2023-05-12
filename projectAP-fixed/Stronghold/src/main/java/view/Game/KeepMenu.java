@@ -63,6 +63,7 @@ public class KeepMenu extends Menu {
         else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
         }
+        throw new Transition(this);
     }
 
     public void guide() {

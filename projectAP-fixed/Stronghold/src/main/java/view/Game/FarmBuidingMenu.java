@@ -29,7 +29,7 @@ public class FarmBuidingMenu extends Menu {
         Player player = gameMenu.getGame().getCurrentPlayer();
         GameController gameController = new GameController(this.gameMenu.getGame().getMap());
         if (command.matches("back")) {
-
+            throw new Transition(gameMenu);
         }
         else if (command.matches(GameMenuCommands.BUILD_GENERATOR.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_GENERATOR.toString());
@@ -39,6 +39,7 @@ public class FarmBuidingMenu extends Menu {
         else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
         }
+        throw new Transition(this);
     }
     public void guide() {
         colorPrint(TEXT_RED,"================================================");
