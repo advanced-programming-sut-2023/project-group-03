@@ -56,6 +56,7 @@ public class GameMap extends Element {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
                 map[i][j].updateHeight();
+                map[i][j].updateNeighbours();
             }
         }
     }
