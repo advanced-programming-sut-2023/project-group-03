@@ -149,6 +149,7 @@ public enum Response {
     BUILDING_ON_TERMINAL("There is a building on terminal fields."),
     ////drawbridge
     INVALID_DIRECTION_DRAWBRIDGE("Invalid direction."),
+    NOT_TERMINAL_DRAWBRIDGE("This tile is not a terminal for a stone gate."),
     ////trap
     INVALID_TRAP_TYPE("Invalid trap type."),
     BAD_TEXTURE_TRAP("You can't build this trap on this kinda textures."),
