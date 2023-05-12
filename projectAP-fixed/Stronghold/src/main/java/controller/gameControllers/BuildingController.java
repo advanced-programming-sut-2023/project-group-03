@@ -141,6 +141,8 @@ public class BuildingController extends GeneralGameController implements Buildin
 
         Tile targetTile = gameMap.getMap()[x][y];
         Texture tileTexture = targetTile.getTexture();
+        if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+            return ROCK_EXIT_DROP_BUILDING.getOutput();
 
         if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
 
@@ -443,6 +445,8 @@ public class BuildingController extends GeneralGameController implements Buildin
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!towerType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
                 if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+                    return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
         }
 
@@ -472,6 +476,8 @@ public class BuildingController extends GeneralGameController implements Buildin
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!barracksType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
                 if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+                    return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
         }
 
@@ -479,7 +485,6 @@ public class BuildingController extends GeneralGameController implements Buildin
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
-
 
     protected String buildArmoury(int x, int y, Player player) {
         Tile targetTile = gameMap.getMap()[x][y];
@@ -491,6 +496,8 @@ public class BuildingController extends GeneralGameController implements Buildin
             return NOT_ENOUGH_STONE_ARMOURY.getOutput();
 
         if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+            return ROCK_EXIT_DROP_BUILDING.getOutput();
 
         targetTile.setBuilding(new Inventory(player, targetTile, InventoryTypes.ARMOURY));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
@@ -549,6 +556,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         }
 
         if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+            return ROCK_EXIT_DROP_BUILDING.getOutput();
 
         targetTile.setBuilding(new Inventory(player, targetTile, inventoryType));
 
@@ -566,6 +575,8 @@ public class BuildingController extends GeneralGameController implements Buildin
             return NOT_ENOUGH_GOLD_REST.getOutput();
 
         if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+            return ROCK_EXIT_DROP_BUILDING.getOutput();
 
         targetTile.setBuilding(new Rest(player, targetTile, restType));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
@@ -589,6 +600,8 @@ public class BuildingController extends GeneralGameController implements Buildin
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!generatorType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
                 if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+                    return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
         }
 
@@ -615,6 +628,8 @@ public class BuildingController extends GeneralGameController implements Buildin
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!gateType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
                 if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+                    return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
         }
 
@@ -657,6 +672,8 @@ public class BuildingController extends GeneralGameController implements Buildin
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST_TRAP.getOutput();
                 if (targetTile.getUnits().size() > 0) return UNIT_EXIST_TRAP.getOutput();
                 if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+                    return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
         }
 
@@ -702,6 +719,8 @@ public class BuildingController extends GeneralGameController implements Buildin
                 if (RegularTextureGroups.NORMAL.getTextureHashSet().contains(targetTile.getTexture()))
                     return DROP_BUILDING_TEXTURE.getOutput();
                 if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+                    return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
         }
 

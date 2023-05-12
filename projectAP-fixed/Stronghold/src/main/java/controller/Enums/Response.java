@@ -78,6 +78,7 @@ public enum Response {
     INVALID_TILE_DROP_UNIT("You can't drop your unit on a tile with this texture."),
     INVALID_UNIT_TYPE("Invalid unit type."),
     ////drop building
+    ROCK_EXIT_DROP_BUILDING("There is a rock in that tile so you can't build anything there."),
     DROP_BUILDING_TEXTURE("You can't build the given building on a tile with this texture."),
     SUCCESSFUL_DROP_BUILDING("Successfully dropped building!"),
     STORE_DROP("You don't have permission to make a store."),
@@ -159,6 +160,7 @@ public enum Response {
     UNABLE_MOVE_UNIT("There is no possible way to get to that tile."),
     SUCCESSFUL_MOVE_UNIT("Your selected units are gonna be there."),
     ////attack
+    NO_UNIT_TO_ATTACK("There is no enemy from your enemies in the given tile."),
     NO_UNIT_SELECTED("You didn't select any unit."),
     NO_COMBAT_UNIT_SELECTED("Your selected units are not combat units."),
     NO_BUILDING_TO_ATTACK("There is no building in the given coordinates to attack to."),

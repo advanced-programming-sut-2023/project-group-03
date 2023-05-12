@@ -20,6 +20,14 @@ public class KingdomController extends GeneralGameController implements KingdomI
         return player.getPopularity();
     }
 
+    public String showPopularityFactors(Player player) {
+        String output = "";
+        output += "fear rate: " + player.getFearFactor() + "\n";
+        output += "food rate: " + player.getFoodRate() + "\n";
+        output += "tax rate: " + player.getTaxRate();
+        return output;
+    }
+
     private HashMap<String, String> getOptionsChangeRate(Matcher matcher) {
         String rateInfo = matcher.group("rateInfo");
         HashMap<String, String> infoMap = getOptions(CHANGE_RATE.getKeys(), rateInfo);
