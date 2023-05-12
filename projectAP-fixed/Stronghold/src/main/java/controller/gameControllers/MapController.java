@@ -293,7 +293,7 @@ public class MapController extends GeneralGameController {
     }
 
     public static void findOwner(Tile tile,GameMap map) {
-        for (int i = 0; i < map.getPlayers().length; i++) {
+        for (int i = 0; i < map.getNumberOfPlayers(); i++) {
             if (map.getPlayers()[i] == null) {
                 return;
             }

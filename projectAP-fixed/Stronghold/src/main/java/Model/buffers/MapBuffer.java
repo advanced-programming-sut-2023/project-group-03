@@ -30,7 +30,7 @@ public class MapBuffer {
                 this.map[i][j].setColumnNum(j);
             }
         }
-        for (int i = 0; i < gameMap.getPlayers().length; i++) {
+        for (int i = 0; i < gameMap.getNumberOfPlayers(); i++) {
             KeepOfPlayers[i] = new TileBuffer(gameMap.getPlayers()[i].getKeep().getPosition(), gameMap);
         }
     }
@@ -77,7 +77,7 @@ public class MapBuffer {
             }
         }
         gameMap.setCenter(size / 2, size / 2);
-        for (int i = 0; i < KeepOfPlayers.length; i++) {
+        for (int i = 0; i < numberOfPlayers; i++) {
             TileBuffer tileBuffer = KeepOfPlayers[i];
             Tile tile = gameMap.getMap()[tileBuffer.getRowNum()][tileBuffer.getColumnNum()];
             Keep keep = new Keep(gameMap.getPlayers()[i], tile);

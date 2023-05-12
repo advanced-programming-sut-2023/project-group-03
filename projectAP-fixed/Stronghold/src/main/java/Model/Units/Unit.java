@@ -39,7 +39,7 @@ public abstract class Unit extends Drawable {
             return ;
         }
         GameMap map = owner.getGame().getMap();
-        currentPath = MoveUnitController.findPath(position, currentTarget, map);
+        currentPath = MoveUnitController.findPath(position, currentTarget, map,owner);
         if (speed >= currentPath.size() - 1) {
             moveToTile(currentPath.get(currentPath.size() - 1));
         } else {
@@ -80,7 +80,7 @@ public abstract class Unit extends Drawable {
 //                }
 //            }
             currentTarget = end;
-            currentPath = MoveUnitController.findPath(position, currentTarget, owner.getGame().getMap());
+            currentPath = MoveUnitController.findPath(position, currentTarget, owner.getGame().getMap(),owner);
             if (speed >= currentPath.size() - 1) {
                 moveToTile(currentPath.get(currentPath.size() - 1));
                 Tile buff = end;

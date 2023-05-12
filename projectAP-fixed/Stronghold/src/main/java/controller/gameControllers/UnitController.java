@@ -217,7 +217,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (targetTexture.equals(Texture.WATER) || targetTexture.equals(Texture.STONE_SLAB)) return BAD_TEXTURE_MOVE_UNIT.getOutput();
 
         for (Unit unit : gameMenu.getSelectedUnits()) {
-            if (MoveUnitController.findPath(unit.getPosition(), targetTile, gameMap).size() <= 1) {
+            if (MoveUnitController.findPath(unit.getPosition(), targetTile, gameMap,gameMenu.getGame().getCurrentPlayer()).size() <= 1) {
                 return UNABLE_MOVE_UNIT.getOutput();
             }
         }

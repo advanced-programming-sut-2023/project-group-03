@@ -20,7 +20,7 @@ public class TileBuffer {
         texture = tile.getTexture().getCode();
         if(tile.getMazafaza()!=null){ mazafaza = tile.getMazafaza().getCode();}
 
-        for (int i = 0; i < map.getPlayers().length; i++) {
+        for (int i = 0; i < map.getNumberOfPlayers(); i++) {
             if (map.getPlayers()[i].equals(tile.getOwner())) {
                 owner = i;
             }

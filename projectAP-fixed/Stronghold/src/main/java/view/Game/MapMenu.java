@@ -185,8 +185,10 @@ public class MapMenu extends Menu {
     }
 
     public boolean checkKeeps() {
-        for (int i = 0; i < map.getPlayers().length; i++) {
+        for (int i = 0; i < map.getNumberOfPlayers(); i++) {
+            System.out.println(i);
             if (map.getPlayers()[i].getKeep() == null) {
+                System.out.println(10*i);
                 return false;
             }
         }
