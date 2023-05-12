@@ -17,6 +17,8 @@ public class TileBuffer {
     private int owner;
 
     public TileBuffer(Tile tile,GameMap map) {
+        rowNum=tile.getRowNum();
+        columnNum = tile.getColumnNum();
         texture = tile.getTexture().getCode();
         if(tile.getMazafaza()!=null){ mazafaza = tile.getMazafaza().getCode();}
 

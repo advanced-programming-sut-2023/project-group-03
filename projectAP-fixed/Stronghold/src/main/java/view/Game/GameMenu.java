@@ -74,6 +74,7 @@ public class GameMenu extends Menu {
                 throw new Transition(next);
             }
         }
+        //else if(command.matches(GameMenuCommands.))
         else if (command.matches(GameMenuCommands.SELECT_BUILDING.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_BUILDING.toString());
             String output = gameController.selectBuilding(matcher, game.getCurrentPlayer(), this);
@@ -223,8 +224,8 @@ public class GameMenu extends Menu {
             return weaponBuidingMenu;
         } else if (input.matches("Market")) {
 
-        } else if (input.matches("Keep")) {
-
+        } else if (input.matches("Keep menu")) {
+            return keepMenu;
         } else if (input.matches("Barracks")) {
 
         } else if (input.matches("Engineer Guild")) {
