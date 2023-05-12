@@ -44,6 +44,7 @@ public class GameMenu extends Menu {
     WeaponBuidingMenu weaponBuidingMenu;
     BaracksMenu baracksMenu;
     KeepMenu keepMenu;
+    int halfSide = 3;
 
     public GameMenu(Scanner scanner, Game game) {
         super(scanner);
@@ -58,15 +59,16 @@ public class GameMenu extends Menu {
         weaponBuidingMenu = new WeaponBuidingMenu(scanner, this);
         baracksMenu = new BaracksMenu(scanner, this);
         keepMenu = new KeepMenu(scanner, this);
+        GameController gameController = new GameController(game.getMap());
+        game.getMap().showMap(halfSide);
+        setStockPile(gameController);
     }
 
     @Override
     public void run() throws Transition {
         showGuide();
-        String command = scanner.nextLine();
-
         GameController gameController = new GameController(game.getMap());
-        setStockPile(gameController);
+        String command = scanner.nextLine();
         if (command.matches("select menu")) {
             SelectMenuGuide();
             Menu next = handleMenu();
@@ -267,10 +269,12 @@ public class GameMenu extends Menu {
 
     public void setStockPile(GameController gameController) {
         for (int i = 0; i < game.getPlayers().size(); i++) {
+            ConsoleColors.colorPrint(TEXT_RED, "", "====================================");
             System.out.println("player number " + (i + 1) + " set your stockPile");
+            ConsoleColors.colorPrint(TEXT_BRIGHT_YELLOW,"format: build Inventory -x () -y () -t stockpile");
             while (true) {
                 String command = scanner.nextLine();
-                if (command.matches("build inventory .* -t stockPile")) {
+                if (command.matches("build Inventory .* -t stockpile")) {
                     Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.BUILD_INVENTORY.toString());
                     String output = gameController.buildInventoryMatcherHandler(matcher, game.getPlayers().get(i));
                     System.out.println(output);
@@ -278,7 +282,7 @@ public class GameMenu extends Menu {
                         break;
                     }
                 } else {
-                    System.out.println("invalid command");
+                    ConsoleColors.colorPrint(TEXT_RED, "", "invalid command");
                 }
             }
         }
