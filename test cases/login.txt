@@ -1,0 +1,190 @@
+signup menu
+I am Oskol
+user create -u "ali mola"
+user create -u allllll
+user create -p l
+user create -u ali -p g
+user create -u ali -p g -e ttttt
+user create -u ali -p g -e ttttt -n almi
+user create -u ali -p Xx1234* -e ttttt -n almi
+user create -u ali -p Xx1234* Xx12345 -e ttttt -n almi
+user create -u ali -p Xx1234* Xx1234* -e ttttt -n almi
+user create -u ali -p Xx1234* Xx1234* -e ttttt.money@gg -n almi
+user create -u ali -p Xx1234* Xx1234* -e ttttt.money@gg.aa -n almi
+question pick 
+question pick -q 5 -a amogus -c amogus
+question pick -q 3 -a amogus -c amogus
+I am Oskol
+user create -p "Xx123 *" "Xx123 *" -u ghasem -n GGbigMan -e rmail@mo.us
+question pick -a no -q 3 -c no
+I am Oskol
+user create -u ali -p Xa1234* Xa1234* -e ttttt.bigmoney@gg.aa -n almi2
+user create -u ali1 -p Xa1234* Xa1234* -e ttttt.money@gg.aa -n almi2
+user create -u ali1 -p Xa1234* Xa1234* -e ttttt.bigmoney@gg.aa -n almi
+question pick -q 2 -c hitler -a james
+question pick -q 2 -c hitler -a hitler
+I am Oskol
+user create -p Amogus Amogus -u -n ghazinga -e email@server.com
+user create -p Amogus Amogus -n ghazinga -e email@server.com -u
+user create -p Amogus Amogus -n ghazinga -e email@server.com -u djskdsk -d awaaaa 
+user create -p Amogus Amogus -n ghazinga -e email@server.com -u djskdsk -u jaijlafj
+user create -p Amogus Amogus -e email@server.com -u djikstra
+user create -e email@server.com -u djikstra -n GHIZHghizh
+user create -p Amogus Amogus -e email@server.com -u djikstra -n GHIZHghizh******* djdj
+user create -e email@server.com -u djikstra -n GHIZHghizh -p Amogus Amogus
+user create -e email@server.com -u djikstra -n GHIZHghizh -p amogus1* amogus1*
+user create -e email@server.com -u djikstra -n GHIZHghizh -p Aamogus1 Aamogus1
+user create -e email@server.com -u djikstra -n GHIZHghizh -p AAAAA*1 AAAAA*1
+user create -e email@server.com -u djikstra -n GHIZHghizh -p 4Aa@ 4Aa@
+user create -e email@server.com -u djikstra -n GHIZHghizh -p 4Aaaaaaaaaaaaa@ 4Aaaaaaaaaaaaa@
+question pick -c no -z no -q 3
+question -a no -c no
+question -a no -q no
+question -c no -q no
+question -c no -a no -q no
+question -c no -a no -q 123
+question -c no -a "no" -q 3
+question -c "no a" -a "no a" -q 3
+question pick -a no -c no
+question pick -a no -q no
+question pick -c no -q no
+question pick -c no -a no -q 123
+question pick -a "NOM: " -c "NOM: " -q -1
+question pick -a "NOM" -c NOM -q 3
+I am Oskol
+user create -u "ali mola"
+user create -u allllll
+user create -p l
+user create -u ali -p g
+user create -u ali -p g -e ttttt
+user create -u ali -p g -e ttttt -n almi
+user create -u ali -p Xx1234* -e ttttt -n almi
+user create -u ali -p Xx1234* Xx12345 -e ttttt -n almi
+user create -u ali -p Xx1234* Xx1234* -e ttttt -n almi
+user create -u ali -p Xx1234* Xx1234* -e ttttt.money@gg -n almi
+user create -u ali -p Xx1234* Xx1234* -e ttttt.money@gg.aa -n almi
+user create -u ali -p Xa1234* Xa1234* -e ttttt.bigmoney@gg.aa -n almi2
+user create -u ali1 -p Xa1234* Xa1234* -e ttttt.money@gg.aa -n almi2
+user create -u ali1 -p Xa1234* Xa1234* -e ttttt.bigmoney@gg.aa -n almi
+user create -p Amogus Amogus -u -n ghazinga -e email@server.com
+user create -p Amogus Amogus -n ghazinga -e email@server.com -u
+user create -p Amogus Amogus -n ghazinga -e email@server.com -u djskdsk -d awaaaa 
+user create -p Amogus Amogus -n ghazinga -e email@server.com -u djskdsk -u jaijlafj
+user create -p Amogus Amogus -e email@server.com -u djikstra
+user create -e email@server.com -u djikstra -n GHIZHghizh
+user create -p Amogus Amogus -e email@server.com -u djikstra -n GHIZHghizh******* djdj
+user create -e email@server.com -u djikstra -n GHIZHghizh -p Amogus Amogus
+user create -e email@server.com -u djikstra -n GHIZHghizh -p amogus1* amogus1*
+user create -e email@server.com -u djikstra -n GHIZHghizh -p Aamogus1 Aamogus1
+user create -e email@server.com -u djikstra -n GHIZHghizh -p AAAAA*1 AAAAA*1
+user create -e email@server.com -u djikstra -n GHIZHghizh -p 4Aa@ 4Aa@
+user create -e email@server.com -u djikstra -n GHIZHghizh -p 4Aaaaaaaaaaaaa@ 4Aaaaaaaaaaaaa@
+user create -u dutchman -p Xx1234* Xx1234* -e "ttttt.mo ney@gg" -n almi
+user create -u dutchman -p Xx1234* Xx1234* -e "ttttt.money@gg" -n almi
+user create -u dutchman -p Xx1234* Xx1234* -e "t.t.t.t..t.money@gg" -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e 1t.t.t.t..t.money@gg1 -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t.t.t.t..t.money@gg1 -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e 1t.t.t.t..t.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t1.t2.t3.t4.5.t6.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t1.a.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t1a.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t.b.c.a.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t.bmoney@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e "t.b  money@g.g" -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e 1ttoney@g.g1 -n DuTcHmAn
+question pick -q 1 -a JJ -c JJ
+I am Oskol
+user create -u "ali mola"
+user create -u allllll
+user create -p l
+user create -u ali -p g
+user create -u ali -p g -e ttttt
+user create -u ali -p g -e ttttt -n almi
+user create -u ali -p Xx1234* -e ttttt -n almi
+user create -u ali -p Xx1234* Xx12345 -e ttttt -n almi
+user create -u ali -p Xx1234* Xx1234* -e ttttt -n almi
+user create -u ali -p Xx1234* Xx1234* -e ttttt.money@gg -n almi
+user create -u ali -p Xx1234* Xx1234* -e ttttt.money@gg.aa -n almi
+user create -u ali -p Xa1234* Xa1234* -e ttttt.bigmoney@gg.aa -n almi2
+user create -u ali1 -p Xa1234* Xa1234* -e ttttt.money@gg.aa -n almi2
+user create -u ali1 -p Xa1234* Xa1234* -e ttttt.bigmoney@gg.aa -n almi
+user create -p Amogus Amogus -u -n ghazinga -e email@server.com
+user create -p Amogus Amogus -n ghazinga -e email@server.com -u
+user create -p Amogus Amogus -n ghazinga -e email@server.com -u djskdsk -d awaaaa 
+user create -p Amogus Amogus -n ghazinga -e email@server.com -u djskdsk -u jaijlafj
+user create -p Amogus Amogus -e email@server.com -u djikstra
+user create -e email@server.com -u djikstra -n GHIZHghizh
+user create -p Amogus Amogus -e email@server.com -u djikstra -n GHIZHghizh******* djdj
+user create -e email@server.com -u djikstra -n GHIZHghizh -p Amogus Amogus
+user create -e email@server.com -u djikstra -n GHIZHghizh -p amogus1* amogus1*
+user create -e email@server.com -u djikstra -n GHIZHghizh -p Aamogus1 Aamogus1
+user create -e email@server.com -u djikstra -n GHIZHghizh -p AAAAA*1 AAAAA*1
+user create -e email@server.com -u djikstra -n GHIZHghizh -p 4Aa@ 4Aa@
+user create -e email@server.com -u djikstra -n GHIZHghizh -p 4Aaaaaaaaaaaaa@ 4Aaaaaaaaaaaaa@
+user create -u dutchman -p Xx1234* Xx1234* -e "ttttt.mo ney@gg" -n almi
+user create -u dutchman -p Xx1234* Xx1234* -e "ttttt.money@gg" -n almi
+user create -u dutchman -p Xx1234* Xx1234* -e "t.t.t.t..t.money@gg" -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e 1t.t.t.t..t.money@gg1 -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t.t.t.t..t.money@gg1 -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e 1t.t.t.t..t.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t1.t2.t3.t4.5.t6.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t1.a.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t1a.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t.b.c.a.money@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e t.bmoney@gg -n DuTcHmAn
+user create -u dutchman -p Xx1234* Xx1234* -e "t.b  money@g.g" -n DuTcHmAn
+user create -u "dutchm@n 2" -p Xx1234* Xx1234* -e 111ttoney@g.g1 -n DuTcHmAn
+user create -u "dutchma____n 2" -p Xx1234* Xx1234* -e 111ttoney@g.g1 -n DuTcHmAn
+user create -u "dutchma____n2" -p Xx1234* Xx1234* -e 111ttoney@g.g1 -n DuTcHmAn
+question pick -q 1 -a JJ -c JJ
+back to starting menu
+login menu
+user login -u ali1 -p Xx1234*
+back
+user logi -p adfjksfj
+user login -p adfjksfj
+user login -u adfjksfj
+user login -t adfjksfjt
+user login -p Xx1234* -u fjfjf
+user login -p Xx1234* -u ali
+back to start menu
+login menu
+forgot my password -u ali2
+forgot my password -u ali
+amogus
+DDDDDDDDDD
+a
+aaa
+a1234
+Aaaaaaaaaa
+Aaaaaa123
+aaaaa18*
+@AAAAAA4
+sdjksvhkj
+@@@@@@@@
+idoadj isiisi
+"dkdkdk"
+fkfkfkfkfkfkfkfkfkfkfkfkfkffkfkfkfkkkkkkkaslllllllllllappspdlp
+"ali MOGUSS"
+"dkdkdk"
+fkfkfkfkfkfkfkfkfkfkfkfkfkffkfkfkfkkkkkkkaslllllllllllappspdlp
+"ali MOGUSS111"
+"dkdkdk"
+fkfkfkfkfkfkfkfkfkfkfkfkfkffkfkfkfkkkkkkkaslllllllllllappspdlp
+"ali MOGUSS11$$1"
+user login -u ali -p "ali MOGUSS11$$1"
+"ali MOGUSS11$$1"
+ali MOGUSS11$$1
+back
+forgot my password -u ali
+amogus
+AliAAAA@1
+user login -u ali -p AliAAAA@1
+back to start menu
+login menu
+forgot my password -u ali
+jnjlfdk
+amogus
+QQQQQQq123$
+back
+back to starting menu
