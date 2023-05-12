@@ -387,7 +387,13 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (!(direction.equals("down") || direction.equals("up") || direction.equals("right") || direction.equals("left"))) {
             return INVALID_DIRECTION_DRAWBRIDGE.getOutput();
         }
-        return null;
+
+        Tile targetTile = gameMap.getMap()[x][y];
+        Building building = targetTile.getBuilding();
+        if (!(building != null && targetTile.getBuilding() instanceof Gates && ((Gates) building).getTerminals().contains(targetTile)))
+            return NOT_TERMINAL_DRAWBRIDGE.getOutput();
+
+        return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
     public String buildTrapMatcherHandler(Matcher matcher, Player player) {
