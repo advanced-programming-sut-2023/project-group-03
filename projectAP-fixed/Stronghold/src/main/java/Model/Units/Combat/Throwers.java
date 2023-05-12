@@ -29,8 +29,6 @@ public class Throwers extends CombatUnit{
     @Override
     public void check() {
         super.check();
-        attackToEnemy();
-        AutoMove();
     }
 
     @Override

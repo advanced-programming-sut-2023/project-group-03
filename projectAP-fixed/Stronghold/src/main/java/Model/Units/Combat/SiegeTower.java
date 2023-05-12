@@ -68,6 +68,9 @@ public class SiegeTower extends CombatUnit{
         this.target = target;
     }
 
+    public void makeStairs() {
+
+    }
     @Override
     public void check() {
         super.check();

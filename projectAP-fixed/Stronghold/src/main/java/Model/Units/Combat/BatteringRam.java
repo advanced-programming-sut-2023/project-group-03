@@ -44,6 +44,14 @@ public class BatteringRam extends CombatUnit {
     }
 
     @Override
+    public void check() {
+        if (EnemyTarget == null) {
+            return;
+        }
+        attackToEnemy();
+    }
+
+    @Override
     public void print() {
 
     }
