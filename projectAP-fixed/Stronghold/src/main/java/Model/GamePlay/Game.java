@@ -2,6 +2,7 @@ package Model.GamePlay;
 
 import Model.Field.GameMap;
 
+import javax.lang.model.type.ErrorType;
 import java.util.ArrayList;
 
 public class Game {
@@ -14,12 +15,12 @@ public class Game {
         this.players = players;
     }
 
-    public void nextTurn() {
+    public boolean nextTurn() {
         if (!currentPlayer.equals(players.get(players.size() - 1))) {
             for (int i = 0; i < players.size() - 1; i++) {
                 if (currentPlayer.equals(players.get(i))) {
                     currentPlayer = players.get(i + 1);
-                    return;
+                    return false;
                 }
             }
         } else {
@@ -38,7 +39,12 @@ public class Game {
             }
             currentPlayer = players.get(0);
             turn++;
+            if (FinishGame()) {
+                return true;
+            }
+            return false;
         }
+        return false;
     }
 
     public GameMap getMap() {
@@ -71,5 +77,15 @@ public class Game {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public boolean FinishGame() {
+        if (players.size() == 1) {
+            System.out.println("winner >>>> "+players.get(0).getUser().getNickname()+" <<<<");
+            System.out.println("1000 point for you");
+            return true;
+        }
+        return false;
+
     }
 }

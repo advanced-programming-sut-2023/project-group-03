@@ -10,6 +10,7 @@ import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
 import Model.Units.Unit;
+import Model.User;
 import controller.ControllerFunctions;
 import controller.gameControllers.GameController;
 import controller.gameControllers.GameMenuController;
@@ -29,6 +30,7 @@ import static view.Enums.ConsoleColors.*;
 
 public class GameMenu extends Menu {
     private Game game;
+    User user;
 
     private Drawable selected = null;
     private ArrayList<Unit> selectedUnits = new ArrayList<>();
@@ -97,7 +99,9 @@ public class GameMenu extends Menu {
             System.out.println(output);
         }
         else if (command.matches("next turn")) {
-            game.nextTurn();
+            if (game.nextTurn()) {
+                throw new Transition(new MapMenu(scanner, user));
+            }
         }
         else if (selected instanceof Building) {
             if (command.matches(GameMenuCommands.REPAIR.toString())) {
@@ -251,6 +255,14 @@ public class GameMenu extends Menu {
 
     public void setSelectedUnits(ArrayList<Unit> selectedUnits) {
         this.selectedUnits = selectedUnits;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     private void showMap(Matcher matcher){}

@@ -45,6 +45,7 @@ public class SetGameMenu extends Menu {
         Drawable.setDrawables(new ArrayList<>(this.game.getMap().getDrawables()));
         setResourses(500);
         GameMenu gameMenu = new GameMenu(scanner, game);
+        gameMenu.setUser(user);
         throw new Transition(gameMenu);
     }
 
