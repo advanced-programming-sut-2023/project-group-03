@@ -73,24 +73,22 @@ public class GameMenu extends Menu {
             } else {
                 throw new Transition(next);
             }
-        }
-        //else if(command.matches(GameMenuCommands.))
-        else if (command.matches(GameMenuCommands.SELECT_BUILDING.toString())) {
+        } else if (command.matches(GameMenuCommands.SHOW_INVENTORY.toString())) {
+            String output = gameController.showInventories(game.getCurrentPlayer());
+            System.out.println(output);
+        } else if (command.matches(GameMenuCommands.SELECT_BUILDING.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_BUILDING.toString());
             String output = gameController.selectBuilding(matcher, game.getCurrentPlayer(), this);
             System.out.println(output);
-        }
-        else if (command.matches(GameMenuCommands.SELECT_UNIT.toString())) {
+        } else if (command.matches(GameMenuCommands.SELECT_UNIT.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_UNIT.toString());
             String output = gameController.selectUnitMatcherHandler(matcher, game.getCurrentPlayer(), this);
             System.out.println(output);
-        }
-        else if (command.matches(MapMenuCommands.MOVE_ALI.getRegex())) {
+        } else if (command.matches(MapMenuCommands.MOVE_ALI.getRegex())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.MOVE_ALI.getRegex());
             String output = gameController.moveMap(matcher);
             System.out.println(output);
-        }
-        else if (command.matches(MapMenuCommands.SHOW_MAP.getRegex())) {
+        } else if (command.matches(MapMenuCommands.SHOW_MAP.getRegex())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SHOW_MAP.getRegex());
             String output = gameController.moveMap(matcher);
             System.out.println(output);
@@ -98,59 +96,49 @@ public class GameMenu extends Menu {
             Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SHOW_DETAILS_ALI.getRegex());
             String output = gameController.showDetail(matcher);
             System.out.println(output);
-        }
-        else if (command.matches("next turn")) {
+        } else if (command.matches("next turn")) {
             if (game.nextTurn()) {
                 throw new Transition(new MapMenu(scanner, user));
             }
-        }
-        else if (selected instanceof Building) {
+        } else if (selected instanceof Building) {
             if (command.matches(GameMenuCommands.REPAIR.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.REPAIR.toString());
                 String output = gameController.repair(((Building) selected), game.getCurrentPlayer());
                 System.out.println(output);
             }
-        }
-        else if (selected instanceof Barracks) {
+        } else if (selected instanceof Barracks) {
             if (command.matches(GameMenuCommands.CREATE_UNIT.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
                 System.out.println(gameController.addUnitMatcherHandler(matcher, game.getCurrentPlayer(), ((Barracks) selected)));
             }
-        }
-        else if (selected instanceof Store) {
+        } else if (selected instanceof Store) {
             if (command.matches(ShopMenuCommands.BUY.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, ShopMenuCommands.BUY.toString());
                 String output = gameController.buyMatcherHandler(matcher, game.getCurrentPlayer());
                 System.out.println(output);
-            }
-            else if (command.matches(ShopMenuCommands.SELL.toString())) {
+            } else if (command.matches(ShopMenuCommands.SELL.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, ShopMenuCommands.SELL.toString());
                 String output = gameController.sellMatcherHandler(matcher, game.getCurrentPlayer());
                 System.out.println(output);
-            }
-            else if (command.matches(ShopMenuCommands.SHOW_PRICE_LIST.toString())) {
+            } else if (command.matches(ShopMenuCommands.SHOW_PRICE_LIST.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, ShopMenuCommands.SHOW_PRICE_LIST.toString());
                 String output = gameController.showPriceList(game.getCurrentPlayer());
                 System.out.println(output);
             }
-        }
-        else if (selectedUnits.size() != 0) {
+        } else if (selectedUnits.size() != 0) {
             if (command.matches(GameMenuCommands.DISBAND_UNIT.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.DISBAND_UNIT.toString());
                 gameController.disbandUnit(this);
                 System.out.println("successfull dabsh");
-            }
-            else if (command.matches(GameMenuCommands.ATTACK_PLACE.toString())) {
+            } else if (command.matches(GameMenuCommands.ATTACK_PLACE.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.ATTACK_PLACE.toString());
-                String output = gameController.attackMatcherHandler(matcher,this);
+                String output = gameController.attackMatcherHandler(matcher, this);
                 System.out.println(output);
-            }
-            else if (command.matches(GameMenuCommands.ATTACK_BUILDING.toString())) {
+            } else if (command.matches(GameMenuCommands.ATTACK_BUILDING.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.ATTACK_BUILDING.toString());
                 String output = gameController.attackToBuildingMatcherHandler(matcher, this);
                 System.out.println(output);
-            }
-            else if (command.matches(GameMenuCommands.MOVE_UNIT.toString())) {
+            } else if (command.matches(GameMenuCommands.MOVE_UNIT.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.MOVE_UNIT.toString());
                 String output = gameController.moveUnit(matcher, this);
                 System.out.println(output);
