@@ -17,7 +17,7 @@ public class Worker extends nonCombatUnit{
         Resources product = job.getProduct();
         InventoryTypes inventoryType = null;
         for (InventoryTypes inventory : InventoryTypes.values()) {
-               if (inventory.getResource().getSubset().contains(product)) {
+               if (inventory.getResource().equals(product.getType())) {
                    inventoryType = inventory;
                    break;
                }
