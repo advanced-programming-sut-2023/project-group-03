@@ -137,4 +137,8 @@ public abstract class Unit extends Drawable {
             }
         }
     }
+
+    public void setCurrentTarget(Tile currentTarget) {
+        this.currentTarget = currentTarget;
+    }
 }

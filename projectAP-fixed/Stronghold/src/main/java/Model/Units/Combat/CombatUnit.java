@@ -145,7 +145,7 @@ public abstract class CombatUnit extends Unit {
                 for (Unit unit : targetTile.getUnits()) {
                     if (!unit.getOwner().equals(owner)) {
                         Unit toHit = selectRandomEnemy(targetTile);
-                        toHit.setHP(toHit.getHP() - damage);
+                        if(toHit!=null){ toHit.setHP(toHit.getHP() - damage);}
                         return true;
                     }
                 }
@@ -154,11 +154,26 @@ public abstract class CombatUnit extends Unit {
         }
     }
 
+    public void setEnemyTarget(Drawable enemyTarget) {
+        EnemyTarget = enemyTarget;
+        currentTarget = position;
+        tileToAttack = null;
+    }
+
+    @Override
+    public void setCurrentTarget(Tile currentTarget) {
+        super.setCurrentTarget(currentTarget);
+        EnemyTarget = null;
+        tileToAttack = null;
+    }
+
     public Tile getTileToAttack() {
         return tileToAttack;
     }
 
     public void setTileToAttack(Tile tileToAttack) {
         this.tileToAttack = tileToAttack;
+        EnemyTarget = null;
+        currentTarget = position;
     }
 }
