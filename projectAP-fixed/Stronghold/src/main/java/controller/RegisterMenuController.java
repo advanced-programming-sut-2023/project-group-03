@@ -2,6 +2,7 @@ package controller;
 
 import Model.User;
 import controller.Enums.InputOptions;
+import view.LoginMenu;
 import view.SignUpMenu;
 
 import java.util.HashMap;
@@ -99,6 +100,14 @@ public class RegisterMenuController extends UserBasedMenuController {
 
         setSecurityQuestionAnswer(newUser, scanner);
 
+        while (true){
+            boolean result = LoginMenu.AskCaptcha();
+            if (result) {
+                break;
+            } else {
+                showOutput("ridi, dobare talash kon");
+            }
+        }
         return SUCCESSFUL_REGISTER.getOutput();
     }
 
@@ -149,4 +158,6 @@ public class RegisterMenuController extends UserBasedMenuController {
             }
         }
     }
+
+
 }

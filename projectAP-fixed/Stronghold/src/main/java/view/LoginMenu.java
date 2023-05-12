@@ -97,6 +97,16 @@ public class LoginMenu extends Menu{
         // clears json
     }
 
+    public static boolean AskCaptcha() {
+        System.out.println("captcha bemola:");
+        String captcha = Captcha.makeCaptcha();
+        System.out.println("age gofti in chie???");
+        String input = scanner.nextLine();
+        if (input.matches(captcha)) {
+            return true;
+        } else return false;
+    }
+
     private void showGuide() {
         colorPrint(TEXT_RED,"================================================");
         System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Login menu<<" + ConsoleColors.TEXT_RESET);
