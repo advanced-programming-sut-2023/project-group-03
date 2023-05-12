@@ -197,29 +197,38 @@ public class GameMenu extends Menu {
 
     public Menu handleMenu() {
         Menu output = null;
-        String input = scanner.nextLine();
-        if (input.matches("Castle Buildings")) {
-            return castleBuildingMenu;
-        } else if (input.matches("Town Buildings")) {
-            return townBuidingMenu;
-        } else if (input.matches("Farm Buidings")) {
-            return farmBuidingMenu;
-        } else if (input.matches("Food Processing")) {
-            return foodProcessingMenu;
-        } else if (input.matches("Industry")) {
-            return industryBuildingMenu;
-        } else if (input.matches("Weopon Buildings")) {
-            return weaponBuidingMenu;
-        } else if (input.matches("Market")) {
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.matches("Castle Buildings")) {
+                return castleBuildingMenu;
+            } else if (input.matches("Town Buildings")) {
+                return townBuidingMenu;
+            } else if (input.matches("Farm Buildings")) {
+                return farmBuidingMenu;
+            } else if (input.matches("Food Processing")) {
+                return foodProcessingMenu;
+            } else if (input.matches("Industry")) {
+                return industryBuildingMenu;
+            } else if (input.matches("Weopon Buildings")) {
+                return weaponBuidingMenu;
+            } else if (input.matches("Market")) {
 
-        } else if (input.matches("Keep menu")) {
-            return keepMenu;
-        } else if (input.matches("Barracks")) {
+            } else if (input.matches("Keep menu")) {
+                return keepMenu;
+            } else if (input.matches("Barracks")) {
 
-        } else if (input.matches("Engineer Guild")) {
+            } else if (input.matches("Engineer Guild")) {
 
+            } else if (input.matches("back")) {
+                return output;
+            }
+            if (output == null) {
+                continue;
+            } else {
+                return output;
+            }
         }
-        return output;
+
     }
 
     public Game getGame() {

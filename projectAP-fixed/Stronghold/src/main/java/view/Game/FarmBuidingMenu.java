@@ -24,6 +24,7 @@ public class FarmBuidingMenu extends Menu {
 
     @Override
     public void run() throws Transition {
+        guide();
         String command = scanner.nextLine();
         String output = "";
         Player player = gameMenu.getGame().getCurrentPlayer();

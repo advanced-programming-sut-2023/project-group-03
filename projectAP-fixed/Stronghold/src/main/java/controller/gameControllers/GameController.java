@@ -199,7 +199,8 @@ public class GameController extends Controller implements GameMarketInterface , 
         String output = "";
         output += "gold: " + player.getGold() + "\n";
         output += "popularity: " + player.getPopularity() + "\n";
-        output += "population: " + player.getCurrentPopulation() + "\n";
+        output += "busy population: " + player.getCurrentPopulation() + "\n";
+        output += "max population:" + player.getMaxPopulation() + "\n";
         for (Resources resource : Resources.values()) {
             output += resource.getName() + " " + player.getInventory().get(resource) + "\n";
         }
