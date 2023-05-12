@@ -23,4 +23,5 @@ public enum Height {
     public void setValue(int value) {
         this.value = value;
     }
+
 }

@@ -1,6 +1,7 @@
 package Model.Field;
 
 import Model.Buildings.Building;
+import Model.Buildings.Defending.Enums.Stair;
 import Model.Buildings.Defending.Enums.WallTypes;
 import Model.Buildings.Defending.Gates;
 import Model.Buildings.Defending.Towers;
@@ -15,7 +16,7 @@ public class Tile {
     private static GameMap gameMap;
     int rowNum;
     int columnNum;
-    private boolean isLadder = false;
+    private Stair ladder=null;
     private Height height;
     private Texture texture;
     private Building building;
@@ -139,7 +140,7 @@ public class Tile {
                         return;
                     }
                 }
-                if (Math.abs(this.height.getValue() - current.height.getValue()) > 1) {
+                if (Math.abs(this.height.getValue() + modifiedLadder() - current.height.getValue() - modifiedLadder()) > 1) {
                     neighboursConnected.remove(neighbours.get(direction));
                 } else {
                     neighboursConnected.add(current);
@@ -168,6 +169,12 @@ public class Tile {
         } else if (this.texture == texture.STONE_SLAB) {
             this.height = Height.STONE_SLAB;
         }
+    }
+
+    public int modifiedLadder() {
+        if (ladder != null) {
+            return 1;
+        } else return 0;
     }
 
     public String[] show() {
@@ -199,5 +206,13 @@ public class Tile {
 
     public ArrayList<Tile> getNeighboursConnected() {
         return neighboursConnected;
+    }
+
+    public Stair getLadder() {
+        return ladder;
+    }
+
+    public void setLadder(Stair ladder) {
+        this.ladder = ladder;
     }
 }
