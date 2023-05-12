@@ -370,6 +370,16 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         Tile targetTile = gameMap.getMap()[x][y];
 
+        ArrayList<Unit> targetTileUnits = targetTile.getUnits();
+        boolean isEnemyThere = false;
+        for (Unit unit : targetTileUnits)
+            if (!unit.getOwner().equals(gameMenu.getGame().getCurrentPlayer())) {
+                isEnemyThere = true;
+                break;
+            }
+
+        if (!isEnemyThere) return NO_UNIT_TO_ATTACK.getOutput();
+
         CombatUnit combatUnit;
         for (Unit unit : gameMenu.getSelectedUnits()) {
             unit.setPatrol(false);
