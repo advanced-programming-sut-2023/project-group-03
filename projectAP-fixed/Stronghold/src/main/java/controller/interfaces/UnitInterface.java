@@ -18,4 +18,5 @@ public interface UnitInterface {
     String selectUnitMatcherHandler(Matcher matcher, Player player, GameMenu gameMenu);
     String setState(Matcher matcher, Player player, GameMenu gameMenu);
     String attackMatcherHandler(Matcher matcher, GameMenu gameMenu);
+    String moveUnit(Matcher matcher, GameMenu gameMenu);
 }
