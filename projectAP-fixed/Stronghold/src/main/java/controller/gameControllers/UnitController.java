@@ -217,12 +217,17 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (targetTexture.equals(Texture.WATER) || targetTexture.equals(Texture.STONE_SLAB)) return BAD_TEXTURE_MOVE_UNIT.getOutput();
 
         for (Unit unit : gameMenu.getSelectedUnits()) {
-            if (MoveUnitController.findPath(unit.getPosition(), targetTile, gameMap).size() <= 1) {
+            if (MoveUnitController.findPath(unit.getPosition(), targetTile, gameMap, unit.getOwner()).size() <= 1) {
                 return UNABLE_MOVE_UNIT.getOutput();
             }
         }
 
         for (Unit unit : gameMenu.getSelectedUnits()) {
+            unit.setStart(null);
+            unit.setEnd(null);
+            if (unit instanceof CombatUnit) {
+                ((CombatUnit) unit).setEnemyTarget(null);
+            }
             unit.setPatrol(false);
             unit.setCurrentTarget(targetTile);
         }
@@ -255,6 +260,10 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         ArrayList<Unit> units = gameMenu.getSelectedUnits();
         for (Unit unit : units) {
+            if (unit instanceof CombatUnit) {
+                ((CombatUnit) unit).setEnemyTarget(null);
+            }
+            unit.setCurrentTarget(null);
             unit.setPatrol(true);
             unit.setStart(gameMap.getMap()[x1][y1]);
             unit.setEnd(gameMap.getMap()[x2][y2]);
@@ -364,6 +373,9 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         CombatUnit combatUnit;
         for (Unit unit : gameMenu.getSelectedUnits()) {
             unit.setPatrol(false);
+            unit.setStart(null);
+            unit.setEnd(null);
+            unit.setCurrentTarget(null);
             combatUnit = (CombatUnit) unit;
             combatUnit.setCurrentTarget(targetTile);
         }
@@ -397,6 +409,9 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (building.getMaterial().getValue() > unitMaterial.getValue()) return UNABLE_TO_ATTACK_BUILDING.getOutput();
 
         for (Unit unit : gameMenu.getSelectedUnits()) {
+            unit.setStart(null);
+            unit.setEnd(null);
+            unit.setCurrentTarget(null);
             unit.setPatrol(false);
             combatUnit = (CombatUnit) unit;
             combatUnit.setEnemyTarget(building);
@@ -406,6 +421,11 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
     public void disbandUnit(GameMenu gameMenu) {
         for (Unit unit : gameMenu.getSelectedUnits()) {
+            unit.setStart(null);
+            unit.setEnd(null);
+            if (unit instanceof CombatUnit) {
+                ((CombatUnit) unit).setEnemyTarget(null);
+            }
             unit.setPatrol(false);
             unit.setCurrentTarget(unit.getOwner().getKeep().getPosition());
         }
