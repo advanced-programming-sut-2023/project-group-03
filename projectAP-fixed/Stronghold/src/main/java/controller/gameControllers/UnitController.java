@@ -199,6 +199,36 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         return SUCCESSFUL_DROP_UNIT.getOutput();
     }
 
+    public String moveUnit(Matcher matcher, GameMenu gameMenu) {
+        String patrolInfo = matcher.group("patrolInfo");
+        HashMap<String, String> infoMap = getOptions(PATROL_UNIT.getKeys(), patrolInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        error = checkCoordinates(infoMap, "x", "y");
+        if (error != null) return error;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        Tile targetTile = gameMap.getMap()[x][y];
+        if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock")) return ROCK_EXIST_MOVE_UNIT.getOutput();
+        Texture targetTexture = targetTile.getTexture();
+        if (targetTexture.equals(Texture.WATER) || targetTexture.equals(Texture.STONE_SLAB)) return BAD_TEXTURE_MOVE_UNIT.getOutput();
+
+        for (Unit unit : gameMenu.getSelectedUnits()) {
+            if (MoveUnitController.findPath(unit.getPosition(), targetTile, gameMap).size() <= 1) {
+                return UNABLE_MOVE_UNIT.getOutput();
+            }
+        }
+
+        for (Unit unit : gameMenu.getSelectedUnits()) {
+            unit.setPatrol(false);
+            unit.setCurrentTarget(targetTile);
+        }
+        return SUCCESSFUL_MOVE_UNIT.getOutput();
+    }
+
     public String patrol(Matcher matcher, GameMenu gameMenu) {
         String patrolInfo = matcher.group("patrolInfo");
         HashMap<String, String> infoMap = getOptions(PATROL_UNIT.getKeys(), patrolInfo);

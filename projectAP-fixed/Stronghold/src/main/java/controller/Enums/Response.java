@@ -154,6 +154,10 @@ public enum Response {
     BUILDING_EXIST_TRAP("There is a building here so you can't build this trap here."),
     UNIT_EXIST_TRAP("There are some units here so you can't build your trap here."),
     //unit
+    ROCK_EXIST_MOVE_UNIT(""),
+    BAD_TEXTURE_MOVE_UNIT(""),
+    UNABLE_MOVE_UNIT(""),
+    SUCCESSFUL_MOVE_UNIT(""),
     ////attack
     NO_UNIT_SELECTED("You didn't select any unit."),
     NO_COMBAT_UNIT_SELECTED("Your selected units are not combat units."),
