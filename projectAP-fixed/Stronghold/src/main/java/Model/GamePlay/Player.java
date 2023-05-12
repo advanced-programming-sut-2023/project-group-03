@@ -2,6 +2,7 @@ package Model.GamePlay;
 
 import Model.Buildings.Enums.Resources;
 import Model.Buildings.Keep;
+import Model.Element;
 import Model.Units.Unit;
 import Model.User;
 import Model.Field.flagColors;
@@ -9,7 +10,7 @@ import Model.Field.flagColors;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Player {
+public class Player extends Element {
     private flagColors flagColor;
     private Game game;
     private User user;

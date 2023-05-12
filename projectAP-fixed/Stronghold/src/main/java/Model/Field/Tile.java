@@ -6,13 +6,14 @@ import Model.Buildings.Defending.Enums.WallTypes;
 import Model.Buildings.Defending.Gates;
 import Model.Buildings.Defending.Towers;
 import Model.Buildings.Defending.Wall;
+import Model.Element;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
 import view.Enums.ConsoleColors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-public class Tile {
+public class Tile extends Element {
     private static GameMap gameMap;
     int rowNum;
     int columnNum;
@@ -30,6 +31,9 @@ public class Tile {
         this.texture = texture;
     }
 
+    public void setHeight(Height height) {
+        this.height = height;
+    }
 //    public void destroyBuilding(){
 //        this.building = null;
 //        setHeight();

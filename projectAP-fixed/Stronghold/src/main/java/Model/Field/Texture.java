@@ -6,23 +6,25 @@ import view.Enums.ConsoleColors;
 
 public enum Texture
 {
-    GROUND("ground", null),
-    PEBBLE("pebble", null),
-    STONE_SLAB("stone slab", Resources.STONE),
-    STONE("stone", null),
-    IRON("iron", Resources.IRON),
-    GRASS("grass", null),
-    GRASSLAND("grassland", null),
-    DENSE_GRASSLAND("dense grassland", null),
-    WATER("water", null),
-    OIL("oil", Resources.OIL)
+    GROUND("ground", null,1),
+    PEBBLE("pebble", null,2),
+    STONE_SLAB("stone slab", Resources.STONE,3),
+    STONE("stone", null,4),
+    IRON("iron", Resources.IRON,5),
+    GRASS("grass", null,6),
+    GRASSLAND("grassland", null,7),
+    DENSE_GRASSLAND("dense grassland", null,8),
+    WATER("water", null,9),
+    OIL("oil", Resources.OIL, 10),
     ;
+    private byte code;
     private String name;
     private Resources resource;
 
-    Texture(String name, Resources resource) {
+    Texture(String name, Resources resource,int code) {
         this.name = name;
         this.resource = resource;
+        this.code = ((byte) code);
     }
 
     public static Texture getByName(String name) {
@@ -69,5 +71,31 @@ public enum Texture
             return (ConsoleColors.TEXT_BG_GREEN);
         }
         return "";
+    }
+
+    public static Texture getTextureByName(String name) {
+        for (int i = 0; i < values().length; i++) {
+            if (values()[i].getName().equals(name)) {
+                return values()[i];
+            }
+        }
+        return null;
+    }
+
+    public static Texture getTextureByCode(byte code) {
+        for (int i = 0; i < values().length; i++) {
+            if (values()[i].code == code) {
+                return values()[i];
+            }
+        }
+        return null;
+    }
+
+    public void setCode(byte code) {
+        this.code = code;
+    }
+
+    public byte getCode() {
+        return code;
     }
 }

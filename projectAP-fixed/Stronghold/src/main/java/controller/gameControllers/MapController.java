@@ -14,6 +14,7 @@ import Model.Buildings.Enums.GeneratorTypes;
 import Model.Buildings.Enums.InventoryTypes;
 import Model.Buildings.Enums.RestTypes;
 import Model.Field.*;
+import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Throwers;
 import Model.Units.Combat.Troop;
@@ -23,6 +24,7 @@ import Model.Units.Enums.TroopTypes;
 import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
 import Model.User;
+import Model.buffers.MapBuffer;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -239,6 +241,20 @@ public class MapController extends GeneralGameController {
         }
     }
 
+    public String saveBufferMap(GameMap map) {
+        File file = new File("src/main/resources/maps/"+map.getName()+".json");
+        MapBuffer mapBuffer = new MapBuffer(map);
+//        file.mkdirs();//todo
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(new Gson().toJson(mapBuffer));
+            fileWriter.close();
+            return "map saved";
+        } catch (IOException e) {
+            return "save error";
+        }
+    }
+
     public static GameMap loadMap(File file) {
         GameMap gameMap = null;
         try {
@@ -249,4 +265,53 @@ public class MapController extends GeneralGameController {
         }
         return gameMap;
     }
+
+    public static GameMap loadbufferMap(File file) {
+        GameMap gameMap = null;
+        MapBuffer mapBuffer = null;
+        try {
+            String json = new String(Files.readAllBytes(Paths.get(file.getPath())));
+            mapBuffer = new Gson().fromJson(json, MapBuffer.class);
+            gameMap = mapBuffer.HandleMap();
+        } catch (IOException e) {
+            System.out.println("erroorrr");
+        }
+        return gameMap;
+    }
+
+    public static void gsonHandlerMap(GameMap map) {
+        for (int i = 0; i < map.getMap().length; i++) {
+            for (int j = 0; j < map.getMap().length; j++) {
+
+                findOwner(map.getMap()[i][j],map);
+            }
+        }
+        for (int i = 0; i < map.getDrawables().size(); i++) {
+            findOwner(map.getDrawables().get(i), map);
+        }
+
+    }
+
+    public static void findOwner(Tile tile,GameMap map) {
+        for (int i = 0; i < map.getPlayers().length; i++) {
+            if (map.getPlayers()[i] == null) {
+                return;
+            }
+            if (tile.getOwner().equals(map.getPlayers()[i])) {
+                tile.setOwner(map.getPlayers()[i]);
+            }
+        }
+    }
+
+    public static void findOwner(Drawable drawable, GameMap map) {
+        for (int i = 0; i < map.getPlayers().length; i++) {
+            if (map.getPlayers()[i] == null) {
+                return;
+            }
+            if (drawable.getOwner().equals(map.getPlayers()[i])) {
+                drawable.setOwner(map.getPlayers()[i]);
+            }
+        }
+    }
+
 }

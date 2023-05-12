@@ -1,12 +1,13 @@
 package Model.Field;
 
+import Model.Element;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GameMap {
+public class GameMap extends Element {
     private int size;
     private Tile center;
     private Tile[][] map;

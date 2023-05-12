@@ -114,7 +114,7 @@ public class MapMenu extends Menu {
             }
             else if (command.matches(MapMenuCommands.SAVE_MAP.getRegex())) {
                 map.setDrawables(Drawable.getDrawables());
-                mapController.saveMap(map);
+                mapController.saveBufferMap(map);
                 UserDatabase.addMap(map);
                 System.out.println("map saved");
             }

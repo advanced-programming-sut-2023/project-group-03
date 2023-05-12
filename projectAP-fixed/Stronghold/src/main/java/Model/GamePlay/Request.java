@@ -1,12 +1,13 @@
 package Model.GamePlay;
 
 import Model.Buildings.Enums.Resources;
+import Model.Element;
 import Model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Request {
+public class Request extends Element {
     Player owner;
     Resources resource;
     int amount;

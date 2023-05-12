@@ -1,10 +1,11 @@
 package Model.GamePlay;
 
+import Model.Element;
 import Model.Field.Tile;
 
 import java.util.ArrayList;
 
-public abstract class Drawable {
+public abstract class Drawable extends Element {
     protected String name;
     protected Player owner;
     protected Tile position;
