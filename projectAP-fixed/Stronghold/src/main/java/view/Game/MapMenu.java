@@ -23,16 +23,17 @@ import static view.Enums.ConsoleColors.*;
 public class MapMenu extends Menu {
     private User user;
     private GameMap map;
+    int displaySize = 3;
+
     public MapMenu(Scanner scanner, User user) {
         super(scanner);
         this.user = user;
-        showGuide();
     }
 
     @Override
     public void run() throws Transition {
+        showGuide();
         Drawable.setDrawables(new ArrayList<>());
-        int displaySize = 3;
         String output;
         do {
             output = intializeSize();
@@ -46,10 +47,10 @@ public class MapMenu extends Menu {
             output = intializeName();
             System.out.println(output);
         } while (output.equals(TEXT_RED + "Invalid name"+ TEXT_RESET));
-        map.showMap(displaySize);
         MapController mapController = new MapController(map);
         Player currentPlayer = map.getPlayers()[0];
         while (true) {
+            showGuide();
             ConsoleColors.colorPrint(TEXT_GREEN, "your command:");
             String command = scanner.nextLine();
             if (command.matches("change player")) {
@@ -60,8 +61,8 @@ public class MapMenu extends Menu {
                         System.out.println("a number please");
                     } else if (Integer.parseInt(command) > map.getNumberOfPlayers()) {
                         System.out.println("is greater than number of players");
-                    } else if (Integer.parseInt(command) < 2) {
-                        System.out.println("at least 2 player");
+                    } else if (Integer.parseInt(command) < 1) {
+                        System.out.println("not valid number");
                     } else {
                         System.out.println("player switched");
                         currentPlayer = map.getPlayers()[Integer.parseInt(command) - 1];
@@ -113,19 +114,24 @@ public class MapMenu extends Menu {
                 System.out.println(mapController.clearField(matcher));
             }
             else if (command.matches(MapMenuCommands.SAVE_MAP.getRegex())) {
-                map.setDrawables(Drawable.getDrawables());
-                mapController.saveBufferMap(map);
-                UserDatabase.addMap(map);
-                System.out.println("map saved");
+                if (!checkKeeps()) {
+                    colorPrint(TEXT_RED, "place all player keeps first");
+                } else {
+                    map.setDrawables(Drawable.getDrawables());
+                    mapController.saveBufferMap(map);
+                    UserDatabase.addMap(map);
+                    System.out.println("map saved");
+                }
             }
             else {
                 colorPrint(TEXT_RED, "invalidCommand");
             }
-            map.showMap(displaySize);
         }
     }
 
     private void showGuide() {
+        if(map!=null)
+        map.showMap(displaySize);
         colorPrint(TEXT_RED,"================================================");
         System.out.println(ConsoleColors.TEXT_BRIGHT_GREEN + ">>Map menu<<" + " User: " + user.getUsername() + ConsoleColors.TEXT_RESET);
         colorPrint(ConsoleColors.TEXT_YELLOW, "exit: backing to main menu");
@@ -176,5 +182,14 @@ public class MapMenu extends Menu {
             return ConsoleColors.formatPrinter(TEXT_RED, "", "Invalid command");
         }
         return ConsoleColors.formatPrinter("", "", "setting number of players: "+command);
+    }
+
+    public boolean checkKeeps() {
+        for (int i = 0; i < map.getPlayers().length; i++) {
+            if (map.getPlayers()[i].getKeep() == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }
