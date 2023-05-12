@@ -5,8 +5,8 @@ public enum Height {
     SMALL_WALL(2),
     BIG_WALL(4),
     GROUND(0),
-    BIG_TOWER(10),
-    SMALL_TOWER(5),
+    BIG_TOWER(3),
+    SMALL_TOWER(3),
     STONE_SLAB(20),
     GATE(3),
     ;

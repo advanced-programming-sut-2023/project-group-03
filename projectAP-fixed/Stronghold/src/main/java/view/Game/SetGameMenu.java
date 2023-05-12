@@ -5,6 +5,8 @@ import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
 import Model.GamePlay.Government;
 import Model.GamePlay.Player;
+import Model.Units.Combat.Troop;
+import Model.Units.Enums.TroopTypes;
 import Model.User;
 import Model.UserDatabase;
 import view.Enums.ConsoleColors;
@@ -85,6 +87,7 @@ public class SetGameMenu extends Menu {
                 player.setCurrentPopulation(0);
                 player.setMaxPopulation(64);
             }
+            Troop King = new Troop(player, player.getKeep().getPosition(), TroopTypes.KING);
         }
     }
 

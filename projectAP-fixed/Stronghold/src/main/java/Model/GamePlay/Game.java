@@ -26,6 +26,16 @@ public class Game {
             for (Drawable drawable : Drawable.getDrawables()) {
                 drawable.check();
             }
+            for (int i = 0; i < players.size(); i++) {
+                if (players.get(i).getKing().getBaseRange() <= 0) {
+                    for (Drawable drawable : Drawable.getDrawables()) {
+                        if (drawable.getOwner().equals(players.get(i))) {
+                            drawable.erase();
+                        }
+                    }
+                    players.remove(players.get(i));
+                }
+            }
             currentPlayer = players.get(0);
             turn++;
         }
