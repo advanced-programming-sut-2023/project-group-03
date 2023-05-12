@@ -228,7 +228,7 @@ public class MapController extends GeneralGameController {
 
     public String saveMap(GameMap map) {
         File file = new File("src/main/resources/maps/"+map.getName()+".json");
-        //file.mkdirs();
+//        file.mkdirs();//todo
         try {
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(new Gson().toJson(map));

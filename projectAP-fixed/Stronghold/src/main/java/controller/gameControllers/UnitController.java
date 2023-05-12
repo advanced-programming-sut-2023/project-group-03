@@ -337,6 +337,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             combatUnit = (CombatUnit) unit;
             combatUnit.setCurrentTarget(targetTile);
         }
+        return SUCCESSFUL_ATTACK.getOutput();
     }
 
     public String attackToBuildingMatcherHandler(Matcher matcher, GameMenu gameMenu) {

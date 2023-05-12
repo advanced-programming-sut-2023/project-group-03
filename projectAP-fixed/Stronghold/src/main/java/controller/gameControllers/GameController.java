@@ -152,8 +152,8 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
-    public String attackMatcherHandler(Matcher matcher, Unit unit) {
-        return unitController.attackMatcherHandler(matcher, unit);
+    public String attackMatcherHandler(Matcher matcher, GameMenu gameMenu) {
+        return unitController.attackMatcherHandler(matcher, gameMenu);
     }
 
     @Override
