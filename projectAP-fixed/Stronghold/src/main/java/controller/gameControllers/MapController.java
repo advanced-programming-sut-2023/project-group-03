@@ -22,6 +22,7 @@ import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
+import Model.User;
 import com.google.gson.Gson;
 
 import java.io.File;
