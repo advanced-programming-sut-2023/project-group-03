@@ -31,7 +31,7 @@ public class Worker extends nonCombatUnit{
         else if (inventoryType.equals(InventoryTypes.FOOD_STORAGE)) {
             if (owner.getKeep().getFoodStorage() != null) this.setEnd(owner.getKeep().getFoodStorage().getPosition());
         }
-        else this.setEnd(null);
+        else this.setEnd(owner.getKeep().getStockPile().getPosition());
 
 
         this.setPatrol(true);

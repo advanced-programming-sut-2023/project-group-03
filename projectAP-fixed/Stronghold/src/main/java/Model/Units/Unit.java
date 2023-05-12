@@ -72,15 +72,9 @@ public abstract class Unit extends Drawable {
 
     public void Patrol() {
         if (isPatrol) {
-//            if (currentTarget == null) {
-//                if (position != end) {
-//                    currentTarget = end;
-//                } else {
-//                    currentTarget = Start;
-//                }
-//            }
             currentTarget = end;
             currentPath = MoveUnitController.findPath(position, currentTarget, owner.getGame().getMap(),owner);
+            System.out.println(currentPath.size());
             if (speed >= currentPath.size() - 1) {
                 moveToTile(currentPath.get(currentPath.size() - 1));
                 Tile buff = end;

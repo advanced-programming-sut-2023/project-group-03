@@ -24,12 +24,13 @@ public class Game {
                 }
             }
         } else {
-            for (Drawable drawable : Drawable.getDrawables()) {
-                drawable.check();
+            for (int i = Drawable.getDrawables().size() - 1; i >= 0; i--) {
+                Drawable.getDrawables().get(i).check();
             }
             for (int i = 0; i < players.size(); i++) {
-                if (players.get(i).getKing().getBaseRange() <= 0) {
-                    for (Drawable drawable : Drawable.getDrawables()) {
+                if (players.get(i).getKing().getHP() <= 0) {
+                    for (int j = Drawable.getDrawables().size() - 1; j >= 0; j--) {
+                        Drawable drawable = Drawable.getDrawables().get(j);
                         if (drawable.getOwner().equals(players.get(i))) {
                             drawable.erase();
                         }

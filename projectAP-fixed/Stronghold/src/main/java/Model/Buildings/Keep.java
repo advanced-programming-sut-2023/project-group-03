@@ -4,6 +4,7 @@ import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.ResourceTypes;
 import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
+import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 
 import java.util.HashMap;
@@ -24,6 +25,8 @@ public class Keep extends Building {
     public Keep(Player owner, Tile position) {
         super(owner, position, 5,"keep");
         owner.setKeep(this);
+        HP = 10000;
+        material = Material.IRON;
         taxRate = 0;
         foodRate = -2;
         fearRate = 0;

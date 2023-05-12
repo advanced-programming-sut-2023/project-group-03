@@ -75,6 +75,7 @@ public class SetGameMenu extends Menu {
         } else {
             game.getMap().getPlayers()[i].setUser(UserDatabase.getUserByName(command));
             game.addPlayer(game.getMap().getPlayers()[i]);
+            game.getPlayers().get(game.getPlayers().size() - 1).setGame(game);
             return "player set successfull";
         }
     }
@@ -89,6 +90,7 @@ public class SetGameMenu extends Menu {
                 player.setMaxPopulation(64);
             }
             Troop King = new Troop(player, player.getKeep().getPosition(), TroopTypes.KING);
+            player.setKing(King);
         }
     }
 

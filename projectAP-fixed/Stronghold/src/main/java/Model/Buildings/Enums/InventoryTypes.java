@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public enum  InventoryTypes {
-    STOCKPILE(ResourceTypes.STOCK, "stockpile",400, 200, null, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    STOCKPILE(ResourceTypes.STOCK, "stockpile",999999, 200, null, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
     ARMOURY(ResourceTypes.WEAPON, "armoury", 500, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
     FOOD_STORAGE(ResourceTypes.FOOD, "food storage",200, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
