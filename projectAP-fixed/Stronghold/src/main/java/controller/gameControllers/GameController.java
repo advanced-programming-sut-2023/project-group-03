@@ -167,6 +167,11 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     @Override
+    public String showPopularityFactors(Player player) {
+        return kingdomController.showPopularityFactors(player);
+    }
+
+    @Override
     public String changeFoodRate(Matcher matcher, Player player) {
         return kingdomController.changeFoodRate(matcher, player);
     }
