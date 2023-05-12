@@ -1,5 +1,6 @@
 package controller.gameControllers;
 
+import Model.Buildings.Building;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.Units.Unit;
@@ -66,6 +67,52 @@ public class MoveUnitController {
         }
 
         return path;
+    }
+
+    public static ArrayList<Tile> findPathToBuilding(Tile startTile, Building building, GameMap gameMap) {
+        int mapSize = gameMap.getSize();
+        boolean[][] visitedTiles = new boolean[mapSize][mapSize];
+        LinkedList<PathTile> queueTiles = new LinkedList<>();
+        PathTile currentPathTile = new PathTile(startTile, null);
+        queueTiles.addLast(currentPathTile);
+        ArrayList<Tile> path = new ArrayList<>();
+        ArrayList<Tile> tempPath = new ArrayList<>();
+        tempPath.add(startTile);
+
+        for (int i = 0; i < mapSize; i++) for (int j = 0; j < mapSize; j++) visitedTiles[i][j] = false;
+        visitedTiles[startTile.getRowNum()][startTile.getColumnNum()] = true;
+
+        search:
+        while (true) {
+            for (Tile neigbour : currentPathTile.getTile().getNeighboursConnected()) {
+                if (!checkIfTargetBuilding(neigbour, building) && !visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()]) {
+                    queueTiles.addLast(new PathTile(neigbour, currentPathTile));
+                } else if (checkIfTargetBuilding(neigbour, building)) {
+                    break search;
+                }
+            }
+            if (queueTiles.size() == 0) return path;
+            currentPathTile = queueTiles.getFirst();
+            queueTiles.removeFirst();
+        }
+
+        while (currentPathTile.getParentTile() != null) {
+            tempPath.add(currentPathTile.getTile());
+            currentPathTile = currentPathTile.getParentTile();
+        }
+
+        for (int i = tempPath.size() - 1; i >= 0; i--) {
+            path.add(tempPath.get(i));
+        }
+
+        return path;
+    }
+
+    static boolean checkIfTargetBuilding(Tile tile, Building building) {
+        for (Tile n : tile.getNeighboursConnected()) {
+            if (n.getBuilding().equals(building)) return true;
+        }
+        return false;
     }
 
     public static ArrayList<Tile> manhattanCloseTiles(int distance, Tile tile, GameMap gameMap) {
