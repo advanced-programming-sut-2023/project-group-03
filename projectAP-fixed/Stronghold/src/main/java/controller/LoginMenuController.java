@@ -1,6 +1,7 @@
 package controller;
 
 import Model.User;
+import Model.UserDatabase;
 import controller.Enums.ControllerCommands;
 
 import java.lang.Thread;
@@ -47,6 +48,7 @@ public class LoginMenuController extends UserBasedMenuController {
         if (!rightPassword) return BACK_TO_LOGIN_MENU.getOutput();
 
         if (stay) {
+            for (User tempUser : UserDatabase.getUsers()) tempUser.setStayLoggedIn(false);
             user.setStayLoggedIn(true);
         }
         return SUCCESSFUL_LOGIN.getOutput();
