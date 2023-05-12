@@ -101,7 +101,7 @@ public class RegisterMenuController extends UserBasedMenuController {
         setSecurityQuestionAnswer(newUser, scanner);
 
         while (true){
-            boolean result = LoginMenu.AskCaptcha();
+            boolean result = LoginMenu.AskCaptcha(scanner);
             if (result) {
                 break;
             } else {

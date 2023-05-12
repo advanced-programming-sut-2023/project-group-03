@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import static controller.Enums.Response.*;
 import static view.Enums.ConsoleColors.TEXT_RED;
 import static view.Enums.ConsoleColors.colorPrint;
+import static view.SignUpMenu.showOutput;
 
 public class LoginMenu extends Menu{
 
@@ -26,6 +27,15 @@ public class LoginMenu extends Menu{
 
     @Override
     public void run() throws Transition {
+        while (true){
+            boolean result = LoginMenu.AskCaptcha(scanner);
+            if (result) {
+                System.out.println("ahsant");
+                break;
+            } else {
+                showOutput("ridi, dobare talash kon");
+            }
+        }
         showGuide();
         String command=scanner.nextLine();
         if (command.matches(LoginMenuCommands.BACK.getRegex())) {
@@ -97,7 +107,7 @@ public class LoginMenu extends Menu{
         // clears json
     }
 
-    public static boolean AskCaptcha() {
+    public static boolean AskCaptcha(Scanner scanner) {
         System.out.println("captcha bemola:");
         String captcha = Captcha.makeCaptcha();
         System.out.println("age gofti in chie???");
