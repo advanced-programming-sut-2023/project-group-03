@@ -2,6 +2,7 @@ package controller.gameControllers;
 
 import Model.Buildings.Barracks;
 import Model.Buildings.Building;
+import Model.Buildings.Enums.Resources;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
@@ -192,6 +193,16 @@ public class GameController extends Controller implements GameMarketInterface , 
 
     public void disbandUnit(GameMenu gameMenu) {
         unitController.disbandUnit(gameMenu);
-        return;
+    }
+
+    public String showInventories(Player player) {
+        String output = "";
+        output += "gold: " + player.getGold() + "\n";
+        output += "popularity: " + player.getPopularity() + "\n";
+        output += "population: " + player.getCurrentPopulation() + "\n";
+        for (Resources resource : Resources.values()) {
+            output += resource.getName() + " " + player.getInventory().get(resource) + "\n";
+        }
+        return output;
     }
 }

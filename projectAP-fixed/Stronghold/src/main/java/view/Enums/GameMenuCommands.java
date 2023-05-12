@@ -6,6 +6,7 @@ public enum GameMenuCommands {
     MAP_MOVE("move ((?<verticalDir>\\w+)( (?<verticalNum>\\d+))?)?" +
             "( (?<horizontalDir>\\w+)( (?<horizontalNum>\\d+))?)?"),
     SHOW_DETAILS("^show details (?<coordinatesInfo>.+)"),
+    SHOW_INVENTORY("show inventory"),
     SHOW_POPULARITY_FACTORS("^show popularity factors$"),
     SHOW_POPULARITY("^show popularity$"),
     SHOW_FOOD_LIST(""),
