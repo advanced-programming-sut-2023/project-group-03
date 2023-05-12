@@ -166,7 +166,7 @@ public class GameMenu extends Menu {
                 " currentPlayer:"+ game.getCurrentPlayer().getUser().getNickname() + "  selected:" + selectedName));
         System.out.println(formatPrinter(TEXT_YELLOW, "", "common possible command formats:\n" +
                 "1.select menu 2." + GameMenuCommands.SELECT_BUILDING.toString() +
-                " 3." + GameMenuCommands.SELECT_UNIT.toString() + " 4." + MapMenuCommands.MOVE_ALI.toString() + " 5." +
+                " 3." + GameMenuCommands.SELECT_UNIT.toString() + " 4." + MapMenuCommands.MOVE_ALI.getRegex() + " 5." +
                 "next turn"));
         if (selected instanceof Barracks) {
             Barracks barracks = ((Barracks) selected);

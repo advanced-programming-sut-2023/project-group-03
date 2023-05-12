@@ -1,5 +1,6 @@
 package Model.buffers;
 
+import Model.Buildings.Keep;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
@@ -12,19 +13,25 @@ public class MapBuffer {
     private TileBuffer[][] map;
     private int numberOfPlayers;
     private String name;
-    //private Player[] players = new Player[4];
+    private TileBuffer[] KeepOfPlayers;
 
     public MapBuffer(GameMap gameMap) {
         numberOfPlayers = gameMap.getNumberOfPlayers();
         size = gameMap.getSize();
         name = gameMap.getName();
         map = new TileBuffer[size][size];
+        KeepOfPlayers = new TileBuffer[numberOfPlayers];
         //players = map.getPlayers();
         for (int i = 0; i < gameMap.getSize(); i++) {
             for (int j = 0; j < gameMap.getSize(); j++) {
                 TileBuffer tileBuffer = new TileBuffer(gameMap.getMap()[i][j], gameMap);
                 this.map[i][j] = tileBuffer;
+                this.map[i][j].setRowNum(i);
+                this.map[i][j].setColumnNum(j);
             }
+        }
+        for (int i = 0; i < gameMap.getPlayers().length; i++) {
+            KeepOfPlayers[i] = new TileBuffer(gameMap.getPlayers()[i].getKeep().getPosition(), gameMap);
         }
     }
 
@@ -70,6 +77,12 @@ public class MapBuffer {
             }
         }
         gameMap.setCenter(size / 2, size / 2);
+        for (int i = 0; i < KeepOfPlayers.length; i++) {
+            TileBuffer tileBuffer = KeepOfPlayers[i];
+            Tile tile = gameMap.getMap()[tileBuffer.getRowNum()][tileBuffer.getColumnNum()];
+            Keep keep = new Keep(gameMap.getPlayers()[i], tile);
+            gameMap.getPlayers()[i].setKeep(keep);
+        }
         return gameMap;
     }
 
