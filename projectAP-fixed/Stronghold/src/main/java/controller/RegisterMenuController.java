@@ -96,7 +96,6 @@ public class RegisterMenuController extends UserBasedMenuController {
         infoMap.put("p", getEncryptedPassword(infoMap.get("p")));
 
         User newUser = new User(infoMap.get("p"), infoMap.get("u"), infoMap.get("n"), infoMap.get("e"), infoMap.get("s"));
-        addUser(newUser);
 
         setSecurityQuestionAnswer(newUser, scanner);
 

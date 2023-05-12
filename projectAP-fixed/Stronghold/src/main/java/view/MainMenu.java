@@ -4,6 +4,7 @@ import Model.Field.GameMap;
 import Model.User;
 import view.Enums.ConsoleColors;
 import view.Enums.MainMenuCommands;
+import view.Enums.StartingMenuCommands;
 import view.Game.MapMenu;
 import view.Game.SetGameMenu;
 
@@ -24,24 +25,27 @@ public class MainMenu extends Menu{
     public void run() throws Transition {
         showGuide();
         String command = scanner.nextLine();
-        if (command.matches(MainMenuCommands.BACK.getRegex())) {
+        if (command.matches(MainMenuCommands.LOGOUT.getRegex())) {
             StartingMenu startingMenu = new StartingMenu(scanner);
-            if (user.isStayLoggedIn()) {
-                startingMenu.setUser(user);
-            }
+            user.setStayLoggedIn(false);
             throw new Transition(startingMenu);
         }
-        if (command.matches(MainMenuCommands.MAP_MENU.getRegex())) {
+        else if (command.matches(MainMenuCommands.MAP_MENU.getRegex())) {
             throw new Transition(new MapMenu(scanner,user));
         }
-        if (command.matches(MainMenuCommands.START_GAME.getRegex())) {
+        else if (command.matches(MainMenuCommands.START_GAME.getRegex())) {
             throw new Transition(new SetGameMenu(scanner, user));
         }
-        if (command.matches(MainMenuCommands.PROFILE_MENU.getRegex())) {
+        else if (command.matches(MainMenuCommands.PROFILE_MENU.getRegex())) {
             throw new Transition(new ProfileMenu(scanner, user));
         }
-        colorPrint(TEXT_RED, "invalid command");
-        throw new Transition(this);
+        else if (command.matches(StartingMenuCommands.EXIT.getRegex())) {
+
+        }
+        else {
+            colorPrint(TEXT_RED, "invalid command");
+            throw new Transition(this);
+        }
     }
 
     public void showGuide() {
