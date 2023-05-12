@@ -10,6 +10,7 @@ import Model.Buildings.Enums.*;
 import Model.Field.*;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
+import Model.Units.Worker;
 import controller.interfaces.BuildingInterface;
 import view.Game.GameMenu;
 
@@ -587,7 +588,7 @@ public class BuildingController extends GeneralGameController implements Buildin
             return NOT_ENOUGH_GOLD_BUILDING.getOutput();
         if (player.getInventory().get(Resources.WOOD) < generatorType.getWood())
             return NOT_ENOUGH_WOOD_BUILDING.getOutput();
-        if (player.getCurrentPopulation() < generatorType.getWorker())
+        if ((player.getMaxPopulation() - player.getCurrentPopulation()) < generatorType.getWorker())
             return NOT_ENOUGH_WORKER_BUILDING.getOutput();
 
         if (!checkIfFit(xCenter, yCenter, generatorType.getSize())) return NOT_FIT.getOutput();
@@ -607,9 +608,9 @@ public class BuildingController extends GeneralGameController implements Buildin
 
         targetTile = gameMap.getMap()[xCenter][yCenter];
         Generators newGenerator = new Generators(player, targetTile, generatorType);
-//        for (int i = 0; i < generatorType.getWorker(); i++) {     TODO adding workers needed
-//            targetTile.addUnit(new Worker(player, targetTile, newGenerator));
-//        }
+        for (int i = 0; i < generatorType.getWorker(); i++) {
+            targetTile.addUnit(new Worker(player, targetTile, newGenerator));
+        }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }

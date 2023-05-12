@@ -1,6 +1,8 @@
 package Model.Units;
 
 import Model.Buildings.Building;
+import Model.Buildings.Enums.InventoryTypes;
+import Model.Buildings.Enums.Resources;
 import Model.Buildings.Generators;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
@@ -10,6 +12,31 @@ public class Worker extends nonCombatUnit{
     Generators job;
     public Worker(Player owner, Tile position, Generators job) {
         super(owner, position,"worker");
+        this.job = job;
+
+        Resources product = job.getProduct();
+        InventoryTypes inventoryType = null;
+        for (InventoryTypes inventory : InventoryTypes.values()) {
+               if (inventory.getResource().getSubset().contains(product)) {
+                   inventoryType = inventory;
+                   break;
+               }
+        }
+        if (inventoryType.equals(InventoryTypes.ARMOURY)) {
+            if (owner.getKeep().getArmoury() != null) this.setEnd(owner.getKeep().getArmoury().getPosition());
+        }
+        else if (inventoryType.equals(InventoryTypes.STOCKPILE)) {
+            if (owner.getKeep().getStockPile() != null) this.setEnd(owner.getKeep().getStockPile().getPosition());
+        }
+        else if (inventoryType.equals(InventoryTypes.FOOD_STORAGE)) {
+            if (owner.getKeep().getFoodStorage() != null) this.setEnd(owner.getKeep().getFoodStorage().getPosition());
+        }
+        else this.setEnd(null);
+
+
+        this.setPatrol(true);
+        this.setStart(owner.getKeep().getPosition());
+        this.setStart(job.getPosition());
     }
 
 
