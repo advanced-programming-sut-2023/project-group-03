@@ -1,5 +1,6 @@
 package Model.Units.Combat;
 
+import Model.Buildings.Building;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
@@ -149,7 +150,12 @@ public abstract class CombatUnit extends Unit {
             if (area.contains(EnemyTarget.getPosition())) {
                 EnemyTarget.setHP(EnemyTarget.getHP() - damage);
             } else {
-                currentTarget = EnemyTarget.getPosition();
+                if (EnemyTarget instanceof Building) {
+                    ArrayList<Tile> path = MoveUnitController.findPathToBuilding(position, ((Building) EnemyTarget), map, owner);
+                    currentTarget = path.get(path.size() - 1);
+                } else {
+                    currentTarget = EnemyTarget.getPosition();
+                }
             }
         }
     }
