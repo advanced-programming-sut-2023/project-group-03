@@ -10,7 +10,6 @@ import Model.Units.Combat.Troop;
 import java.util.ArrayList;
 
 public abstract class CastleBuilding extends Building {
-    protected int stoneCost;
     protected ArrayList<Troop> troops;
     public CastleBuilding(Player owner, Tile position, int size,String name) {
         super(owner, position, size,name);

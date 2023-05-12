@@ -45,6 +45,7 @@ public class GameMenu extends Menu {
     public GameMenu(Scanner scanner, Game game) {
         super(scanner);
         this.game = game;
+        game.setCurrentPlayer(game.getPlayers().get(0));
         Tile.setGameMap(game.getMap());
         castleBuildingMenu = new CastleBuildingMenu(scanner, this);
         farmBuidingMenu = new FarmBuidingMenu(scanner, this);
@@ -160,11 +161,12 @@ public class GameMenu extends Menu {
         if (selected != null) {
             selectedName = selected.getClass().getSimpleName();
         }
-        System.out.println(formatPrinter(TEXT_YELLOW, "", "turn:" + game.getTurn() +
-                "current player:" + " user " + game.getCurrentPlayer().getUser().getUsername() + "selected:" + selectedName));
+        game.getMap().showMap(3);
+        System.out.println(formatPrinter(TEXT_GREEN, "", "turn:" + game.getTurn() +
+                " currentPlayer:"+ game.getCurrentPlayer().getUser().getNickname() + "  selected:" + selectedName));
         System.out.println(formatPrinter(TEXT_YELLOW, "", "common possible command formats:\n" +
                 "1.select menu 2." + GameMenuCommands.SELECT_BUILDING.toString() +
-                " 3." + GameMenuCommands.SELECT_UNIT.toString() + " 4." + GameMenuCommands.MAP_MOVE.toString() + " 5." +
+                " 3." + GameMenuCommands.SELECT_UNIT.toString() + " 4." + MapMenuCommands.MOVE_ALI.toString() + " 5." +
                 "next turn"));
         if (selected instanceof Barracks) {
             Barracks barracks = ((Barracks) selected);

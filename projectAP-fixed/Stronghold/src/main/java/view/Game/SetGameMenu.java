@@ -19,7 +19,7 @@ import static view.Enums.ConsoleColors.colorPrint;
 
 public class SetGameMenu extends Menu {
     User user = null;
-    Game game = null;
+    Game game;
     public SetGameMenu(Scanner scanner, User user) {
         super(scanner);
         this.user = user;
@@ -42,6 +42,8 @@ public class SetGameMenu extends Menu {
         }
         Drawable.setDrawables(new ArrayList<>(this.game.getMap().getDrawables()));
         setResourses(500);
+        GameMenu gameMenu = new GameMenu(scanner, game);
+        throw new Transition(gameMenu);
     }
 
     private void showGuide() {
@@ -56,20 +58,21 @@ public class SetGameMenu extends Menu {
         if (UserDatabase.getMapByName(command) == null) {
             return ConsoleColors.formatPrinter(TEXT_RED, "", "there is no map with this name");
         } else {
-            game.setMap(UserDatabase.getMapByName(command));
+            game = new Game(UserDatabase.getMapByName(command), new ArrayList<>());
+            //game.setMap(UserDatabase.getMapByName(command));
             return "map set successfull";
         }
     }
 
     private String setPlayerNumI(int i) {
-        colorPrint(ConsoleColors.TEXT_YELLOW, "set player number " + i + ":");
+        colorPrint(ConsoleColors.TEXT_YELLOW, "set player number " + (i + 1) + ":");
         String command = scanner.nextLine();
         if (UserDatabase.getUserByName(command) == null) {
             return ConsoleColors.formatPrinter(TEXT_RED, "", "there is no player with this name");
         } else {
             Player buff = new Player(UserDatabase.getUserByName(command), new Government());
-            game.getMap().setPlayerI(i, buff);
-            game.addPlayer(buff);
+            game.getMap().getPlayers()[i].setUser(buff.getUser());
+            game.addPlayer(game.getMap().getPlayers()[i]);
             return "player set successfull";
         }
     }
