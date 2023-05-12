@@ -20,6 +20,7 @@ public abstract class CombatUnit extends Unit {
     protected int defenseRate;
     protected Tile tileToAttack = null;
     protected Drawable EnemyTarget = null;
+    protected int gold;
 
     public CombatUnit(Player owner, Tile position,String name) {
         super(owner, position,name);
@@ -223,5 +224,13 @@ public abstract class CombatUnit extends Unit {
             AutoMove();
             return;
         }
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 }

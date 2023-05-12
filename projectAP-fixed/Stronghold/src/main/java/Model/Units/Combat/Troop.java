@@ -17,7 +17,6 @@ public class Troop extends CombatUnit{
     protected TroopTypes type;
     protected AttackingMode mode;
     protected HashSet <Resources> equipment;
-    protected int gold;
     public Troop(Player owner, Tile position, TroopTypes type) {
         super(owner, position, type.getName());
         this.type = type;

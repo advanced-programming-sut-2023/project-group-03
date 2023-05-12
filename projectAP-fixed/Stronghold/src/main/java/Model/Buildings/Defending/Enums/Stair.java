@@ -13,7 +13,9 @@ public class Stair extends CastleBuilding {
 
     @Override
     public void check() {
-
+        if (HP < 0) {
+            this.erase();
+        }
     }
 
     @Override
