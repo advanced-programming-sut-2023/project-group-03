@@ -9,6 +9,7 @@ import Model.Buildings.Enums.Resources;
 import Model.Field.GameMap;
 import Model.Field.Texture;
 import Model.Field.Tile;
+import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Combat.*;
 import Model.Units.Engineer;
@@ -309,7 +310,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         return SUCCESSFUL_SELECT_UNIT.getOutput();
     }
 
-    public String attackMatcherHandler(Matcher matcher, Unit unit) {
+    public String attackMatcherHandler(Matcher matcher, GameMenu gameMenu) {
         String attackInfo = matcher.group("attackInfo");
         HashMap<String, String> infoMap = getOptions(COORDINATES.getKeys(), attackInfo);
         String error = infoMap.get("error");
@@ -321,7 +322,61 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         int x = Integer.parseInt(infoMap.get("x")) - 1;
         int y = Integer.parseInt(infoMap.get("y")) - 1;
 
-        //todo
-        return SUCCESSFUL_ATTACK.getOutput();
+        return normalAttack(x, y, gameMenu);
+    }
+
+    private String normalAttack(int x, int y, GameMenu gameMenu) {
+        if (gameMenu.getSelectedUnits().size() == 0) return NO_UNIT_SELECTED.getOutput();
+        if (!(gameMenu.getSelectedUnits().get(0) instanceof CombatUnit)) return NO_COMBAT_UNIT_SELECTED.getOutput();
+
+        Tile targetTile = gameMap.getMap()[x][y];
+
+        CombatUnit combatUnit;
+        for (Unit unit : gameMenu.getSelectedUnits()) {
+            unit.setPatrol(false);
+            combatUnit = (CombatUnit) unit;
+            combatUnit.setCurrentTarget(targetTile);
+        }
+    }
+
+    public String attackToBuildingMatcherHandler(Matcher matcher, GameMenu gameMenu) {
+        String attackInfo = matcher.group("attackInfo");
+        HashMap<String, String> infoMap = getOptions(COORDINATES.getKeys(), attackInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        error = checkCoordinates(infoMap, "x", "y");
+        if (error != null) return error;
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        return attackToBuilding(x, y, gameMenu);
+    }
+
+    private String attackToBuilding(int x, int y, GameMenu gameMenu) {
+        if (gameMenu.getSelectedUnits().size() == 0) return NO_UNIT_SELECTED.getOutput();
+        if (!(gameMenu.getSelectedUnits().get(0) instanceof CombatUnit)) return NO_COMBAT_UNIT_SELECTED.getOutput();
+
+        if (gameMap.getMap()[x][y].getBuilding() == null) return NO_BUILDING_TO_ATTACK.getOutput();
+
+        CombatUnit combatUnit = (CombatUnit) gameMenu.getSelectedUnits().get(0);
+        Material unitMaterial = combatUnit.getTargets().iterator().next();
+
+        Building building = gameMap.getMap()[x][y].getBuilding();
+        if (building.getMaterial().getValue() > unitMaterial.getValue()) return UNABLE_TO_ATTACK_BUILDING.getOutput();
+
+        for (Unit unit : gameMenu.getSelectedUnits()) {
+            unit.setPatrol(false);
+            combatUnit = (CombatUnit) unit;
+            combatUnit.setEnemyTarget(building);
+        }
+        return SUCCESSFUL_ATTACK_BUILDING.getOutput();
+    }
+
+    public void disbandUnit(GameMenu gameMenu) {
+        for (Unit unit : gameMenu.getSelectedUnits()) {
+            unit.setPatrol(false);
+            unit.setCurrentTarget(unit.getOwner().getKeep().getPosition());
+        }
     }
 }

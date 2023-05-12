@@ -154,6 +154,12 @@ public enum Response {
     BUILDING_EXIST_TRAP("There is a building here so you can't build this trap here."),
     UNIT_EXIST_TRAP("There are some units here so you can't build your trap here."),
     //unit
+    ////attack
+    NO_UNIT_SELECTED("You didn't select any unit."),
+    NO_COMBAT_UNIT_SELECTED("Your selected units are not combat units."),
+    NO_BUILDING_TO_ATTACK("There is no building in the given coordinates to attack to."),
+    UNABLE_TO_ATTACK_BUILDING("This unit can't hit this kinda buildings."),
+    SUCCESSFUL_ATTACK_BUILDING("Your selected units will successfully attack the given building."),
     ////select unit
     INVALID_AMOUNT_SELECT_UNIT("Enter an integer for amount of troops."),
     NOT_ENOUGH_UNIT("You don't have enough og that kinda unit in that tile."),
