@@ -180,4 +180,13 @@ public class GameController extends Controller implements GameMarketInterface , 
     public String changeFearRate(Matcher matcher, Player player) {
         return kingdomController.changeFearRate(matcher, player);
     }
+
+    public String attackToBuildingMatcherHandler(Matcher matcher, GameMenu gameMenu) {
+        return unitController.attackToBuildingMatcherHandler(matcher,gameMenu);
+    }
+
+    public void disbandUnit(GameMenu gameMenu) {
+        unitController.disbandUnit(gameMenu);
+        return;
+    }
 }

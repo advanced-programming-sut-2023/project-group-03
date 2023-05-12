@@ -132,23 +132,23 @@ public class GameMenu extends Menu {
         else if (selectedUnits.size() != 0) {
             if (command.matches(GameMenuCommands.DISBAND_UNIT.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.DISBAND_UNIT.toString());
-                String output = "";
-                System.out.println(output);
+                gameController.disbandUnit(this);
+                System.out.println("successfull dabsh");
             }
             else if (command.matches(GameMenuCommands.ATTACK_PLACE.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.ATTACK_PLACE.toString());
-                //String output = gameController.attackMatcherHandler(matcher,selectedUnits);
-                //System.out.println(output);
+                String output = gameController.attackMatcherHandler(matcher,this);
+                System.out.println(output);
             }
             else if (command.matches(GameMenuCommands.ATTACK_BUILDING.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.ATTACK_BUILDING.toString());
-                //String output = ;
-                //System.out.println(output);
+                String output = gameController.attackToBuildingMatcherHandler(matcher, this);
+                System.out.println(output);
             }
             else if (command.matches(GameMenuCommands.MOVE_UNIT.toString())) {
                 Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.MOVE_UNIT.toString());
-                //String output = gameController.move;
-                //System.out.println(output);
+                String output = gameController.moveUnit(matcher, this);
+                System.out.println(output);
             }
         }
         throw new Transition(this);
