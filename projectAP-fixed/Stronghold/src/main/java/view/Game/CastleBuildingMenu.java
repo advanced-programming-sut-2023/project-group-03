@@ -39,6 +39,7 @@ public class CastleBuildingMenu extends Menu {
         else if (command.matches(DROP_BUILDING.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, DROP_BUILDING.toString());
             output = gameController.dropBuildingMatcherHandler(matcher, player);
+            System.out.println(gameMenu.getGame().getMap().getMap()[100][100].getOwner().getTaxRate());
             System.out.println(output);
         }
         else if (command.matches(BUILD_DRAW_BRIDGE.toString())) {

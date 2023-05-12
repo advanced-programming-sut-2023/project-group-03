@@ -18,8 +18,9 @@ public class Main2 {
             GameMap map = MapController.loadMap(file);
             UserDatabase.addMap(map);
         }
-        User user1 = new User("secondUser", "1", "adf", "adf", "ammat");
-        User user2 = new User("firstUser", "2", "adf", "adf", "ammat");
+        UserDatabase.loadSavedData();
+        User user1 = new User("secondUser", "1", "puria", "adf", "ammat");
+        User user2 = new User("firstUser", "2", "mehran", "adf", "ammat");
         UserDatabase.addUser(user1);
         UserDatabase.addUser(user2);
         SetGameMenu Menu = new SetGameMenu((new Scanner(System.in)),user1);

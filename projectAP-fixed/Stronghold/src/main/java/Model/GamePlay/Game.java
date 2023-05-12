@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Game {
     private GameMap map;
     private ArrayList<Player> players;
-    private int turn;
+    private int turn = 1;
     private Player currentPlayer;
     public Game(GameMap map, ArrayList<Player> players) {
         this.map = map;
@@ -16,15 +16,18 @@ public class Game {
 
     public void nextTurn() {
         if (!currentPlayer.equals(players.get(players.size() - 1))) {
-            for (int i = 0; i < players.size(); i++) {
+            for (int i = 0; i < players.size() - 1; i++) {
                 if (currentPlayer.equals(players.get(i))) {
                     currentPlayer = players.get(i + 1);
                     return;
                 }
             }
-        }
-        for (Drawable drawable : Drawable.getDrawables()) {
-            drawable.check();
+        } else {
+            for (Drawable drawable : Drawable.getDrawables()) {
+                drawable.check();
+            }
+            currentPlayer = players.get(0);
+            turn++;
         }
     }
 

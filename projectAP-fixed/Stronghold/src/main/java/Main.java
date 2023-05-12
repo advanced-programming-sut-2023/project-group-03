@@ -9,15 +9,15 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         final File mapFolder = new File("src/main/resources/maps");
-//        for (File file : mapFolder.listFiles()) {
-//            GameMap map = MapController.loadMap(file);
-//            UserDatabase.addMap(map);
-//        }
+        for (File file : mapFolder.listFiles()) {
+            GameMap map = MapController.loadMap(file);
+            UserDatabase.addMap(map);
+        }
 
-//        System.out.println(UserDatabase.getMaps().size());
-//        for (GameMap map : UserDatabase.getMaps()) {
-//            System.out.println(map.getName());
-//        }
+        System.out.println(UserDatabase.getMaps().size());
+        for (GameMap map : UserDatabase.getMaps()) {
+            System.out.println(map.getName());
+        }
 
         UserDatabase.loadSavedData();
         Scanner scanner = new Scanner(System.in);

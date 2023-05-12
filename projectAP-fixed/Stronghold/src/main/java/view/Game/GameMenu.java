@@ -97,7 +97,7 @@ public class GameMenu extends Menu {
             System.out.println(output);
         }
         else if (command.matches("next turn")) {
-            gameController.nextTurn();
+            game.nextTurn();
         }
         else if (selected instanceof Building) {
             if (command.matches(GameMenuCommands.REPAIR.toString())) {
@@ -150,8 +150,8 @@ public class GameMenu extends Menu {
                 //String output = gameController.move;
                 //System.out.println(output);
             }
-            throw new Transition(this);
         }
+        throw new Transition(this);
     }
 
     // map

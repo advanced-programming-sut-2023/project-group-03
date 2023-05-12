@@ -70,8 +70,7 @@ public class SetGameMenu extends Menu {
         if (UserDatabase.getUserByName(command) == null) {
             return ConsoleColors.formatPrinter(TEXT_RED, "", "there is no player with this name");
         } else {
-            Player buff = new Player(UserDatabase.getUserByName(command), new Government());
-            game.getMap().getPlayers()[i].setUser(buff.getUser());
+            game.getMap().getPlayers()[i].setUser(UserDatabase.getUserByName(command));
             game.addPlayer(game.getMap().getPlayers()[i]);
             return "player set successfull";
         }
