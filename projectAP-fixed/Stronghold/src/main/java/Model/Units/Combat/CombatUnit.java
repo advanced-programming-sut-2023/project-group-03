@@ -90,6 +90,31 @@ public abstract class CombatUnit extends Unit {
         this.currentTarget = target;
     }
 
+
+    protected void AttackToTile() {
+        GameMap map = owner.getGame().getMap();
+        if (tileToAttack != null) {
+            if (baseRange == 0) {
+                if (tileToAttack.equals(position)) {
+                    Unit unit = selectRandomEnemy(position);
+                    if(unit!=null){ unit.setHP(unit.getHP() - this.damage);}
+                } else {
+                    currentTarget = tileToAttack;
+                }
+            } else {
+                ArrayList<Tile> area = MoveUnitController.manhattanCloseTiles(this.getModifiedRange(), position, map);
+                if (area.contains(tileToAttack)) {
+                    Unit unit = selectRandomEnemy(position);
+                    if (unit != null) {
+                        unit.setHP(unit.getHP() - this.damage);
+                    }
+                } else {
+                    currentTarget = tileToAttack;
+                }
+            }
+        }
+    }
+
     public Unit selectRandomEnemy(Tile target) {
         int number = 0;
         for (Unit unit : target.getUnits()) {
@@ -175,5 +200,28 @@ public abstract class CombatUnit extends Unit {
         this.tileToAttack = tileToAttack;
         EnemyTarget = null;
         currentTarget = position;
+    }
+
+    @Override
+    public void check() {
+        super.check();
+
+        if (EnemyTarget != null) {
+            attackToEnemy();
+            if (EnemyTarget.getHP() < 0) {
+                EnemyTarget = null;
+            }
+            AutoMove();
+            return;
+        }
+        if (tileToAttack != null) {
+            AttackToTile();
+            AutoMove();
+            return;
+        }
+        if (!currentTarget.equals(position)) {
+            AutoMove();
+            return;
+        }
     }
 }
