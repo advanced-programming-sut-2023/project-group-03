@@ -12,6 +12,7 @@ import Model.GamePlay.Game;
 import Model.Units.Unit;
 import Model.User;
 import controller.ControllerFunctions;
+import controller.Enums.Response;
 import controller.gameControllers.GameController;
 import controller.gameControllers.GameMenuController;
 import controller.gameControllers.MarketController;
@@ -65,6 +66,7 @@ public class GameMenu extends Menu {
         String command = scanner.nextLine();
 
         GameController gameController = new GameController(game.getMap());
+        setStockPile(gameController);
         if (command.matches("select menu")) {
             SelectMenuGuide();
             Menu next = handleMenu();
@@ -263,83 +265,22 @@ public class GameMenu extends Menu {
         this.user = user;
     }
 
-    private void showMap(Matcher matcher){}
-
-    private void moveMap(Matcher matcher){}
-
-    private void showDetails(Matcher matcher){}
-
-    // kingdom
-
-    private void changeFoodRate(Matcher matcher){}
-
-    private void changeTaxRate(Matcher matcher){}
-
-    private void changeFearRate(Matcher matcher){}
-
-    // show rates are handled in the controller as they have no errors
-
-    // buildings
-
-
-    private void selectBuilding(Matcher matcher){}
-
-    private void createUnit(Matcher matcher){}
-
-    private void repair(){}
-
-    // units and workers
-
-    private void selectUnit(Matcher matcher){}
-
-    // the following functions must give an error if no units are selected
-
-    private void moveUnit(Matcher matcher){}
-
-    private void patrolUnit(Matcher matcher){}
-
-    private void setUnitState(Matcher matcher){
-        // sets unit state (standing|defensive|offensive)
+    public void setStockPile(GameController gameController) {
+        for (int i = 0; i < game.getPlayers().size(); i++) {
+            System.out.println("player number " + (i + 1) + " set your stockPile");
+            while (true) {
+                String command = scanner.nextLine();
+                if (command.matches("build inventory .* -t stockPile")) {
+                    Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.BUILD_INVENTORY.toString());
+                    String output = gameController.buildInventoryMatcherHandler(matcher, game.getPlayers().get(i));
+                    System.out.println(output);
+                    if (output.matches(Response.SUCCESSFUL_DROP_BUILDING.getOutput())) {
+                        break;
+                    }
+                } else {
+                    System.out.println("invalid command");
+                }
+            }
+        }
     }
-
-    private void attack(Matcher matcher){}
-
-    private void pourOil(Matcher matcher){}
-
-    private void buildSiegeStructures(Matcher matcher){
-        // only if selected unit is an engineer
-    }
-
-    private void disbandUnit(Matcher matcher){}
-
-    // change environment
-
-    private void setTexture(Matcher matcher){}
-
-    private void setTextureRectangle(Matcher matcher){}
-
-    private void clearField(Matcher matcher){
-        // error if Field is already empty
-    }
-
-    private void dropRock(Matcher matcher){
-        // error if field is not empty
-    }
-
-    private void dropTree(Matcher matcher){}
-
-    private void dropBuilding(Matcher matcher){}
-
-    private void dropUnit(Matcher matcher){}
-
-    // trading
-
-    private void doTrade(Matcher matcher){}
-
-    private void tradeList(Matcher matcher){}
-
-    private void tradeAccept(Matcher matcher){}
-
-    private void tradeHistory(Matcher matcher){}
-
 }

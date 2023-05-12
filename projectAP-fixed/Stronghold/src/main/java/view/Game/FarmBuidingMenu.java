@@ -48,7 +48,7 @@ public class FarmBuidingMenu extends Menu {
         System.out.println(formatPrinter(TEXT_YELLOW, "", "possible format of command: build ???"));
         System.out.println(formatPrinter(TEXT_GREEN, "", "1." + GeneratorTypes.HUNTERS_HUT.getName() +
                 " 2. " + GeneratorTypes.BARLEY_FARM.getName() + " 3." + GeneratorTypes.DAIRY_FARM.getName() +
-                " 4." + GeneratorTypes.WHEAT_FARM.getName() + "\n5." + GeneratorTypes.ORCHARD.getName() +
+                "\n4." + GeneratorTypes.WHEAT_FARM.getName() + " 5." + GeneratorTypes.ORCHARD.getName() +
                 " 6." + GeneratorTypes.BAKERY.getName()) + " 7." + GeneratorTypes.BREWERY.getName());
     }
 }
