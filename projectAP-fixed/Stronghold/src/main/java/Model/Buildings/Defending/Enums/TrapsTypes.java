@@ -9,17 +9,17 @@ public enum TrapsTypes {
     BOILING_OIL("boiling oil", 1, 3, 3, 3, 50, 3, RegularTextureGroups.ALL_LAND.getTextureHashSet()),
     PITCH_DITCH("pitch ditch", 1, 0, 0, 2, 100, 0, RegularTextureGroups.OIL_RIG.getTextureHashSet()),
     CAGED_WAR_DOGS("caged war dogs", 3, 100, 10, 0, 50, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
-    KILLING_PIT("killing pit",  3, 0, 6, 0, 150, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    KILLING_PIT("killing pit", 3, 0, 6, 0, 150, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
 
-    private String name;
-    private int size;
-    private int gold;
-    private int wood;
-    private int oil;
-    private int worker;
+    private final String name;
+    private final int size;
+    private final int gold;
+    private final int wood;
+    private final int oil;
+    private final int worker;
     private int damage;
-    private HashSet<Texture> textures;
+    private final HashSet<Texture> textures;
 
     TrapsTypes(String name, int size, int gold, int wood, int oil, int damage, int worker, HashSet<Texture> textures) {
         this.size = size;

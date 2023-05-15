@@ -2,6 +2,7 @@ package controller.Enums;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public enum InputOptions {
     CREATE_USER(new ArrayList<>(Arrays.asList("u", "n", "p", "e", "s"))),
@@ -36,13 +37,13 @@ public enum InputOptions {
     PATROL_UNIT(new ArrayList<>(Arrays.asList("x1", "y1", "x2", "y2"))),
     ADD_THROWER(new ArrayList<>(Arrays.asList("x", "y", "t"))),
     //kingdom
-    CHANGE_RATE(new ArrayList<>(Arrays.asList("r"))),
+    CHANGE_RATE(new ArrayList<>(List.of("r"))),
     TRADE_REQUEST(new ArrayList<>(Arrays.asList("t", "a", "p", "m"))),
     TRADE_ACCEPT(new ArrayList<>(Arrays.asList("i", "m"))),
     ;
-    private ArrayList<String> keys;
+    private final ArrayList<String> keys;
 
-    private InputOptions(ArrayList<String> keys) {
+    InputOptions(ArrayList<String> keys) {
         this.keys = keys;
     }
 

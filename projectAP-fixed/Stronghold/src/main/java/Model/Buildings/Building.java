@@ -1,17 +1,18 @@
 package Model.Buildings;
 
+import Model.Buildings.Defending.Gates;
 import Model.Buildings.Defending.Towers;
 import Model.Buildings.Defending.Wall;
 import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.InventoryTypes;
 import Model.Buildings.Enums.ResourceTypes;
 import Model.Buildings.Enums.Resources;
-import Model.Buildings.Defending.Gates;
 import Model.Field.GameMap;
 import Model.Field.Texture;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
+
 import java.util.HashSet;
 
 public abstract class Building extends Drawable {
@@ -28,9 +29,9 @@ public abstract class Building extends Drawable {
 
     protected static HashSet<Texture> textures;
 
-    public Building(Player owner, Tile position, int size,String name) {
+    public Building(Player owner, Tile position, int size, String name) {
         super(owner, position, name);
-        this.size = size;
+        Building.size = size;
 
         GameMap gameMap = Tile.getGameMap();
         int xCenter = position.getRowNum();
@@ -57,8 +58,8 @@ public abstract class Building extends Drawable {
     }
 
 
-    protected boolean shouldBreak(){
-        if(HP<=0){
+    protected boolean shouldBreak() {
+        if (HP <= 0) {
             this.erase();
             return true;
         }
@@ -70,7 +71,7 @@ public abstract class Building extends Drawable {
         GameMap gameMap = Tile.getGameMap();
         int halfSize = size / 2;
         for (int x = position.getRowNum() - halfSize; x <= position.getRowNum() + halfSize; x++) {
-            for (int y = position.getColumnNum() - halfSize; y <= position.getColumnNum() + halfSize; y++){
+            for (int y = position.getColumnNum() - halfSize; y <= position.getColumnNum() + halfSize; y++) {
                 gameMap.getMap()[x][y].setBuilding(null);
             }
         }
@@ -118,7 +119,7 @@ public abstract class Building extends Drawable {
             Barracks barracks = ((Barracks) building);
             if (barracks.getType().equals(BarracksType.BARRACK)) {
                 return 'B';
-            } else if (barracks.getType().equals(BarracksType.ENGINEER_GUILD)){
+            } else if (barracks.getType().equals(BarracksType.ENGINEER_GUILD)) {
                 return 'E';
             } else if (barracks.getType().equals(BarracksType.MERCENARY_POST)) {
                 return 'M';

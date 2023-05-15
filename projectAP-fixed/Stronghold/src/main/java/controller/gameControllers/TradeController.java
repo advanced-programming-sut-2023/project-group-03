@@ -9,9 +9,11 @@ import controller.Enums.Response;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
+
 public class TradeController extends Controller {
     GameController gameController;
     Player owner;
+
     public TradeController(Player owner) {
         this.owner = owner;
     }
@@ -27,7 +29,7 @@ public class TradeController extends Controller {
             return Response.INVALID_PRICE.getOutput();
         }
         if (!infoMap.get("a").matches("\\d+")) {
-            return  Response.INVALID_AMOUNT.getOutput();
+            return Response.INVALID_AMOUNT.getOutput();
         }
         if (Resources.getResourceByName(infoMap.get("t")) == null) {
             return Response.INVALID_RESOURCE.getOutput();

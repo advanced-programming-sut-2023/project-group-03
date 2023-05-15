@@ -4,7 +4,7 @@ import Model.Buildings.Generators;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 
-public class Ox extends Worker{
+public class Ox extends Worker {
     private int cargo = 0;
 
     public Ox(Player owner, Tile position, Generators generator) {
@@ -16,8 +16,7 @@ public class Ox extends Worker{
             int cargoAmount = Math.min(job.getCapacity() / 3, job.getCurrentResourceAmount());
             cargo = cargoAmount;
             job.loseCurrentResource(cargoAmount);
-        }
-        else if (position.equals(getEnd()) || position.equals(getStart())) {
+        } else if (position.equals(getEnd()) || position.equals(getStart())) {
             owner.increaseInventory(job.getProduct(), cargo);
             cargo = 0;
         }

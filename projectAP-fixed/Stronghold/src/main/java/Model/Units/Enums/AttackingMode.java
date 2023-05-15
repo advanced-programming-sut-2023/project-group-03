@@ -5,7 +5,7 @@ public enum AttackingMode {
     DEFENSIVE("defensive"),
     AGGRESSIVE("aggressive"),
     ;
-    private String name;
+    private final String name;
 
     AttackingMode(String name) {
         this.name = name;

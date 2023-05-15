@@ -3,10 +3,10 @@ package Model.GamePlay;
 import Model.Buildings.Enums.Resources;
 import Model.Buildings.Keep;
 import Model.Element;
+import Model.Field.flagColors;
 import Model.Units.Combat.Troop;
 import Model.Units.Unit;
 import Model.User;
-import Model.Field.flagColors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,11 +41,11 @@ public class Player extends Element {
         }
     }
 
-    public void increaseGold(int number){
-        gold+=number;
+    public void increaseGold(int number) {
+        gold += number;
     }
 
-    public void decreaseGold(int number){
+    public void decreaseGold(int number) {
         if (gold > number) {
             gold -= number;
         } else {
@@ -53,12 +53,12 @@ public class Player extends Element {
         }
     }
 
-    public int getResourceAmount(Resources resources){
+    public int getResourceAmount(Resources resources) {
         return inventory.get(resources);
     }
 
     public void increaseInventory(Resources resources, int number) {
-        inventory.replace(resources,Integer.sum(inventory.get(resources), number));
+        inventory.replace(resources, Integer.sum(inventory.get(resources), number));
     }
 
     public void decreaseInventory(Resources resources, int number) {
@@ -88,6 +88,7 @@ public class Player extends Element {
     public void addToIncomeRequest(Request request) {
         incomeRequests.add(request);
     }
+
     public void answerRequest(Request request) {
 
     }
@@ -187,6 +188,7 @@ public class Player extends Element {
     public void setGovernment(Government government) {
         this.government = government;
     }
+
     public void setGame(Game game) {
         this.game = game;
     }

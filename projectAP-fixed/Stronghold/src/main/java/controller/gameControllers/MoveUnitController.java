@@ -5,7 +5,6 @@ import Model.Buildings.Defending.Gates;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
-import Model.Units.Unit;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -46,8 +45,9 @@ public class MoveUnitController {
         search:
         while (true) {
             for (Tile neigbour : currentPathTile.getTile().getNeighboursConnected()) {
-                if (!visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()] && !neigbour.equals(startTile) ) {
-                    if (neigbour.getBuilding() != null && neigbour.getBuilding() instanceof Gates && !neigbour.getBuilding().getOwner().equals(player)) continue;
+                if (!visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()] && !neigbour.equals(startTile)) {
+                    if (neigbour.getBuilding() != null && neigbour.getBuilding() instanceof Gates && !neigbour.getBuilding().getOwner().equals(player))
+                        continue;
                     visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()] = true;
                     queueTiles.addLast(new PathTile(neigbour, currentPathTile));
                 } else if (neigbour.equals(startTile)) {
@@ -85,7 +85,8 @@ public class MoveUnitController {
         while (true) {
             for (Tile neigbour : currentPathTile.getTile().getNeighboursConnected()) {
                 if ((neigbour.getBuilding() == null || !neigbour.getBuilding().equals(building)) && !visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()]) {
-                    if (neigbour.getBuilding() != null && neigbour.getBuilding() instanceof Gates && !neigbour.getOwner().equals(player)) continue;
+                    if (neigbour.getBuilding() != null && neigbour.getBuilding() instanceof Gates && !neigbour.getOwner().equals(player))
+                        continue;
                     visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()] = true;
                     queueTiles.addLast(new PathTile(neigbour, currentPathTile));
                 } else if (neigbour.getBuilding() != null && neigbour.getBuilding().equals(building)) {
@@ -127,7 +128,8 @@ public class MoveUnitController {
 
             for (Tile neigbour : currentPathTile.getTile().getNeighboursConnected()) {
                 if (!visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()]) {
-                    if (neigbour.getBuilding() != null && neigbour.getBuilding() instanceof Gates && !neigbour.getOwner().equals(player)) continue;
+                    if (neigbour.getBuilding() != null && neigbour.getBuilding() instanceof Gates && !neigbour.getOwner().equals(player))
+                        continue;
                     visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()] = true;
                     queueTiles.addLast(new PathTile(neigbour, currentPathTile));
                     answer.add(neigbour);

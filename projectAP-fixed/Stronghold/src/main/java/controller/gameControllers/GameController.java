@@ -5,26 +5,25 @@ import Model.Buildings.Building;
 import Model.Buildings.Enums.Resources;
 import Model.Buildings.Generators;
 import Model.Field.GameMap;
-import Model.Field.Tile;
-import Model.GamePlay.Game;
 import Model.GamePlay.Player;
-import Model.Units.Unit;
 import controller.Controller;
-import controller.interfaces.*;
+import controller.interfaces.BuildingInterface;
+import controller.interfaces.GameMarketInterface;
+import controller.interfaces.KingdomInterface;
+import controller.interfaces.UnitInterface;
 import view.Game.GameMenu;
 
 import java.util.regex.Matcher;
 
-public class GameController extends Controller implements GameMarketInterface , BuildingInterface,
-        UnitInterface, KingdomInterface
-{
-    private BuildingController buildingController;
-    private KingdomController kingdomController;
-    private MarketController marketController;
-    private MoveUnitController moveUnitController;
-    private UnitController unitController;
+public class GameController extends Controller implements GameMarketInterface, BuildingInterface,
+        UnitInterface, KingdomInterface {
+    private final BuildingController buildingController;
+    private final KingdomController kingdomController;
+    private final MarketController marketController;
+    private final MoveUnitController moveUnitController;
+    private final UnitController unitController;
 
-    private GameMap gameMap;
+    private final GameMap gameMap;
 
     public GameController(GameMap gameMap) {
         this.buildingController = new BuildingController(gameMap);
@@ -200,7 +199,7 @@ public class GameController extends Controller implements GameMarketInterface , 
     }
 
     public String attackToBuildingMatcherHandler(Matcher matcher, GameMenu gameMenu) {
-        return unitController.attackToBuildingMatcherHandler(matcher,gameMenu);
+        return unitController.attackToBuildingMatcherHandler(matcher, gameMenu);
     }
 
     public void disbandUnit(GameMenu gameMenu) {

@@ -3,17 +3,13 @@ package Model.buffers;
 import Model.Buildings.Keep;
 import Model.Field.GameMap;
 import Model.Field.Tile;
-import Model.GamePlay.Drawable;
-import Model.GamePlay.Player;
-
-import java.util.ArrayList;
 
 public class MapBuffer {
     private int size;
     private TileBuffer[][] map;
     private int numberOfPlayers;
     private String name;
-    private TileBuffer[] KeepOfPlayers;
+    private final TileBuffer[] KeepOfPlayers;
 
     public MapBuffer(GameMap gameMap) {
         numberOfPlayers = gameMap.getNumberOfPlayers();
@@ -73,7 +69,7 @@ public class MapBuffer {
         gameMap.setNumberOfPlayers(numberOfPlayers);
         for (int i = 0; i < gameMap.getSize(); i++) {
             for (int j = 0; j < gameMap.getSize(); j++) {
-                map[i][j].writeOnTile(gameMap.getMap()[i][j],gameMap);
+                map[i][j].writeOnTile(gameMap.getMap()[i][j], gameMap);
             }
         }
         gameMap.setCenter(size / 2, size / 2);

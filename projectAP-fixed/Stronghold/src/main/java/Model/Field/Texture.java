@@ -2,26 +2,24 @@ package Model.Field;
 
 import Model.Buildings.Enums.Resources;
 import view.Enums.ConsoleColors;
-import view.Enums.ConsoleColors;
 
-public enum Texture
-{
-    GROUND("ground", null,1),
-    PEBBLE("pebble", null,2),
-    STONE_SLAB("stone slab", Resources.STONE,3),
-    STONE("stone", null,4),
-    IRON("iron", Resources.IRON,5),
-    GRASS("grass", null,6),
-    GRASSLAND("grassland", null,7),
-    DENSE_GRASSLAND("dense grassland", null,8),
-    WATER("water", null,9),
+public enum Texture {
+    GROUND("ground", null, 1),
+    PEBBLE("pebble", null, 2),
+    STONE_SLAB("stone slab", Resources.STONE, 3),
+    STONE("stone", null, 4),
+    IRON("iron", Resources.IRON, 5),
+    GRASS("grass", null, 6),
+    GRASSLAND("grassland", null, 7),
+    DENSE_GRASSLAND("dense grassland", null, 8),
+    WATER("water", null, 9),
     OIL("oil", Resources.OIL, 10),
     ;
     private byte code;
-    private String name;
-    private Resources resource;
+    private final String name;
+    private final Resources resource;
 
-    Texture(String name, Resources resource,int code) {
+    Texture(String name, Resources resource, int code) {
         this.name = name;
         this.resource = resource;
         this.code = ((byte) code);
@@ -58,7 +56,7 @@ public enum Texture
         if (name.equals("Iron")) {
             return (ConsoleColors.TEXT_BG_YELLOW);
         }
-        if (name.equals("grass")||name.equals("grassland")) {
+        if (name.equals("grass") || name.equals("grassland")) {
             return (ConsoleColors.TEXT_BRIGHT_BG_GREEN);
         }
         if (name.equals("water")) {

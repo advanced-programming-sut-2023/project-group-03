@@ -1,11 +1,10 @@
 package controller.gameControllers;
 
-import Model.Buildings.*;
+import Model.Buildings.Building;
 import Model.Field.*;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
-import Model.User;
 import Model.buffers.MapBuffer;
 import com.google.gson.Gson;
 
@@ -17,14 +16,16 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.regex.Matcher;
+
 import static controller.Enums.InputOptions.*;
 import static controller.Enums.Response.*;
 
 public class MapController extends GeneralGameController {
     private final int gameWidth = 3;
     private final int gameLength = gameWidth * 2;
-    private BuildingController buildingController = new BuildingController(gameMap);
-    private UnitController unitController = new UnitController(gameMap);
+    private final BuildingController buildingController = new BuildingController(gameMap);
+    private final UnitController unitController = new UnitController(gameMap);
+
     public MapController(GameMap gameMap) {
         super(gameMap);
     }
@@ -36,7 +37,7 @@ public class MapController extends GeneralGameController {
         if (error != null) return error;
 
         String checkCoordinates = checkCoordinates(infoMap, "x", "y");
-        if (checkCoordinates != null) return  checkCoordinates;
+        if (checkCoordinates != null) return checkCoordinates;
 
         int x = Integer.parseInt(infoMap.get("x")) - 1;
         int y = Integer.parseInt(infoMap.get("y")) - 1;
@@ -58,9 +59,9 @@ public class MapController extends GeneralGameController {
         if (error != null) return error;
 
         String checkCoordinates = checkCoordinates(infoMap, "x1", "y1");
-        if (checkCoordinates != null) return  checkCoordinates;
+        if (checkCoordinates != null) return checkCoordinates;
         String checkCoordinates2 = checkCoordinates(infoMap, "x2", "y2");
-        if (checkCoordinates2 != null) return  checkCoordinates2;
+        if (checkCoordinates2 != null) return checkCoordinates2;
 
         int row1 = Integer.parseInt(infoMap.get("x1")) - 1;
         int col1 = Integer.parseInt(infoMap.get("y1")) - 1;
@@ -126,8 +127,10 @@ public class MapController extends GeneralGameController {
 
         String direction = infoMap.get("d");
         String allDirections = "news";
-        if (direction.equals("r")) infoMap.put("r", String.valueOf(allDirections.charAt(new Random().nextInt(allDirections.length()))));
-        else if (direction.length() > 1 || !allDirections.contains(direction)) return INVALID_ROCK_DIRECTION.getOutput();
+        if (direction.equals("r"))
+            infoMap.put("r", String.valueOf(allDirections.charAt(new Random().nextInt(allDirections.length()))));
+        else if (direction.length() > 1 || !allDirections.contains(direction))
+            return INVALID_ROCK_DIRECTION.getOutput();
 
         Tile targetTile = gameMap.getMap()[x][y];
 
@@ -184,9 +187,9 @@ public class MapController extends GeneralGameController {
         if (error != null) return error;
 
         String checkCoordinates = checkCoordinates(infoMap, "x1", "y1");
-        if (checkCoordinates != null) return  checkCoordinates;
+        if (checkCoordinates != null) return checkCoordinates;
         String checkCoordinates2 = checkCoordinates(infoMap, "x2", "y2");
-        if (checkCoordinates2 != null) return  checkCoordinates2;
+        if (checkCoordinates2 != null) return checkCoordinates2;
 
         int row1 = Integer.parseInt(infoMap.get("x1")) - 1;
         int col1 = Integer.parseInt(infoMap.get("y1")) - 1;
@@ -211,7 +214,7 @@ public class MapController extends GeneralGameController {
     }
 
     public String saveMap(GameMap map) {
-        File file = new File("src/main/resources/maps/"+map.getName()+".json");
+        File file = new File("src/main/resources/maps/" + map.getName() + ".json");
 //        file.mkdirs();//todo
         try {
             FileWriter fileWriter = new FileWriter(file);
@@ -224,7 +227,7 @@ public class MapController extends GeneralGameController {
     }
 
     public String saveBufferMap(GameMap map) {
-        File file = new File("src/main/resources/maps/"+map.getName()+".json");
+        File file = new File("src/main/resources/maps/" + map.getName() + ".json");
         MapBuffer mapBuffer = new MapBuffer(map);
 //        file.mkdirs();//todo
         try {
@@ -265,7 +268,7 @@ public class MapController extends GeneralGameController {
         for (int i = 0; i < map.getMap().length; i++) {
             for (int j = 0; j < map.getMap().length; j++) {
 
-                findOwner(map.getMap()[i][j],map);
+                findOwner(map.getMap()[i][j], map);
             }
         }
         for (int i = 0; i < map.getDrawables().size(); i++) {
@@ -274,7 +277,7 @@ public class MapController extends GeneralGameController {
 
     }
 
-    public static void findOwner(Tile tile,GameMap map) {
+    public static void findOwner(Tile tile, GameMap map) {
         for (int i = 0; i < map.getNumberOfPlayers(); i++) {
             if (map.getPlayers()[i] == null) {
                 return;

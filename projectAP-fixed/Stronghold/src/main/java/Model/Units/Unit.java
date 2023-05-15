@@ -5,12 +5,10 @@ import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
-import Model.Units.Combat.CombatUnit;
 import Model.Units.Combat.Throwers;
 import Model.Units.Combat.Troop;
 import controller.gameControllers.MoveUnitController;
 
-import javax.swing.text.TabableView;
 import java.util.ArrayList;
 
 public abstract class Unit extends Drawable {
@@ -22,8 +20,8 @@ public abstract class Unit extends Drawable {
     protected Tile BufferTarget = null;
     protected ArrayList<Tile> currentPath = new ArrayList<>();
 
-    public Unit(Player owner, Tile position,String name) {
-        super(owner, position,name);
+    public Unit(Player owner, Tile position, String name) {
+        super(owner, position, name);
         currentTarget = position;
         owner.addUnit(this);
         position.addUnit(this);
@@ -39,10 +37,10 @@ public abstract class Unit extends Drawable {
             return;
         }
         if (currentTarget.equals(position)) {
-            return ;
+            return;
         }
         GameMap map = owner.getGame().getMap();
-        currentPath = MoveUnitController.findPath(position, currentTarget, map,owner);
+        currentPath = MoveUnitController.findPath(position, currentTarget, map, owner);
         if (speed >= currentPath.size() - 1) {
             moveToTile(currentPath.get(currentPath.size() - 1));
         } else {
@@ -55,7 +53,6 @@ public abstract class Unit extends Drawable {
         shouldBreak();
         if (isPatrol) {
             Patrol();
-            return;
         }
     }
 
@@ -67,7 +64,7 @@ public abstract class Unit extends Drawable {
         position = goal;
         goal.addUnit(this);
         if (position.getBuilding() != null && position.getBuilding() instanceof CastleBuilding
-        && this instanceof Troop) {
+                && this instanceof Troop) {
             ((CastleBuilding) position.getBuilding()).getTroops().add(((Troop) this));
         }
         currentTarget = position;
@@ -76,7 +73,7 @@ public abstract class Unit extends Drawable {
     public void Patrol() {
         if (isPatrol) {
             currentTarget = end;
-            currentPath = MoveUnitController.findPath(position, currentTarget, owner.getGame().getMap(),owner);
+            currentPath = MoveUnitController.findPath(position, currentTarget, owner.getGame().getMap(), owner);
             if (speed >= currentPath.size() - 1) {
                 moveToTile(currentPath.get(currentPath.size() - 1));
                 Tile buff = end;

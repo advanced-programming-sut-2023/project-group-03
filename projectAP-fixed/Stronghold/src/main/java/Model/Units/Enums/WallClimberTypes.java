@@ -1,15 +1,14 @@
 package Model.Units.Enums;
 
-import Model.Units.Combat.WallClimber;
-
 public enum WallClimberTypes {
     ;
-    private String name;
-    private int damage;
-    private int Speed;
-    private int HP;
-    private int range;
-    private int gold;
+    private final String name;
+    private final int damage;
+    private final int Speed;
+    private final int HP;
+    private final int range;
+    private final int gold;
+
     WallClimberTypes(String name, int damage, int speed, int HP, int range, int gold) {
         this.Speed = speed;
         this.name = name;

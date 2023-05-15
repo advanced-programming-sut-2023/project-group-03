@@ -10,25 +10,25 @@ import view.Enums.ConsoleColors;
 
 import java.util.ArrayList;
 
-public class Generators extends Building{
-    private GeneratorTypes type ;
-    private int useRate;
-    private int produceRate;
-    private int inventory;
-    private int capacity;
+public class Generators extends Building {
+    private final GeneratorTypes type;
+    private final int useRate;
+    private final int produceRate;
+    private final int inventory;
+    private final int capacity;
     private int currentResourceAmount = 0;
-    private Resources product;
-    private Resources use;
-    private int wood;
-    private int gold;
-    private int worker;
+    private final Resources product;
+    private final Resources use;
+    private final int wood;
+    private final int gold;
+    private final int worker;
 
-    private ArrayList<Worker> workers = new ArrayList<>();
+    private final ArrayList<Worker> workers = new ArrayList<>();
 
     private boolean isInFire;
 
     public Generators(Player owner, Tile position, GeneratorTypes type) {
-        super(owner, position, type.getSize(),type.getName());
+        super(owner, position, type.getSize(), type.getName());
         this.type = type;
         this.useRate = type.getUseRate();
         this.produceRate = type.getProduceRate();
@@ -42,7 +42,7 @@ public class Generators extends Building{
         this.worker = type.getWorker();
         this.setMaterial(Material.WOOD);
         owner.setCurrentPopulation(owner.getCurrentPopulation() + worker);
-        owner.decreaseInventory(Resources.WOOD,type.getWood());
+        owner.decreaseInventory(Resources.WOOD, type.getWood());
         owner.decreaseGold(type.getGold());
     }
 
@@ -86,13 +86,11 @@ public class Generators extends Building{
         return use;
     }
 
-    public void makeResource(){
+    public void makeResource() {
         if (type.equals(GeneratorTypes.STONE_MINE) || type.equals(GeneratorTypes.IRON_MINE)) {
             if (currentResourceAmount >= capacity) return;
             currentResourceAmount += Math.min(produceRate, capacity - currentResourceAmount);
-        }
-
-        else {
+        } else {
             if (use != null && useRate > owner.getResourceAmount(use)) {
                 return;
             }
@@ -107,7 +105,7 @@ public class Generators extends Building{
 
     @Override
     public void check() {
-        if(shouldBreak()){
+        if (shouldBreak()) {
             return;
         }
         makeResource();

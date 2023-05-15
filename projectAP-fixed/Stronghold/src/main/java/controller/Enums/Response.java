@@ -243,9 +243,9 @@ public enum Response {
     SUCCESSFUL_TRADE_ACCEPT("trade accepted"),
     INVALID_REQUEST_ID("invalid request id"),
     ;
-    private String output;
+    private final String output;
 
-    private Response(String output) {
+    Response(String output) {
         this.output = output;
     }
 

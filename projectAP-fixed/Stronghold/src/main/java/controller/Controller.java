@@ -1,12 +1,13 @@
 package controller;
 
-import controller.Enums.ControllerCommands;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
-import static controller.ControllerFunctions.*;
-import static controller.Enums.ControllerCommands.*;
+
+import static controller.ControllerFunctions.getMatcher;
+import static controller.ControllerFunctions.unwrapQuotation;
+import static controller.Enums.ControllerCommands.MULTI_OPTION_FIELD_FORMAT;
+import static controller.Enums.ControllerCommands.OPTION_FIELD;
 import static controller.Enums.Response.*;
 
 public class Controller {
@@ -46,7 +47,7 @@ public class Controller {
 
             optionInfo = unwrapQuotation(optionInfo);//fixing option info if it has ""
             infoMap.put(option, optionInfo);
-        } while(matcher.find());
+        } while (matcher.find());
 
         for (String key : keys) {
             if (infoMap.get(key) == null) {

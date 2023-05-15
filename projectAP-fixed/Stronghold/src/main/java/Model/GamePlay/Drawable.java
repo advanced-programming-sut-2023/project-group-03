@@ -72,6 +72,7 @@ public abstract class Drawable extends Element {
     }
 
     protected abstract boolean shouldBreak();
+
     public static ArrayList<Drawable> getDrawables() {
         return drawables;
     }

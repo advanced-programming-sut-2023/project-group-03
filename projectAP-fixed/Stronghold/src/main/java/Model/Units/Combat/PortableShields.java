@@ -5,13 +5,13 @@ import Model.GamePlay.Player;
 
 import java.util.ArrayList;
 
-public class PortableShields extends CombatUnit{
+public class PortableShields extends CombatUnit {
 
     private ArrayList<Troop> underShield;
-    private int defenseRate = 2;
-    private static int cost = 10;
+    private final int defenseRate = 2;
+    private static final int cost = 10;
 
-    private static int wood = 10;
+    private static final int wood = 10;
 
     public void addToShield(Troop troop) {
 
@@ -26,7 +26,7 @@ public class PortableShields extends CombatUnit{
     }
 
     public PortableShields(Player owner, Tile position) {
-        super(owner, position,"portable shields");
+        super(owner, position, "portable shields");
 
         owner.decreaseGold(10);
     }

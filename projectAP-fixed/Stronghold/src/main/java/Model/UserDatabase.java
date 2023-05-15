@@ -1,7 +1,8 @@
 package Model;
 
 import Model.Field.GameMap;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedWriter;
@@ -16,12 +17,10 @@ public class UserDatabase {
     static String dataPath = "src/main/resources/users/users.json";
     static String backupData = "src/main/resources/users/backup.json";
 
-    private static ArrayList<GameMap> maps = new ArrayList<>();
+    private static final ArrayList<GameMap> maps = new ArrayList<>();
     private static ArrayList<User> users = new ArrayList<>();
-    private static ArrayList<User> ranking = new ArrayList<>();
+    private static final ArrayList<User> ranking = new ArrayList<>();
 
-    public UserDatabase() {
-    }
 
     public static User getUserByName(String name) {
         for (int i = 0; i < users.size(); i++) {

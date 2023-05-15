@@ -9,12 +9,12 @@ import view.Enums.ConsoleColors;
 
 public class Trap extends Building {
 
-    private TrapsTypes type;
-    private int gold;
-    private int wood;
-    private int oil;
-    private int worker;
-    private int damage;
+    private final TrapsTypes type;
+    private final int gold;
+    private final int wood;
+    private final int oil;
+    private final int worker;
+    private final int damage;
 
     public Trap(Player owner, Tile position, TrapsTypes type) {
         super(owner, position, type.getSize(), type.getName());

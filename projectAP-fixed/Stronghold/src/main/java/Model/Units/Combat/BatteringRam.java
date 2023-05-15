@@ -12,7 +12,7 @@ public class BatteringRam extends CombatUnit {
     private Tile target;
 
     public BatteringRam(Player owner, Tile position) {
-        super(owner, position,"battering ram");
+        super(owner, position, "battering ram");
         this.setDamage(1500);
         this.setMaterial(Material.FLESH);
         this.setSpeed(7);

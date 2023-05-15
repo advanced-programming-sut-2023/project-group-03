@@ -10,7 +10,6 @@ import Model.Units.Unit;
 import controller.gameControllers.MoveUnitController;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 public abstract class CombatUnit extends Unit {
@@ -24,8 +23,8 @@ public abstract class CombatUnit extends Unit {
     protected Drawable EnemyTarget = null;
     protected int gold;
 
-    public CombatUnit(Player owner, Tile position,String name) {
-        super(owner, position,name);
+    public CombatUnit(Player owner, Tile position, String name) {
+        super(owner, position, name);
     }
 
     public void attackTo(Tile tile) {
@@ -218,8 +217,9 @@ public abstract class CombatUnit extends Unit {
                 for (Unit unit : targetTile.getUnits()) {
                     if (!unit.getOwner().equals(owner) && unit instanceof CombatUnit) {
                         Unit toHit = selectRandomEnemy(targetTile);
-                        if(toHit!=null){
-                            toHit.getHit(this);}
+                        if (toHit != null) {
+                            toHit.getHit(this);
+                        }
                         return true;
                     }
                 }
@@ -280,7 +280,6 @@ public abstract class CombatUnit extends Unit {
         }
         if (!currentTarget.equals(position)) {
             AutoMove();
-            return;
         }
     }
 

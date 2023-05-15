@@ -2,11 +2,12 @@ package controller.gameControllers;
 
 import Model.GamePlay.Player;
 import controller.interfaces.KingdomInterface;
-import static controller.Enums.InputOptions.*;
-import static controller.Enums.Response.*;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
+
+import static controller.Enums.InputOptions.CHANGE_RATE;
+import static controller.Enums.Response.*;
 
 public class KingdomController extends GeneralGameController implements KingdomInterface {
     GameController gameController;

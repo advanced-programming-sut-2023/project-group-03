@@ -6,10 +6,10 @@ import Model.GamePlay.Player;
 import view.Enums.ConsoleColors;
 
 public class Wall extends CastleBuilding {
-    private WallTypes type;
+    private final WallTypes type;
     private Trap trap;
 
-    public Wall(Player owner, Tile position,WallTypes type) {
+    public Wall(Player owner, Tile position, WallTypes type) {
         super(owner, position, 1, type.getName());
         this.type = type;
         this.HP = type.getHP();
@@ -23,7 +23,7 @@ public class Wall extends CastleBuilding {
     }
 
     public boolean setTrap(Trap trap) {
-        if(this.trap == null){
+        if (this.trap == null) {
             return false;
         }
         this.trap = trap;
@@ -32,8 +32,7 @@ public class Wall extends CastleBuilding {
 
     @Override
     public void check() {
-        if(shouldBreak()){
-            return;
+        if (shouldBreak()) {
         }
     }
 

@@ -9,12 +9,12 @@ import Model.GamePlay.Player;
 import java.util.HashMap;
 
 public class Inventory extends Building {
-    private InventoryTypes type;
-    private HashMap<Resources,Integer> inventory;
+    private final InventoryTypes type;
+    private final HashMap<Resources, Integer> inventory;
     int capacity;
 
     public Inventory(Player owner, Tile position, InventoryTypes type) {
-        super(owner, position, type.getSize(),type.getName());
+        super(owner, position, type.getSize(), type.getName());
         goldCost = 10;
         stoneCost = type.getStoneCost();
         woodCost = type.getWood();
@@ -22,7 +22,7 @@ public class Inventory extends Building {
         this.type = type;
         this.HP = this.type.getHP();
         for (Resources now : type.getResources()) {
-            inventory.put(now,0);
+            inventory.put(now, 0);
         }
         this.capacity = type.getCapacity();
         if (type.equals(InventoryTypes.ARMOURY)) {
@@ -55,8 +55,7 @@ public class Inventory extends Building {
 
     @Override
     public void check() {
-        if(shouldBreak()){
-            return;
+        if (shouldBreak()) {
         }
     }
 

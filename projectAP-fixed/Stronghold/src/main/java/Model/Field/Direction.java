@@ -7,8 +7,9 @@ public enum Direction {
     LEFT("left"),
     ;
 
-    private String name;
-    Direction (String name) {
+    private final String name;
+
+    Direction(String name) {
         this.name = name;
     }
 

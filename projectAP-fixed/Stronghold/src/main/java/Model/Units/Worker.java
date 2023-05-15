@@ -7,11 +7,12 @@ import Model.Buildings.Generators;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 
-public class Worker extends nonCombatUnit{
+public class Worker extends nonCombatUnit {
 
     Generators job;
+
     public Worker(Player owner, Tile position, Generators job) {
-        super(owner, position,"worker");
+        super(owner, position, "worker");
         this.job = job;
         this.HP = 20;
         speed = 2;
@@ -19,23 +20,18 @@ public class Worker extends nonCombatUnit{
         Resources product = job.getProduct();
         InventoryTypes inventoryType = null;
         for (InventoryTypes inventory : InventoryTypes.values()) {
-               if (inventory.getResource().equals(product.getType())) {
-                   inventoryType = inventory;
-                   break;
-               }
+            if (inventory.getResource().equals(product.getType())) {
+                inventoryType = inventory;
+                break;
+            }
         }
         if (inventoryType.equals(InventoryTypes.ARMOURY)) {
             if (owner.getKeep().getArmoury() != null) this.setEnd(owner.getKeep().getArmoury().getPosition());
-        }
-        else if (inventoryType.equals(InventoryTypes.STOCKPILE)) {
+        } else if (inventoryType.equals(InventoryTypes.STOCKPILE)) {
             if (owner.getKeep().getStockPile() != null) this.setEnd(owner.getKeep().getStockPile().getPosition());
-        }
-        else if (inventoryType.equals(InventoryTypes.FOOD_STORAGE)) {
+        } else if (inventoryType.equals(InventoryTypes.FOOD_STORAGE)) {
             if (owner.getKeep().getFoodStorage() != null) this.setEnd(owner.getKeep().getFoodStorage().getPosition());
-        }
-        else this.setEnd(owner.getKeep().getStockPile().getPosition());
-
-
+        } else this.setEnd(owner.getKeep().getStockPile().getPosition());
         this.setPatrol(true);
         this.setStart(owner.getKeep().getPosition());
         this.setStart(job.getPosition());

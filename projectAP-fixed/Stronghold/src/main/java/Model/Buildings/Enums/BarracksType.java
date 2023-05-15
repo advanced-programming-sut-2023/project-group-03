@@ -7,24 +7,23 @@ import Model.GamePlay.Material;
 import java.util.HashSet;
 
 public enum BarracksType {
-    BARRACK("barrack",150,0,0,15,0,0,Material.IRON, RegularTextureGroups.NORMAL.getTextureHashSet()),
-    MERCENARY_POST("mercenary post", 150, 0,10,0,0,0,Material.IRON,RegularTextureGroups.NORMAL.getTextureHashSet()),
-    ENGINEER_GUILD("engineer guild", 180,100,10,0,0,0,Material.IRON,RegularTextureGroups.NORMAL.getTextureHashSet()),
-    TUNNELER_GUILD("tunneler guild", 180,100,0,15,5,0,Material.STONE,RegularTextureGroups.NORMAL.getTextureHashSet()),
-    SIEGE_TENT("siege tent",180,200,0,0,0,1,Material.WOOD,RegularTextureGroups.NORMAL.getTextureHashSet())
-    ;
-    private String name;
-    private int HP;
+    BARRACK("barrack", 150, 0, 0, 15, 0, 0, Material.IRON, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    MERCENARY_POST("mercenary post", 150, 0, 10, 0, 0, 0, Material.IRON, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    ENGINEER_GUILD("engineer guild", 180, 100, 10, 0, 0, 0, Material.IRON, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    TUNNELER_GUILD("tunneler guild", 180, 100, 0, 15, 5, 0, Material.STONE, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    SIEGE_TENT("siege tent", 180, 200, 0, 0, 0, 1, Material.WOOD, RegularTextureGroups.NORMAL.getTextureHashSet());
+    private final String name;
+    private final int HP;
     private final int size = 5;
-    private int gold;
-    private int wood;
-    private int stoneCost;
-    private int oil;
-    private int engineer;
-    private Material material;
-    private HashSet<Texture> textures;
+    private final int gold;
+    private final int wood;
+    private final int stoneCost;
+    private final int oil;
+    private final int engineer;
+    private final Material material;
+    private final HashSet<Texture> textures;
 
-    private BarracksType(String name, int HP, int gold, int wood, int stoneCost, int oil,int engineer, Material material, HashSet<Texture> textures) {
+    BarracksType(String name, int HP, int gold, int wood, int stoneCost, int oil, int engineer, Material material, HashSet<Texture> textures) {
         this.name = name;
         this.HP = HP;
         this.gold = gold;
@@ -64,7 +63,9 @@ public enum BarracksType {
         return oil;
     }
 
-    public int getEngineer() { return engineer; }
+    public int getEngineer() {
+        return engineer;
+    }
 
     public Material getMaterial() {
         return material;

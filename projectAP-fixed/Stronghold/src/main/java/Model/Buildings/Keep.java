@@ -8,11 +8,10 @@ import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Engineer;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static Model.Buildings.Enums.Resources.*;
+import static Model.Buildings.Enums.Resources.getFoods;
 
 public class Keep extends Building {
     private Inventory armoury = null;
@@ -29,10 +28,10 @@ public class Keep extends Building {
     private int maxEngineerPopulation = 0;
     private int currentEngineerPopulation = 0;
 
-    private ArrayList<Engineer> engineers = new ArrayList<>();
+    private final ArrayList<Engineer> engineers = new ArrayList<>();
 
     public Keep(Player owner, Tile position) {
-        super(owner, position, 5,"keep");
+        super(owner, position, 5, "keep");
         owner.setKeep(this);
         HP = 10000;
         material = Material.IRON;

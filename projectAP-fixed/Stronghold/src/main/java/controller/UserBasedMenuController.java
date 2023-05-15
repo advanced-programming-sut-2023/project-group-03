@@ -1,19 +1,21 @@
 package controller;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static controller.Enums.UserBasedMenuCommands.*;
-import static controller.ControllerFunctions.getMatcher;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+
+import static controller.ControllerFunctions.getMatcher;
+import static controller.Enums.UserBasedMenuCommands.EMAIL_FORMAT;
+import static controller.Enums.UserBasedMenuCommands.INVALID_USERNAME_FORMAT;
 
 public class UserBasedMenuController extends Controller {
     public static boolean checkUsernameNicknameFormat(String username) {
         return getMatcher(username, INVALID_USERNAME_FORMAT.getRegex()) == null;
     }
+
     public static boolean checkPasswordWeakness(String password) {
         if (password.length() < 6) return true;
         if (getMatcher(password, "[a-z]") == null) return true;

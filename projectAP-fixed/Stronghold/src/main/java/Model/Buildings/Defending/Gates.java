@@ -18,7 +18,7 @@ public class Gates extends CastleBuilding {
     private Direction direction;
     private ArrayList<Tile> terminals = new ArrayList<>();
 
-    public Gates(Player owner, Tile position, GateTypes type,Tile upTerminal,Tile downTerminal) {
+    public Gates(Player owner, Tile position, GateTypes type, Tile upTerminal, Tile downTerminal) {
         super(owner, position, type.getSize(), type.getName());
         this.HP = type.getHP();
         this.stoneCost = type.getStoneCost();
@@ -48,12 +48,12 @@ public class Gates extends CastleBuilding {
     }
 
     private void updateOwner() {
-        for (Troop now: troops) {
-            if(now.getOwner().equals(owner)){
+        for (Troop now : troops) {
+            if (now.getOwner().equals(owner)) {
                 return;
             }
         }
-        if(troops.size()==0){
+        if (troops.size() == 0) {
             return;
         }
         owner = troops.get(0).getOwner();
@@ -64,6 +64,7 @@ public class Gates extends CastleBuilding {
             for (Unit unit : terminal.getUnits()) {
                 if (unit.getOwner().equals(owner)) {
                     this.isOpen = true;
+                    break;
                 }
             }
         }
@@ -91,7 +92,7 @@ public class Gates extends CastleBuilding {
 
     @Override
     public void check() {
-        if(shouldBreak()){
+        if (shouldBreak()) {
             return;
         }
         updateOwner();
@@ -133,7 +134,7 @@ public class Gates extends CastleBuilding {
         GameMap map = owner.getGame().getMap();
         for (int i = x - size / 2; i <= x + size / 2; i++) {
             for (int j = y - size / 2; j <= y + size / 2; j++) {
-            Tile current = map.getMap()[i][j];
+                Tile current = map.getMap()[i][j];
                 Gates gates = ((Gates) current.getBuilding());
                 if (this.getTerminals().contains(current)) {
 

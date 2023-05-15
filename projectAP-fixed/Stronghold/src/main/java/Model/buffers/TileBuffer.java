@@ -1,26 +1,23 @@
 package Model.buffers;
 
-import Model.Buildings.Building;
-import Model.Buildings.Defending.Enums.Stair;
-import Model.Field.*;
-import Model.GamePlay.Player;
-import Model.Units.Unit;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import Model.Field.GameMap;
+import Model.Field.Texture;
+import Model.Field.Tile;
 
 public class TileBuffer {
     int rowNum;
     int columnNum;
-    private byte texture;
+    private final byte texture;
     private byte mazafaza;
     private int owner;
 
-    public TileBuffer(Tile tile,GameMap map) {
-        rowNum=tile.getRowNum();
+    public TileBuffer(Tile tile, GameMap map) {
+        rowNum = tile.getRowNum();
         columnNum = tile.getColumnNum();
         texture = tile.getTexture().getCode();
-        if(tile.getMazafaza()!=null){ mazafaza = tile.getMazafaza().getCode();}
+        if (tile.getMazafaza() != null) {
+            mazafaza = tile.getMazafaza().getCode();
+        }
 
         for (int i = 0; i < map.getNumberOfPlayers(); i++) {
             if (map.getPlayers()[i].equals(tile.getOwner())) {

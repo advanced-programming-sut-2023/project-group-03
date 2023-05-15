@@ -7,8 +7,9 @@ public enum ControllerCommands {
             "(--stay-logged-in\\s?)?(-[\\w+] ([^\"\\s]\\S*|\"[^\"]+\")?\\s?)*?$"),
     ;
 
-    private String regex;
-    private ControllerCommands(String regex) {
+    private final String regex;
+
+    ControllerCommands(String regex) {
         this.regex = regex;
     }
 

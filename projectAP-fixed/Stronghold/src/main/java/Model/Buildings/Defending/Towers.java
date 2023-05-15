@@ -1,5 +1,6 @@
 package Model.Buildings.Defending;
 
+import Model.Buildings.Building;
 import Model.Buildings.Defending.Enums.TowerTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
@@ -8,16 +9,16 @@ import Model.Units.Combat.Troop;
 import view.Enums.ConsoleColors;
 
 public class Towers extends CastleBuilding {
-    private TowerTypes type;
+    private final TowerTypes type;
     private Throwers thrower;
-    private int defenseIncrease;
-    private int rangeIncrease;
+    private final int defenseIncrease;
+    private final int rangeIncrease;
 
     public Towers(Player owner, Tile position, TowerTypes type) {
         super(owner, position, type.getSize(), type.getName());
         this.type = type;
         this.HP = type.getHP();
-        this.size = type.getSize();
+        size = type.getSize();
         this.stoneCost = type.getStoneCost();
         this.defenseIncrease = type.getDefenseIncrease();
         this.rangeIncrease = type.getRangeIncrease();
@@ -57,14 +58,15 @@ public class Towers extends CastleBuilding {
 
     @Override
     public void check() {
-        if(shouldBreak()){
-            return;
+        if (shouldBreak()) {
         }
     }
 
     public void erase() {
         super.erase();
-        if(thrower!=null){ thrower.erase();}
+        if (thrower != null) {
+            thrower.erase();
+        }
 
         String log = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(),
                 ConsoleColors.TEXT_BG_BLACK, "a building of type <" + type.getName() + "> distroyed in (" +

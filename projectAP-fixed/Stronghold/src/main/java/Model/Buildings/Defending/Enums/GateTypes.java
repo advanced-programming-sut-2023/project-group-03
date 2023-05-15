@@ -7,17 +7,17 @@ import java.util.HashSet;
 
 public enum GateTypes {
     SMALL_STONE_GATE_HOUSE("small stone gate", 1000, 3, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
-    BIG_STONE_GATE_HOUSE("big stone gate", 2000, 5, 20, 0,  RegularTextureGroups.NORMAL.getTextureHashSet()),
-    DRAWBRIDGE("drawbridge", 1000, 1,  0, 10,  RegularTextureGroups.NORMAL.getTextureHashSet()),
+    BIG_STONE_GATE_HOUSE("big stone gate", 2000, 5, 20, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    DRAWBRIDGE("drawbridge", 1000, 1, 0, 10, RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
 
-    private String name;
-    private int HP;
-    private int size;
-    private int stoneCost;
-    private int woodCost;
+    private final String name;
+    private final int HP;
+    private final int size;
+    private final int stoneCost;
+    private final int woodCost;
 
-    private HashSet<Texture> textures;
+    private final HashSet<Texture> textures;
 
     GateTypes(String name, int HP, int size, int stoneCost, int woodCost, HashSet<Texture> textures) {
         this.textures = textures;

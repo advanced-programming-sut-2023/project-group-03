@@ -11,8 +11,6 @@ import Model.Buildings.Enums.Resources;
 import Model.Field.GameMap;
 import Model.Field.Texture;
 import Model.Field.Tile;
-import Model.GamePlay.Drawable;
-import Model.GamePlay.Game;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Combat.*;
@@ -20,17 +18,16 @@ import Model.Units.Engineer;
 import Model.Units.Enums.AttackingMode;
 import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
-import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
 import controller.interfaces.UnitInterface;
 import view.Game.GameMenu;
 
-import static controller.Enums.InputOptions.*;
-import static controller.Enums.Response.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
+
+import static controller.Enums.InputOptions.*;
+import static controller.Enums.Response.*;
 
 public class UnitController extends GeneralGameController implements UnitInterface {
 
@@ -81,43 +78,33 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         ThrowerTypes throwerType = ThrowerTypes.getThrowerTypeByName(type);
         if (throwerType != null) {
             return addThrower(x, y, throwerType, amount, player, barracks);
-        }
-
-        else if (type.equals("battering ram")) {
+        } else if (type.equals("battering ram")) {
             return addBatteringRam(x, y, amount, player, barracks);
-        }
-
-        else if (type.equals("siege tower")) {
+        } else if (type.equals("siege tower")) {
             return addSiegeTower(x, y, amount, player, barracks);
         }
 
         TroopTypes troopType = TroopTypes.getTroopTypeByName(type);
         if (troopType != null) {
             return addTroop(troopType, amount, player, gameMap.getMap()[x][y], barracks);
-        }
-
-        else if (type.equals("wall climber")) {
+        } else if (type.equals("wall climber")) {
             return addWallClimber(x, y, amount, player, barracks);
-        }
-
-        else if (type.equals("engineer")) {
+        } else if (type.equals("engineer")) {
             return addEngineer(player, amount, gameMap.getMap()[x][y], barracks);
-        }
-        else if (type.equals("ladder man")) {
+        } else if (type.equals("ladder man")) {
             return addLadderMan(x, y, amount, player, barracks);
-        }
-
-        else if (type.equals("portable shield")) {
+        } else if (type.equals("portable shield")) {
             return addPortableShield(x, y, amount, player, barracks);
         }
         return INVALID_UNIT_TYPE.getOutput();
     }
 
     private String addPortableShield(int x, int y, int amount, Player player, Barracks barracks) {
-        if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT)) return NOT_RIGHT_PLACE_UNIT.getOutput();
+        if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT))
+            return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         if (player.getGold() * amount < PortableShields.getCost())
-            return NOT_ENOUGH_GOLD_UNIT.getOutput();;
+            return NOT_ENOUGH_GOLD_UNIT.getOutput();
         if (player.getInventory().get(Resources.WOOD) * amount < PortableShields.getWood())
             return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " wood";
 
@@ -141,7 +128,8 @@ public class UnitController extends GeneralGameController implements UnitInterfa
     }
 
     private String addBatteringRam(int x, int y, int amount, Player player, Barracks barracks) {
-        if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT)) return NOT_RIGHT_PLACE_UNIT.getOutput();
+        if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT))
+            return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         if (player.getGold() * amount < BatteringRam.getGoldCost())
             return NOT_ENOUGH_GOLD_UNIT.getOutput();
@@ -157,9 +145,10 @@ public class UnitController extends GeneralGameController implements UnitInterfa
     }
 
     private String addSiegeTower(int x, int y, int amount, Player player, Barracks barracks) {
-        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null) return NOT_RIGHT_PLACE_UNIT.getOutput();
+        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null)
+            return NOT_RIGHT_PLACE_UNIT.getOutput();
 
-        if (player.getGold() * amount< SiegeTower.getGoldCost())
+        if (player.getGold() * amount < SiegeTower.getGoldCost())
             return NOT_ENOUGH_GOLD_UNIT.getOutput();
         if (player.getInventory().get(Resources.STONE) * amount < SiegeTower.getStoneCost())
             return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " stone";
@@ -195,7 +184,8 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         if (player.getGold() < amount * Engineer.price) return NOT_ENOUGH_GOLD_ENGINEER.getOutput();
-        if ((player.getMaxPopulation() - player.getCurrentPopulation()) < amount) return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();//todo engineer amount
+        if ((player.getMaxPopulation() - player.getCurrentPopulation()) < amount)
+            return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();//todo engineer amount
 
         for (int i = 0; i < amount; i++) {
             new Engineer(player, tile);
@@ -224,7 +214,8 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (player.getGold() < goldCost) return NOT_ENOUGH_GOLD_THROWER.getOutput();
 
         int currentUselessEngineers = player.getKeep().getMaxEngineerPopulation() - player.getKeep().getCurrentEngineerPopulation();
-        if (currentUselessEngineers < amount * throwerType.getEngineer()) return NOT_ENOUGH_ENGINEER_BARRACKS.getOutput();
+        if (currentUselessEngineers < amount * throwerType.getEngineer())
+            return NOT_ENOUGH_ENGINEER_BARRACKS.getOutput();
 
         Tile targetTile = gameMap.getMap()[x][y];
 
@@ -272,9 +263,11 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         int y = Integer.parseInt(infoMap.get("y")) - 1;
 
         Tile targetTile = gameMap.getMap()[x][y];
-        if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock")) return ROCK_EXIST_MOVE_UNIT.getOutput();
+        if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+            return ROCK_EXIST_MOVE_UNIT.getOutput();
         Texture targetTexture = targetTile.getTexture();
-        if (targetTexture.equals(Texture.WATER) || targetTexture.equals(Texture.STONE_SLAB)) return BAD_TEXTURE_MOVE_UNIT.getOutput();
+        if (targetTexture.equals(Texture.WATER) || targetTexture.equals(Texture.STONE_SLAB))
+            return BAD_TEXTURE_MOVE_UNIT.getOutput();
 
         for (Unit unit : gameMenu.getSelectedUnits()) {
             if (MoveUnitController.findPath(unit.getPosition(), targetTile, gameMap, unit.getOwner()).size() <= 1) {
@@ -312,7 +305,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         Tile endTile = gameMap.getMap()[x2][y2];
         if (endTile.getTexture().equals(Texture.WATER)
-         || endTile.getTexture().equals(Texture.STONE_SLAB)) return BAD_TEXTURE_END.getOutput();
+                || endTile.getTexture().equals(Texture.STONE_SLAB)) return BAD_TEXTURE_END.getOutput();
 
         Tile startTile = gameMap.getMap()[x2][y2];
         if (startTile.getTexture().equals(Texture.WATER)
@@ -357,28 +350,17 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         ThrowerTypes throwerType = ThrowerTypes.getThrowerTypeByName(type);
         if (throwerType != null) {
             return selectThrower(x, y, throwerType, count, player, gameMenu);
-        }
-
-        else if (type.equals("engineer")) {
+        } else if (type.equals("engineer")) {
             return selectEngineer(x, y, count, player, gameMenu);
-        }
-
-        else if (type.equals("battering ram")) {
+        } else if (type.equals("battering ram")) {
             return selectBatteringRam(x, y, count, player, gameMenu);
-        }
-        else if (type.equals("ladder man")) {
+        } else if (type.equals("ladder man")) {
             return selectLadderMan(x, y, count, player, gameMenu);
-        }
-
-        else if (type.equals("portable shields")) {
+        } else if (type.equals("portable shields")) {
             return selectPortableShields(x, y, count, player, gameMenu);
-        }
-
-        else if (type.equals("siege tower")) {
+        } else if (type.equals("siege tower")) {
             return selectSiegeTower(x, y, count, player, gameMenu);
-        }
-
-        else if (type.equals("wall climber")) {
+        } else if (type.equals("wall climber")) {
             return selectWallClimber(x, y, count, player, gameMenu);
         }
 
@@ -648,7 +630,8 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             if (!(gameMap.getMap()[x][y].getBuilding() instanceof Wall)) return WALL_NOT_EXIST_LADDER_MEN.getOutput();
         }
         if (tempUnit instanceof BatteringRam)
-            if (!(gameMap.getMap()[x][y].getBuilding() instanceof Gates)) return GATE_NOT_EXIT_BATTERING_RAM.getOutput();
+            if (!(gameMap.getMap()[x][y].getBuilding() instanceof Gates))
+                return GATE_NOT_EXIT_BATTERING_RAM.getOutput();
 
         CombatUnit combatUnit = (CombatUnit) gameMenu.getSelectedUnits().get(0);
         Material unitMaterial = combatUnit.getTargets().get(0);

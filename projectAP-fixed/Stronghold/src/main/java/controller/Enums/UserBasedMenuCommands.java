@@ -5,7 +5,8 @@ public enum UserBasedMenuCommands {
     EMAIL_FORMAT("^([a-zA-Z0-9_\\.])+@([a-zA-Z0-9_\\.])+\\.([a-zA-Z0-9_\\.])+$"),
     ;
     String regex;
-    private UserBasedMenuCommands(String regex) {
+
+    UserBasedMenuCommands(String regex) {
         this.regex = regex;
     }
 

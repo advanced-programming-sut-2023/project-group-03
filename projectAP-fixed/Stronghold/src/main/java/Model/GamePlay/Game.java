@@ -3,9 +3,7 @@ package Model.GamePlay;
 import Model.Buildings.Building;
 import Model.Buildings.Keep;
 import Model.Field.GameMap;
-import Model.Units.Worker;
 
-import javax.lang.model.type.ErrorType;
 import java.util.ArrayList;
 
 public class Game {
@@ -13,6 +11,7 @@ public class Game {
     private ArrayList<Player> players;
     private int turn = 1;
     private Player currentPlayer;
+
     public Game(GameMap map, ArrayList<Player> players) {
         this.map = map;
         this.players = players;
@@ -52,10 +51,7 @@ public class Game {
             }
             currentPlayer = players.get(0);
             turn++;
-            if (FinishGame()) {
-                return true;
-            }
-            return false;
+            return FinishGame();
         }
         return false;
     }
@@ -94,7 +90,7 @@ public class Game {
 
     public boolean FinishGame() {
         if (players.size() == 1) {
-            System.out.println("winner >>>> "+players.get(0).getUser().getNickname()+" <<<<");
+            System.out.println("winner >>>> " + players.get(0).getUser().getNickname() + " <<<<");
             System.out.println("1000 point for you");
             return true;
         }

@@ -2,12 +2,13 @@ package controller;
 
 import Model.User;
 
-import static controller.ControllerFunctions.*;
 import java.util.HashMap;
 import java.util.regex.Matcher;
+
+import static Model.UserDatabase.updateRanking;
+import static controller.ControllerFunctions.unwrapQuotation;
+import static controller.Enums.InputOptions.CHANGE_PASSWORD;
 import static controller.Enums.Response.*;
-import static controller.Enums.InputOptions.*;
-import static Model.UserDatabase.*;
 
 public class ProfileMenuController extends UserBasedMenuController {
     private User user;

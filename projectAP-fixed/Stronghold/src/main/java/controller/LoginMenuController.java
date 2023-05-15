@@ -2,15 +2,13 @@ package controller;
 
 import Model.User;
 import Model.UserDatabase;
-import controller.Enums.ControllerCommands;
-
-import java.lang.Thread;
 
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
-import static controller.Enums.InputOptions.*;
+
 import static Model.UserDatabase.getUserByName;
+import static controller.Enums.InputOptions.LOGIN_USER;
 import static controller.Enums.Response.*;
 import static view.LoginMenu.*;
 
@@ -75,11 +73,12 @@ public class LoginMenuController extends UserBasedMenuController {
         if (user == null) return UNKNOWN_USERNAME.getOutput();
 
         String securityQuestion = user.getSecurityQuestion();
-        String answer = getAnswer(scanner, securityQuestion);;
-        while (!getEncryptedPassword(answer).equals(user.getRecoveryPass())){
+        String answer = getAnswer(scanner, securityQuestion);
+        ;
+        while (!getEncryptedPassword(answer).equals(user.getRecoveryPass())) {
             if (answer.equals("back")) return BACK_TO_LOGIN_MENU.getOutput();
             view.LoginMenu.showOutput(WRONG_ANSWER_SECURITY_QUESTION.getOutput());
-            answer  = getAnswer(scanner, securityQuestion);
+            answer = getAnswer(scanner, securityQuestion);
         }
         return setNewPassword(user, scanner);
     }

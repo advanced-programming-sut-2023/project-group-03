@@ -1,6 +1,6 @@
 package Model;
 
-public class User implements  Comparable<User>{
+public class User implements Comparable<User> {
     private String password;
     private String username;
     private String nickname;
@@ -11,6 +11,7 @@ public class User implements  Comparable<User>{
     private int highScore;
     private int rank;
     private boolean stayLoggedIn = false;
+
     public User(String password, String username, String nickname, String email, String slogan) {
         this.password = password;
         this.username = username;

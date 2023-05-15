@@ -2,42 +2,42 @@ package Model.Buildings.Enums;
 
 import java.util.HashSet;
 
-public enum Resources
-{
-     FLOUR("flour", ResourceTypes.FOOD, 10),
+public enum Resources {
+    FLOUR("flour", ResourceTypes.FOOD, 10),
     IRON("iron", ResourceTypes.STOCK, 10),
-    STONE("stone", ResourceTypes.STOCK,10),
+    STONE("stone", ResourceTypes.STOCK, 10),
     OIL("oil", ResourceTypes.STOCK, 10),
     WOOD("wood", ResourceTypes.STOCK, 10),
     METAL_ARMOUR("metal armour", ResourceTypes.WEAPON, 10),
     SWORD("sword", ResourceTypes.WEAPON, 10),
     PIKE("pike", ResourceTypes.WEAPON, 10),
-    SPEAR("spear", ResourceTypes.WEAPON,10),
-    LEATHER_ARMOUR("leather armour", ResourceTypes.WEAPON,10),
-    BOW("bow", ResourceTypes.WEAPON,10),
-    CROSSBOW("crossbow", ResourceTypes.STOCK,10),
-    LAVA("lava", ResourceTypes.STOCK,10),
-    APPLE("apple", ResourceTypes.FOOD,10),
-    CHEESE("cheese", ResourceTypes.FOOD,10),
-    BARLEY("barley", ResourceTypes.FOOD,10),
-    MEAT("meat", ResourceTypes.FOOD,10),
-    WHEAT("wheat", ResourceTypes.FOOD,10),
-    BREAD("bread", ResourceTypes.FOOD,10),
-    WINE("wine", ResourceTypes.FOOD,10),
-    HORSE("horse", ResourceTypes.WEAPON,10)
-    ;
+    SPEAR("spear", ResourceTypes.WEAPON, 10),
+    LEATHER_ARMOUR("leather armour", ResourceTypes.WEAPON, 10),
+    BOW("bow", ResourceTypes.WEAPON, 10),
+    CROSSBOW("crossbow", ResourceTypes.STOCK, 10),
+    LAVA("lava", ResourceTypes.STOCK, 10),
+    APPLE("apple", ResourceTypes.FOOD, 10),
+    CHEESE("cheese", ResourceTypes.FOOD, 10),
+    BARLEY("barley", ResourceTypes.FOOD, 10),
+    MEAT("meat", ResourceTypes.FOOD, 10),
+    WHEAT("wheat", ResourceTypes.FOOD, 10),
+    BREAD("bread", ResourceTypes.FOOD, 10),
+    WINE("wine", ResourceTypes.FOOD, 10),
+    HORSE("horse", ResourceTypes.WEAPON, 10);
 
-    private ResourceTypes type;
-    private int gold;
-    private String name;
-    private static HashSet<Resources> foods = new HashSet<>();
-    private int sellPrice;
+    private final ResourceTypes type;
+    private final int gold;
+    private final String name;
+    private static final HashSet<Resources> foods = new HashSet<>();
+    private final int sellPrice;
+
     static {
         foods.add(APPLE);
         foods.add(BREAD);
         foods.add(CHEESE);
         foods.add(MEAT);
     }
+
     Resources(String name, ResourceTypes type, int gold) {
         this.type = type;
         this.gold = gold;

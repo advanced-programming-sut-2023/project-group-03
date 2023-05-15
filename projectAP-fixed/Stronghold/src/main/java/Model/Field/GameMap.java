@@ -6,12 +6,11 @@ import Model.GamePlay.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class GameMap extends Element {
-    private int size;
+    private final int size;
     private Tile center;
-    private Tile[][] map;
+    private final Tile[][] map;
     private int numberOfPlayers;
     private String name;
     private ArrayList<Drawable> drawables = new ArrayList<>();
@@ -24,15 +23,16 @@ public class GameMap extends Element {
         this.drawables = drawables;
     }
 
-    private Player[] players = new Player[4];
+    private final Player[] players = new Player[4];
+
     public GameMap(int size) {
-        this.size=size;
+        this.size = size;
         map = new Tile[size][size];
         Tile.setGameMap(this);
         //...
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
-                map[i][j] = new Tile(Height.GROUND,Texture.GROUND);
+                map[i][j] = new Tile(Height.GROUND, Texture.GROUND);
                 map[i][j].setColumnNum(j);
                 map[i][j].setRowNum(i);
             }
@@ -137,7 +137,7 @@ public class GameMap extends Element {
                 } else {
                     System.out.print("║");
                 }
-                for (int k = center.getColumnNum() - colNumber; k < center.getColumnNum() +colNumber + 1; k++) {
+                for (int k = center.getColumnNum() - colNumber; k < center.getColumnNum() + colNumber + 1; k++) {
                     System.out.print(map[i][k].show()[j]);
                 }
                 System.out.println();
@@ -148,6 +148,7 @@ public class GameMap extends Element {
     public void setPlayerI(int numberOfPlayer, Player player) {
         this.players[numberOfPlayer] = player;
     }
+
     public Player[] getPlayers() {
         return players;
     }

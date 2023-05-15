@@ -3,8 +3,8 @@ package Model.Units.Combat;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 
-public class WallClimber extends CombatUnit{
-    private static int cost = 70;
+public class WallClimber extends CombatUnit {
+    private static final int cost = 70;
     private Tile target;
 
     public void MakeLadder() {
@@ -21,7 +21,7 @@ public class WallClimber extends CombatUnit{
     }
 
     public WallClimber(Player owner, Tile position) {
-        super(owner, position,"wall climber");
+        super(owner, position, "wall climber");
     }
 
     @Override

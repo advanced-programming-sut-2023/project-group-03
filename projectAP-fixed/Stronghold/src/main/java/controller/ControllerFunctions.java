@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class ControllerFunctions {
 
-    public static Matcher getMatcher(String command, String regex){
+    public static Matcher getMatcher(String command, String regex) {
         Matcher matcher = (Pattern.compile(regex)).matcher(command);
         if (matcher.find()) return matcher;
         return null;

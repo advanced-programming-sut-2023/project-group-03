@@ -1,18 +1,17 @@
 package Model.Units;
 
 import Model.Buildings.Enums.BarracksType;
-import Model.Buildings.Keep;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 
-public class Engineer extends nonCombatUnit{
+public class Engineer extends nonCombatUnit {
     public final static int price = 5;
 
     Drawable job = null;
 
     public Engineer(Player owner, Tile position) {
-        super(owner, position,"engineer");
+        super(owner, position, "engineer");
         this.HP = 25;
         this.speed = 10;
         owner.decreaseGold(price);

@@ -2,38 +2,40 @@ package Model.Buildings.Enums;
 
 import Model.Field.RegularTextureGroups;
 import Model.Field.Texture;
-import static Model.Buildings.Enums.Resources.*;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
-public enum  InventoryTypes {
-    STOCKPILE(ResourceTypes.STOCK, "stockpile",10000, 20000, null, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
-    ARMOURY(ResourceTypes.WEAPON, "armoury", 10000, 10000, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
-    FOOD_STORAGE(ResourceTypes.FOOD, "food storage",10000, 10000, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
-    ;
-    private ResourceTypes resource;
-    private String name;
-    private int HP;
-    private final int size = 1;
-    private int capacity;
-    private HashSet<Resources> resources;
-    private int wood;
-    private int stoneCost;
-    private HashSet<Texture> textures;
+import static Model.Buildings.Enums.Resources.*;
 
-    private HashSet<Resources> stockPileResources = new HashSet<Resources>(
-            Arrays.asList(IRON, STONE, OIL, WOOD, CROSSBOW,LAVA)
+public enum InventoryTypes {
+    STOCKPILE(ResourceTypes.STOCK, "stockpile", 10000, 20000, null, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    ARMOURY(ResourceTypes.WEAPON, "armoury", 10000, 10000, null, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    FOOD_STORAGE(ResourceTypes.FOOD, "food storage", 10000, 10000, null, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    ;
+    private final ResourceTypes resource;
+    private final String name;
+    private final int HP;
+    private final int size = 1;
+    private final int capacity;
+    private final HashSet<Resources> resources;
+    private final int wood;
+    private final int stoneCost;
+    private final HashSet<Texture> textures;
+
+    private final HashSet<Resources> stockPileResources = new HashSet<Resources>(
+            Arrays.asList(IRON, STONE, OIL, WOOD, CROSSBOW, LAVA)
     );
 
-    private HashSet<Resources> armouryResources = new HashSet<Resources>(
+    private final HashSet<Resources> armouryResources = new HashSet<Resources>(
             Arrays.asList(METAL_ARMOUR, SWORD, PIKE, SPEAR, LEATHER_ARMOUR, BOW, HORSE)
     );
 
-    private HashSet<Resources> foodStorageResources = new HashSet<Resources>(
+    private final HashSet<Resources> foodStorageResources = new HashSet<Resources>(
             Arrays.asList(FLOUR, APPLE, CHEESE, BARLEY, MEAT,
                     WHEAT, BREAD, WINE)
     );
+
     InventoryTypes(ResourceTypes resource, String name, int HP, int capacity, HashSet<Resources> resources, int wood, int stoneCost, HashSet<Texture> textures) {
         this.resource = resource;
         this.name = name;

@@ -5,8 +5,8 @@ public enum StairsTypes {
     LADDER("ladder", 0),
     SIEGE_TOWER("siege tower", 0),
     ;
-    private String name;
-    private int stoneCost;
+    private final String name;
+    private final int stoneCost;
 
     StairsTypes(String name, int stoneCost) {
         this.name = name;

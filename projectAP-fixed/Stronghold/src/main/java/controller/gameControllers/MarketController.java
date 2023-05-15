@@ -4,13 +4,14 @@ import Model.Buildings.Enums.Resources;
 import Model.GamePlay.Player;
 import controller.Controller;
 import controller.interfaces.GameMarketInterface;
-import static controller.Enums.InputOptions.*;
-import static controller.Enums.Response.*;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
 
-public class MarketController extends Controller implements GameMarketInterface{
+import static controller.Enums.InputOptions.BUY_SELL;
+import static controller.Enums.Response.*;
+
+public class MarketController extends Controller implements GameMarketInterface {
     public String showPriceList(Player player) {
         String output = "";
         for (Resources resource : Resources.values()) {

@@ -9,11 +9,14 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-import static view.Enums.SignUpMenuCommands.*;
-import static controller.Enums.ControllerCommands.*;
+import static Model.UserDatabase.getUserByEmail;
+import static Model.UserDatabase.getUserByName;
+import static controller.ControllerFunctions.getMatcher;
+import static controller.ControllerFunctions.unwrapQuotation;
+import static controller.Enums.ControllerCommands.OPTION_FIELD;
 import static controller.Enums.Response.*;
-import static controller.ControllerFunctions.*;
-import static Model.UserDatabase.*;
+import static view.Enums.SignUpMenuCommands.NEW_USER_FORMAT_CHECK;
+import static view.Enums.SignUpMenuCommands.PASSWORD_CONFIRMATION;
 import static view.SignUpMenu.*;
 
 public class RegisterMenuController extends UserBasedMenuController {
@@ -100,7 +103,7 @@ public class RegisterMenuController extends UserBasedMenuController {
 
         setSecurityQuestionAnswer(newUser, scanner);
 
-        while (true){
+        while (true) {
             boolean result = LoginMenu.AskCaptcha(scanner);
             if (result) {
                 break;
@@ -117,7 +120,7 @@ public class RegisterMenuController extends UserBasedMenuController {
 
         while (true) {
             question = SignUpMenu.askSecurityQuestion(securityQuestions, scanner);
-            securityQuestionResult  = getOptions(InputOptions.PICK_QUESTION.getKeys(), question);
+            securityQuestionResult = getOptions(InputOptions.PICK_QUESTION.getKeys(), question);
             if (securityQuestionResult.get("error") != null) {
                 showOutput(securityQuestionResult.get("error"));
                 continue;

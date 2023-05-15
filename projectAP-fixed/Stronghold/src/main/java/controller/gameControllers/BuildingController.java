@@ -78,7 +78,7 @@ public class BuildingController extends GeneralGameController implements Buildin
             return SUCCESSFUL_REPAIR.getOutput();
         }
 
-        if (building instanceof  Wall) {
+        if (building instanceof Wall) {
             WallTypes wallType = ((Wall) building).getType();
             int lostHealth = wallType.getHP() - building.getHP();
             int stoneCost = (wallType.getStoneCost() * lostHealth) / wallType.getHP();
@@ -251,7 +251,8 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
         if (!wallType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
 
-        if (player.getInventory().get(Resources.STONE) < wallType.getStoneCost()) return NOT_ENOUGH_STONE_WALL.getOutput();
+        if (player.getInventory().get(Resources.STONE) < wallType.getStoneCost())
+            return NOT_ENOUGH_STONE_WALL.getOutput();
 
         if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
@@ -471,9 +472,7 @@ public class BuildingController extends GeneralGameController implements Buildin
 
     private boolean checkIfFit(int x, int y, int size) {
         size = size / 2;
-        if (x - size < 0 || x + size >= gameMap.getSize() || y - size < 0 || y + size >= gameMap.getSize())
-            return false;
-        return true;
+        return x - size >= 0 && x + size < gameMap.getSize() && y - size >= 0 && y + size < gameMap.getSize();
     }
 
 
@@ -486,11 +485,13 @@ public class BuildingController extends GeneralGameController implements Buildin
         int size = towerType.getSize() / 2;
         Tile targetTile;
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
+            for (int y = yCenter - size; y <= yCenter + size; y++) {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
-                if (!towerType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (!towerType.getTextures().contains(targetTile.getTexture()))
+                    return DROP_BUILDING_TEXTURE.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player))
+                    return ACQUISITION.getOutput();
                 if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
                     return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
@@ -517,11 +518,13 @@ public class BuildingController extends GeneralGameController implements Buildin
         int size = barracksType.getSize() / 2;
         Tile targetTile;
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
+            for (int y = yCenter - size; y <= yCenter + size; y++) {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
-                if (!barracksType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (!barracksType.getTextures().contains(targetTile.getTexture()))
+                    return DROP_BUILDING_TEXTURE.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player))
+                    return ACQUISITION.getOutput();
                 if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
                     return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
@@ -669,22 +672,22 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (inventoryType == null) return "Weird. Couldn't find the inventory type in line 610.";
         if (inventoryType.equals(InventoryTypes.ARMOURY)) {
             if (player.getKeep().getArmoury() == null) return NOT_HAVE_REQUIRED_INVENTORY_GENERATOR.getOutput();
-        }
-        else if (inventoryType.equals(InventoryTypes.STOCKPILE)) {
+        } else if (inventoryType.equals(InventoryTypes.STOCKPILE)) {
             if (player.getKeep().getStockPile() == null) return NOT_HAVE_REQUIRED_INVENTORY_GENERATOR.getOutput();
-        }
-        else if (inventoryType.equals(InventoryTypes.FOOD_STORAGE)) {
+        } else if (inventoryType.equals(InventoryTypes.FOOD_STORAGE)) {
             if (player.getKeep().getFoodStorage() == null) return NOT_HAVE_REQUIRED_INVENTORY_GENERATOR.getOutput();
         }
 
         int size = generatorType.getSize() / 2;
         Tile targetTile;
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
+            for (int y = yCenter - size; y <= yCenter + size; y++) {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
-                if (!generatorType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (!generatorType.getTextures().contains(targetTile.getTexture()))
+                    return DROP_BUILDING_TEXTURE.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player))
+                    return ACQUISITION.getOutput();
                 if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
                     return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
@@ -710,11 +713,12 @@ public class BuildingController extends GeneralGameController implements Buildin
         int size = gateType.getSize() / 2;
         Tile targetTile;
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
+            for (int y = yCenter - size; y <= yCenter + size; y++) {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (!gateType.getTextures().contains(targetTile.getTexture())) return DROP_BUILDING_TEXTURE.getOutput();
-                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player))
+                    return ACQUISITION.getOutput();
                 if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
                     return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
@@ -754,7 +758,8 @@ public class BuildingController extends GeneralGameController implements Buildin
                 targetTile = gameMap.getMap()[xTemp][yTemp];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST_TRAP.getOutput();
                 if (targetTile.getUnits().size() > 0) return UNIT_EXIST_TRAP.getOutput();
-                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player))
+                    return ACQUISITION.getOutput();
                 if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
                     return ROCK_EXIT_DROP_BUILDING.getOutput();
             }
@@ -796,12 +801,13 @@ public class BuildingController extends GeneralGameController implements Buildin
         int size = 3;
         if (!checkIfFit(xCenter, yCenter, size)) return NOT_FIT.getOutput();
         for (int x = xCenter - size; x <= xCenter + size; x++) {
-            for (int y = yCenter - size; y <= yCenter + size; y++)  {
+            for (int y = yCenter - size; y <= yCenter + size; y++) {
                 targetTile = gameMap.getMap()[x][y];
                 if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
                 if (RegularTextureGroups.NORMAL.getTextureHashSet().contains(targetTile.getTexture()))
                     return DROP_BUILDING_TEXTURE.getOutput();
-                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+                if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player))
+                    return ACQUISITION.getOutput();
                 if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
                     return ROCK_EXIT_DROP_BUILDING.getOutput();
             }

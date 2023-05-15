@@ -11,18 +11,18 @@ public enum RestTypes {
     OX_TETHER("ox tether", 5, 25, RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
 
-    RestTypes(String name,int gold, int wood, HashSet<Texture> textures) {
+    RestTypes(String name, int gold, int wood, HashSet<Texture> textures) {
         this.name = name;
         this.gold = gold;
         this.wood = wood;
         this.textures = textures;
     }
 
-    private String name;
+    private final String name;
     private final int size = 1;
-    private int gold;
-    private int wood;
-    private HashSet<Texture> textures;
+    private final int gold;
+    private final int wood;
+    private final HashSet<Texture> textures;
 
     public String getName() {
         return name;

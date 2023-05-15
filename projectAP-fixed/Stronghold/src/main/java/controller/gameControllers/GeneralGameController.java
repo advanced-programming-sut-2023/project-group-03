@@ -18,11 +18,10 @@ import java.util.regex.Matcher;
 
 import static controller.Enums.InputOptions.COORDINATES;
 import static controller.Enums.Response.*;
-import static controller.Enums.Response.SUCCESSFUL_MOVE_MAP;
 
 public class GeneralGameController extends Controller {
     protected GameMap gameMap;
-    private static int gameWidth = 3;
+    private static final int gameWidth = 3;
     private static int gameLength = 3 * gameWidth;
 
     public static void setGameWidth(int gameWidth) {
@@ -108,19 +107,23 @@ public class GeneralGameController extends Controller {
         }
 
         if (verticalDir != null) {
-            if (!(verticalDir.equals("up") || verticalDir.equals("down"))) return INVALID_VERTICAL_DIRECTION.getOutput();
+            if (!(verticalDir.equals("up") || verticalDir.equals("down")))
+                return INVALID_VERTICAL_DIRECTION.getOutput();
             finalRow = centerTile.getRowNum() + (verticalDir.equals("up") ? -verticalNum : verticalNum);
 
         }
 
         if (horizontalDir != null) {
-            if (!(horizontalDir.equals("right") || horizontalDir.equals("left"))) return INVALID_HORIZONTAL_DIRECTION.getOutput();
+            if (!(horizontalDir.equals("right") || horizontalDir.equals("left")))
+                return INVALID_HORIZONTAL_DIRECTION.getOutput();
             finalColumn = centerTile.getColumnNum() + (horizontalDir.equals("right") ? horizontalNum : -horizontalNum);
 
         }
 
-        if (finalRow > gameMap.getSize() - gameLength || finalRow < gameLength) return INVALID_FINAL_X_VALUE.getOutput();
-        if (finalColumn > gameMap.getSize() - gameWidth || finalColumn < gameWidth) return INVALID_FINAL_Y_VALUE.getOutput();
+        if (finalRow > gameMap.getSize() - gameLength || finalRow < gameLength)
+            return INVALID_FINAL_X_VALUE.getOutput();
+        if (finalColumn > gameMap.getSize() - gameWidth || finalColumn < gameWidth)
+            return INVALID_FINAL_Y_VALUE.getOutput();
 
         gameMap.setCenter(gameMap.getMap()[finalRow][finalColumn]);
         return SUCCESSFUL_MOVE_MAP.getOutput();
@@ -188,7 +191,7 @@ public class GeneralGameController extends Controller {
             shouldPrintSpecial = false;
             for (Player player : players) {
                 for (Unit unit : unitsAcquisition.get(player)) {
-                    if (unit instanceof Troop && ((Troop) unit).getType().equals(troopType)) counter ++;
+                    if (unit instanceof Troop && ((Troop) unit).getType().equals(troopType)) counter++;
                 }
                 output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                         "player number " + playerCounter + " :" + counter + ", ");
@@ -214,7 +217,7 @@ public class GeneralGameController extends Controller {
             shouldPrintSpecial = false;
             for (Player player : players) {
                 for (Unit unit : unitsAcquisition.get(player)) {
-                    if (unit instanceof Throwers && ((Throwers) unit).getType().equals(throwerType)) counter ++;
+                    if (unit instanceof Throwers && ((Throwers) unit).getType().equals(throwerType)) counter++;
                 }
                 output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                         "player number " + playerCounter + " :" + counter + ", ");
@@ -231,7 +234,7 @@ public class GeneralGameController extends Controller {
         output += "siege tower: ";
         for (Player player : players) {
             for (Unit unit : unitsAcquisition.get(player)) {
-                if (unit instanceof SiegeTower) counter ++;
+                if (unit instanceof SiegeTower) counter++;
             }
             output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                     "player number " + playerCounter + " :" + counter + ", ");
@@ -255,7 +258,7 @@ public class GeneralGameController extends Controller {
         output += "battering ram";
         for (Player player : players) {
             for (Unit unit : unitsAcquisition.get(player)) {
-                if (unit instanceof BatteringRam) counter ++;
+                if (unit instanceof BatteringRam) counter++;
             }
             output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                     "player number " + playerCounter + " :" + counter + ", ");
@@ -279,7 +282,7 @@ public class GeneralGameController extends Controller {
         output += "ladder man: ";
         for (Player player : players) {
             for (Unit unit : unitsAcquisition.get(player)) {
-                if (unit instanceof LadderMen) counter ++;
+                if (unit instanceof LadderMen) counter++;
             }
             output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                     "player number " + playerCounter + " :" + counter + ", ");
@@ -303,7 +306,7 @@ public class GeneralGameController extends Controller {
         output += "portable shields: ";
         for (Player player : players) {
             for (Unit unit : unitsAcquisition.get(player)) {
-                if (unit instanceof PortableShields) counter ++;
+                if (unit instanceof PortableShields) counter++;
             }
             output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                     "player number " + playerCounter + " :" + counter + ", ");
@@ -327,7 +330,7 @@ public class GeneralGameController extends Controller {
         output += "wall climber: ";
         for (Player player : players) {
             for (Unit unit : unitsAcquisition.get(player)) {
-                if (unit instanceof WallClimber) counter ++;
+                if (unit instanceof WallClimber) counter++;
             }
             output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                     "player number " + playerCounter + " :" + counter + ", ");
@@ -351,7 +354,7 @@ public class GeneralGameController extends Controller {
         output += "engineer: ";
         for (Player player : players) {
             for (Unit unit : unitsAcquisition.get(player)) {
-                if (unit instanceof Engineer) counter ++;
+                if (unit instanceof Engineer) counter++;
             }
             output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                     "player number " + playerCounter + " :" + counter + ", ");

@@ -9,13 +9,13 @@ import Model.GamePlay.Player;
 
 import java.util.ArrayList;
 
-public class SiegeTower extends CombatUnit{
+public class SiegeTower extends CombatUnit {
     private final static int goldCost = 10;
     private final static int stoneCost = 10;
     private final static int woodCost = 10;
 
     public SiegeTower(Player owner, Tile position, Tile target) {
-        super(owner, position,"siege tower");
+        super(owner, position, "siege tower");
         this.setDamage(0);
         this.setMaterial(Material.FLESH);
         this.setSpeed(5);
@@ -29,11 +29,17 @@ public class SiegeTower extends CombatUnit{
         //maybe TODO
     }
 
-    public static int getGoldCost() {return goldCost;}
+    public static int getGoldCost() {
+        return goldCost;
+    }
 
-    public static int getWoodCost() {return woodCost;}
+    public static int getWoodCost() {
+        return woodCost;
+    }
 
-    public static int getStoneCost() {return stoneCost;}
+    public static int getStoneCost() {
+        return stoneCost;
+    }
 
     public int getRangeIncreaseRate() {
         return RangeIncreaseRate;
@@ -65,7 +71,7 @@ public class SiegeTower extends CombatUnit{
     }
 
     public SiegeTower(Player owner, Tile position) {
-        super(owner, position,"siege tower");
+        super(owner, position, "siege tower");
     }
 
     public Tile getTarget() {
@@ -77,8 +83,7 @@ public class SiegeTower extends CombatUnit{
     }
 
     public void makeStairs(Tile target) {
-        target.setLadder(new Stair(owner,target, StairsTypes.SIEGE_TOWER));
-        return;
+        target.setLadder(new Stair(owner, target, StairsTypes.SIEGE_TOWER));
     }
 
     @Override

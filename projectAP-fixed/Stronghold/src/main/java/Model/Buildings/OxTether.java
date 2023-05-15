@@ -4,7 +4,8 @@ import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class OxTether extends Building {
-    private static int wood = 40;
+    private static final int wood = 40;
+
     public OxTether(Player owner, Tile position) {
         super(owner, position, 1, "ox tether");
         HP = 150;
