@@ -1,23 +1,23 @@
 package Model.Buildings.Defending.Enums;
 
-import Model.GamePlay.Material;
-
 public enum StairsTypes {
-    STAIRS("stairs"),
-    LADDER("ladder"),
-    SEIEGETOWER("seigetower"),
+    STAIRS("stairs", 10),
+    LADDER("ladder", 0),
+    SIEGE_TOWER("siege tower", 0),
     ;
     private String name;
+    private int stoneCost;
 
-    StairsTypes(String name) {
+    StairsTypes(String name, int stoneCost) {
         this.name = name;
+        this.stoneCost = stoneCost;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getStoneCost() {
+        return stoneCost;
     }
 }

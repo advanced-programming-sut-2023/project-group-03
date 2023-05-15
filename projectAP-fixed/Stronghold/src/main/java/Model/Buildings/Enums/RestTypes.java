@@ -8,6 +8,7 @@ import java.util.HashSet;
 public enum RestTypes {
     STABLE("stable", 50, 25, RegularTextureGroups.NORMAL.getTextureHashSet()),
     HOVEL("hovel", 0, 30, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    OX_TETHER("ox tether", 5, 25, RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
 
     RestTypes(String name,int gold, int wood, HashSet<Texture> textures) {

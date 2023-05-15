@@ -18,10 +18,5 @@ public enum ResourceTypes {
         return name;
     }
 
-    private ArrayList<Resources> subset = new ArrayList<>();
-    private InventoryTypes inventoryType;
 
-    public ArrayList<Resources> getSubset() {
-        return subset;
-    }
 }

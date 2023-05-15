@@ -43,6 +43,7 @@ public class FarmBuidingMenu extends Menu {
         throw new Transition(this);
     }
     public void guide() {
+        gameMenu.getGame().getMap().showMap(gameMenu.getHalfSide());
         colorPrint(TEXT_RED,"================================================");
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", ">>Farm Buildings<<"));
         System.out.println(formatPrinter(TEXT_YELLOW, "", "possible format of command: build ???"));

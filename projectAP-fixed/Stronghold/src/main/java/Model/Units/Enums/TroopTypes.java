@@ -8,12 +8,12 @@ import java.util.HashSet;
 
 public enum TroopTypes {
     KING("king",100,10,300,0,0,Material.WOOD),
-    ARCHER("archer", 20, 15, 50, 15, 0,Material.FLESH, Resources.BOW),
+    ARCHER("archer", 18, 15, 50, 15, 0,Material.FLESH, Resources.BOW),
     CROSSBOWMEN("crossbowmen", 30, 10, 100, 12, 0,Material.FLESH, Resources.LEATHER_ARMOUR, Resources.CROSSBOW),
     SPEARMEN("spearmen", 30, 15, 80, 0, 0,Material.WOOD, Resources.SPEAR),
     PIKEMEN("pikemen", 40, 10, 120, 0, 0,Material.WOOD, Resources.METAL_ARMOUR, Resources.PIKE),
     MACEMEN("macemen", 40, 20, 90, 0, 0,Material.WOOD, Resources.LEATHER_ARMOUR),
-    SWORDMEN("swordmen", 60, 8, 150, 0, 0,Material.WOOD, Resources.SWORD, Resources.METAL_ARMOUR),
+    SWORDMEN("swordmen", 60, 4, 150, 0, 0,Material.WOOD, Resources.SWORD, Resources.METAL_ARMOUR),
     KNIGHT("knight", 80, 25, 200, 0, 20,Material.WOOD, Resources.SWORD, Resources.HORSE, Resources.METAL_ARMOUR),
     TUNELLER("tunneler",30,20,60,0,30,Material.STONE),
     LADDERMEN("laddermen",0,30,30,1,3,Material.FLESH),
@@ -34,7 +34,7 @@ public enum TroopTypes {
     HashSet<Resources> equipment = new HashSet<>();
 
     TroopTypes(String name, int damage, int speed, int HP, int range, int gold,Material target, Resources... equipments) {
-
+        this.target = target;
         this.speed = speed;
         this.name = name;
         this.damage = damage;
@@ -73,6 +73,14 @@ public enum TroopTypes {
 
     public int getSpeed() {
         return speed;
+    }
+
+    public Material getTarget() {
+        return target;
+    }
+
+    public void setTarget(Material target) {
+        this.target = target;
     }
 
     public CombatUnit create(String name) {

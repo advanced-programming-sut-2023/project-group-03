@@ -1,0 +1,114 @@
+first
+ali
+1
+build Inventory -x 204 -y 195 -t stockpile
+build Inventory -x 300 -y 300 -t stockpile
+select menu
+Industry
+build -x 204 -y 197 -t woodcutter
+back
+next turn
+next turn
+select menu
+Weopon Buildings
+build -x 198 -y 201 -t bowMaker
+back
+next turn
+next turn
+select menu
+Industry
+build Inventory -x 198 -y 210 -t armoury
+back
+select menu
+Weopon Buildings
+build generator -t bowMaker -x 198 -y 206
+back
+next turn
+next turn
+move up 100 left 100
+change size of map
+2
+select menu
+Castle Buildings
+drop castle building -t barrack -y 95 -x 99
+back
+select building -x 99 -y 95
+create unit -x 103 -y 95 -t swordmen -c 10
+select unit -x 103 -y 95 -t swordmen -c 8
+move unit -x 103 -y 100
+set -s aggressive
+next turn
+next turn
+next turn
+move down 100 right 100
+change size of map
+3
+select menu
+Castle Buildings
+build Wall -x 204 -y 200 -t "big wall"
+build Wall -x 203 -y 200 -t "big wall"
+build Wall -x 202 -y 200 -t "big wall"
+build Wall -x 201 -y 200 -t "big wall"
+build Wall -x 200 -y 200 -t "big wall"
+build Wall -x 204 -y 201 -t "big wall"
+build Wall -x 205 -y 200 -t "big wall"
+build Wall -x 205 -y 201 -t "big wall"
+build Wall -x 205 -y 202 -t "big wall"
+build Wall -x 205 -y 203 -t "big wall"
+build Wall -x 205 -y 204 -t "big wall"
+build Wall -x 205 -y 205 -t "big wall"
+build Wall -x 205 -y 206 -t "big wall"
+build Wall -x 205 -y 207 -t "big wall"
+build Wall -x 205 -y 208 -t "big wall"
+back
+select menu
+Weopon Buildings
+build Barrack -x 202 -y 210 -t barrack
+back
+select menu
+Barracks
+barrack
+create unit -x 203 -y 201 -t swordmen -c 3
+select unit -x 203 -y 201 -t swordmen -c 2
+move unit -x 204 -y 198
+move down 1
+move right 20 down 10
+select menu
+Castle Buildings
+build Gate -x 212 -y 225 -t "small stone gate" -d up
+build Wall -x 212 -y 223 -t "big wall"
+build Wall -x 212 -y 224 -t "big wall"
+build Wall -x 212 -y 225 -t "big wall"
+build Wall -x 212 -y 226 -t "big wall"
+build Wall -x 212 -y 227 -t "big wall"
+build Wall -x 212 -y 228 -t "big wall"
+build Wall -x 212 -y 229 -t "big wall"
+build Wall -x 212 -y 230 -t "big wall"
+build Wall -x 212 -y 231 -t "big wall"
+build Wall -x 212 -y 222 -t "big wall"
+build Wall -x 212 -y 221 -t "big wall"
+build Wall -x 212 -y 220 -t "big wall"
+build Wall -x 212 -y 219 -t "big wall"
+build Wall -x 212 -y 218 -t "big wall"
+build Wall -x 212 -y 217 -t "big wall"
+build Wall -x 212 -y 216 -t "big wall"
+build Wall -x 212 -y 215 -t "big wall"
+build Wall -x 212 -y 214 -t "big wall"
+build Wall -x 212 -y 213 -t "big wall"
+build Wall -x 212 -y 212 -t "big wall"
+back
+select menu
+Barracks
+barrack
+create unit -x 213 -y 223 -t swordmen -c 3
+select unit -x 213 -y 223 -t swordmen -c 2
+move unit -x 211 -y 223
+next turn
+next turn
+next turn
+next turn
+next turn
+next turn
+next turn
+next turn
+next turn

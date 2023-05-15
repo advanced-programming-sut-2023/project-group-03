@@ -8,6 +8,7 @@ import Model.GamePlay.Player;
 import Model.Units.Combat.CombatUnit;
 import Model.Units.Engineer;
 import Model.Units.Enums.TroopTypes;
+import view.Enums.ConsoleColors;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ public class Barracks extends Building{
         super(owner, position, type.getSize(),type.getName());
         this.material = type.getMaterial();
         this.type = type;
+        this.HP = type.getHP();
         owner.decreaseInventory(Resources.WOOD,type.getWood());
         owner.decreaseInventory(Resources.OIL,type.getOil());
         owner.decreaseGold(type.getGold());
@@ -60,6 +62,13 @@ public class Barracks extends Building{
             return;
         }
         // TODO should make troops be here? //from mehran: NO
+    }
+
+    @Override
+    public void erase() {
+        super.erase();
+        String log = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(),
+                ConsoleColors.TEXT_BG_BLACK, "a building of type <" + type.getName() + ">distroyed");
     }
 
     @Override

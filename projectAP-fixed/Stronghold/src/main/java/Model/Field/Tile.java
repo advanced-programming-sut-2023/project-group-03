@@ -20,12 +20,14 @@ public class Tile extends Element {
     private Stair ladder=null;
     private Height height;
     private Texture texture;
-    private Building building;
+    private Building building = null;
     private mazafaza mazafaza;
     private ArrayList<Unit> units=new ArrayList<>();
     private HashMap<Direction, Tile> neighbours = new HashMap<>();
     private ArrayList<Tile> neighboursConnected = new ArrayList<>();
     private Player owner;
+    private ArrayList<Tile> tilesToEdit = new ArrayList<>();
+
     public Tile(Height height, Texture texture) {
         this.height = height;
         this.texture = texture;
@@ -136,15 +138,15 @@ public class Tile extends Element {
                 neighboursConnected.remove(neighbours.get(direction));
                 current.neighboursConnected.remove(this);
 
-                if (current.getBuilding() instanceof Gates) {
-                    Gates gates = ((Gates) current.getBuilding());
-                    if (gates.getTerminals().contains(this)) {
-                        neighboursConnected.add(neighbours.get(direction));
-                        current.neighboursConnected.add(this);
-                        return;
-                    }
-                }
-                if (Math.abs(this.height.getValue() + modifiedLadder() - current.height.getValue() - modifiedLadder()) > 1) {
+//                if (current.getBuilding() instanceof Gates) {
+//                    Gates gates = ((Gates) current.getBuilding());
+//                    if (gates.getTerminals().contains(this)) {
+//                        neighboursConnected.add(neighbours.get(direction));
+//                        current.neighboursConnected.add(this);
+//                        return;
+//                    }
+//                }
+                if (Math.abs(this.height.getValue() + modifiedLadder() - current.height.getValue() - current.modifiedLadder()) > 1) {
                     neighboursConnected.remove(neighbours.get(direction));
                 } else {
                     neighboursConnected.add(current);
@@ -182,21 +184,37 @@ public class Tile extends Element {
     }
 
     public String[] show() {
-        String numberOfUnits = String.format("#:%3d",units.size());
+        String flag = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK, "#");
+        String numberOfUnits = "";
+        if (units.size() == 0) {
+            numberOfUnits = ConsoleColors.formatPrinter("", texture.getColor(), String.format(":%3d", units.size()));
+        }
+        else {
+            numberOfUnits = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                    String.format(":%3d", units.size()));
+        }
+        //String numberOfUnits = String.format("#:%3d",neighboursConnected.size());
+        String numberOfUnitsBuff = "";
         if (this.building != null) {
-            numberOfUnits += "║B";
+            char charForBuilding = Building.getTagOfBuilding(building);
+            if (building instanceof Wall || building instanceof Towers || building instanceof Gates) {
+                numberOfUnitsBuff = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK, "║");
+            } else {
+                numberOfUnitsBuff = ConsoleColors.formatPrinter("", texture.getColor(), "║");
+            }
+            numberOfUnitsBuff += ConsoleColors.formatPrinter("", texture.getColor(), "" + charForBuilding);
         }
         else if (this.mazafaza != null) {
-            numberOfUnits += "║T";
+            numberOfUnitsBuff = ConsoleColors.formatPrinter("", texture.getColor(), "║Q");
         } else {
-            numberOfUnits += "║N";
+            numberOfUnitsBuff = ConsoleColors.formatPrinter("", texture.getColor(), "  ");
         }
         String[] ans = new String[4];
         String coordinate = String.format("%3d,%3d", rowNum + 1, columnNum + 1);
-        ans[3]="═══════╬";
-        ans[0] = ConsoleColors.formatPrinter("", texture.getColor(), numberOfUnits)+"║";
+        ans[2]="═══════╬";
+        ans[0] = flag + numberOfUnits + numberOfUnitsBuff + "║";
         ans[1] = ConsoleColors.formatPrinter("", texture.getColor(), coordinate) + "║";
-        ans[2] = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), texture.getColor(), "║░flag░")+"║";
+        //ans[2] = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), texture.getColor(), "║░flag░")+"║";
         return ans;
     }
 
@@ -218,5 +236,21 @@ public class Tile extends Element {
 
     public void setLadder(Stair ladder) {
         this.ladder = ladder;
+    }
+
+    public ArrayList<Tile> getTilesToEdit() {
+        return tilesToEdit;
+    }
+
+    public void setNeighboursConnected(ArrayList<Tile> neighboursConnected) {
+        this.neighboursConnected = neighboursConnected;
+    }
+
+    public void setUnits(ArrayList<Unit> units) {
+        this.units = units;
+    }
+
+    public void setTilesToEdit(ArrayList<Tile> tilesToEdit) {
+        this.tilesToEdit = tilesToEdit;
     }
 }

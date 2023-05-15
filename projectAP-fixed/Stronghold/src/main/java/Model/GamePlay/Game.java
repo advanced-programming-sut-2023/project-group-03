@@ -1,6 +1,9 @@
 package Model.GamePlay;
 
+import Model.Buildings.Building;
+import Model.Buildings.Keep;
 import Model.Field.GameMap;
+import Model.Units.Worker;
 
 import javax.lang.model.type.ErrorType;
 import java.util.ArrayList;
@@ -24,8 +27,17 @@ public class Game {
                 }
             }
         } else {
-            for (int i = Drawable.getDrawables().size() - 1; i >= 0; i--) {
+            int size = Drawable.getDrawables().size() - 1;
+            for (int i = size; i >= 0; i--) {
                 Drawable.getDrawables().get(i).check();
+            }
+            size = Drawable.getDrawables().size() - 1;
+            for (int i = size; i > 0; i--) {
+                if (Drawable.getDrawables().get(i) instanceof Building) {
+                    if (!(Drawable.getDrawables().get(i) instanceof Keep)) {
+                        Drawable.getDrawables().get(i).check();
+                    }
+                }
             }
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getKing().getHP() <= 0) {

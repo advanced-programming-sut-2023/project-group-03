@@ -5,6 +5,8 @@ import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
+import Model.Units.Combat.CombatUnit;
+import Model.Units.Combat.Throwers;
 import Model.Units.Combat.Troop;
 import controller.gameControllers.MoveUnitController;
 
@@ -17,6 +19,7 @@ public abstract class Unit extends Drawable {
     private Tile Start;
     private Tile end;
     protected Tile currentTarget = null;
+    protected Tile BufferTarget = null;
     protected ArrayList<Tile> currentPath = new ArrayList<>();
 
     public Unit(Player owner, Tile position,String name) {
@@ -74,7 +77,6 @@ public abstract class Unit extends Drawable {
         if (isPatrol) {
             currentTarget = end;
             currentPath = MoveUnitController.findPath(position, currentTarget, owner.getGame().getMap(),owner);
-            System.out.println(currentPath.size());
             if (speed >= currentPath.size() - 1) {
                 moveToTile(currentPath.get(currentPath.size() - 1));
                 Tile buff = end;
@@ -132,7 +134,26 @@ public abstract class Unit extends Drawable {
         }
     }
 
+    public String getTypeOfUnit() {
+        if (this instanceof Troop) {
+            return ((Troop) this).getType().getName();
+        } else if (this instanceof Throwers) {
+            return ((Throwers) this).getType().getName();
+        } else {
+            return this.getClass().getSimpleName();
+        }
+    }
+
+    public Tile getBufferTarget() {
+        return BufferTarget;
+    }
+
+    public void setBufferTarget(Tile bufferTarget) {
+        BufferTarget = bufferTarget;
+    }
+
     public void setCurrentTarget(Tile currentTarget) {
         this.currentTarget = currentTarget;
+        BufferTarget = currentTarget;
     }
 }

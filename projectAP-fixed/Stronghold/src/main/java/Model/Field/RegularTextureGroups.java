@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 public enum RegularTextureGroups {
     NORMAL(new HashSet<>(Arrays.asList(Texture.GROUND,Texture.GRASS,Texture.GRASSLAND,Texture.DENSE_GRASSLAND,Texture.PEBBLE))),
-    STONE_SLAB(new HashSet<>(Arrays.asList(Texture.STONE_SLAB))),
+    STONE_SLAB(new HashSet<>(Arrays.asList(Texture.STONE))),
     IRON_MINE(new HashSet<>(Arrays.asList(Texture.IRON))),
     FARM(new HashSet<>(Arrays.asList(Texture.GRASS,Texture.DENSE_GRASSLAND))),
     OIL_RIG(new HashSet<>(Arrays.asList(Texture.OIL))),

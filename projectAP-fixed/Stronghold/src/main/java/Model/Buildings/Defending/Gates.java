@@ -2,10 +2,13 @@ package Model.Buildings.Defending;
 
 import Model.Buildings.Defending.Enums.GateTypes;
 import Model.Field.Direction;
+import Model.Field.GameMap;
+import Model.Field.Height;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
 import Model.Units.Unit;
+import view.Enums.ConsoleColors;
 
 import java.util.ArrayList;
 
@@ -15,10 +18,33 @@ public class Gates extends CastleBuilding {
     private Direction direction;
     private ArrayList<Tile> terminals = new ArrayList<>();
 
-    public Gates(Player owner, Tile position, GateTypes type) {
-        super(owner, position, type.getSize(),type.getName());
+    public Gates(Player owner, Tile position, GateTypes type,Tile upTerminal,Tile downTerminal) {
+        super(owner, position, type.getSize(), type.getName());
         this.HP = type.getHP();
         this.stoneCost = type.getStoneCost();
+        this.goldCost = 5;
+        this.type = type;
+        manageCost();
+        terminals.add(upTerminal);
+        terminals.add(downTerminal);
+        downTerminal.setBuilding(this);
+        upTerminal.setBuilding(this);
+        downTerminal.setHeight(Height.GROUND);
+        upTerminal.setHeight(Height.GROUND);
+        for (Tile terminal : terminals) {
+            for (Direction direction : terminal.getNeighbours().keySet()) {
+                Tile current = terminal.getNeighbours().get(direction);
+                if (current.getBuilding() == null || !current.getBuilding().equals(this)) {
+                    terminal.getNeighboursConnected().remove(current);
+                    current.getNeighboursConnected().remove(terminal);
+                    if (Math.abs(terminal.getHeight().getValue() + terminal.modifiedLadder()
+                            - current.modifiedLadder() - current.getHeight().getValue()) <= 1) {
+                        terminal.getNeighboursConnected().add(current);
+                        current.getNeighboursConnected().add(terminal);
+                    }
+                }
+            }
+        }
     }
 
     private void updateOwner() {
@@ -90,6 +116,31 @@ public class Gates extends CastleBuilding {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    @Override
+    public void erase() {
+        super.erase();
+        String log = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(),
+                ConsoleColors.TEXT_BG_BLACK, "a building of type <" + type.getName() + "> distroyed in (" +
+                        position.getRowNum() + "," + position.getColumnNum() + ")");
+        System.out.println(log);
+    }
+
+    public void updateTilesOfGate() {
+        int x = position.getRowNum();
+        int y = position.getColumnNum();
+        GameMap map = owner.getGame().getMap();
+        for (int i = x - size / 2; i <= x + size / 2; i++) {
+            for (int j = y - size / 2; j <= y + size / 2; j++) {
+            Tile current = map.getMap()[i][j];
+                Gates gates = ((Gates) current.getBuilding());
+                if (this.getTerminals().contains(current)) {
+
+                }
+            }
+        }
+
     }
 
     @Override

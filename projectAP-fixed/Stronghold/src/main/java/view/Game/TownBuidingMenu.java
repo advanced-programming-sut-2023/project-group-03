@@ -47,9 +47,11 @@ public class TownBuidingMenu extends Menu {
         else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
         }
+        throw new Transition(this);
     }
 
     public void guide() {
+        gameMenu.getGame().getMap().showMap(gameMenu.getHalfSide());
         colorPrint(TEXT_RED,"================================================");
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", ">>Town Buildings<<"));
         System.out.println(formatPrinter(TEXT_YELLOW, "", "possible format of commands:"));

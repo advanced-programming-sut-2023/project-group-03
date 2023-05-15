@@ -14,20 +14,20 @@ public enum TowerTypes {
     ;
 
     private String name;
-    private final int size = 5;
+//    private final int size = 5;
     private int HP;
-    private int length;
+    private int size;
     private int width;
     private int stoneCost;
     private int defenseIncrease;
     private int rangeIncrease;
     private HashSet<Texture> textures;
 
-    TowerTypes(String name, int HP, int length, int width, int stoneCost, int defenseIncrease, int rangeIncrease, HashSet textures) {
+    TowerTypes(String name, int HP, int size, int width, int stoneCost, int defenseIncrease, int rangeIncrease, HashSet textures) {
         this.textures = textures;
         this.name = name;
         this.HP = HP;
-        this.length = length;
+        this.size = size;
         this.width = width;
         this.stoneCost = stoneCost;
         this.defenseIncrease = defenseIncrease;
@@ -52,14 +52,6 @@ public enum TowerTypes {
 
     public int getSize() {
         return size;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
     }
 
     public int getWidth() {

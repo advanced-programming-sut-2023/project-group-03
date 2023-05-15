@@ -9,28 +9,36 @@ import Model.GamePlay.Player;
 public class Engineer extends nonCombatUnit{
     public final static int price = 5;
 
-    Drawable job;
+    Drawable job = null;
 
     public Engineer(Player owner, Tile position) {
         super(owner, position,"engineer");
-        position.addUnit(this);
+        this.HP = 25;
+        this.speed = 10;
         owner.decreaseGold(price);
+        owner.getKeep().addEngineer(this);
+        owner.setCurrentPopulation(owner.getCurrentPopulation() + 1);
     }
 
     public Drawable getJob() {
         return job;
     }
 
-    public void setJob(Drawable job) {
-        this.job = job;
-        this.setPatrol(true);
-        this.setStart(job.getPosition());
-        this.setEnd(owner.getKeep().getBarracks().get(BarracksType.ENGINEER_GUILD).getPosition());
+    public void setJob(Drawable thing) {
+        this.job = thing;
+        this.setPatrol(false);
+    }
+
+    public void getFired() {
+        job = null;
     }
 
     @Override
     public void check() {
         super.check();
+        if (job != null) setCurrentTarget(job.getPosition());
+        else setBufferTarget(owner.getKeep().getBarracks().get(BarracksType.ENGINEER_GUILD).getPosition());
+        AutoMove();
     }
 
     @Override

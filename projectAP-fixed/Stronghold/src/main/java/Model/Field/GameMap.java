@@ -6,6 +6,7 @@ import Model.GamePlay.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class GameMap extends Element {
     private int size;
@@ -51,6 +52,7 @@ public class GameMap extends Element {
                 if (i + 1 < map.length) {
                     neighbours.put(Direction.DOWN, map[i + 1][j]);
                 }
+                map[i][j].setNeighbours(neighbours);
             }
         }
         for (int i = 0; i < map.length; i++) {
@@ -123,14 +125,14 @@ public class GameMap extends Element {
 
     public void showMap(int halfSide) {
         System.out.print("╔");
-        int colNumber = halfSide * 2;
+        int colNumber = halfSide * 3;
         for (int i = 0; i < (2 * colNumber + 1); i++) {
             System.out.print("═══════╦");
         }
         System.out.println();
         for (int i = center.getRowNum() - halfSide; i < center.getRowNum() + halfSide + 1; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (j % 4 == 3) {
+            for (int j = 0; j < 3; j++) {
+                if (j % 3 == 2) {
                     System.out.print("╠");
                 } else {
                     System.out.print("║");

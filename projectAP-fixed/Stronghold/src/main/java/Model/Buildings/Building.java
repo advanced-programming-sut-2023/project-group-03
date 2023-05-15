@@ -1,5 +1,10 @@
 package Model.Buildings;
 
+import Model.Buildings.Defending.Towers;
+import Model.Buildings.Defending.Wall;
+import Model.Buildings.Enums.BarracksType;
+import Model.Buildings.Enums.InventoryTypes;
+import Model.Buildings.Enums.ResourceTypes;
 import Model.Buildings.Enums.Resources;
 import Model.Buildings.Defending.Gates;
 import Model.Field.GameMap;
@@ -31,6 +36,9 @@ public abstract class Building extends Drawable {
         int xCenter = position.getRowNum();
         int yCenter = position.getColumnNum();
         int halfSize = size / 2;
+        if (size == 0) {
+            halfSize = 0;
+        }
         for (int x = xCenter - halfSize; x <= xCenter + halfSize; x++) {
             for (int y = yCenter - halfSize; y <= yCenter + halfSize; y++) {
                 gameMap.getMap()[x][y].setBuilding(this);
@@ -61,8 +69,8 @@ public abstract class Building extends Drawable {
         super.erase();
         GameMap gameMap = Tile.getGameMap();
         int halfSize = size / 2;
-        for (int x = position.getRowNum() - halfSize; x < position.getRowNum() + halfSize; x++) {
-            for (int y = position.getColumnNum() - halfSize; y < position.getColumnNum() + halfSize; y++){
+        for (int x = position.getRowNum() - halfSize; x <= position.getRowNum() + halfSize; x++) {
+            for (int y = position.getColumnNum() - halfSize; y <= position.getColumnNum() + halfSize; y++){
                 gameMap.getMap()[x][y].setBuilding(null);
             }
         }
@@ -71,6 +79,57 @@ public abstract class Building extends Drawable {
             Gates gates = ((Gates) this);
             for (Tile tile : gates.getTerminals()) tile.setBuilding(null);
         }
+    }
+
+    public static char getTagOfBuilding(Building building) {
+        if (building instanceof Keep) {
+            return 'K';
+        }
+        if (building instanceof Gates) {
+            return 'G';
+        }
+        if (building instanceof Towers) {
+            return 'T';
+        }
+        if (building instanceof Generators) {
+            Generators generator = ((Generators) building);
+            if (generator.getType().getProduct().getType().equals(ResourceTypes.STOCK)) {
+                return 's';
+            } else if (generator.getType().getProduct().getType().equals(ResourceTypes.WEAPON)) {
+                return 'w';
+            } else if (generator.getType().getProduct().getType().equals(ResourceTypes.FOOD)) {
+                return 'f';
+            }
+        }
+        if (building instanceof Inventory) {
+            Inventory inventory = ((Inventory) building);
+            if (inventory.getType().equals(InventoryTypes.ARMOURY)) {
+                return 'A';
+            } else if (inventory.getType().equals(InventoryTypes.FOOD_STORAGE)) {
+                return 'F';
+            } else if (inventory.getType().equals(InventoryTypes.STOCKPILE)) {
+                return 'S';
+            }
+        }
+        if (building instanceof Store) {
+            return 'O';
+        }
+        if (building instanceof Barracks) {
+            Barracks barracks = ((Barracks) building);
+            if (barracks.getType().equals(BarracksType.BARRACK)) {
+                return 'B';
+            } else if (barracks.getType().equals(BarracksType.ENGINEER_GUILD)){
+                return 'E';
+            } else if (barracks.getType().equals(BarracksType.MERCENARY_POST)) {
+                return 'M';
+            } else {
+                return 'D';
+            }
+        }
+        if (building instanceof Wall) {
+            return 'x';
+        }
+        return 'z';
     }
 
     public static int getSize() {

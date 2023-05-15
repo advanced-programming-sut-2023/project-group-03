@@ -13,6 +13,8 @@ public class Worker extends nonCombatUnit{
     public Worker(Player owner, Tile position, Generators job) {
         super(owner, position,"worker");
         this.job = job;
+        this.HP = 20;
+        speed = 2;
 
         Resources product = job.getProduct();
         InventoryTypes inventoryType = null;

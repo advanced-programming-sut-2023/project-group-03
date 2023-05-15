@@ -55,6 +55,7 @@ public class IndustryBuildingMenu extends Menu {
     }
 
     public void guide() {
+        gameMenu.getGame().getMap().showMap(gameMenu.getHalfSide());
         colorPrint(TEXT_RED,"================================================");
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", ">>Industry Buildings<<"));
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", "possible commands:"));

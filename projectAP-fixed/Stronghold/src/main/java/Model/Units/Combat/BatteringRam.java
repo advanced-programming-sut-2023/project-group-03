@@ -2,6 +2,7 @@ package Model.Units.Combat;
 
 import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
+import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 
 public class BatteringRam extends CombatUnit {
@@ -12,9 +13,16 @@ public class BatteringRam extends CombatUnit {
 
     public BatteringRam(Player owner, Tile position) {
         super(owner, position,"battering ram");
+        this.setDamage(1500);
+        this.setMaterial(Material.FLESH);
+        this.setSpeed(7);
+        this.setHP(3600);
+        this.setBaseRange(0);
+        this.setGold(25);
         owner.decreaseGold(goldCost);
         owner.decreaseInventory(Resources.WOOD, woodCost);
         owner.decreaseInventory(Resources.STONE, stoneCost);
+        targets.add(Material.STONE);
         // TODO
     }
 

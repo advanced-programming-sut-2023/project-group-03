@@ -2,6 +2,7 @@ package Model.GamePlay;
 
 import Model.Element;
 import Model.Field.Tile;
+import Model.Units.Combat.CombatUnit;
 
 import java.util.ArrayList;
 
@@ -26,8 +27,8 @@ public abstract class Drawable extends Element {
         drawables.add(this);
     }
 
-    public void getHit(int value) {
-
+    public void getHit(CombatUnit enemy) {
+        this.HP -= enemy.getDamage();
     }
 
     public void erase() {

@@ -23,6 +23,7 @@ public class WeaponBuidingMenu extends Menu {
 
     @Override
     public void run() throws Transition {
+        guide();
         String command = scanner.nextLine();
         String output = "";
         Player player = gameMenu.getGame().getCurrentPlayer();
@@ -30,15 +31,21 @@ public class WeaponBuidingMenu extends Menu {
         if (command.matches("back")) {
             throw new Transition(gameMenu);
         }
-        if (command.matches(GameMenuCommands.BUILD_GENERATOR.toString())) {
+        else if (command.matches(GameMenuCommands.BUILD_GENERATOR.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.BUILD_GENERATOR.toString());
             output = gameController.buildGeneratorMatcherHandler(matcher, player);
-            System.out.println(output);
-        } else {
-            System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
         }
+        else if (command.matches(GameMenuCommands.BUILD_BARRACKS.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.BUILD_BARRACKS.toString());
+            output = gameController.buildBarracksMatcherHandler(matcher, player);
+        } else {
+            output = formatPrinter(TEXT_RED, "", "invalid command");
+        }
+        System.out.println(output);
+        throw new Transition(this);
     }
     public void guide() {
+        gameMenu.getGame().getMap().showMap(gameMenu.getHalfSide());
         colorPrint(TEXT_RED,"================================================");
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", ">>weopon Buildings<<"));
         System.out.println(formatPrinter(TEXT_YELLOW, "", "possible format of command: build ???"));
@@ -46,5 +53,6 @@ public class WeaponBuidingMenu extends Menu {
                 " 2. " + GeneratorTypes.SWORD_MAKER.getName() + " 3." + GeneratorTypes.PIKE_MAKER.getName() +
                 " 4." + GeneratorTypes.SPEAR_MAKER.getName() + " 5." + GeneratorTypes.TANNER.getName() +
                 " 6."+GeneratorTypes.ARMOURER.getName()));
+        colorPrint(TEXT_YELLOW, "to build barracks: " + GameMenuCommands.BUILD_BARRACKS);
     }
 }

@@ -6,7 +6,10 @@ import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
+import Model.Units.Engineer;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static Model.Buildings.Enums.Resources.*;
@@ -15,12 +18,18 @@ public class Keep extends Building {
     private Inventory armoury = null;
     private Inventory stockPile = null;
     private Inventory foodStorage = null;
+    private Store store = null;
     protected HashMap<BarracksType, Barracks> barracks = new HashMap<>();//todo
     private static Keep instance;
     private int taxRate;
     private int fearRate;
     private int foodRate;
     private int typeOfFood;
+
+    private int maxEngineerPopulation = 0;
+    private int currentEngineerPopulation = 0;
+
+    private ArrayList<Engineer> engineers = new ArrayList<>();
 
     public Keep(Player owner, Tile position) {
         super(owner, position, 5,"keep");
@@ -31,11 +40,44 @@ public class Keep extends Building {
         foodRate = -2;
         fearRate = 0;
         typeOfFood = 0;
-
     }
 
     public static void setInstance(Player owner, Tile tile) {
         Keep.instance = instance;
+    }
+
+    public void addEngineer(Engineer engineer) {
+        engineers.add(engineer);
+        maxEngineerPopulation++;
+    }
+
+    public ArrayList<Engineer> getEngineers(int amount) {
+        ArrayList<Engineer> answer = new ArrayList<>();
+        for (Engineer engineer : engineers) {
+            if (amount <= 0) break;
+            if (engineer.getJob() == null) {
+                amount--;
+                answer.add(engineer);
+            }
+        }
+        currentEngineerPopulation += amount;
+        return answer;
+    }
+
+    public int getMaxEngineerPopulation() {
+        return maxEngineerPopulation;
+    }
+
+    public void setMaxEngineerPopulation(int maxEngineerPopulation) {
+        this.maxEngineerPopulation = maxEngineerPopulation;
+    }
+
+    public int getCurrentEngineerPopulation() {
+        return currentEngineerPopulation;
+    }
+
+    public void setCurrentEngineerPopulation(int currentEngineerPopulation) {
+        this.currentEngineerPopulation = currentEngineerPopulation;
     }
 
     public static Keep getInstance() {
@@ -103,7 +145,7 @@ public class Keep extends Building {
             owner.setPopularity(owner.getPopularity() + 8);
         }
         owner.setPopularity(owner.getPopularity() + typeOfFood - 1);
-        int amountToDecrease = ((int) Math.ceil(owner.getCurrentPopulation() * Avrage / typeOfFood));
+        int amountToDecrease = ((int) Math.ceil(owner.getMaxPopulation() * Avrage / typeOfFood));
         for (Resources food : getFoods()) {
             owner.decreaseInventory(food, amountToDecrease);
         }
@@ -159,8 +201,8 @@ public class Keep extends Building {
             avrage = 2;
             owner.setPopularity(owner.getPopularity() + 24);
         }
-        int cost = ((int) Math.ceil(owner.getCurrentPopulation() * avrage));
-        owner.decreaseGold(cost);
+        int cost = ((int) Math.ceil(owner.getMaxPopulation() * avrage));
+        owner.increaseGold(cost);
     }
 
     public Inventory getArmoury() {
@@ -212,5 +254,13 @@ public class Keep extends Building {
 
     public void setBarracks(HashMap<BarracksType, Barracks> barracks) {
         this.barracks = barracks;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

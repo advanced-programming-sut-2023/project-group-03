@@ -4,11 +4,15 @@ import Model.Field.Tile;
 import Model.GamePlay.Player;
 
 public class WallClimber extends CombatUnit{
-    private int cost;
+    private static int cost = 70;
     private Tile target;
 
     public void MakeLadder() {
 
+    }
+
+    public static int getCost() {
+        return cost;
     }
 
     @Override

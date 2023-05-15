@@ -5,6 +5,7 @@ import Model.Buildings.Enums.RestTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
+import view.Enums.ConsoleColors;
 
 public class Rest extends Building {
     private RestTypes type;
@@ -16,6 +17,7 @@ public class Rest extends Building {
         if (type.equals(RestTypes.HOVEL)) {
             owner.setMaxPopulation(owner.getMaxPopulation() + 8);
         }
+        material = Material.WOOD;
     }
 
     @Override
@@ -23,6 +25,18 @@ public class Rest extends Building {
         if(shouldBreak()){
             return;
         }
+    }
+
+    @Override
+    public void erase() {
+        super.erase();
+        if (type.equals(RestTypes.HOVEL)) {
+            owner.setMaxPopulation(owner.getMaxPopulation() - 8);
+        }
+        String log = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(),
+                ConsoleColors.TEXT_BG_BLACK, "a building of type <" + type.getName() + "> distroyed in (" +
+                        position.getRowNum() + "," + position.getColumnNum() + ")");
+        System.out.println(log);
     }
 
     @Override

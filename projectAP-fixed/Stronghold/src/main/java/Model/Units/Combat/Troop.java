@@ -9,6 +9,7 @@ import Model.Units.Enums.AttackingMode;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
 import controller.gameControllers.MoveUnitController;
+import view.Enums.ConsoleColors;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,6 +30,7 @@ public class Troop extends CombatUnit{
         owner.decreaseGold(type.getGold());
         this.equipment = type.getEquipment();
         this.mode = AttackingMode.STANDING;
+        targets.add(type.getTarget());
         
         for (Resources now:equipment) {
             owner.decreaseInventory(now,1);
@@ -77,16 +79,16 @@ public class Troop extends CombatUnit{
 
     protected void defensiveModAttack() {
         GameMap map = owner.getGame().getMap();
-        if (currentTarget.equals(position) && EnemyTarget.equals(null)) {
+        if (currentTarget.equals(position) && EnemyTarget == null) {
             if (AttackEnemyInRange()) {
                 return;
             } else if (baseRange == 0) {
-                ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(15, position, map);
+                ArrayList<Tile> area = MoveUnitController.closeTilesForMove(15, position, map, owner);
                 for (int i = 0; i < area.size(); i++) {
                     Tile targetTile = area.get(i);
                     for (Unit unit : targetTile.getUnits()) {
-                        if (!unit.getOwner().equals(owner)) {
-                            currentTarget = targetTile;
+                        if (!unit.getOwner().equals(owner) && unit instanceof CombatUnit) {
+                            makeDate(unit);
                             return;
                         }
                     }
@@ -109,16 +111,16 @@ public class Troop extends CombatUnit{
 
     protected void AttackingModAttack() {
         GameMap map = owner.getGame().getMap();
-        if (currentTarget.equals(position) && EnemyTarget.equals(null)) {
+        if (currentTarget.equals(position) && EnemyTarget == null) {
             if (AttackEnemyInRange()) {
                 return;
             } else if (baseRange == 0) {
-                ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(35, position, map);
+                ArrayList<Tile> area = MoveUnitController.closeTilesForMove(35, position, map, owner);
                 for (int i = 0; i < area.size(); i++) {
                     Tile targetTile = area.get(i);
                     for (Unit unit : targetTile.getUnits()) {
-                        if (!unit.getOwner().equals(owner)) {
-                            currentTarget = targetTile;
+                        if (!unit.getOwner().equals(owner) && unit instanceof CombatUnit) {
+                            makeDate(unit);
                             return;
                         }
                     }
@@ -137,6 +139,11 @@ public class Troop extends CombatUnit{
         if (isPatrol()) {
             return;
         }
+        if (shouldBreak()) {
+            ConsoleColors.colorPrint(owner.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                    ">>>a " + (type.getName()) + " of " + owner.getUser().getNickname() + " died in (" + (position.getRowNum() + 1) + "," + (position.getColumnNum() + 1) + ")");
+            return;
+        }
         if (EnemyTarget != null) {
             return;
         }
@@ -144,6 +151,9 @@ public class Troop extends CombatUnit{
             return;
         }
         if (!currentTarget.equals(position)) {
+            return;
+        }
+        if (BufferTarget != null) {
             return;
         }
         if (mode.equals(AttackingMode.DEFENSIVE)) {
@@ -157,6 +167,36 @@ public class Troop extends CombatUnit{
             AttackEnemyInRange();
         }
         AutoMove();
+    }
+
+    public void makeDate(Unit unit) {
+        if (!(unit instanceof Troop)) {
+            currentTarget = unit.getPosition();
+            return;
+        }
+        Troop troop = ((Troop) unit);
+        if (troop.mode.equals(AttackingMode.STANDING)) {
+            currentTarget = troop.getPosition();
+            return;
+        }
+        if (troop.isPatrol()) {
+            currentTarget = troop.getPosition();
+            return;
+        }
+        if (troop.getBaseRange() > 0) {
+            currentTarget = troop.getPosition();
+            return;
+        }
+        GameMap map = owner.getGame().getMap();
+        ArrayList<Tile> area = MoveUnitController.closeTilesForMove(35, troop.getPosition(), map, troop.getOwner());
+        //ArrayList<Tile> areaSecond = MoveUnitController.manhattanCloseTiles(35, troop.getPosition(), map, troop.getOwner());
+        if (!area.contains(this.position)) {
+            currentTarget = troop.getPosition();
+            return;
+        }
+        ArrayList<Tile> newPath = MoveUnitController.findPath(position, unit.getPosition(), map, owner);
+        currentTarget = newPath.get(newPath.size() / 2);
+        troop.setCurrentTarget(newPath.get(newPath.size() / 2));
     }
 
     @Override

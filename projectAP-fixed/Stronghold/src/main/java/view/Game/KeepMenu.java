@@ -67,6 +67,7 @@ public class KeepMenu extends Menu {
     }
 
     public void guide() {
+        gameMenu.getGame().getMap().showMap(gameMenu.getHalfSide());
         colorPrint(TEXT_RED,"================================================");
         System.out.println(formatPrinter(TEXT_BRIGHT_YELLOW, "", ">>Keep<<"));
         System.out.println(formatPrinter(TEXT_YELLOW, "", "fearRate:" +

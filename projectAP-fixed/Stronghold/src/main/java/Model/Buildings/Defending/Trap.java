@@ -5,6 +5,7 @@ import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
+import view.Enums.ConsoleColors;
 
 public class Trap extends Building {
 
@@ -22,7 +23,9 @@ public class Trap extends Building {
         this.oil = type.getOil();
         this.worker = type.getWorker();
         this.damage = type.getDamage();
+        this.type = type;
         owner.setCurrentPopulation(owner.getMaxPopulation() + type.getWorker());
+        manageCost();
     }
 
     @Override
@@ -37,6 +40,13 @@ public class Trap extends Building {
     @Override
     public void print() {
 
+    }
+
+    public void erase() {
+        super.erase();
+        String log = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(),
+                ConsoleColors.TEXT_BG_BLACK, "a trap of type <" + type.getName() + "> worked");
+        System.out.println(log);
     }
 
     public int getGold() {

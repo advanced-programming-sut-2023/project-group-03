@@ -15,11 +15,18 @@ public abstract class CastleBuilding extends Building {
         super(owner, position, size,name);
         this.setMaterial(Material.STONE);
         this.troops = new ArrayList<>();
-        owner.decreaseInventory(Resources.STONE,stoneCost);
     }
 
     public void setStoneCost(int stoneCost) {
         this.stoneCost = stoneCost;
+    }
+
+    @Override
+    public void erase() {
+        super.erase();
+        for (int i = 0; i < troops.size(); i++) {
+            troops.get(i).erase();
+        }
     }
 
     public int getStoneCost() {

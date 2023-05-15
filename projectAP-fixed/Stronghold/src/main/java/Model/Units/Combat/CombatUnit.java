@@ -14,11 +14,12 @@ import java.util.HashSet;
 import java.util.Random;
 
 public abstract class CombatUnit extends Unit {
-    protected HashSet<Material> targets = new HashSet<>();
+    protected ArrayList<Material> targets = new ArrayList<>();
     protected int damage;
     protected int baseRange;
     protected int modifiedRange;
-    protected int defenseRate;
+    protected int RangeIncrease;
+    protected int defenseIncrease;
     protected Tile tileToAttack = null;
     protected Drawable EnemyTarget = null;
     protected int gold;
@@ -31,16 +32,15 @@ public abstract class CombatUnit extends Unit {
 
     }
 
-    @Override
-
-    public void getHit(int value){
+    public void getHit(CombatUnit enemy) {
+        this.HP -= ((enemy.getDamage() - (enemy.getDamage() * this.getDefenseIncrease() / 100)));
     }
 
-    public HashSet<Material> getTargets() {
+    public ArrayList<Material> getTargets() {
         return targets;
     }
 
-    public void setTargets(HashSet<Material> targets) {
+    public void setTargets(ArrayList<Material> targets) {
         this.targets = targets;
     }
 
@@ -76,12 +76,24 @@ public abstract class CombatUnit extends Unit {
         this.modifiedRange = modifiedRange;
     }
 
-    public int getDefenseRate() {
-        return defenseRate;
+    public int getRangeIncrease() {
+        return RangeIncrease;
     }
 
-    public void setDefenseRate(int defenseRate) {
-        this.defenseRate = defenseRate;
+    public void setRangeIncrease(int rangeIncrease) {
+        RangeIncrease = rangeIncrease;
+    }
+
+    public int getDefenseIncrease() {
+        return defenseIncrease;
+    }
+
+    public void setDefenseIncrease(int defenseIncrease) {
+        this.defenseIncrease = defenseIncrease;
+    }
+
+    public Drawable getEnemyTarget() {
+        return EnemyTarget;
     }
 
     public Tile getTarget() {
@@ -99,16 +111,26 @@ public abstract class CombatUnit extends Unit {
             if (baseRange == 0) {
                 if (tileToAttack.equals(position)) {
                     Unit unit = selectRandomEnemy(position);
-                    if(unit!=null){ unit.setHP(unit.getHP() - this.damage);}
+                    if (unit != null) {
+                        unit.getHit(this);
+                    } else {
+                        BufferTarget = null;
+                        tileToAttack = null;
+                    }
                 } else {
                     currentTarget = tileToAttack;
                 }
             } else {
-                ArrayList<Tile> area = MoveUnitController.manhattanCloseTiles(this.getModifiedRange(), position, map);
+                ArrayList<Tile> area = MoveUnitController.closeTilesForMove(this.getModifiedRange(), position, map, owner);
                 if (area.contains(tileToAttack)) {
+                    if (this instanceof Throwers) {
+                        ((Throwers) this).damageGroup(tileToAttack);
+                    }
                     Unit unit = selectRandomEnemy(position);
                     if (unit != null) {
-                        unit.setHP(unit.getHP() - this.damage);
+                        unit.getHit(this);
+                    } else {
+                        tileToAttack = null;
                     }
                 } else {
                     currentTarget = tileToAttack;
@@ -120,7 +142,7 @@ public abstract class CombatUnit extends Unit {
     public Unit selectRandomEnemy(Tile target) {
         int number = 0;
         for (Unit unit : target.getUnits()) {
-            if (!unit.getOwner().equals(owner)) {
+            if (!unit.getOwner().equals(owner) && unit instanceof CombatUnit) {
                 number++;
             }
         }
@@ -132,7 +154,7 @@ public abstract class CombatUnit extends Unit {
         number = 0;
         for (int i = 0; i < target.getUnits().size(); i++) {
             Unit unit = target.getUnits().get(i);
-            if (!unit.getOwner().equals(owner)) {
+            if (!unit.getOwner().equals(owner) && unit instanceof CombatUnit) {
                 if (number == randomNumber) {
                     return unit;
                 } else {
@@ -146,9 +168,28 @@ public abstract class CombatUnit extends Unit {
     public void attackToEnemy() {
         if (EnemyTarget != null) {
             GameMap map = owner.getGame().getMap();
-            ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(modifiedRange, position, map);
-            if (area.contains(EnemyTarget.getPosition())) {
-                EnemyTarget.setHP(EnemyTarget.getHP() - damage);
+            ArrayList<Tile> area = MoveUnitController.closeTilesForAttack(modifiedRange + 1, position, map);
+            boolean flag = false;
+            for (int i = 0; i < area.size(); i++) {
+                if (area.get(i).getBuilding() != null) {
+                    if (area.get(i).getBuilding().equals(EnemyTarget)) {
+                        flag = true;
+                    }
+                }
+            }
+            if (flag) {
+                EnemyTarget.getHit(this);
+                if (this instanceof Throwers) {
+                    ((Throwers) this).damageGroup(EnemyTarget.getPosition());
+                }
+                if (this instanceof LadderMen) {
+                    ((LadderMen) this).setLadder(position);
+                    this.erase();
+                }
+                if (this instanceof SiegeTower) {
+                    ((SiegeTower) this).makeStairs(position);
+                    this.erase();
+                }
             } else {
                 if (EnemyTarget instanceof Building) {
                     ArrayList<Tile> path = MoveUnitController.findPathToBuilding(position, ((Building) EnemyTarget), map, owner);
@@ -167,7 +208,7 @@ public abstract class CombatUnit extends Unit {
             if (toHit == null) {
                 return false;
             }
-            toHit.setHP(toHit.getHP() - damage);
+            toHit.getHit(this);
             return true;
         } else {
             GameMap map = owner.getGame().getMap();
@@ -175,9 +216,10 @@ public abstract class CombatUnit extends Unit {
             for (int i = 0; i < area.size(); i++) {
                 Tile targetTile = area.get(i);
                 for (Unit unit : targetTile.getUnits()) {
-                    if (!unit.getOwner().equals(owner)) {
+                    if (!unit.getOwner().equals(owner) && unit instanceof CombatUnit) {
                         Unit toHit = selectRandomEnemy(targetTile);
-                        if(toHit!=null){ toHit.setHP(toHit.getHP() - damage);}
+                        if(toHit!=null){
+                            toHit.getHit(this);}
                         return true;
                     }
                 }
@@ -212,7 +254,17 @@ public abstract class CombatUnit extends Unit {
     @Override
     public void check() {
         super.check();
-
+        if (shouldBreak()) {
+            return;
+        }
+        if (position == BufferTarget) {
+            BufferTarget = null;
+        }
+        if (BufferTarget != null) {
+            currentTarget = BufferTarget;
+            AutoMove();
+        }
+        updateRange();
         if (EnemyTarget != null) {
             attackToEnemy();
             if (EnemyTarget.getHP() < 0) {
@@ -232,9 +284,24 @@ public abstract class CombatUnit extends Unit {
         }
     }
 
+    @Override
+    public void AutoMove() {
+        super.AutoMove();
+        if (tileToAttack != null) {
+            if (tileToAttack.equals(position)) {
+                tileToAttack = null;
+            }
+        }
+    }
+
+    public void updateRange() {
+        modifiedRange = (baseRange * getRangeIncrease()) / 100 + baseRange;
+    }
+
     public int getGold() {
         return gold;
     }
+
 
     public void setGold(int gold) {
         this.gold = gold;

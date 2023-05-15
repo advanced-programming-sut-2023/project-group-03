@@ -9,7 +9,9 @@ public class PortableShields extends CombatUnit{
 
     private ArrayList<Troop> underShield;
     private int defenseRate = 2;
-    private int cost = 10;
+    private static int cost = 10;
+
+    private static int wood = 10;
 
     public void addToShield(Troop troop) {
 
@@ -25,7 +27,12 @@ public class PortableShields extends CombatUnit{
 
     public PortableShields(Player owner, Tile position) {
         super(owner, position,"portable shields");
+
         owner.decreaseGold(10);
+    }
+
+    public static int getWood() {
+        return wood;
     }
 
     public ArrayList<Troop> getUnderShield() {
@@ -36,7 +43,7 @@ public class PortableShields extends CombatUnit{
         return defenseRate;
     }
 
-    public int getCost() {
+    public static int getCost() {
         return cost;
     }
 

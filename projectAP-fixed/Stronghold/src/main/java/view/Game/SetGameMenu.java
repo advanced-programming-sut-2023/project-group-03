@@ -43,7 +43,10 @@ public class SetGameMenu extends Menu {
             } while (!output.equals("player set successfull"));
         }
         Drawable.setDrawables(new ArrayList<>(this.game.getMap().getDrawables()));
-        setResourses(500);
+        for (int i = 0; i < game.getPlayers().size(); i++) {
+            Drawable.getDrawables().add(game.getPlayers().get(i).getKeep());
+        }
+        setResourses(3500);
         GameMenu gameMenu = new GameMenu(scanner, game);
         gameMenu.setUser(user);
         throw new Transition(gameMenu);
@@ -84,10 +87,10 @@ public class SetGameMenu extends Menu {
         for (Player player : game.getPlayers()) {
             for (Resources resources : player.getInventory().keySet()) {
                 player.getInventory().replace(resources, amount);
-                player.setGold(1000);
+                player.setGold(100000);
                 player.setPopularity(100);
                 player.setCurrentPopulation(0);
-                player.setMaxPopulation(64);
+                player.setMaxPopulation(16);
             }
             Troop King = new Troop(player, player.getKeep().getPosition(), TroopTypes.KING);
             player.setKing(King);

@@ -1,5 +1,7 @@
 package Model.Units.Combat;
 
+import Model.Buildings.Defending.Enums.Stair;
+import Model.Buildings.Defending.Enums.StairsTypes;
 import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
@@ -14,6 +16,12 @@ public class SiegeTower extends CombatUnit{
 
     public SiegeTower(Player owner, Tile position, Tile target) {
         super(owner, position,"siege tower");
+        this.setDamage(0);
+        this.setMaterial(Material.FLESH);
+        this.setSpeed(5);
+        this.setHP(1200);
+        this.setGold(20);
+        this.setBaseRange(0);
         owner.decreaseGold(goldCost);
         targets.add(Material.STONE);
         owner.decreaseInventory(Resources.WOOD, woodCost);
@@ -68,14 +76,14 @@ public class SiegeTower extends CombatUnit{
         this.target = target;
     }
 
-    public void makeStairs() {
-
+    public void makeStairs(Tile target) {
+        target.setLadder(new Stair(owner,target, StairsTypes.SIEGE_TOWER));
+        return;
     }
+
     @Override
     public void check() {
         super.check();
-        attackToEnemy();
-        AutoMove();
     }
 
     @Override

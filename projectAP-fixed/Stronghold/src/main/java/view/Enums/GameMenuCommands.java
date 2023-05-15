@@ -24,7 +24,7 @@ public enum GameMenuCommands {
     BUILD_BARRACKS("^build Barrack (?<barracksInfo>.+)"),
     BUILD_INVENTORY("^build Inventory (?<inventoryInfo>.+)"),
     BUILD_REST("^build Rest (?<restInfo>.+)"),
-    BUILD_GENERATOR("^build (?<generatorInfo>.+)"),
+    BUILD_GENERATOR("^build generator (?<generatorInfo>.+)"),
     BUILD_STONE_GATES("^build Gate (?<stoneGateInfo>.+)"),
     BUILD_DRAW_BRIDGE("^build Bridge (?<drawbridgeInfo>.+)"),
     BUILD_TRAP("^build trap (?<trapInfo>.+)"),
@@ -34,8 +34,8 @@ public enum GameMenuCommands {
     SELECT_UNIT("^select unit (?<unitInfo>.+)"),
     PATROL_UNIT("^patrol unit (?<patrolInfo>.+)"),
     SET("^set -s (?<stateInfo>\\w+)$"),
-    ATTACK_BUILDING("attack building (?<buildingInfo>.+)"),
-    ATTACK_PLACE("attack place (?<placeInfo>.+)"),
+    ATTACK_BUILDING("attack building (?<attackInfo>.+)"),
+    ATTACK_PLACE("attack place (?<attackInfo>.+)"),
     MOVE_UNIT("move unit (?<placeInfo>.+)"),
     POUR_OIL(""),
     DIG_TUNNEL(""),
@@ -45,6 +45,9 @@ public enum GameMenuCommands {
     TRADE_ACCEPT("trade accept (?<AcceptInfo>"),
     TRADE_LIST("trade list"),
     TRADE_HISTORY("trade history"),
+    ///////////////////////////////////////////////////////
+    BUILD_STAIR("build stair (?<stairInfo>.+)"),
+    BUILD_OX_TETHER("build tether (?<buildingInfo>.+)")
     ;
 
     String regex;

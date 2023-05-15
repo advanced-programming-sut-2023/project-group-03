@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public enum  InventoryTypes {
-    STOCKPILE(ResourceTypes.STOCK, "stockpile",999999, 200, null, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
-    ARMOURY(ResourceTypes.WEAPON, "armoury", 500, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
-    FOOD_STORAGE(ResourceTypes.FOOD, "food storage",200, 0, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
+    STOCKPILE(ResourceTypes.STOCK, "stockpile",10000, 20000, null, 0, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    ARMOURY(ResourceTypes.WEAPON, "armoury", 10000, 10000, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
+    FOOD_STORAGE(ResourceTypes.FOOD, "food storage",10000, 10000, null, 0, 0,RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
     private ResourceTypes resource;
     private String name;
@@ -41,6 +41,7 @@ public enum  InventoryTypes {
         this.wood = wood;
         this.stoneCost = stoneCost;
         this.textures = textures;
+        this.HP = HP;
         if (name.equals("stockpile")) this.resources = stockPileResources;
         else if (name.equals("armoury")) this.resources = armouryResources;
         else this.resources = foodStorageResources;
