@@ -1,6 +1,7 @@
 package controller.interfaces;
 
 import Model.Buildings.Building;
+import Model.Buildings.Generators;
 import Model.GamePlay.Player;
 import view.Game.GameMenu;
 
@@ -27,4 +28,7 @@ public interface BuildingInterface {
     String dropBuildingMatcherHandler(Matcher matcher, Player player);
     //repair
     String repair(Building building, Player player);
+    //ox tether
+    String buildOxTetherMatcherHandler(Matcher matcher, Player player, Generators generators);
+    String buildStairMatcherHandler(Matcher matcher, Player player);
 }

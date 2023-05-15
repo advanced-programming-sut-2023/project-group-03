@@ -2,13 +2,11 @@ package controller.gameControllers;
 
 import Model.Buildings.*;
 import Model.Buildings.Defending.*;
-import Model.Buildings.Defending.Enums.GateTypes;
-import Model.Buildings.Defending.Enums.TowerTypes;
-import Model.Buildings.Defending.Enums.TrapsTypes;
-import Model.Buildings.Defending.Enums.WallTypes;
+import Model.Buildings.Defending.Enums.*;
 import Model.Buildings.Enums.*;
 import Model.Field.*;
 import Model.GamePlay.Player;
+import Model.Units.Ox;
 import Model.Units.Unit;
 import Model.Units.Worker;
 import controller.interfaces.BuildingInterface;
@@ -49,7 +47,7 @@ public class BuildingController extends GeneralGameController implements Buildin
     }
 
     public String repair(Building building, Player player) {
-        //gates, towers, barracks
+        //gates, towers, wall
         if (building instanceof Gates) {
             Gates gate = (Gates) building;
             GateTypes gateType = gate.getType();
@@ -80,24 +78,18 @@ public class BuildingController extends GeneralGameController implements Buildin
             return SUCCESSFUL_REPAIR.getOutput();
         }
 
-        if (building instanceof  Barracks) {
-            BarracksType barracksType = ((Barracks) building).getType();
-            int lostHealth = barracksType.getHP() - building.getHP();
-            int stoneCost = (barracksType.getStoneCost() * lostHealth) / barracksType.getHP();
-            int woodCost = (barracksType.getWood() * lostHealth) / barracksType.getHP();
-            int goldCost = (barracksType.getGold() * lostHealth) / barracksType.getHP();
-            if ((player.getInventory().get(Resources.STONE) < stoneCost) ||
-                (player.getInventory().get(Resources.WOOD) < woodCost))
+        if (building instanceof  Wall) {
+            WallTypes wallType = ((Wall) building).getType();
+            int lostHealth = wallType.getHP() - building.getHP();
+            int stoneCost = (wallType.getStoneCost() * lostHealth) / wallType.getHP();
+
+            if ((player.getInventory().get(Resources.STONE) < stoneCost))
                 return NOT_ENOUGH_STONE_REPAIR.getOutput();
-            if (player.getGold() < goldCost)
-                return NOT_ENOUGH_GOLD_REPAIR.getOutput();
-            if (!checkForEnemiesAround(building.getPosition(), player, barracksType.getSize()))
+            if (!checkForEnemiesAround(building.getPosition(), player, wallType.getSize()))
                 return UNABLE_TO_REPAIR.getOutput();
 
-            building.setHP(barracksType.getHP());
-            player.decreaseGold(goldCost);
+            building.setHP(wallType.getHP());
             player.decreaseInventory(Resources.STONE, stoneCost);
-            player.decreaseInventory(Resources.WOOD, woodCost);
             return SUCCESSFUL_REPAIR.getOutput();
         }
         //check if you have the elements and there is no enemy around
@@ -325,7 +317,36 @@ public class BuildingController extends GeneralGameController implements Buildin
 
         return buildRest(x, y, restType, player);
     }
-    
+
+    public String buildStairMatcherHandler(Matcher matcher, Player player) {
+        String stairInfo = matcher.group("stairInfo");
+        HashMap<String, String> infoMap = getOptions(BUILD_REST.getKeys(), stairInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        String coordinatesError = checkCoordinates(infoMap, "x", "y");
+        if (coordinatesError != null) return coordinatesError;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        return buildStair(x, y, player);
+    }
+
+    private String buildStair(int x, int y, Player player) {
+        if (player.getInventory().get(Resources.STONE) < StairsTypes.STAIRS.getStoneCost())
+            return NOT_ENOUGH_STONE_STONE_GATE.getOutput();
+
+        Tile targetTile = gameMap.getMap()[x][y];
+        if (targetTile.getLadder() != null) return STAIR_EXIST.getOutput();
+        if (!targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (!targetTile.getHeight().equals(Height.GROUND) && !targetTile.getHeight().equals(Height.SMALL_WALL))
+            return BAD_TEXTURE_STAIR.getOutput();
+
+        targetTile.setLadder(new Stair(player, targetTile, StairsTypes.STAIRS));
+        return SUCCESSFUL_DROP_STAIR.getOutput();
+    }
+
     public String buildGeneratorMatcherHandler(Matcher matcher, Player player) {
         String generatorInfo = matcher.group("generatorInfo");
         HashMap<String, String> infoMap = getOptions(BUILD_REST.getKeys(), generatorInfo);
@@ -364,6 +385,24 @@ public class BuildingController extends GeneralGameController implements Buildin
 
         if (direction == null) return INVALID_DIRECTION_STONE_GATE.getOutput();
         return buildStoneGate(x, y, gateType, player, direction);
+    }
+
+    public String buildOxTetherMatcherHandler(Matcher matcher, Player player, Generators generators) {
+        if (!generators.getType().equals(GeneratorTypes.STONE_MINE) && !generators.getType().equals(GeneratorTypes.IRON_MINE))
+            return BAD_BUILDING_OX_TETHER.getOutput();
+
+        String buildingInfo = matcher.group("buildingInfo");
+        HashMap<String, String> infoMap = getOptions(COORDINATES.getKeys(), buildingInfo);
+        String error = infoMap.get("error");
+        if (error != null) return error;
+
+        error = checkCoordinates(infoMap, "x", "y");
+        if (error != null) return error;
+
+        int x = Integer.parseInt(infoMap.get("x")) - 1;
+        int y = Integer.parseInt(infoMap.get("y")) - 1;
+
+        return buildOxTether(x, y, player, generators);
     }
 
     public String buildDrawbridgeMatcherHandler(Matcher matcher, Player player) {
@@ -589,6 +628,26 @@ public class BuildingController extends GeneralGameController implements Buildin
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
+    protected String buildOxTether(int x, int y, Player player, Generators generators) {
+        if (player.getInventory().get(Resources.WOOD) < OxTether.getWood())
+            return NOT_ENOUGH_WOOD_BUILDING.getOutput();
+
+        Tile targetTile;
+
+        targetTile = gameMap.getMap()[x][y];
+        if (targetTile.getBuilding() != null) return BUILDING_EXIST.getOutput();
+        if (!(targetTile.getHeight().equals(Height.GROUND))) return BAD_TEXTURE_OX_TETHER.getOutput();
+        if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
+        if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
+            return ROCK_EXIT_DROP_BUILDING.getOutput();
+
+        new OxTether(player, targetTile);
+        for (int i = 0; i < generators.getType().getWorker(); i++) {
+            generators.addWorker(new Ox(player, targetTile, generators));
+        }
+        return SUCCESSFUL_DROP_BUILDING.getOutput();
+    }
+
     protected String buildGenerator(int xCenter, int yCenter, GeneratorTypes generatorType, Player player) {
         if (player.getGold() < generatorType.getGold())
             return NOT_ENOUGH_GOLD_BUILDING.getOutput();
@@ -598,6 +657,25 @@ public class BuildingController extends GeneralGameController implements Buildin
             return NOT_ENOUGH_WORKER_BUILDING.getOutput();
 
         if (!checkIfFit(xCenter, yCenter, generatorType.getSize())) return NOT_FIT.getOutput();
+
+        Resources product = generatorType.getProduct();
+        InventoryTypes inventoryType = null;
+        for (InventoryTypes inventory : InventoryTypes.values()) {
+            if (inventory.getResource().equals(product.getType())) {
+                inventoryType = inventory;
+                break;
+            }
+        }
+        if (inventoryType == null) return "Weird. Couldn't find the inventory type in line 610.";
+        if (inventoryType.equals(InventoryTypes.ARMOURY)) {
+            if (player.getKeep().getArmoury() == null) return NOT_HAVE_REQUIRED_INVENTORY_GENERATOR.getOutput();
+        }
+        else if (inventoryType.equals(InventoryTypes.STOCKPILE)) {
+            if (player.getKeep().getStockPile() == null) return NOT_HAVE_REQUIRED_INVENTORY_GENERATOR.getOutput();
+        }
+        else if (inventoryType.equals(InventoryTypes.FOOD_STORAGE)) {
+            if (player.getKeep().getFoodStorage() == null) return NOT_HAVE_REQUIRED_INVENTORY_GENERATOR.getOutput();
+        }
 
         int size = generatorType.getSize() / 2;
         Tile targetTile;
@@ -615,7 +693,9 @@ public class BuildingController extends GeneralGameController implements Buildin
         targetTile = gameMap.getMap()[xCenter][yCenter];
         Generators newGenerator = new Generators(player, targetTile, generatorType);
         for (int i = 0; i < generatorType.getWorker(); i++) {
-            targetTile.addUnit(new Worker(player, targetTile, newGenerator));
+            if (!generatorType.equals(GeneratorTypes.IRON_MINE) && !generatorType.equals(GeneratorTypes.STONE_MINE)) {
+                newGenerator.addWorker(new Worker(player, targetTile, newGenerator));
+            }
         }
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
@@ -659,11 +739,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (terminalTile2.getBuilding() != null || terminalTile1.getBuilding() != null)
             return BUILDING_ON_TERMINAL.getOutput();
 
-        Gates newGate = new Gates(player, gameMap.getMap()[xCenter][yCenter], gateType);
-        newGate.addTerminal(terminalTile1);
-        newGate.addTerminal(terminalTile2);
-        terminalTile1.setBuilding(newGate);
-        terminalTile2.setBuilding(newGate);
+        Gates newGate = new Gates(player, gameMap.getMap()[xCenter][yCenter], gateType, terminalTile1, terminalTile2);
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }

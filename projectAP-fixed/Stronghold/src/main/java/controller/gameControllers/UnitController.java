@@ -3,12 +3,16 @@ package controller.gameControllers;
 import Model.Buildings.Barracks;
 import Model.Buildings.Building;
 import Model.Buildings.Defending.Enums.TowerTypes;
+import Model.Buildings.Defending.Gates;
 import Model.Buildings.Defending.Towers;
+import Model.Buildings.Defending.Wall;
 import Model.Buildings.Enums.BarracksType;
 import Model.Buildings.Enums.Resources;
 import Model.Field.GameMap;
 import Model.Field.Texture;
 import Model.Field.Tile;
+import Model.GamePlay.Drawable;
+import Model.GamePlay.Game;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Combat.*;
@@ -76,15 +80,15 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         ThrowerTypes throwerType = ThrowerTypes.getThrowerTypeByName(type);
         if (throwerType != null) {
-            return addThrower(x, y, throwerType, player, barracks);
+            return addThrower(x, y, throwerType, amount, player, barracks);
         }
 
-        if (type.equals("battering ram")) {
-            return addBatteringRam(x, y, player, barracks);
+        else if (type.equals("battering ram")) {
+            return addBatteringRam(x, y, amount, player, barracks);
         }
 
-        if (type.equals("siege tower")) {
-            return addSiegeTower(x, y, player, barracks);
+        else if (type.equals("siege tower")) {
+            return addSiegeTower(x, y, amount, player, barracks);
         }
 
         TroopTypes troopType = TroopTypes.getTroopTypeByName(type);
@@ -92,50 +96,79 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             return addTroop(troopType, amount, player, gameMap.getMap()[x][y], barracks);
         }
 
-        if (type.equals("wall climber")) {
-            for (int i = 0; i < amount; i++) {
-                new WallClimber(player, targetTile);
-            }
-            return SUCCESSFUL_DROP_UNIT.getOutput();
+        else if (type.equals("wall climber")) {
+            return addWallClimber(x, y, amount, player, barracks);
         }
 
-        if (type.equals("engineer")) {
+        else if (type.equals("engineer")) {
             return addEngineer(player, amount, gameMap.getMap()[x][y], barracks);
         }
-        if (type.equals("ladder man")) {
-
+        else if (type.equals("ladder man")) {
+            return addLadderMan(x, y, amount, player, barracks);
         }
-        if (type.equals("assassin")) {
-            //todo
+
+        else if (type.equals("portable shield")) {
+            return addPortableShield(x, y, amount, player, barracks);
         }
         return INVALID_UNIT_TYPE.getOutput();
     }
 
-    private String addBatteringRam(int x, int y, Player player, Barracks barracks) {
-        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null) return NOT_RIGHT_PLACE_UNIT.getOutput();
+    private String addPortableShield(int x, int y, int amount, Player player, Barracks barracks) {
+        if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT)) return NOT_RIGHT_PLACE_UNIT.getOutput();
 
-        if (player.getGold() < BatteringRam.getGoldCost())
-            return NOT_ENOUGH_GOLD_UNIT.getOutput();
-        if (player.getInventory().get(Resources.STONE) < BatteringRam.getStoneCost())
-            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " stone";
-        if (player.getInventory().get(Resources.WOOD) < BatteringRam.getWoodCost())
+        if (player.getGold() * amount < PortableShields.getCost())
+            return NOT_ENOUGH_GOLD_UNIT.getOutput();;
+        if (player.getInventory().get(Resources.WOOD) * amount < PortableShields.getWood())
             return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " wood";
 
-        new BatteringRam(player, gameMap.getMap()[x][y]);
+        for (int i = 0; i < amount; i++) {
+            new PortableShields(player, gameMap.getMap()[x][y]);
+        }
         return SUCCESSFUL_DROP_UNIT.getOutput();
     }
 
-    private String addSiegeTower(int x, int y, Player player, Barracks barracks) {
-        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null) return NOT_RIGHT_PLACE_UNIT.getOutput();
+    private String addWallClimber(int x, int y, int amount, Player player, Barracks barracks) {
+        if (barracks != null && !barracks.getType().equals(BarracksType.BARRACK))
+            return NOT_RIGHT_PLACE_UNIT.getOutput();
 
-        if (player.getGold() < SiegeTower.getGoldCost())
+        if (player.getGold() < amount * WallClimber.getCost()) return NOT_ENOUGH_GOLD_UNIT.getOutput();
+
+        for (int i = 0; i < amount; i++) {
+            new WallClimber(player, gameMap.getMap()[x][y]);
+        }
+
+        return SUCCESSFUL_DROP_UNIT.getOutput();
+    }
+
+    private String addBatteringRam(int x, int y, int amount, Player player, Barracks barracks) {
+        if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT)) return NOT_RIGHT_PLACE_UNIT.getOutput();
+
+        if (player.getGold() * amount < BatteringRam.getGoldCost())
             return NOT_ENOUGH_GOLD_UNIT.getOutput();
-        if (player.getInventory().get(Resources.STONE) < SiegeTower.getStoneCost())
+        if (player.getInventory().get(Resources.STONE) * amount < BatteringRam.getStoneCost())
             return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " stone";
-        if (player.getInventory().get(Resources.WOOD) < SiegeTower.getWoodCost())
+        if (player.getInventory().get(Resources.WOOD) * amount < BatteringRam.getWoodCost())
             return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " wood";
 
-        new SiegeTower(player, gameMap.getMap()[x][y]);
+        for (int i = 0; i < amount; i++) {
+            new BatteringRam(player, gameMap.getMap()[x][y]);
+        }
+        return SUCCESSFUL_DROP_UNIT.getOutput();
+    }
+
+    private String addSiegeTower(int x, int y, int amount, Player player, Barracks barracks) {
+        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null) return NOT_RIGHT_PLACE_UNIT.getOutput();
+
+        if (player.getGold() * amount< SiegeTower.getGoldCost())
+            return NOT_ENOUGH_GOLD_UNIT.getOutput();
+        if (player.getInventory().get(Resources.STONE) * amount < SiegeTower.getStoneCost())
+            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " stone";
+        if (player.getInventory().get(Resources.WOOD) * amount < SiegeTower.getWoodCost())
+            return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " wood";
+
+        for (int i = 0; i < amount; i++) {
+            new SiegeTower(player, gameMap.getMap()[x][y]);
+        }
         return SUCCESSFUL_DROP_UNIT.getOutput();
     }
 
@@ -157,12 +190,12 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         return SUCCESSFUL_DROP_UNIT.getOutput();
     }
 
-    public String addEngineer(Player player, int amount, Tile tile, Barracks barracks) {
+    private String addEngineer(Player player, int amount, Tile tile, Barracks barracks) {
         if (barracks != null && !barracks.getType().equals(BarracksType.ENGINEER_GUILD))
             return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         if (player.getGold() < amount * Engineer.price) return NOT_ENOUGH_GOLD_ENGINEER.getOutput();
-        if (player.getCurrentPopulation() < amount) return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();//todo engineer amount
+        if ((player.getMaxPopulation() - player.getCurrentPopulation()) < amount) return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();//todo engineer amount
 
         for (int i = 0; i < amount; i++) {
             new Engineer(player, tile);
@@ -170,18 +203,43 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         return SUCCESSFUL_ADD_ENGINEER.getOutput();
     }
-    private String addThrower(int x, int y, ThrowerTypes throwerType, Player player, Barracks barracks) {
+
+    private String addLadderMan(int x, int y, int amount, Player player, Barracks barracks) {
+        if (barracks != null && !barracks.getType().equals(BarracksType.ENGINEER_GUILD))
+            return NOT_RIGHT_PLACE_UNIT.getOutput();
+
+        if (player.getGold() < amount * LadderMen.getPrice()) return NOT_ENOUGH_GOLD_UNIT.getOutput();
+        for (int i = 0; i < amount; i++) {
+            new LadderMen(player, gameMap.getMap()[x][y]);
+        }
+
+        return SUCCESSFUL_DROP_UNIT.getOutput();
+    }
+
+    private String addThrower(int x, int y, ThrowerTypes throwerType, int amount, Player player, Barracks barracks) {
         if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT))
             return NOT_RIGHT_PLACE_UNIT.getOutput();
 
-        if (player.getGold() < throwerType.getGold()) return NOT_ENOUGH_GOLD_THROWER.getOutput();
+        int goldCost = amount * throwerType.getGold();
+        if (player.getGold() < goldCost) return NOT_ENOUGH_GOLD_THROWER.getOutput();
+
+        int currentUselessEngineers = player.getKeep().getMaxEngineerPopulation() - player.getKeep().getCurrentEngineerPopulation();
+        if (currentUselessEngineers < amount * throwerType.getEngineer()) return NOT_ENOUGH_ENGINEER_BARRACKS.getOutput();
 
         Tile targetTile = gameMap.getMap()[x][y];
 
         if (!throwerType.getName().contains("tower")) {
-            targetTile.addUnit(new Throwers(player, targetTile, throwerType));
+            for (int i = 0; i < amount; i++) {
+                Throwers newThrower = new Throwers(player, targetTile, throwerType);
+                ArrayList<Engineer> requiredEngineers = player.getKeep().getEngineers(throwerType.getEngineer());
+                for (Engineer engineer : requiredEngineers) {
+                    engineer.setJob(newThrower);
+                }
+            }
             return SUCCESSFUL_DROP_UNIT.getOutput();
         } else {
+            if (amount > 1) return AMOUNT_TOWER_THROWER.getOutput();
+
             Building building = targetTile.getBuilding();
             if (building == null) return BUILDING_NOT_EXIST_THROWER.getOutput();
             if (!building.getOwner().equals(player)) return ACQUISITION_THROWER.getOutput();
@@ -190,9 +248,11 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             Towers tower = (Towers) building;
             if (!(tower.getType().equals(TowerTypes.SQUARE_TOWER) || tower.getType().equals(TowerTypes.ROUND_TOWER)))
                 return BUILDING_NOT_PROPER_TOWER.getOutput();
-
             Throwers newThrower = new Throwers(player, targetTile, throwerType);
-            targetTile.addUnit(newThrower);
+            ArrayList<Engineer> requiredEngineers = player.getKeep().getEngineers(throwerType.getEngineer());
+            for (Engineer engineer : requiredEngineers) {
+                engineer.setJob(newThrower);
+            }
             tower.setThrower(newThrower);
         }
 
@@ -200,8 +260,8 @@ public class UnitController extends GeneralGameController implements UnitInterfa
     }
 
     public String moveUnit(Matcher matcher, GameMenu gameMenu) {
-        String patrolInfo = matcher.group("patrolInfo");
-        HashMap<String, String> infoMap = getOptions(PATROL_UNIT.getKeys(), patrolInfo);
+        String patrolInfo = matcher.group("placeInfo");
+        HashMap<String, String> infoMap = getOptions(COORDINATES.getKeys(), patrolInfo);
         String error = infoMap.get("error");
         if (error != null) return error;
 
@@ -274,7 +334,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
     public String selectUnitMatcherHandler(Matcher matcher, Player player, GameMenu gameMenu) {
         String unitInfo = matcher.group("unitInfo");
-        HashMap<String, String> infoMap = getOptions(SELECT_BUILDING.getKeys(), unitInfo);
+        HashMap<String, String> infoMap = getOptions(SELECT_UNIT.getKeys(), unitInfo);
         String error = infoMap.get("error");
         if (error != null) return error;
 
@@ -287,16 +347,157 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         int x = Integer.parseInt(infoMap.get("x")) - 1;
         int y = Integer.parseInt(infoMap.get("y")) - 1;
 
-        TroopTypes troopType = TroopTypes.getTroopTypeByName(infoMap.get("t"));
+        String type = infoMap.get("t");
+
+        TroopTypes troopType = TroopTypes.getTroopTypeByName(type);
         if (troopType != null) {
             return selectUnitTroop(x, y, troopType, count, player, gameMenu);
         }
 
-        if (infoMap.get("t").equals("engineer")) {
+        ThrowerTypes throwerType = ThrowerTypes.getThrowerTypeByName(type);
+        if (throwerType != null) {
+            return selectThrower(x, y, throwerType, count, player, gameMenu);
+        }
+
+        else if (type.equals("engineer")) {
             return selectEngineer(x, y, count, player, gameMenu);
         }
 
+        else if (type.equals("battering ram")) {
+            return selectBatteringRam(x, y, count, player, gameMenu);
+        }
+        else if (type.equals("ladder man")) {
+            return selectLadderMan(x, y, count, player, gameMenu);
+        }
+
+        else if (type.equals("portable shields")) {
+            return selectPortableShields(x, y, count, player, gameMenu);
+        }
+
+        else if (type.equals("siege tower")) {
+            return selectSiegeTower(x, y, count, player, gameMenu);
+        }
+
+        else if (type.equals("wall climber")) {
+            return selectWallClimber(x, y, count, player, gameMenu);
+        }
+
         return INVALID_UNIT_TYPE_SELECT_UNIT.getOutput();
+    }
+
+    private String selectBatteringRam(int x, int y, int amount, Player player, GameMenu gameMenu) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        ArrayList<Unit> units = targetTile.getUnits();
+        int counter = 0;
+        for (Unit unit : units) {
+            if (unit.getOwner().equals(player) && unit instanceof BatteringRam) counter++;
+        }
+        if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
+        counter = amount;
+        ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
+        gameMenuUnits.clear();
+        gameMenu.setSelected(null);
+        for (Unit unit : units) {
+            if (counter <= 0) break;
+            if (unit.getOwner().equals(player) && unit instanceof BatteringRam) {
+                gameMenuUnits.add(unit);
+                counter--;
+            }
+        }
+
+        return SUCCESSFUL_SELECT_UNIT.getOutput();
+    }
+
+    private String selectWallClimber(int x, int y, int amount, Player player, GameMenu gameMenu) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        ArrayList<Unit> units = targetTile.getUnits();
+        int counter = 0;
+        for (Unit unit : units) {
+            if (unit.getOwner().equals(player) && unit instanceof WallClimber) counter++;
+        }
+        if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
+        counter = amount;
+        ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
+        gameMenuUnits.clear();
+        gameMenu.setSelected(null);
+        for (Unit unit : units) {
+            if (counter <= 0) break;
+            if (unit.getOwner().equals(player) && unit instanceof WallClimber) {
+                gameMenuUnits.add(unit);
+                counter--;
+            }
+        }
+
+        return SUCCESSFUL_SELECT_UNIT.getOutput();
+    }
+
+    private String selectPortableShields(int x, int y, int amount, Player player, GameMenu gameMenu) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        ArrayList<Unit> units = targetTile.getUnits();
+        int counter = 0;
+        for (Unit unit : units) {
+            if (unit.getOwner().equals(player) && unit instanceof PortableShields) counter++;
+        }
+        if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
+        counter = amount;
+        ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
+        gameMenuUnits.clear();
+        gameMenu.setSelected(null);
+        for (Unit unit : units) {
+            if (counter <= 0) break;
+            if (unit.getOwner().equals(player) && unit instanceof PortableShields) {
+                gameMenuUnits.add(unit);
+                counter--;
+            }
+        }
+
+        return SUCCESSFUL_SELECT_UNIT.getOutput();
+    }
+
+    private String selectSiegeTower(int x, int y, int amount, Player player, GameMenu gameMenu) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        ArrayList<Unit> units = targetTile.getUnits();
+        int counter = 0;
+        for (Unit unit : units) {
+            if (unit.getOwner().equals(player) && unit instanceof SiegeTower) counter++;
+        }
+        if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
+        counter = amount;
+        ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
+        gameMenuUnits.clear();
+        gameMenu.setSelected(null);
+        for (Unit unit : units) {
+            if (counter <= 0) break;
+            if (unit.getOwner().equals(player) && unit instanceof SiegeTower) {
+                gameMenuUnits.add(unit);
+                counter--;
+            }
+        }
+
+        return SUCCESSFUL_SELECT_UNIT.getOutput();
+    }
+
+    private String selectLadderMan(int x, int y, int amount, Player player, GameMenu gameMenu) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        ArrayList<Unit> units = targetTile.getUnits();
+        int counter = 0;
+        for (Unit unit : units) {
+            if (unit.getOwner().equals(player) && unit instanceof LadderMen) counter++;
+        }
+        if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
+        counter = amount;
+        ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
+        gameMenuUnits.clear();
+        gameMenu.setSelected(null);
+        for (Unit unit : units) {
+            if (counter <= 0) break;
+            if (unit.getOwner().equals(player) && unit instanceof LadderMen) {
+                gameMenuUnits.add(unit);
+                counter--;
+            }
+        }
+
+        return SUCCESSFUL_SELECT_UNIT.getOutput();
     }
 
     private String selectUnitTroop(int x, int y, TroopTypes troopType, int amount, Player player, GameMenu gameMenu) {
@@ -310,6 +511,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             }
         }
         if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
+        counter = amount;
         ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
         gameMenuUnits.clear();
         gameMenu.setSelected(null);
@@ -327,6 +529,29 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         return SUCCESSFUL_SELECT_UNIT.getOutput();
     }
 
+    private String selectThrower(int x, int y, ThrowerTypes throwerType, int amount, Player player, GameMenu gameMenu) {
+        Tile targetTile = gameMap.getMap()[x][y];
+        ArrayList<Unit> units = targetTile.getUnits();
+        int counter = 0;
+        for (Unit unit : units) {
+            if (unit.getOwner().equals(player) && unit instanceof Throwers && ((Throwers) unit).getType().equals(throwerType)) {
+                counter++;
+            }
+        }
+        if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
+        ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
+        counter = amount;
+        gameMenuUnits.clear();
+        for (Unit unit : units) {
+            if (counter <= 0) break;
+            if (unit.getOwner().equals(player) && unit instanceof Throwers && ((Throwers) unit).getType().equals(throwerType)) {
+                gameMenuUnits.add(unit);
+                counter--;
+            }
+        }
+        return SUCCESSFUL_SELECT_UNIT.getOutput();
+    }
+
     private String selectEngineer(int x, int y, int amount, Player player, GameMenu gameMenu) {
         Tile targetTile = gameMap.getMap()[x][y];
         ArrayList<Unit> units = targetTile.getUnits();
@@ -339,6 +564,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
         ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
         gameMenuUnits.clear();
+        counter = amount;
         for (Unit unit : units) {
             if (counter <= 0) break;
             if (unit.getOwner().equals(player) && unit instanceof Engineer) {
@@ -367,6 +593,10 @@ public class UnitController extends GeneralGameController implements UnitInterfa
     private String normalAttack(int x, int y, GameMenu gameMenu) {
         if (gameMenu.getSelectedUnits().size() == 0) return NO_UNIT_SELECTED.getOutput();
         if (!(gameMenu.getSelectedUnits().get(0) instanceof CombatUnit)) return NO_COMBAT_UNIT_SELECTED.getOutput();
+
+        Unit tempUnit = gameMenu.getSelectedUnits().get(0);
+        if (tempUnit instanceof LadderMen || tempUnit instanceof SiegeTower || tempUnit instanceof BatteringRam)
+            return UNABLE_TO_ATTACK_TILE.getOutput();
 
         Tile targetTile = gameMap.getMap()[x][y];
 
@@ -410,11 +640,18 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (gameMenu.getSelectedUnits().size() == 0) return NO_UNIT_SELECTED.getOutput();
         if (!(gameMenu.getSelectedUnits().get(0) instanceof CombatUnit)) return NO_COMBAT_UNIT_SELECTED.getOutput();
 
-        if (gameMap.getMap()[x][y].getBuilding() == null) return NO_BUILDING_TO_ATTACK.getOutput();
+        if (gameMap.getMap()[x][y].getBuilding() == null || gameMap.getMap()[x][y].getBuilding().getOwner().equals(gameMenu.getGame().getCurrentPlayer()))
+            return NO_BUILDING_TO_ATTACK.getOutput();
+
+        Unit tempUnit = gameMenu.getSelectedUnits().get(0);
+        if (tempUnit instanceof LadderMen || tempUnit instanceof SiegeTower) {
+            if (!(gameMap.getMap()[x][y].getBuilding() instanceof Wall)) return WALL_NOT_EXIST_LADDER_MEN.getOutput();
+        }
+        if (tempUnit instanceof BatteringRam)
+            if (!(gameMap.getMap()[x][y].getBuilding() instanceof Gates)) return GATE_NOT_EXIT_BATTERING_RAM.getOutput();
 
         CombatUnit combatUnit = (CombatUnit) gameMenu.getSelectedUnits().get(0);
-        Material unitMaterial = combatUnit.getTargets().iterator().next();
-
+        Material unitMaterial = combatUnit.getTargets().get(0);
         Building building = gameMap.getMap()[x][y].getBuilding();
         if (building.getMaterial().getValue() > unitMaterial.getValue()) return UNABLE_TO_ATTACK_BUILDING.getOutput();
 

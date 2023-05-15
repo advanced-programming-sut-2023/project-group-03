@@ -1,21 +1,18 @@
 package controller.gameControllers;
 
-import Model.Buildings.*;
-import Model.Buildings.Defending.*;
-import Model.Buildings.Defending.Enums.GateTypes;
-import Model.Buildings.Defending.Enums.TowerTypes;
-import Model.Buildings.Defending.Enums.TrapsTypes;
-import Model.Buildings.Enums.*;
-import Model.Field.Direction;
 import Model.Field.GameMap;
-import Model.Field.RegularTextureGroups;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
-import Model.Units.Combat.Troop;
+import Model.Units.Combat.*;
+import Model.Units.Engineer;
+import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
+import Model.Units.Worker;
 import controller.Controller;
+import view.Enums.ConsoleColors;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 
@@ -25,8 +22,13 @@ import static controller.Enums.Response.SUCCESSFUL_MOVE_MAP;
 
 public class GeneralGameController extends Controller {
     protected GameMap gameMap;
-    private final int gameWidth = 3;
-    private final int gameLength = gameWidth * 2;
+    private static int gameWidth = 3;
+    private static int gameLength = 3 * gameWidth;
+
+    public static void setGameWidth(int gameWidth) {
+        gameWidth = gameWidth;
+        gameLength = 3 * gameWidth;
+    }
 
     public GeneralGameController(GameMap gameMap) {
         this.gameMap = gameMap;
@@ -96,6 +98,15 @@ public class GeneralGameController extends Controller {
         Tile centerTile = gameMap.getCenter();
         int finalRow = centerTile.getRowNum(), finalColumn = centerTile.getColumnNum();
 
+        if (verticalDir.equals("left") || verticalDir.equals("right")) {
+            String tempDir = horizontalDir;
+            int tempNum = horizontalNum;
+            horizontalDir = verticalDir;
+            horizontalNum = verticalNum;
+            verticalDir = tempDir;
+            verticalNum = tempNum;
+        }
+
         if (verticalDir != null) {
             if (!(verticalDir.equals("up") || verticalDir.equals("down"))) return INVALID_VERTICAL_DIRECTION.getOutput();
             finalRow = centerTile.getRowNum() + (verticalDir.equals("up") ? -verticalNum : verticalNum);
@@ -128,7 +139,14 @@ public class GeneralGameController extends Controller {
         int y = Integer.parseInt(coordinates.get("y")) - 1;
         Tile targetTile = gameMap.getMap()[x][y];
         String output = "";
-        output += "texture: " + targetTile.getTexture().name() + "\n";
+        output += "texture: " + targetTile.getTexture().name() + " " + targetTile.getOwner().getUser().getNickname() + "\n";
+
+        int workerAmount = 0;
+        for (Unit unit : targetTile.getUnits()) {
+            if (unit instanceof Worker) workerAmount++;
+        }
+        output += "worker amount: " + workerAmount + "\n";
+
         if (targetTile.getTexture().getResource() != null) {
             output += "resource: " + targetTile.getTexture().getResource() + "\n";
         } else {
@@ -138,22 +156,208 @@ public class GeneralGameController extends Controller {
         if (targetTile.getBuilding() == null) {
             output += "building: nothing\n";
         } else {
-            output += "building: " + targetTile.getBuilding().getName()+"\n";
+            output += "building: " + targetTile.getBuilding().getName() + "HP: " + targetTile.getBuilding().getHP() + "\n";
         }
-        HashMap<TroopTypes, Integer> troopTypesCounter = new HashMap<>();
-        for (TroopTypes troopType : TroopTypes.values()) troopTypesCounter.put(troopType, 0);
+
+        ArrayList<Player> players = new ArrayList<>();
+        for (int i = 0; i < gameMap.getPlayers().length; i++) {
+            if (gameMap.getPlayers()[i] != null) players.add(gameMap.getPlayers()[i]);
+        }
+
+        HashMap<Player, ArrayList<Unit>> unitsAcquisition = new HashMap<>();
+        for (Player player : players) unitsAcquisition.put(player, new ArrayList<>());
+
         for (Unit unit : targetTile.getUnits()) {
-            if (unit instanceof Troop) {
-                Troop troop = (Troop) unit;
-                troopTypesCounter.put(troop.getType(), troopTypesCounter.get(troop.getType()) + 1);
-            }
+            unitsAcquisition.get(unit.getOwner()).add(unit);
         }
+        boolean shouldPrintSpecial = false;
 
         for (TroopTypes troopType : TroopTypes.values()) {
-            output += troopType.getName() + ": " + troopTypesCounter.get(troopType) + "\n";
+            for (Player player : players) {
+                for (Unit unit : unitsAcquisition.get(player)) {
+                    if (unit instanceof Troop && ((Troop) unit).getType().equals(troopType)) {
+                        shouldPrintSpecial = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldPrintSpecial) output += ">>> ";
+            output += troopType.getName() + ": ";
+            int counter = 0;
+            int playerCounter = 1;
+            shouldPrintSpecial = false;
+            for (Player player : players) {
+                for (Unit unit : unitsAcquisition.get(player)) {
+                    if (unit instanceof Troop && ((Troop) unit).getType().equals(troopType)) counter ++;
+                }
+                output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                        "player number " + playerCounter + " :" + counter + ", ");
+                counter = 0;
+            }
+            output += '\n';
         }
 
-        //need to add building too
+        shouldPrintSpecial = false;
+        for (ThrowerTypes throwerType : ThrowerTypes.values()) {
+            for (Player player : players) {
+                for (Unit unit : unitsAcquisition.get(player)) {
+                    if (unit instanceof Throwers && ((Throwers) unit).getType().equals(throwerType)) {
+                        shouldPrintSpecial = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldPrintSpecial) output += ">>> ";
+            output += throwerType.getName() + ": ";
+            int counter = 0;
+            int playerCounter = 1;
+            shouldPrintSpecial = false;
+            for (Player player : players) {
+                for (Unit unit : unitsAcquisition.get(player)) {
+                    if (unit instanceof Throwers && ((Throwers) unit).getType().equals(throwerType)) counter ++;
+                }
+                output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                        "player number " + playerCounter + " :" + counter + ", ");
+                counter = 0;
+                playerCounter++;
+            }
+            output += '\n';
+        }
+
+        //siege tower
+        int counter = 0;
+        int playerCounter = 1;
+        shouldPrintSpecial = false;
+        output += "siege tower: ";
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof SiegeTower) counter ++;
+            }
+            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                    "player number " + playerCounter + " :" + counter + ", ");
+            counter = 0;
+            playerCounter++;
+        }
+        output += '\n';
+        counter = 0;
+        playerCounter = 1;
+        shouldPrintSpecial = false;
+        //battering ram
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof BatteringRam) {
+                    shouldPrintSpecial = true;
+                    break;
+                }
+            }
+        }
+        if (shouldPrintSpecial) output += ">>> ";
+        output += "battering ram";
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof BatteringRam) counter ++;
+            }
+            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                    "player number " + playerCounter + " :" + counter + ", ");
+            counter = 0;
+            playerCounter++;
+        }
+        output += '\n';
+        counter = 0;
+        playerCounter = 1;
+        shouldPrintSpecial = false;
+        //ladder man
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof BatteringRam) {
+                    shouldPrintSpecial = true;
+                    break;
+                }
+            }
+        }
+        if (shouldPrintSpecial) output += ">>> ";
+        output += "ladder man: ";
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof LadderMen) counter ++;
+            }
+            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                    "player number " + playerCounter + " :" + counter + ", ");
+            counter = 0;
+            playerCounter++;
+        }
+        output += '\n';
+        counter = 0;
+        playerCounter = 1;
+        shouldPrintSpecial = false;
+        //portable shields
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof PortableShields) {
+                    shouldPrintSpecial = true;
+                    break;
+                }
+            }
+        }
+        if (shouldPrintSpecial) output += ">>> ";
+        output += "portable shields: ";
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof PortableShields) counter ++;
+            }
+            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                    "player number " + playerCounter + " :" + counter + ", ");
+            counter = 0;
+            playerCounter++;
+        }
+        output += '\n';
+        counter = 0;
+        playerCounter = 1;
+        shouldPrintSpecial = false;
+        //wall climber
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof WallClimber) {
+                    shouldPrintSpecial = true;
+                    break;
+                }
+            }
+        }
+        if (shouldPrintSpecial) output += ">>> ";
+        output += "wall climber: ";
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof WallClimber) counter ++;
+            }
+            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                    "player number " + playerCounter + " :" + counter + ", ");
+            counter = 0;
+            playerCounter++;
+        }
+        output += '\n';
+        counter = 0;
+        playerCounter = 1;
+        shouldPrintSpecial = false;
+        //engineer
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof Engineer) {
+                    shouldPrintSpecial = true;
+                    break;
+                }
+            }
+        }
+        if (shouldPrintSpecial) output += ">>> ";
+        output += "engineer: ";
+        for (Player player : players) {
+            for (Unit unit : unitsAcquisition.get(player)) {
+                if (unit instanceof Engineer) counter ++;
+            }
+            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
+                    "player number " + playerCounter + " :" + counter + ", ");
+            counter = 0;
+            playerCounter++;
+        }
         return output;
     }
 }

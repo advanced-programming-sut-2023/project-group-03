@@ -1,27 +1,9 @@
 package controller.gameControllers;
 
 import Model.Buildings.*;
-import Model.Buildings.Defending.Enums.GateTypes;
-import Model.Buildings.Defending.Enums.TowerTypes;
-import Model.Buildings.Defending.Enums.TrapsTypes;
-import Model.Buildings.Defending.Enums.WallTypes;
-import Model.Buildings.Defending.Gates;
-import Model.Buildings.Defending.Towers;
-import Model.Buildings.Defending.Trap;
-import Model.Buildings.Defending.Wall;
-import Model.Buildings.Enums.BarracksType;
-import Model.Buildings.Enums.GeneratorTypes;
-import Model.Buildings.Enums.InventoryTypes;
-import Model.Buildings.Enums.RestTypes;
 import Model.Field.*;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
-import Model.Units.Combat.Throwers;
-import Model.Units.Combat.Troop;
-import Model.Units.Combat.WallClimber;
-import Model.Units.Enums.ThrowerTypes;
-import Model.Units.Enums.TroopTypes;
-import Model.Units.Enums.WallClimberTypes;
 import Model.Units.Unit;
 import Model.User;
 import Model.buffers.MapBuffer;

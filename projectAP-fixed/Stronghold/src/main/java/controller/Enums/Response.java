@@ -141,6 +141,7 @@ public enum Response {
     NOT_ENOUGH_GOLD_REST("You don't have enough gold to build this."),
     ////generator
     INVALID_GENERATOR_TYPE("There is no generator with this type. Pay more attention:("),
+    NOT_HAVE_REQUIRED_INVENTORY_GENERATOR("You don't have the proper inventory to store anything from this generator."),
     ////gates
     INVALID_STONE_GATE_TYPE("The given type is neither big stone gate nor small stone gate."),
     NOT_ENOUGH_STONE_STONE_GATE("You don't have enough stone to build this stone gate."),
@@ -155,6 +156,14 @@ public enum Response {
     BAD_TEXTURE_TRAP("You can't build this trap on this kinda textures."),
     BUILDING_EXIST_TRAP("There is a building here so you can't build this trap here."),
     UNIT_EXIST_TRAP("There are some units here so you can't build your trap here."),
+    ////ox tether
+    BAD_TEXTURE_OX_TETHER("You can't build ox tether on this kinda texture."),
+    BAD_BUILDING_OX_TETHER("You can't make ox tether for the selected building."),
+    ////stair
+    NOT_ENOUGH_STONE_STAIRS("You don't have enough stone to make stair."),
+    STAIR_EXIST("There is a stair here."),
+    BAD_TEXTURE_STAIR("Because of height and texture you can't make stair here."),
+    SUCCESSFUL_DROP_STAIR("Successfully added stairs there."),
     //unit
     ROCK_EXIST_MOVE_UNIT("There is rock in that tile."),
     BAD_TEXTURE_MOVE_UNIT("The given tile's texture is water or stone slab."),
@@ -180,6 +189,12 @@ public enum Response {
     BUILDING_NOT_EXIST_THROWER("There is no building here for you to add your thrower on it."),
     ACQUISITION_THROWER("You don't own this building to put a thrower on it!"),
     BUILDING_NOT_PROPER_TOWER("You can only put throwers on round and square towers."),
+    NOT_ENOUGH_ENGINEER_BARRACKS("You don't have enough engineers to build this thrower."),
+    AMOUNT_TOWER_THROWER("You can't make more than one thrower on a tower."),
+    ////laddermen
+    UNABLE_TO_ATTACK_TILE("This kinda units that you selected only have attackToBuilding."),
+    WALL_NOT_EXIST_LADDER_MEN("This kinda units that you selected only attack to walls."),
+    GATE_NOT_EXIT_BATTERING_RAM("This kinda units that you selected only attack to gate."),
     ////troop
     INVALID_TROOP_TYPE_UNIT("Invalid troop type."),
     NOT_ENOUGH_GOLD_UNIT("You don't have enough gold to make this amount of this troop."),

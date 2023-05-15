@@ -3,8 +3,10 @@ package controller.gameControllers;
 import Model.Buildings.Barracks;
 import Model.Buildings.Building;
 import Model.Buildings.Enums.Resources;
+import Model.Buildings.Generators;
 import Model.Field.GameMap;
 import Model.Field.Tile;
+import Model.GamePlay.Game;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
 import controller.Controller;
@@ -130,6 +132,16 @@ public class GameController extends Controller implements GameMarketInterface , 
     @Override
     public String repair(Building building, Player player) {
         return buildingController.repair(building, player);
+    }
+
+    @Override
+    public String buildOxTetherMatcherHandler(Matcher matcher, Player player, Generators generators) {
+        return buildOxTetherMatcherHandler(matcher, player, generators);
+    }
+
+    @Override
+    public String buildStairMatcherHandler(Matcher matcher, Player player) {
+        return buildStairMatcherHandler(matcher, player);
     }
 
     @Override
