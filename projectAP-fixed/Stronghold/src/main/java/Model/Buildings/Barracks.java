@@ -61,7 +61,6 @@ public class Barracks extends Building{
         if(shouldBreak()){
             return;
         }
-        // TODO should make troops be here? //from mehran: NO
     }
 
     @Override

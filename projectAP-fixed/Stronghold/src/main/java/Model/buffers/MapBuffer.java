@@ -86,11 +86,4 @@ public class MapBuffer {
         return gameMap;
     }
 
-//    public Player[] getPlayers() {
-//        return players;
-//    }
-//
-//    public void setPlayers(Player[] players) {
-//        this.players = players;
-//    }
 }

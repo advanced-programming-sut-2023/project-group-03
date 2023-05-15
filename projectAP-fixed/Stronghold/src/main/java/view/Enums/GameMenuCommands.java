@@ -17,7 +17,6 @@ public enum GameMenuCommands {
     FEAR_RATE("^fear rate (?<rateInfo>.+)"),
     FEAR_RATE_SHOW("^fear rate show$"),
     SELECT_BUILDING("^select building (?<buildingInfo>.+)"),
-    //build building
     DROP_BUILDING("^drop castle building (?<buildingInfo>.+)"),
     BUILD_TOWER("^build Tower (?<towerInfo>.+)"),
     BUILD_WALL("^build Wall (?<wallInfo>.+)"),
@@ -45,7 +44,6 @@ public enum GameMenuCommands {
     TRADE_ACCEPT("trade accept (?<AcceptInfo>"),
     TRADE_LIST("trade list"),
     TRADE_HISTORY("trade history"),
-    ///////////////////////////////////////////////////////
     BUILD_STAIR("build stair (?<stairInfo>.+)"),
     BUILD_OX_TETHER("build tether (?<buildingInfo>.+)")
     ;

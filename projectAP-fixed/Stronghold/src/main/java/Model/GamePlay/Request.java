@@ -27,14 +27,6 @@ public class Request extends Element {
         id = counter;
     }
 
-//    public void addToList(Resources resources, int number) {
-//        if(list.containsKey(resources)){
-//            list.replace(resources,Integer.sum(list.get(resources),number));
-//            return;
-//        }
-//        list.put(resources,number);
-//    }
-
     public void removeFromList(Resources resources, int number) {
 
     }
@@ -50,10 +42,6 @@ public class Request extends Element {
     public Player getOwner() {
         return owner;
     }
-
-//    public HashMap<Resources, Integer> getList() {
-//        return list;
-//    }
 
     public ArrayList<Player> getTarget() {
         return target;

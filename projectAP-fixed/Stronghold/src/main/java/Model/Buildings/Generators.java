@@ -44,7 +44,6 @@ public class Generators extends Building{
         owner.setCurrentPopulation(owner.getCurrentPopulation() + worker);
         owner.decreaseInventory(Resources.WOOD,type.getWood());
         owner.decreaseGold(type.getGold());
-        /////////////////////////////////////////////////////////worker ro bayad chikar kard?
     }
 
     public int getCurrentResourceAmount() {

@@ -14,7 +14,6 @@ import static view.Enums.ConsoleColors.TEXT_RED;
 import static view.Enums.ConsoleColors.colorPrint;
 
 public class StartingMenu extends Menu{
-//    User user;
     public StartingMenu(Scanner scanner) {
         super(scanner);
     }

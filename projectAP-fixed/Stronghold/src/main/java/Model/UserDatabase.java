@@ -99,7 +99,6 @@ public class UserDatabase {
 
             makeJsonUsers(data);
 
-            //backing up saved data
             backupFile.delete();
             backupFile.createNewFile();
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(backupFile));

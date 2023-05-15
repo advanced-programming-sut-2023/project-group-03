@@ -65,7 +65,6 @@ public class SetGameMenu extends Menu {
             return ConsoleColors.formatPrinter(TEXT_RED, "", "there is no map with this name");
         } else {
             game = new Game(UserDatabase.getMapByName(command), new ArrayList<>());
-            //game.setMap(UserDatabase.getMapByName(command));
             return "map set successfull";
         }
     }
