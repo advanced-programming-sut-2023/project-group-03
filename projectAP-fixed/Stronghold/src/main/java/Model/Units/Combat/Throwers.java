@@ -9,13 +9,13 @@ import controller.gameControllers.MoveUnitController;
 
 import java.util.ArrayList;
 
-public class Throwers extends CombatUnit{
-    private ThrowerTypes type;
-    private int cost;
+public class Throwers extends CombatUnit {
+    private final ThrowerTypes type;
+    private final int cost;
     private int power;
 
     public Throwers(Player owner, Tile position, ThrowerTypes type) {
-        super(owner, position,type.getName());
+        super(owner, position, type.getName());
         targets.add(type.getTarget());
         this.type = type;
         this.speed = type.getSpeed();

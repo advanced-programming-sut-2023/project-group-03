@@ -2,10 +2,8 @@ package Model.GamePlay;
 
 import Model.Buildings.Enums.Resources;
 import Model.Element;
-import Model.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Request extends Element {
     Player owner;
@@ -15,10 +13,10 @@ public class Request extends Element {
     String massage;
     ArrayList<Player> target;
     private static int counter = 1000;
-    private int id;
+    private final int id;
     Player acceptedBy = null;
 
-    public Request(Player owner,Resources resource,int amount,int price) {
+    public Request(Player owner, Resources resource, int amount, int price) {
         this.owner = owner;
         this.resource = resource;
         this.amount = amount;

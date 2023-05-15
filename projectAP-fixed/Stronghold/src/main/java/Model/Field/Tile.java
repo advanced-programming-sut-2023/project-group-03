@@ -13,16 +13,17 @@ import view.Enums.ConsoleColors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 public class Tile extends Element {
     private static GameMap gameMap;
     int rowNum;
     int columnNum;
-    private Stair ladder=null;
+    private Stair ladder = null;
     private Height height;
     private Texture texture;
     private Building building = null;
     private mazafaza mazafaza;
-    private ArrayList<Unit> units=new ArrayList<>();
+    private ArrayList<Unit> units = new ArrayList<>();
     private HashMap<Direction, Tile> neighbours = new HashMap<>();
     private ArrayList<Tile> neighboursConnected = new ArrayList<>();
     private Player owner;
@@ -76,7 +77,8 @@ public class Tile extends Element {
     }
 
     public void setColumnNum(int columnNum) {
-        this.columnNum = columnNum;}
+        this.columnNum = columnNum;
+    }
 
     public Height getHeight() {
         return height;
@@ -158,7 +160,7 @@ public class Tile extends Element {
         } else if (this.building instanceof Towers) {
             Towers towers = ((Towers) building);
             this.height = Height.BIG_TOWER;
-        } else if (this.texture == texture.STONE_SLAB) {
+        } else if (this.texture == Texture.STONE_SLAB) {
             this.height = Height.STONE_SLAB;
         }
     }
@@ -174,8 +176,7 @@ public class Tile extends Element {
         String numberOfUnits = "";
         if (units.size() == 0) {
             numberOfUnits = ConsoleColors.formatPrinter("", texture.getColor(), String.format(":%3d", units.size()));
-        }
-        else {
+        } else {
             numberOfUnits = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                     String.format(":%3d", units.size()));
         }
@@ -188,15 +189,14 @@ public class Tile extends Element {
                 numberOfUnitsBuff = ConsoleColors.formatPrinter("", texture.getColor(), "║");
             }
             numberOfUnitsBuff += ConsoleColors.formatPrinter("", texture.getColor(), "" + charForBuilding);
-        }
-        else if (this.mazafaza != null) {
+        } else if (this.mazafaza != null) {
             numberOfUnitsBuff = ConsoleColors.formatPrinter("", texture.getColor(), "║Q");
         } else {
             numberOfUnitsBuff = ConsoleColors.formatPrinter("", texture.getColor(), "  ");
         }
         String[] ans = new String[4];
         String coordinate = String.format("%3d,%3d", rowNum + 1, columnNum + 1);
-        ans[2]="═══════╬";
+        ans[2] = "═══════╬";
         ans[0] = flag + numberOfUnits + numberOfUnitsBuff + "║";
         ans[1] = ConsoleColors.formatPrinter("", texture.getColor(), coordinate) + "║";
         return ans;
