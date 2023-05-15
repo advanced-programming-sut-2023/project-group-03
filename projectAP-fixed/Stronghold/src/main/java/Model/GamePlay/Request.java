@@ -25,10 +25,6 @@ public class Request extends Element {
         id = counter;
     }
 
-    public void removeFromList(Resources resources, int number) {
-
-    }
-
     public void addTarget(Player player) {
         target.add(player);
     }
