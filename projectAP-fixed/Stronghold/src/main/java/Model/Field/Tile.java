@@ -36,14 +36,7 @@ public class Tile extends Element {
     public void setHeight(Height height) {
         this.height = height;
     }
-//    public void destroyBuilding(){
-//        this.building = null;
-//        setHeight();
-//    }
 
-//    public boolean addBuilding(Building building) {
-//        return false;
-//    }
 
     public static void setGameMap(GameMap map) {
         gameMap = map;
@@ -138,14 +131,7 @@ public class Tile extends Element {
                 neighboursConnected.remove(neighbours.get(direction));
                 current.neighboursConnected.remove(this);
 
-//                if (current.getBuilding() instanceof Gates) {
-//                    Gates gates = ((Gates) current.getBuilding());
-//                    if (gates.getTerminals().contains(this)) {
-//                        neighboursConnected.add(neighbours.get(direction));
-//                        current.neighboursConnected.add(this);
-//                        return;
-//                    }
-//                }
+
                 if (Math.abs(this.height.getValue() + modifiedLadder() - current.height.getValue() - current.modifiedLadder()) > 1) {
                     neighboursConnected.remove(neighbours.get(direction));
                 } else {
@@ -193,7 +179,6 @@ public class Tile extends Element {
             numberOfUnits = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                     String.format(":%3d", units.size()));
         }
-        //String numberOfUnits = String.format("#:%3d",neighboursConnected.size());
         String numberOfUnitsBuff = "";
         if (this.building != null) {
             char charForBuilding = Building.getTagOfBuilding(building);
@@ -214,7 +199,6 @@ public class Tile extends Element {
         ans[2]="═══════╬";
         ans[0] = flag + numberOfUnits + numberOfUnitsBuff + "║";
         ans[1] = ConsoleColors.formatPrinter("", texture.getColor(), coordinate) + "║";
-        //ans[2] = ConsoleColors.formatPrinter(owner.getFlagColor().getColor(), texture.getColor(), "║░flag░")+"║";
         return ans;
     }
 

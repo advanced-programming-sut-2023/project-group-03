@@ -14,7 +14,6 @@ public enum TowerTypes {
     ;
 
     private String name;
-//    private final int size = 5;
     private int HP;
     private int size;
     private int width;

@@ -27,9 +27,6 @@ public enum Resources
     HORSE("horse", ResourceTypes.WEAPON,10)
     ;
 
-     // TODO
-     // gold amount must be correctly declared
-
     private ResourceTypes type;
     private int gold;
     private String name;

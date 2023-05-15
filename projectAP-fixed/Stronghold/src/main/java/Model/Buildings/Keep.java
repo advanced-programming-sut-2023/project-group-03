@@ -19,7 +19,7 @@ public class Keep extends Building {
     private Inventory stockPile = null;
     private Inventory foodStorage = null;
     private Store store = null;
-    protected HashMap<BarracksType, Barracks> barracks = new HashMap<>();//todo
+    protected HashMap<BarracksType, Barracks> barracks = new HashMap<>();
     private static Keep instance;
     private int taxRate;
     private int fearRate;

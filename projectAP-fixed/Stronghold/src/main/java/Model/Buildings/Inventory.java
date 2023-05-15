@@ -58,7 +58,6 @@ public class Inventory extends Building {
         if(shouldBreak()){
             return;
         }
-        // should do sth else?? //NO
     }
 
     @Override

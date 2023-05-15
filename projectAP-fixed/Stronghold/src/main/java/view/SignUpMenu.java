@@ -6,7 +6,6 @@ import view.Enums.ConsoleColors;
 import view.Enums.SignUpMenuCommands;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
