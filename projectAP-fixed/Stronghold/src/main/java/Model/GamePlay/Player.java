@@ -18,8 +18,8 @@ public class Player extends Element {
     private User user;
     private Government government;
     private Keep keep = null;
-    ArrayList<Request> incomeRequests;
-    ArrayList<Request> myRequests;
+    ArrayList<Request> incomeRequests = new ArrayList<>();
+    ArrayList<Request> myRequests = new ArrayList<>();
     ArrayList<Unit> allUnits = new ArrayList<>();
     int maxPopulation;
     int currentPopulation;

@@ -103,7 +103,7 @@ public class Request extends Element {
                 ", price=" + price +
                 ", massage='" + massage + '\'' +
                 ", id=" + id +
-                ", acceptedBy=" + acceptedBy.getUser().getUsername() +
+                //", acceptedBy=" + acceptedBy.getUser().getUsername() +
                 '}';
     }
 }

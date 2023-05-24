@@ -31,6 +31,7 @@ public class KeepMenu extends Menu {
         Player player = gameMenu.getGame().getCurrentPlayer();
         GameController gameController = new GameController(this.gameMenu.getGame().getMap());
         TradeController tradeController = new TradeController(player);
+        //player.getKeep().getBarracks();
 
         if (command.matches("back")) {
             throw new Transition(gameMenu);
@@ -54,13 +55,15 @@ public class KeepMenu extends Menu {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.TRADE_REQUEST.toString());
             output = tradeController.requestTrade(matcher);
             System.out.println(output);
-        }
-        else if (command.matches(GameMenuCommands.TRADE_ACCEPT.toString())) {
+        } else if (command.matches(GameMenuCommands.TRADE_LIST.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.TRADE_LIST.toString());
+            output = tradeController.showTradeList();
+            System.out.println(output);
+        } else if (command.matches(GameMenuCommands.TRADE_ACCEPT.toString())) {
             Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.TRADE_ACCEPT.toString());
             output = tradeController.acceptTrade(matcher);
             System.out.println(output);
-        }
-        else {
+        } else {
             System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
         }
         throw new Transition(this);
