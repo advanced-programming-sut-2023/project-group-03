@@ -31,11 +31,15 @@ public class Trap extends Building {
 
     @Override
     public void check() {
-        
+        boolean activated = false;
         for (Unit unit : position.getUnits()) {
             if (!unit.getOwner().equals(this.owner)) {
                 unit.setHP(unit.getHP() - type.getDamage());
+                activated = true;
             }
+        }
+        if (activated) {
+            super.erase();
         }
     }
 

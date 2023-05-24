@@ -10,7 +10,7 @@ public class CagedWarDogs extends Trap {
     }
 
     public void check() {
-
+        super.check();
     }
 
     public void print() {

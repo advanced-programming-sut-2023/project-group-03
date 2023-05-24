@@ -83,7 +83,8 @@ public class MoveUnitController {
 
         search:
         while (true) {
-            for (Tile neigbour : currentPathTile.getTile().getNeighboursConnected()) {
+            for (Tile neigbour : currentPathTile.getTile().getNeighbours().values()) {
+                if (neigbour == null) continue;
                 if ((neigbour.getBuilding() == null || !neigbour.getBuilding().equals(building)) && !visitedTiles[neigbour.getRowNum()][neigbour.getColumnNum()]) {
                     if (neigbour.getBuilding() != null && neigbour.getBuilding() instanceof Gates && !neigbour.getOwner().equals(player))
                         continue;

@@ -26,8 +26,7 @@ public class LadderMen extends CombatUnit {
 
     @Override
     public void check() {
-        if (EnemyTarget == null) {
-        }
+        super.check();
     }
 
     public void setLadder(Tile target) {

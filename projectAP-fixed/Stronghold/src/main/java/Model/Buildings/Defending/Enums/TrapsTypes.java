@@ -29,6 +29,7 @@ public enum TrapsTypes {
         this.wood = wood;
         this.oil = oil;
         this.worker = worker;
+        this.damage = damage;
     }
 
     public String getName() {
