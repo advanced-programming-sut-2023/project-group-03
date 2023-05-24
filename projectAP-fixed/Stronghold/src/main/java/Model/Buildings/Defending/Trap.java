@@ -24,12 +24,14 @@ public class Trap extends Building {
         this.worker = type.getWorker();
         this.damage = type.getDamage();
         this.type = type;
+        HP = 1000;
         owner.setCurrentPopulation(owner.getMaxPopulation() + type.getWorker());
         manageCost();
     }
 
     @Override
     public void check() {
+        
         for (Unit unit : position.getUnits()) {
             if (!unit.getOwner().equals(this.owner)) {
                 unit.setHP(unit.getHP() - type.getDamage());

@@ -196,6 +196,7 @@ public class GeneralGameController extends Controller {
                 output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
                         "player number " + playerCounter + " :" + counter + ", ");
                 counter = 0;
+                playerCounter++;
             }
             output += '\n';
         }
