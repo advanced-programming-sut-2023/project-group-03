@@ -6,10 +6,10 @@ import Model.Field.Texture;
 import java.util.HashSet;
 
 public enum TrapsTypes {
-    BOILING_OIL("boiling oil", 1, 3, 3, 3, 50, 3, RegularTextureGroups.ALL_LAND.getTextureHashSet()),
-    PITCH_DITCH("pitch ditch", 1, 0, 0, 2, 100, 0, RegularTextureGroups.OIL_RIG.getTextureHashSet()),
-    CAGED_WAR_DOGS("caged war dogs", 3, 100, 10, 0, 50, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
-    KILLING_PIT("killing pit", 3, 0, 6, 0, 150, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    BOILING_OIL("boiling oil", 1, 3, 3, 3, 5000, 3, RegularTextureGroups.ALL_LAND.getTextureHashSet()),
+    PITCH_DITCH("pitch ditch", 1, 0, 0, 2, 1000, 0, RegularTextureGroups.OIL_RIG.getTextureHashSet()),
+    CAGED_WAR_DOGS("caged war dogs", 1, 100, 10, 0, 5000, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
+    KILLING_PIT("killing pit", 1, 0, 6, 0, 4500, 0, RegularTextureGroups.NORMAL.getTextureHashSet()),
     ;
 
     private final String name;
