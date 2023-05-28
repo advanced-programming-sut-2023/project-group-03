@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
+      prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.fxmlMenu.MainMenu">
+
+   <children>
+      <VBox alignment="CENTER" layoutX="355.0" layoutY="180.0" prefHeight="411.0" prefWidth="511.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="43.0" prefWidth="350.0" text="Main">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="292.0" prefWidth="511.0" spacing="15.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#start" prefWidth="250.0" text="Start Game">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#map" prefWidth="250.0" text="Map">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#profile" prefWidth="250.0" text="Profile">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#scoreboard" prefWidth="250.0" text="Scoreboard">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#back" prefWidth="250.0" text="back">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>

@@ -1,0 +1,55 @@
+.EndingPane {
+    /*-fx-background-radius: 15px 2px 15px 2px;*/
+    -fx-background-image: url(../images/background/bow.jpg);
+    /*-fx-border-width: 7px;*/
+    /*-fx-border-color: orange;*/
+    /*-fx-border-radius: 15px 2px 15px 2px;*/
+
+}
+.EndingBox {
+    -fx-background-image: url(../images/background/06.jpg);
+    -fx-background-color: transparent;
+    /*-fx-border-width: 7px;*/
+    /*-fx-border-color: orange;*/
+    /*-fx-border-radius: 15px 2px 15px 2px;*/
+    /*-fx-background-radius: 15px 2px 15px 2px;*/
+}
+.EndingBox {
+    -fx-background-image: url(../images/background/tre.jpg);
+    -fx-background-color: transparent;
+    -fx-border-width: 7px;
+    -fx-border-color: orange;
+    /*-fx-border-radius: 15px 2px 15px 2px;*/
+    -fx-background-radius: 15px 2px 15px 2px;
+}
+.rounding{
+    -fx-background-radius: 15px 2px 15px 2px;
+}
+Button{
+    -fx-background-color: radial-gradient(focus-distance 0%,center 50% 50%,radius 50%, #ffcc00, #ff4400);
+    -fx-background-radius: 10px;
+}
+
+Button:focused {
+    -fx-background-color: radial-gradient(focus-distance 0%,center 50% 50%,radius 50%, #ffcc00, #ff4400);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 6px;
+    -fx-border-color: #ffa500;
+}
+
+Button:hover {
+    -fx-border-radius: 8px;
+    -fx-border-width: 6px;
+    -fx-border-color: #ffa500;
+    -fx-opacity: 70%;
+}
+
+ScrollPane {
+    -fx-border-radius: 20 20 0 0;
+    -fx-background-radius: 20 20 0 0;
+    -fx-border-color: #ff5900;
+    -fx-border-width: 7;
+    -fx-padding: 2;
+    -fx-background-color: #f3d84d;
+}

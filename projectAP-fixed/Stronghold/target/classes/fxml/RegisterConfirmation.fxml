@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.RegisterController">
+<Pane prefHeight="750.0" prefWidth="1200.0" styleClass="EndingBox" stylesheets="@../CSS/Register.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.RegisterController">
    <children>
       <HBox alignment="CENTER" layoutX="811.0" layoutY="644.0" prefHeight="67.0" prefWidth="365.0" spacing="20.0">
          <children>
@@ -31,15 +30,18 @@
       </HBox>
       <VBox layoutX="47.0" layoutY="40.0" prefHeight="667.0" prefWidth="383.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="258.0" prefWidth="383.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="383.0" spacing="15.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="security question" />
+                        <Text fill="#ff8400" strokeType="OUTSIDE" strokeWidth="0.0" text="security question">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font></Text>
                         <ChoiceBox fx:id="securityQuestion" prefHeight="31.0" prefWidth="371.0" />
                      </children>
                   </HBox>
-                  <VBox alignment="CENTER_LEFT" prefHeight="108.0" prefWidth="383.0" spacing="10.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="151.0" prefWidth="383.0" spacing="10.0">
                      <children>
                         <TextField fx:id="answer" promptText="answer" />
                         <TextField fx:id="confirmAnswer" promptText="confirm answer" />
@@ -49,10 +51,13 @@
             </VBox>
             <VBox prefHeight="467.0" prefWidth="383.0">
                <children>
-                  <Label fx:id="Captcha" prefHeight="192.0" prefWidth="385.0" text="Captcha" />
+                  <Label fx:id="Captcha" prefHeight="192.0" prefWidth="385.0" text="Captcha">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="127.0" prefWidth="383.0">
                      <children>
-                        <TextField fx:id="CapthaAnswer" prefHeight="31.0" prefWidth="384.0" promptText="captcha" />
+                        <TextField fx:id="CaptchaAnswer" prefHeight="31.0" prefWidth="384.0" promptText="captcha" />
                      </children>
                   </HBox>
                </children>

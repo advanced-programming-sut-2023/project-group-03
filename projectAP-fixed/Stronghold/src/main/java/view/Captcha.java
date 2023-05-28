@@ -446,7 +446,8 @@ public class Captcha {
         buff += smalls[Math.abs(random.nextInt() % smalls.length)];
         buff += capitals[Math.abs(random.nextInt() % capitals.length)];
         System.out.println(ASCIIPrinter(buff));
-        return buff;
+        //return buff;
+        return ASCIIPrinter(buff);
     }
 
     public static String stringMatcher(ArrayList<String> strings) {

@@ -15,6 +15,7 @@ public class RegisterMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        RegisterController.setRegisterPane();
         Pane root = RegisterController.getRegisterPane();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth();
