@@ -6,11 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
 <AnchorPane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.fxmlMenu.LoginMenuFxml">
    <children>
-      <TextField fx:id="userField" layoutX="526.0" layoutY="269.0" promptText="username" />
-      <PasswordField fx:id="passField" layoutX="527.0" layoutY="317.0" promptText="password" />
-      <Button fx:id="enterButton" layoutX="578.0" layoutY="364.0" mnemonicParsing="false" text="enter" onMouseClicked="#enterGame"/>
-      <Button fx:id="forgotPassword" layoutX="551.0" layoutY="413.0" mnemonicParsing="false" text="forgot password"onMouseClicked="#forgotPass"/>
+      <HBox>
+         <VBox alignment="CENTER">
+            <TextField fx:id="userField"  promptText="username" />
+            <PasswordField fx:id="passField" promptText="password" />
+            <Button fx:id="enterButton" mnemonicParsing="false" text="enter" onMouseClicked="#enterGame"/>
+            <Button fx:id="forgotPassword" mnemonicParsing="false" text="forgot password" onMouseClicked="#forgotPass"/>
+         </VBox>
+      </HBox>
+
    </children>
 </AnchorPane>
