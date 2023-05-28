@@ -56,7 +56,6 @@ public class RegisterController implements Initializable {
 
     public void next(ActionEvent actionEvent) {
         RegisterPane.getChildren().add(ConfirmMenu);
-        Captcha.setText("salam");
     }
 
     public void reset(ActionEvent actionEvent) {
