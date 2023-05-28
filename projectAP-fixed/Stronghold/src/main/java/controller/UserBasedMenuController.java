@@ -108,7 +108,7 @@ public class UserBasedMenuController extends Controller {
         return result.toString(16);
     }
 
-    public static String getEncryptedPassword(String password) {
+    public String getEncryptedPassword(String password) {
         try {
             return encryptPassword(password);
         } catch (NoSuchAlgorithmException e) {

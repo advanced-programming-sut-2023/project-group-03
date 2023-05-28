@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.RegisterController">
+   <children>
+      <HBox alignment="CENTER" layoutX="811.0" layoutY="644.0" prefHeight="67.0" prefWidth="365.0" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#resetConfirm" prefWidth="100.0" text="reset">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#backConfirm" prefWidth="100.0" text="back">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#nextCofirm" prefWidth="100.0" text="next">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <VBox layoutX="47.0" layoutY="40.0" prefHeight="667.0" prefWidth="383.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="security question" />
+                        <ChoiceBox fx:id="securityQuestion" prefHeight="31.0" prefWidth="371.0" />
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="108.0" prefWidth="383.0" spacing="10.0">
+                     <children>
+                        <TextField fx:id="answer" promptText="answer" />
+                        <TextField fx:id="confirmAnswer" promptText="confirm answer" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="467.0" prefWidth="383.0">
+               <children>
+                  <Label fx:id="Captcha" prefHeight="192.0" prefWidth="385.0" text="Captcha" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="127.0" prefWidth="383.0">
+                     <children>
+                        <TextField fx:id="CapthaAnswer" prefHeight="31.0" prefWidth="384.0" promptText="captcha" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>

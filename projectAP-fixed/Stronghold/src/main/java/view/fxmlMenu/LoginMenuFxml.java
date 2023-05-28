@@ -54,7 +54,9 @@ public class LoginMenuFxml extends Application {
             return;
         }
 
-        if(!UserDatabase.getUserByName(username).getPassword().equals(UserBasedMenuController.getEncryptedPassword(pass))){
+        UserBasedMenuController a = new UserBasedMenuController();
+
+        if(!UserDatabase.getUserByName(username).getPassword().equals(a.getEncryptedPassword(pass))){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("idiot");
             alert.setContentText("password does not match");
