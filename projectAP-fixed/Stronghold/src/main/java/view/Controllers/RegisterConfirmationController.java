@@ -50,7 +50,6 @@ public class RegisterConfirmationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Captcha.setText(view.Captcha.makeCapchaInGraphic());
-        //Captcha.setStyle("-fx-fill: radial-gradient(focus-distance 0%,center 50% 50%,radius 50%, #ffcc00, #ff4400);");
         LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[]{
                 new Stop(0, Color.BLUE),
                 new Stop(0.4, Color.BLACK),
