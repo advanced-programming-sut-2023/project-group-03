@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import view.Captcha;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,9 +32,9 @@ public class LoginMenuFxml extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.isOpen = false;
-        URL url = LoginMenuFxml.class.getResource("/fxml/LoginMenu.fxml");
+        URL url = Captcha.class.getResource("/fxml/LoginMenu.fxml");
         pane = FXMLLoader.load(url);
-        URL url1 = LoginMenuFxml.class.getResource("/fxml/ForgotPasswordPane.fxml");
+        URL url1 = Captcha.class.getResource("/fxml/ForgotPasswordPane.fxml");
         forgotPane = FXMLLoader.load(url);
         Scene scene = new Scene(pane);
         stage.setScene(scene);

@@ -1,3 +1,5 @@
+package view;
+
 import Model.Field.GameMap;
 import Model.UserDatabase;
 import controller.gameControllers.MapController;
