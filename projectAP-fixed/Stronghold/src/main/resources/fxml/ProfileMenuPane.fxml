@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.ProfileMenuFXController">
    <children>
       <HBox fx:id="profile" alignment="CENTER" layoutX="463.0" layoutY="75.0" prefHeight="119.0" prefWidth="276.0" />
@@ -14,6 +13,7 @@
          <children>
             <Button fx:id="changeUsername" mnemonicParsing="false" onAction="#changeUsername" prefHeight="20.0" prefWidth="449.0" text="Change username" />
             <Button fx:id="changePassword" mnemonicParsing="false" onAction="#changePassword" prefHeight="20.0" prefWidth="449.0" text="Change password" />
+            <Button fx:id="changeNickname" mnemonicParsing="false" onAction="#changeNickname" prefHeight="25.0" prefWidth="449.0" text="Change nickname" />
             <Button fx:id="changeEmail" mnemonicParsing="false" onAction="#changeEmail" prefHeight="20.0" prefWidth="449.0" text="Change email" />
             <Button fx:id="changeAvatar" mnemonicParsing="false" onAction="#changeAvatar" prefHeight="20.0" prefWidth="449.0" text="Change avatar" />
          </children>
