@@ -2,6 +2,7 @@ package view;
 
 import Model.User;
 import Model.UserDatabase;
+import javafx.event.ActionEvent;
 import view.Enums.ConsoleColors;
 import view.Enums.GameMenuCommands;
 import view.Enums.StartingMenuCommands;
@@ -46,5 +47,14 @@ public class StartingMenu extends Menu{
         System.out.println(ConsoleColors.TEXT_RESET + "1.login menu");
         System.out.println("2.signup menu");
         System.out.println("3.back");
+    }
+
+    public void register(ActionEvent actionEvent) {
+    }
+
+    public void login(ActionEvent actionEvent) {
+    }
+
+    public void exit(ActionEvent actionEvent) {
     }
 }
