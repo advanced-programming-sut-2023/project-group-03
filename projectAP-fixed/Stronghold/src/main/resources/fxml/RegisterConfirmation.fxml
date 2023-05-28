@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.RegisterController">
+   <children>
+      <HBox alignment="CENTER" layoutX="811.0" layoutY="644.0" prefHeight="67.0" prefWidth="365.0" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" prefWidth="100.0" text="reset">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="100.0" text="back">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="100.0" text="next">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <VBox layoutX="47.0" layoutY="40.0" prefHeight="667.0" prefWidth="383.0" />
+   </children>
+</Pane>
