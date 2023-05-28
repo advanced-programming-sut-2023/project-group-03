@@ -446,8 +446,25 @@ public class Captcha {
         buff += smalls[Math.abs(random.nextInt() % smalls.length)];
         buff += capitals[Math.abs(random.nextInt() % capitals.length)];
         System.out.println(ASCIIPrinter(buff));
+        return buff;
+        //return ASCIIPrinter(buff);
+    }
+
+    public static String makeCapchaInGraphic() {
+        Random random = new Random();
+        String buff = new String();
+        buff += capitals[Math.abs(random.nextInt() % capitals.length)];
+//        buff += smalls[Math.abs(random.nextInt() % smalls.length)];
+//        buff += smalls[Math.abs(random.nextInt() % smalls.length)];
+//        buff += smalls[Math.abs(random.nextInt() % smalls.length)];
+        buff += capitals[Math.abs(random.nextInt() % capitals.length)];
+        buff += numbers[Math.abs(random.nextInt() % numbers.length)];
+        //buff += smalls[Math.abs(random.nextInt() % smalls.length)];
+        buff += capitals[Math.abs(random.nextInt() % capitals.length)];
+        buff += capitals[Math.abs(random.nextInt() % capitals.length)];
+        System.out.println(ASCIIPrinterInGraphic(buff));
         //return buff;
-        return ASCIIPrinter(buff);
+        return ASCIIPrinterInGraphic(buff);
     }
 
     public static String stringMatcher(ArrayList<String> strings) {
@@ -480,6 +497,38 @@ public class Captcha {
         }
         return stringMatcher(ascii);
     }
+
+    public static String stringMatcherInGraphic(ArrayList<String> strings) {
+        Random random=new Random();
+        StringBuilder ans = new StringBuilder();
+        ArrayList<String[]> linesOfStrings = new ArrayList<>();
+        for (String current : strings) {
+            //String color = ConsoleColors.getColorByBynumber(random.nextInt());
+            String[] array = current.split("\n");
+            for (int i = 0; i < array.length; i++) {
+                array[i] = array[i];
+            }
+            linesOfStrings.add(array);
+        }
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < strings.size(); j++) {
+                if (linesOfStrings.get(j).length > i) {
+                    ans.append(linesOfStrings.get(j)[i]);
+                }
+            }
+            ans.append("\n");
+        }
+        return ans.toString();
+    }
+    public static String ASCIIPrinterInGraphic(String input) {
+        ArrayList<String> ascii = new ArrayList<>();
+        for (int i = 0; i < input.length(); i++) {
+            ascii.add(ASCII_Chars.get(input.charAt(i)));
+        }
+        return stringMatcherInGraphic(ascii);
+    }
+
+
     public static void main(String[] args) {
         System.out.println(ASCIIPrinter("abcdefghijklmnopqrstuvwxyz"));
         System.out.println(ASCIIPrinter("ABCDEFGHIJKLMNLOPQRSTUVWXYZ"));

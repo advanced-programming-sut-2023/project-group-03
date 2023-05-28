@@ -2,12 +2,10 @@ package view.Controllers;
 
 import controller.UserBasedMenuController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -23,14 +21,12 @@ import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
     private static Pane RegisterPane;
-    private static Pane ConfirmMenu;
     public Text SloganAns;
     public Text emailAns;
     public Text nickAns;
     public Text PassAns;
     public Text usernameAns;
-    public TextField CaptchaAnswer;
-    public Label Captcha;
+    @FXML
     public TextField slogan;
     public CheckBox showSlogan;
     public TextField username;
@@ -44,30 +40,17 @@ public class RegisterController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        try {
-            ConfirmMenu = FXMLLoader.load(StartingMenu.class.getResource("/fxml/RegisterConfirmation.fxml"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void back(ActionEvent actionEvent) {
     }
 
     public void next(ActionEvent actionEvent) {
-        RegisterPane.getChildren().add(ConfirmMenu);
+        Pane confirmation = RegisterConfirmationController.confirmationPane;
+        RegisterPane.getChildren().add(confirmation);
     }
 
     public void reset(ActionEvent actionEvent) {
-    }
-
-    public void resetConfirm(ActionEvent actionEvent) {
-    }
-
-    public void backConfirm(ActionEvent actionEvent) {
-    }
-
-    public void nextCofirm(ActionEvent actionEvent) {
     }
     public static Pane getRegisterPane() {
         return RegisterPane;

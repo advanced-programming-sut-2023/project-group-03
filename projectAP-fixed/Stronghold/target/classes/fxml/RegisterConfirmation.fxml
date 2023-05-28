@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane prefHeight="750.0" prefWidth="1200.0" styleClass="EndingBox" stylesheets="@../CSS/Register.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.RegisterController">
+<Pane prefHeight="750.0" prefWidth="1200.0" styleClass="EndingBox" stylesheets="@../CSS/Register.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.RegisterConfirmationController">
    <children>
       <HBox alignment="CENTER" layoutX="811.0" layoutY="644.0" prefHeight="67.0" prefWidth="365.0" spacing="20.0">
          <children>
@@ -28,9 +28,9 @@
             </Button>
          </children>
       </HBox>
-      <VBox layoutX="47.0" layoutY="40.0" prefHeight="667.0" prefWidth="383.0">
+      <VBox layoutX="38.0" layoutY="40.0" prefHeight="667.0" prefWidth="459.0">
          <children>
-            <VBox prefHeight="258.0" prefWidth="383.0">
+            <VBox prefHeight="251.0" prefWidth="712.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="383.0" spacing="15.0">
                      <children>
@@ -43,18 +43,23 @@
                   </HBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="151.0" prefWidth="383.0" spacing="10.0">
                      <children>
-                        <TextField fx:id="answer" promptText="answer" />
+                        <TextField fx:id="answer" prefHeight="31.0" prefWidth="192.0" promptText="answer" />
                         <TextField fx:id="confirmAnswer" promptText="confirm answer" />
                      </children>
                   </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="467.0" prefWidth="383.0">
+            <VBox prefHeight="420.0" prefWidth="888.0">
                <children>
-                  <Label fx:id="Captcha" prefHeight="192.0" prefWidth="385.0" text="Captcha">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font></Label>
+                  <HBox alignment="CENTER_LEFT" focusTraversable="true" prefHeight="229.0" prefWidth="459.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label fx:id="Captcha" prefHeight="169.0" prefWidth="293.0" text="Captcha">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="127.0" prefWidth="383.0">
                      <children>
                         <TextField fx:id="CaptchaAnswer" prefHeight="31.0" prefWidth="384.0" promptText="captcha" />
