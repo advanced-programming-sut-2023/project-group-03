@@ -29,7 +29,7 @@ public class UserBasedMenuController extends Controller {
     }
 
     public static String checkUsername(String username) {
-        if (!checkUsernameNicknameFormat(username)) {
+        if (checkUsernameNicknameFormat(username)) {
             return Response.INVALID_USERNAME_FORMAT.getOutput();
         }
         if (UserDatabase.getUserByName(username) != null) return Response.REPETITIVE_USERNAME.getOutput();
@@ -37,7 +37,7 @@ public class UserBasedMenuController extends Controller {
     }
 
     public static String checkPassword(String password) {
-        if (!checkPasswordWeakness(password)) {
+        if (checkPasswordWeakness(password)) {
             return Response.WEAK_PASSWORD.getOutput();
         }
         return "correct";
