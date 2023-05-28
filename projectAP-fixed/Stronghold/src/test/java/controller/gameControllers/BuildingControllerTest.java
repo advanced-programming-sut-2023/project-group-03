@@ -43,12 +43,12 @@ class BuildingControllerTest {
     void checkCoordinates() {
         assertEquals(INVALID_Y_MAP.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x 5777 -t dard -y thing", DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x 5777 -t dard -y thing", DROP_BUILDING.toString()), player
                 ));
 
         assertEquals(INVALID_X_MAP.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x 201 -t dard -y 30", DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x 201 -t dard -y 30", DROP_BUILDING.toString()), player
                 ));
     }
 
@@ -56,11 +56,11 @@ class BuildingControllerTest {
     void checkInvalidBuildingType() {
         assertEquals(INVALID_BUILDING_TYPE.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x 80 -t dard -y 80", DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x 80 -t dard -y 80", DROP_BUILDING.toString()), player
                 ));
         assertEquals(INVALID_BUILDING_TYPE.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x 80 -t \"weird building\" -y 80", DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x 80 -t \"weird building\" -y 80", DROP_BUILDING.toString()), player
                 ));
     }
 
@@ -70,7 +70,7 @@ class BuildingControllerTest {
         player.getInventory().replace(Resources.STONE, stoneCost - 1);
         assertEquals(NOT_ENOUGH_STONE_BUILDING.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x 80 -t barrack -y 80", DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x 80 -t barrack -y 80", DROP_BUILDING.toString()), player
                 ));
 
         int goldCost = BarracksType.BARRACK.getGold();
@@ -78,7 +78,7 @@ class BuildingControllerTest {
         player.setGold(goldCost - 1);
         assertEquals(NOT_ENOUGH_GOLD_BARRACKS.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x 80 -t barrack -y 80", DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x 80 -t barrack -y 80", DROP_BUILDING.toString()), player
                 ));
     }
 
@@ -87,12 +87,12 @@ class BuildingControllerTest {
         int size = BarracksType.BARRACK.getSize();
         assertEquals(NOT_FIT.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x " + (200 - size / 2 + 1) + " -t barrack -y 100", DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x " + (200 - size / 2 + 1) + " -t barrack -y 100", DROP_BUILDING.toString()), player
                 ), "building doesn't fit in the map");
         assertEquals(SUCCESSFUL_DROP_BUILDING.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x " + (200 - size / 2) + " -t barrack -y 150", DROP_BUILDING.toString()), player
-                ), "successful drop building");
+                        getMatcher("drop castle building -x " + (200 - size / 2) + " -t barrack -y 150", DROP_BUILDING.toString()), player
+                ), "successful drop castle building");
         for (int x = 199 - size / 2 - size / 2; x < 199; x++) {
             for (int y = 149 - size / 2; y < 149 + size / 2; y++) {
                 assertTrue(gameMap.getMap()[x][y].getBuilding() != null, "error in set buildings" + x + " " + y);
@@ -107,7 +107,7 @@ class BuildingControllerTest {
         gameMap.getMap()[199][199].setBuilding(new Wall(player, targetTile, WallTypes.SMALL));
         assertEquals(BUILDING_EXIST.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x " + (200 - size / 2) + " -t barrack -y "+ (200 - size / 2), DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x " + (200 - size / 2) + " -t barrack -y "+ (200 - size / 2), DROP_BUILDING.toString()), player
                 ), "a building exist in one of the required tiles");
     }
 
@@ -118,12 +118,12 @@ class BuildingControllerTest {
         targetTile.setTexture(Texture.WATER);
         assertEquals(DROP_BUILDING_TEXTURE.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x " + (200 - size / 2) + " -t barrack -y "+ (200 - size / 2), DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x " + (200 - size / 2) + " -t barrack -y "+ (200 - size / 2), DROP_BUILDING.toString()), player
                 ), "water in one of the tiles");
         targetTile.setTexture(Texture.STONE_SLAB);
         assertEquals(DROP_BUILDING_TEXTURE.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x " + (200 - size / 2) + " -t barrack -y "+ (200 - size / 2), DROP_BUILDING.toString()), player
+                        getMatcher("drop castle building -x " + (200 - size / 2) + " -t barrack -y "+ (200 - size / 2), DROP_BUILDING.toString()), player
                 ), "stone slab in one of the tiles");
     }
 
@@ -134,7 +134,7 @@ class BuildingControllerTest {
         targetTile.setOwner(new Player(null, null));
         assertEquals(ACQUISITION.getOutput(),
                 buildingController.dropBuildingMatcherHandler(
-                        getMatcher("drop building -x " + (200 - size / 2) +
+                        getMatcher("drop castle building -x " + (200 - size / 2) +
                                 " -t \"tunneler guild\" -y "+ (200 - size / 2), DROP_BUILDING.toString()), player
                 ), "not owning one of the required tiles");
     }
@@ -149,7 +149,7 @@ class BuildingControllerTest {
                 new Troop(player, targetTile, TroopTypes.SWORDMEN);
                 assertEquals(UNIT_EXIST_TRAP.getOutput(),
                         buildingController.dropBuildingMatcherHandler(
-                                getMatcher("drop building -x 5 -t \"caged war dogs\" -y 5", DROP_BUILDING.toString()), player
+                                getMatcher("drop castle building -x 5 -t \"caged war dogs\" -y 5", DROP_BUILDING.toString()), player
                         ), "the needed tile has a unit");
             }
 
@@ -158,18 +158,18 @@ class BuildingControllerTest {
                 Tile targetTile = gameMap.getMap()[0][0];
                 assertEquals(BAD_TEXTURE_TRAP.getOutput(),
                         buildingController.dropBuildingMatcherHandler(
-                                getMatcher("drop building -x 1 -t \"pitch ditch\" -y 1", DROP_BUILDING.toString()), player
+                                getMatcher("drop castle building -x 1 -t \"pitch ditch\" -y 1", DROP_BUILDING.toString()), player
                         ), "not a valid texture for the given trap");
 
                 assertEquals(NOT_FIT.getOutput(),
                         buildingController.dropBuildingMatcherHandler(
-                                getMatcher("drop building -x 1 -t \"caged war dogs\" -y 1", DROP_BUILDING.toString()), player
+                                getMatcher("drop castle building -x 1 -t \"caged war dogs\" -y 1", DROP_BUILDING.toString()), player
                         ), "check if fit");
 
                 targetTile.setTexture(Texture.OIL);
                 assertEquals(SUCCESSFUL_DROP_BUILDING.getOutput(),
                         buildingController.dropBuildingMatcherHandler(
-                                getMatcher("drop building -x 1 -t \"pitch ditch\" -y 1", DROP_BUILDING.toString()), player
+                                getMatcher("drop castle building -x 1 -t \"pitch ditch\" -y 1", DROP_BUILDING.toString()), player
                         ), "valid size for trap");
 
             }
@@ -180,17 +180,17 @@ class BuildingControllerTest {
         void checkStockPileFoodStorage() {
             assertEquals(SUCCESSFUL_DROP_BUILDING.getOutput(),
                     buildingController.dropBuildingMatcherHandler(
-                            getMatcher("drop building -x 1 -t stockpile -y 1", DROP_BUILDING.toString()), player
+                            getMatcher("drop castle building -x 1 -t stockpile -y 1", DROP_BUILDING.toString()), player
                     ), "not giving error for putting the first stockpile");
 
             assertEquals(NO_INVENTORY_AROUND.getOutput(),
                     buildingController.dropBuildingMatcherHandler(
-                            getMatcher("drop building -x 1 -t stockpile -y 3", DROP_BUILDING.toString()), player
+                            getMatcher("drop castle building -x 1 -t stockpile -y 3", DROP_BUILDING.toString()), player
                     ), "stockpile not being neighboured with another stockpile");
 
             assertEquals(SUCCESSFUL_DROP_BUILDING.getOutput(),
                     buildingController.dropBuildingMatcherHandler(
-                            getMatcher("drop building -x 1 -t stockpile -y 2", DROP_BUILDING.toString()), player
+                            getMatcher("drop castle building -x 1 -t stockpile -y 2", DROP_BUILDING.toString()), player
                     ), "successful stockpile");
         }
 
@@ -200,13 +200,13 @@ class BuildingControllerTest {
             player.setCurrentPopulation(neededWorkers - 1);
             assertEquals(NOT_ENOUGH_WORKER_BUILDING.getOutput(),
                     buildingController.dropBuildingMatcherHandler(
-                            getMatcher("drop building -x 1 -t bakery -y 1", DROP_BUILDING.toString()), player
+                            getMatcher("drop castle building -x 1 -t bakery -y 1", DROP_BUILDING.toString()), player
                     ), "not enough worker for generator");
 
-            player.setCurrentPopulation(neededWorkers);
+            player.setMaxPopulation(neededWorkers);
             assertEquals(SUCCESSFUL_DROP_BUILDING.getOutput(),
                     buildingController.dropBuildingMatcherHandler(
-                            getMatcher("drop building -x 50 -t bakery -y 50", DROP_BUILDING.toString()), player
+                            getMatcher("drop castle building -x 50 -t bakery -y 50", DROP_BUILDING.toString()), player
                     ), "successful generator");
         }
     }

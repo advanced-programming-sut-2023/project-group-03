@@ -524,6 +524,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
         counter = amount;
         gameMenuUnits.clear();
+        gameMenu.setSelected(null);
         for (Unit unit : units) {
             if (counter <= 0) break;
             if (unit.getOwner().equals(player) && unit instanceof Throwers && ((Throwers) unit).getType().equals(throwerType)) {
@@ -546,6 +547,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (counter < amount) return NOT_ENOUGH_UNIT.getOutput();
         ArrayList<Unit> gameMenuUnits = gameMenu.getSelectedUnits();
         gameMenuUnits.clear();
+        gameMenu.setSelected(null);
         counter = amount;
         for (Unit unit : units) {
             if (counter <= 0) break;

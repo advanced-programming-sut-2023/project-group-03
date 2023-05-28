@@ -110,6 +110,7 @@ public class MapController extends GeneralGameController {
         gameMap.getMap()[x][y] = newTile;
         newTile.setRowNum(x);
         newTile.setColumnNum(y);
+        newTile.setOwner(targetTile.getOwner());
 
         return SUCCESSFUL_CLEAR_TILE.getOutput();
     }

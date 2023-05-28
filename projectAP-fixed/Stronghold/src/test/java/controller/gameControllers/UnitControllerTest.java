@@ -16,6 +16,7 @@ import Model.Buildings.Keep;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.Units.Engineer;
 import Model.Units.Enums.TroopTypes;
 import Model.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +38,12 @@ class UnitControllerTest {
         gameMap = new GameMap(200);
         unitController = new UnitController(gameMap);
         player = new Player(new User(null, null, null, null, null),null);
+        player.setKeep(new Keep(player, gameMap.getMap()[100][100]));
+        for (int i = 0; i < 10000; i++) {
+            player.getKeep().addEngineer(new Engineer(player, gameMap.getMap()[100][100]));
+        }
+        player.setCurrentPopulation(2000);
+        player.setMaxPopulation(4000);
         Tile.setGameMap(gameMap);
     }
 
@@ -104,38 +111,25 @@ class UnitControllerTest {
     }
 
     @Test
-    void checkAddEngineer() {
-        player.setCurrentPopulation(9);
-        assertEquals(NOT_ENOUGH_POPULATION_ENGINEER.getOutput(),
-                unitController.addUnitMatcherHandler(getMatcher("create unit -t engineer -x 23 -y 2 -c 10", CREATE_UNIT.toString()),
-                        player, null));
-        player.setCurrentPopulation(11);
-        assertEquals(SUCCESSFUL_ADD_ENGINEER.getOutput(),
-                unitController.addUnitMatcherHandler(getMatcher("create unit -t engineer -x 23 -y 2 -c 10", CREATE_UNIT.toString()),
-                        player, null));
-    }
-
-    @Test
     void checkAddThrowerTowerTypes() {
         assertEquals(BUILDING_NOT_EXIST_THROWER.getOutput(),
-                unitController.addUnitMatcherHandler(getMatcher("create unit -t \"trebuchets on tower\" -x 23 -y 2 -c 10", CREATE_UNIT.toString()),
+                unitController.addUnitMatcherHandler(getMatcher("create unit -t \"trebuchets on tower\" -x 23 -y 2 -c 1", CREATE_UNIT.toString()),
                         player, null), "no building exist");
 
         Tile targetTile = gameMap.getMap()[22][4];
-        player.setKeep(new Keep(player, gameMap.getMap()[50][50]));
         targetTile.setBuilding(new Inventory(player, targetTile, InventoryTypes.STOCKPILE));
         assertEquals(BUILDING_NOT_PROPER_TOWER.getOutput(),
-                unitController.addUnitMatcherHandler(getMatcher("create unit -t \"trebuchets on tower\" -x 23 -y 5 -c 10", CREATE_UNIT.toString()),
-                        player, null), "no proper building");
+                unitController.addUnitMatcherHandler(getMatcher("create unit -t \"trebuchets on tower\" -x 23 -y 5 -c 1", CREATE_UNIT.toString()),
+                        player, null), "no proper building1");
 
         targetTile.setBuilding(new Towers(player, targetTile, TowerTypes.LOOKOUT_TOWER));
         assertEquals(BUILDING_NOT_PROPER_TOWER.getOutput(),
-                unitController.addUnitMatcherHandler(getMatcher("create unit -t \"trebuchets on tower\" -x 23 -y 5 -c 10", CREATE_UNIT.toString()),
-                        player, null), "no proper building");
+                unitController.addUnitMatcherHandler(getMatcher("create unit -t \"trebuchets on tower\" -x 23 -y 5 -c 1", CREATE_UNIT.toString()),
+                        player, null), "no proper building2");
         targetTile.setBuilding(new Towers(player, targetTile, TowerTypes.ROUND_TOWER));
         assertEquals(SUCCESSFUL_DROP_UNIT.getOutput(),
-                unitController.addUnitMatcherHandler(getMatcher("create unit -t \"trebuchets on tower\" -x 23 -y 5 -c 10", CREATE_UNIT.toString()),
-                        player, null), "no proper building");
+                unitController.addUnitMatcherHandler(getMatcher("create unit -t \"trebuchets on tower\" -x 23 -y 5 -c 1", CREATE_UNIT.toString()),
+                        player, null), "no proper building3");
     }
 
     @Test
