@@ -1,5 +1,6 @@
 package view.fxmlMenu;
 
+import Model.Defaults;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,6 +23,7 @@ public class ProfileMenuFxml extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         ProfileMenuFXController.setGamePane(pane);
+        Defaults.setCurrentStage(primaryStage);
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
         primaryStage.show();
