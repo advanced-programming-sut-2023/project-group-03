@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.StartingController">
+<Pane prefHeight="750.0" prefWidth="1200.0" styleClass="rounding" stylesheets="@../CSS/Register.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.StartingController">
    <children>
       <VBox alignment="CENTER" layoutX="345.0" layoutY="170.0" prefHeight="411.0" prefWidth="511.0">
          <children>

@@ -1,5 +1,6 @@
 package view.fxmlMenu;
 
+import Model.Defaults;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,10 +14,6 @@ public class ProfileMenuFxml extends Application {
     Pane pane = FXMLLoader.load(ProfileMenuFxml.class.getResource("/fxml/ProfileMenuPane.fxml"));
 
     public ProfileMenuFxml() throws IOException {
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     @Override

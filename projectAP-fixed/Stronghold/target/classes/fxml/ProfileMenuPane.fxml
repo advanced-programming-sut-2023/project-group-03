@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.ProfileMenuFXController">
+<Pane stylesheets="@../CSS/Register.css" styleClass="PROFILE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.ProfileMenuFXController">
    <children>
       <HBox fx:id="profile" alignment="CENTER" layoutX="463.0" layoutY="75.0" prefHeight="119.0" prefWidth="276.0" />
       <VBox alignment="CENTER" layoutX="231.0" layoutY="232.0" prefHeight="285.0" prefWidth="723.0" spacing="20.0">
@@ -22,8 +22,8 @@
          <children>
             <VBox alignment="CENTER" prefHeight="100.0" prefWidth="77.0" spacing="10.0">
                <children>
-                  <Button fx:id="changeSlogan" mnemonicParsing="false" onAction="#changeSlogan" text="Button" />
-                  <Button fx:id="clearSlogan" mnemonicParsing="false" onAction="#clearSlogan" text="Button" />
+                  <Button fx:id="changeSlogan" mnemonicParsing="false" onAction="#changeSlogan" text="Change" />
+                  <Button fx:id="clearSlogan" mnemonicParsing="false" onAction="#clearSlogan" text="Clear" />
                </children>
             </VBox>
             <Label fx:id="slogan" alignment="CENTER" prefHeight="65.0" prefWidth="593.0" text="Label" />
