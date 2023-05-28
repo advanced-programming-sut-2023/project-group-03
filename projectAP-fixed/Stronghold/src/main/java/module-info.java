@@ -9,5 +9,5 @@ module Stronghold {
     opens Model to com.google.gson;
     opens view to javafx.fxml;
     opens view.Controllers;
-    
+
 }
