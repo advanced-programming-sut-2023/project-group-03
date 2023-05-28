@@ -6,6 +6,8 @@ module Stronghold {
     requires javafx.media;
 
     exports view;
+    exports view.fxmlMenu;
+    exports view.Controllers;
     exports Model;
     opens Model to com.google.gson;
     opens view to javafx.fxml;

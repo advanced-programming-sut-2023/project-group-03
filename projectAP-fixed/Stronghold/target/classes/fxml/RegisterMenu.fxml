@@ -14,26 +14,26 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="87.0" prefWidth="242.0" spacing="8.0">
                <children>
-                  <TextField fx:id="username" onInputMethodTextChanged="#usernameChanged" promptText="username" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <TextField fx:id="username" onInputMethodTextChanged="#usernameChanged" onKeyTyped="#testingsmth" promptText="username" />
+                  <Text fx:id="usernameAns" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="242.0" spacing="8.0">
                <children>
                   <PasswordField fx:id="password" promptText="password" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="PassAns" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="117.0" prefWidth="242.0" spacing="8.0">
                <children>
                   <TextField fx:id="nickname" prefHeight="31.0" prefWidth="255.0" promptText="nickname" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="nickAns" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="242.0" spacing="8.0">
                <children>
                   <TextField fx:id="email" promptText="email" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="emailAns" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                </children>
             </VBox>
             <HBox alignment="CENTER_LEFT" prefHeight="84.0" prefWidth="242.0" spacing="8.0">
@@ -42,7 +42,7 @@
                   <VBox prefHeight="83.0" prefWidth="203.0" spacing="8.0">
                      <children>
                         <TextField fx:id="slogan" prefHeight="31.0" prefWidth="203.0" promptText="slogan" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="SloganAns" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </VBox>
                </children>
