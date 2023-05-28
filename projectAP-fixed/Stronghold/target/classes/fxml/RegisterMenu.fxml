@@ -14,7 +14,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="87.0" prefWidth="242.0" spacing="8.0">
                <children>
-                  <TextField fx:id="username" onInputMethodTextChanged="#usernameChanged" promptText="username" />
+                  <TextField fx:id="username" promptText="username" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                </children>
             </VBox>
@@ -51,17 +51,17 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="801.0" layoutY="634.0" prefHeight="67.0" prefWidth="365.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#reset" prefWidth="100.0" text="reset">
+            <Button mnemonicParsing="false" prefWidth="100.0" text="reset">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#back" prefWidth="100.0" text="back">
+            <Button mnemonicParsing="false" prefWidth="100.0" text="back">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#next" prefWidth="100.0" text="next">
+            <Button mnemonicParsing="false" prefWidth="100.0" text="next">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
