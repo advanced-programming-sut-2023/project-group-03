@@ -1,5 +1,9 @@
 package controller;
 
+import Model.User;
+import Model.UserDatabase;
+import controller.Enums.Response;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,8 +28,28 @@ public class UserBasedMenuController extends Controller {
         return getMatcher(password, "[^a-zA-Z0-9]") == null;
     }
 
+    public static String checkUsername(String username) {
+        if (!checkUsernameNicknameFormat(username)) {
+            return Response.INVALID_USERNAME_FORMAT.getOutput();
+        }
+        if (UserDatabase.getUserByName(username) != null) return Response.REPETITIVE_USERNAME.getOutput();
+        return "correct";
+    }
+
+    public static String checkPassword(String password) {
+        if (!checkPasswordWeakness(password)) {
+            return Response.WEAK_PASSWORD.getOutput();
+        }
+        return "correct";
+    }
+
     public static boolean checkEmailFormat(String email) {
         return (getMatcher(email, EMAIL_FORMAT.getRegex()) == null);
+    }
+
+    public static String checkEmail(String email) {
+        if (!checkEmailFormat(email)) return Response.INVALID_EMAIL_FORMAT.getOutput();
+        return "correct";
     }
 
     protected static ArrayList<String> securityQuestions = new ArrayList<>(Arrays.asList(
