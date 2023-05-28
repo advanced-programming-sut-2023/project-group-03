@@ -1,6 +1,8 @@
 package view.Controllers;
 
 import Model.Defaults;
+import Model.User;
+import controller.UserBasedMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -60,6 +62,17 @@ public class ProfileMenuFXController implements Initializable {
 
         HBox buttons = new HBox();
         Button saveButton = new Button("Save");
+        saveButton.setOnAction(e -> {
+            if (!passwordField.getText().equals(passwordConfirmation.getText())) return;
+            UserBasedMenuController controller = new UserBasedMenuController();
+            String passwordString = controller.getEncryptedPassword(passwordField.getText());
+            if (UserBasedMenuController.checkPassword(passwordString).equals("correct")) {
+                User user = Defaults.getCurrentUser();
+                user.setPassword(passwordString);
+                gamePane.getChildren().remove(vBox);
+            }
+        });
+
         Button cancelButton = new Button("Cancel");
         cancelButton.setOnAction(e -> {gamePane.getChildren().remove(vBox);});
         buttons.setSpacing(30);
