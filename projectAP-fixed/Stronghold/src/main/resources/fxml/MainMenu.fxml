@@ -19,7 +19,7 @@
             </Label>
             <VBox alignment="CENTER" prefHeight="292.0" prefWidth="511.0" spacing="15.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#start" prefWidth="250.0" text="Start Game">
+                  <Button mnemonicParsing="false" onAction="#startgame" prefWidth="250.0" text="Start Game">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

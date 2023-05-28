@@ -1,5 +1,6 @@
 package view.Controllers;
 
+import Model.Defaults;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import view.Captcha;
 import view.SignUpMenu;
+import view.fxmlMenu.MainMenu;
 
 import java.awt.*;
 import java.io.IOException;
@@ -33,18 +35,25 @@ public class RegisterConfirmationController implements Initializable {
     static {
         try {
             confirmationPane = FXMLLoader.load(SignUpMenu.class.getResource("/fxml/RegisterConfirmation.fxml"));
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            double width = screenSize.getWidth();
+            double height = screenSize.getHeight();
+            confirmationPane.setPrefSize(width, height);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void resetConfirm(ActionEvent actionEvent) {
+
     }
 
     public void backConfirm(ActionEvent actionEvent) {
+
     }
 
-    public void nextCofirm(ActionEvent actionEvent) {
+    public void nextCofirm(ActionEvent actionEvent) throws Exception {
+        new MainMenu().start(Defaults.getCurrentStage());
     }
 
     @Override

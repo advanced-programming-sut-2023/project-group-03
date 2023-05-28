@@ -11,9 +11,14 @@ import view.Controllers.ProfileMenuFXController;
 import java.io.IOException;
 
 public class ProfileMenuFxml extends Application {
-    Pane pane = FXMLLoader.load(ProfileMenuFxml.class.getResource("/fxml/ProfileMenuPane.fxml"));
+    public static Pane pane;
 
-    public ProfileMenuFxml() throws IOException {
+    static {
+        try {
+            pane = FXMLLoader.load(ProfileMenuFxml.class.getResource("/fxml/ProfileMenuPane.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

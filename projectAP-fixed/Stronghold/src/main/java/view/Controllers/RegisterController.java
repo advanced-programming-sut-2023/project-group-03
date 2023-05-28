@@ -1,5 +1,6 @@
 package view.Controllers;
 
+import Model.Defaults;
 import controller.UserBasedMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,7 +43,8 @@ public class RegisterController implements Initializable {
         }
     }
 
-    public void back(ActionEvent actionEvent) {
+    public void back(ActionEvent actionEvent) throws Exception {
+        new StartingController().start(Defaults.getCurrentStage());
     }
 
     public void next(ActionEvent actionEvent) {
