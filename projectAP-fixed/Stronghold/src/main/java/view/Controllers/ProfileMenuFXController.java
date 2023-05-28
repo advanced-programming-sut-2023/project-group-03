@@ -50,8 +50,6 @@ public class ProfileMenuFXController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (Defaults.getCurrentUser() == null)
-            Defaults.setCurrentUser(new User("", "", "", "", null));//todo
         if (Defaults.getCurrentUser().getSlogan() != null && !Defaults.getCurrentUser().getSlogan().equals(""))
             slogan.setText(Defaults.getCurrentUser().getSlogan());
         else slogan.setText("Slogan is empty!");

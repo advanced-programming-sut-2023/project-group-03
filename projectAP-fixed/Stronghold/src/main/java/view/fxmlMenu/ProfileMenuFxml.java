@@ -16,14 +16,9 @@ public class ProfileMenuFxml extends Application {
     public ProfileMenuFxml() throws IOException {
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         ProfileMenuFXController.setGamePane(pane);
-        Defaults.setCurrentStage(primaryStage);
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
         primaryStage.show();

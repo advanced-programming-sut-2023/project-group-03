@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane stylesheets="@../CSS/Register.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.ProfileMenuFXController">
+<Pane stylesheets="@../CSS/Register.css" styleClass="PROFILE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.ProfileMenuFXController">
    <children>
       <HBox fx:id="profile" alignment="CENTER" layoutX="463.0" layoutY="75.0" prefHeight="119.0" prefWidth="276.0" />
       <VBox alignment="CENTER" layoutX="231.0" layoutY="232.0" prefHeight="285.0" prefWidth="723.0" spacing="20.0">
