@@ -8,6 +8,7 @@ module Stronghold {
     exports view;
     opens Model to com.google.gson;
     opens view to javafx.fxml;
-    opens view.Controllers;
+    opens view.fxmlMenu to javafx.fxml;
+    opens view.Controllers to javafx.fxml;
 
 }
