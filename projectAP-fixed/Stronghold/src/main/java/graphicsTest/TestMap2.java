@@ -1,5 +1,6 @@
 package graphicsTest;
 
+import Model.Buildings.Building;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -10,13 +11,47 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Scanner;
 
 public class TestMap2 extends Application {
+    public class BuildingGraphic {
+        int row;
+        int col;
+        int height;
+        int iSize;
+        int jSize;
+        String image;
+        Polygon polygon;
+        Pane mapPane;
+
+        public BuildingGraphic(int row, int col, int height, int iSize, int jSize, String image, Pane mapPane, Polygon polygon) {
+            this.row = row;
+            this.col = col;
+            this.height = height;
+            this.iSize = iSize;
+            this.jSize = jSize;
+            this.image = image;
+            this.mapPane = mapPane;
+            this.polygon = polygon;
+        }
+
+        public void updatePolygon (){
+            this.polygon = new Polygon(
+                    ((double)(row+ iSize - col)) / iDivider * tileSize, ((double)(row + iSize + col)) / jDivider * tileSize,
+                    ((double)(row - col + iSize - jSize)) / iDivider * tileSize, ((double)(row + col + iSize + jSize)) / jDivider * tileSize,
+                    ((double)(row - col - jSize)) / iDivider * tileSize, ((double)(row + col + jSize)) / jDivider * tileSize,
+                    ((double)(row - col - jSize)) / iDivider * tileSize, ((double)(row + col + jSize)) / jDivider * tileSize - height * tileSize,
+                    ((double)(row - col)) / iDivider * tileSize, ((double)(row + col)) / jDivider * tileSize - height * tileSize,
+                    ((double)(row + iSize - col)) / iDivider * tileSize, ((double)(row + iSize + col)) / jDivider * tileSize - height * tileSize
+            );
+            polygon.setFill(new ImagePattern(new Image(TestMap2.class.getResource("/images/" + image).toExternalForm())
+                    , 0, 0, 1, 1, true));
+            polygon.setStroke(Color.WHITE);;
+        }
+    }
     int tileSize = 50;
     int tileSizeDelta = 20;
     int satr = 400;
@@ -35,6 +70,7 @@ public class TestMap2 extends Application {
 
     HashSet<Polygon> currentTiles = new HashSet<>();
     Polygon[][] allRecs = new Polygon[satr][sotoon];
+    ArrayList<BuildingGraphic> buildings = new ArrayList<>();
     Polygon view;
     Pane mapPane = new Pane();
 
@@ -68,6 +104,7 @@ public class TestMap2 extends Application {
 //        thing.setRotationAxis(Rotate.Y_AXIS);
 //        thing.setRotate(180);
 
+        buildings.add(new BuildingGraphic(i, j, height, iSize, jSize, image, mapPane, thing));
         return thing;
     }
     public static void main(String[] args) {
@@ -102,8 +139,8 @@ public class TestMap2 extends Application {
         Scene gameScene = new Scene(pane);
         stage.setScene(gameScene);
 
-        int halfSums = - halfSatr - halfSotoon;
-        int halfMinus = - halfSatr + halfSotoon;
+//        int halfSums = - halfSatr - halfSotoon;
+//        int halfMinus = - halfSatr + halfSotoon;
         //mehran's rectangle
 //        view = new Polygon(
 //                ((double)(halfSatr + halfMinus)) / iDivider * tileSize, ((double)(halfSatr + halfSums)) / jDivider * tileSize,
@@ -202,6 +239,14 @@ public class TestMap2 extends Application {
                 }
             }
         }
+        for (BuildingGraphic building : buildings) {
+            Polygon polygon = building.polygon;
+            mapPane.getChildren().remove(polygon);
+        }
+        for (BuildingGraphic building : buildings) {
+            Polygon polygon = building.polygon;
+            mapPane.getChildren().add(polygon);
+        }
 //        for (int x = currentTile[0]; x < currentTile[0] + cameraRow; x++) {
 //            for (int y = currentTile[1]; y < currentTile[1] + cameraCol; y++) {
 //                if (x >= satr) continue;
@@ -234,7 +279,7 @@ public class TestMap2 extends Application {
 
     private void changeZoom(boolean plus) {
         if (plus && tileSize >= 100) return;
-        if (!plus && tileSize <= 20) return;
+        if (!plus && tileSize <= 40) return;
         if (plus) tileSize += tileSizeDelta;
         else tileSize -= tileSizeDelta;
 //        for (Polygon polygon : currentTiles) {
@@ -246,7 +291,9 @@ public class TestMap2 extends Application {
         updateAllRecs();
         verticalCameraMove = 2 / jDivider * tileSize;
         horizontalCameraMove = 2 / iDivider * tileSize;
+        for (BuildingGraphic building : buildings) {
+            building.updatePolygon();
+        }
         updateCamera();
-        getHex(2,  12, 12, 3, 3, "Barracks.png", mapPane);
     }
 }
