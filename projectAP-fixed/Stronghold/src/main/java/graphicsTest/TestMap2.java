@@ -12,8 +12,11 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 public class TestMap2 extends Application {
-    int tileSize = 50;
-
+    int tileSize = 45;
+    int satr = 60;
+    int sotoon = 60;
+    int halfSatr = satr / 2;
+    int halfSotoon = sotoon / 2;
     double iDivider = 2;
     double jDivider = 3.5;
 
@@ -59,8 +62,8 @@ public class TestMap2 extends Application {
         Pane pane = new Pane();
         Pane mapPane = new Pane();
         ImagePattern imagePattern = new ImagePattern(new Image(TestMap2.class.getResource("/images/Plain1.jpg").toExternalForm()));
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
+        for (int i = 0; i < satr; i++) {
+            for (int j = 0; j < sotoon; j++) {
                 Polygon thing = new Polygon(
                         ((double)(i + 1 - j)) / iDivider * tileSize, ((double)(i + 1 + j)) / jDivider * tileSize,
                         ((double)(i - j)) / iDivider * tileSize, ((double)(i + j)) / jDivider * tileSize,
@@ -69,7 +72,7 @@ public class TestMap2 extends Application {
                 );
                 thing.setOpacity(0.8);
                 thing.setFill(imagePattern);
-                thing.setStroke(Color.GREEN);
+                //thing.setStroke(Color.GREEN);
                 mapPane.getChildren().add(thing);
             }
         }
@@ -93,18 +96,13 @@ public class TestMap2 extends Application {
 
         //mehran's rectangle
 
-        int satr = 20;
-        int sotoon = 20;
-        int i = satr / 2;
-        int j = sotoon / 2;
-
         Polygon view = new Polygon(
-                ((double)(i)) / iDivider * tileSize, ((double)(i)) / jDivider * tileSize,
-                ((double)(satr - j)) / iDivider * tileSize, ((double)(satr + j)) / jDivider * tileSize,
-                ((double)(i - sotoon)) / iDivider * tileSize, ((double)(i + sotoon)) / jDivider * tileSize,
-                ((double)( - j)) / iDivider * tileSize, ((double)(j)) / jDivider * tileSize
+                ((double)(halfSatr)) / iDivider * tileSize, ((double)(halfSatr)) / jDivider * tileSize,
+                ((double)(satr - halfSotoon)) / iDivider * tileSize, ((double)(satr + halfSotoon)) / jDivider * tileSize,
+                ((double)(halfSatr - sotoon)) / iDivider * tileSize, ((double)(halfSatr + sotoon)) / jDivider * tileSize,
+                ((double)( - halfSotoon)) / iDivider * tileSize, ((double)(halfSotoon)) / jDivider * tileSize
         );
-        view.setFill(Color.BLACK);
+        view.setFill(Color.TRANSPARENT);
         mapPane.getChildren().add(view);
 
         System.out.println(view.getPoints().toArray()[0]);
