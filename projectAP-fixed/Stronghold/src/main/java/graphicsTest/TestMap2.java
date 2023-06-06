@@ -15,7 +15,7 @@ public class TestMap2 extends Application {
     int tileSize = 50;
 
     double iDivider = 2;
-    double jDivider = 2.5;
+    double jDivider = 3.5;
 
     public Polygon getHex(int height, int i, int j, int iSize, int jSize, String image, Pane pane) {
         Polygon thing = new Polygon(
@@ -54,6 +54,8 @@ public class TestMap2 extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setHeight(720);
+        stage.setWidth(1240);
         Pane pane = new Pane();
         Pane mapPane = new Pane();
         ImagePattern imagePattern = new ImagePattern(new Image(TestMap2.class.getResource("/images/Plain1.jpg").toExternalForm()));
@@ -72,8 +74,6 @@ public class TestMap2 extends Application {
             }
         }
 
-        mapPane.setLayoutX(700);
-
         getHex(4, 10, 10, 1, 1, "tower1.png", mapPane);
 //        ImageView imageView = new ImageView(TestMap.class.getResource("/images/tower1.png").toExternalForm());
 //        imageView.setLayoutX(1 * tileSize / iDivider);
@@ -90,6 +90,28 @@ public class TestMap2 extends Application {
         getHex(2, 12, 15, 3, 3, "Barracks.png", mapPane);
         pane.getChildren().add(mapPane);
         stage.setScene(new Scene(pane));
+
+        //mehran's rectangle
+
+        int satr = 20;
+        int sotoon = 20;
+        int i = satr / 2;
+        int j = sotoon / 2;
+
+        Polygon view = new Polygon(
+                ((double)(i)) / iDivider * tileSize, ((double)(i)) / jDivider * tileSize,
+                ((double)(satr - j)) / iDivider * tileSize, ((double)(satr + j)) / jDivider * tileSize,
+                ((double)(i - sotoon)) / iDivider * tileSize, ((double)(i + sotoon)) / jDivider * tileSize,
+                ((double)( - j)) / iDivider * tileSize, ((double)(j)) / jDivider * tileSize
+        );
+        view.setFill(Color.BLACK);
+        mapPane.getChildren().add(view);
+
+        System.out.println(view.getPoints().toArray()[0]);
+        double x1 = view.getPoints().get(0);
+        double y1 = view.getPoints().get(1);
+        mapPane.setLayoutX(x1);
+        mapPane.setLayoutY(-y1);
 
         stage.show();
     }
