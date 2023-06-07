@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="graphicsTest.TestMap3"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<Pane prefHeight="750.0" prefWidth="1200.0" stylesheets="@../CSS/MenuBar.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicsTest.TestMap3">
+   <children>
+      <Pane layoutX="-3.0" layoutY="528.0" prefHeight="223.0" prefWidth="1207.0" style="-fx-background-size: cover">
+         <styleClass>
+            <String fx:value="lowerMenu" />
+            <String fx:value="EndingPane" />
+         </styleClass>
+      </Pane>
+      <Pane layoutX="-5.0" layoutY="-1.0" prefHeight="44.0" prefWidth="1207.0" style="-fx-background-size: cover">
+         <styleClass>
+            <String fx:value="upperMenu" />
+         </styleClass>
+      </Pane>
+   </children>
+</Pane>
