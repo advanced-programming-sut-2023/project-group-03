@@ -1,11 +1,11 @@
 package graphicsTest;
 
-import Model.Buildings.Building;
 import Model.Buildings.Enums.BuildingGraphics;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -18,17 +18,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class TestMap2 extends Application {
-    public class BuildingGraphic {
+    public class BuildingShape {
         int row;
         int col;
-        int height;
-        int iSize;
-        int jSize;
+        double height;
+        double iSize;
+        double jSize;
         String image;
         Polygon polygon;
         Pane mapPane;
 
-        public BuildingGraphic(int row, int col, int height, int iSize, int jSize, String image, Pane mapPane, Polygon polygon) {
+        public BuildingShape(int row, int col, double height, double iSize, double jSize, String image, Pane mapPane, Polygon polygon) {
             this.row = row;
             this.col = col;
             this.height = height;
@@ -71,11 +71,11 @@ public class TestMap2 extends Application {
 
     HashSet<Polygon> currentTiles = new HashSet<>();
     Polygon[][] allRecs = new Polygon[satr][sotoon];
-    ArrayList<BuildingGraphic> buildings = new ArrayList<>();
+    ArrayList<BuildingShape> buildings = new ArrayList<>();
     Polygon view;
     Pane mapPane = new Pane();
 
-    public Polygon getHex(int height, int i, int j, int iSize, int jSize, String image, Pane pane) {
+    public Polygon getHex(double height, int i, int j, double iSize, double jSize, String image, Pane pane) {
         Polygon thing = new Polygon(
                 ((double)(i + iSize - j)) / iDivider * tileSize, ((double)(i + iSize + j)) / jDivider * tileSize,
                 ((double)(i - j + iSize - jSize)) / iDivider * tileSize, ((double)(i + j + iSize + jSize)) / jDivider * tileSize,
@@ -105,7 +105,7 @@ public class TestMap2 extends Application {
 //        thing.setRotationAxis(Rotate.Y_AXIS);
 //        thing.setRotate(180);
 
-        buildings.add(new BuildingGraphic(i, j, height, iSize, jSize, image, mapPane, thing));
+        buildings.add(new BuildingShape(i, j, height, iSize, jSize, image, mapPane, thing));
         return thing;
     }
     public static void main(String[] args) {
@@ -135,7 +135,7 @@ public class TestMap2 extends Application {
         getHex(1, 12, 6, 3, 3, "wine.png", mapPane);
         getHex(2,  9, 15, 3, 3, "Barracks.png", mapPane);
         getHex(2,  12, 12, 3, 3, "Barracks.png", mapPane);
-        getHex(2, 12, 15, 3, 3, "square_tower.jpg", mapPane);
+        getHex(3, 12, 15, 3, 3, "small_gate.png", mapPane);
         pane.getChildren().add(mapPane);
         Scene gameScene = new Scene(pane);
         stage.setScene(gameScene);
@@ -247,11 +247,11 @@ public class TestMap2 extends Application {
                 }
             }
         }
-        for (BuildingGraphic building : buildings) {
+        for (BuildingShape building : buildings) {
             Polygon polygon = building.polygon;
             mapPane.getChildren().remove(polygon);
         }
-        for (BuildingGraphic building : buildings) {
+        for (BuildingShape building : buildings) {
             Polygon polygon = building.polygon;
             mapPane.getChildren().add(polygon);
         }
@@ -299,7 +299,7 @@ public class TestMap2 extends Application {
         updateAllRecs();
         verticalCameraMove = 2 / jDivider * tileSize;
         horizontalCameraMove = 2 / iDivider * tileSize;
-        for (BuildingGraphic building : buildings) {
+        for (BuildingShape building : buildings) {
             building.updatePolygon();
         }
         updateCamera();

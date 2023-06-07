@@ -7,17 +7,21 @@ import javafx.scene.image.ImageView;
 public enum BuildingGraphics {
     //tower
     LOOKOUT_TOWER("lookout tower", 4, 1, 1, "lookout_tower.png"),
-    SQUARE_TOWER("square tower", 4, 3, 3, "")
+    SQUARE_TOWER("square tower", 4, 3, 3, "square_tower.png"),
+    //stone gate
+    SMALL_STONE_GATE_HOUSE("small stone gate", 3, 3, 3, "small_gate.png"),
+    BIG_STONE_GATE_HOUSE("big stone gate", 5, 5, 5, "big_gate.png"),
+
 
     ;
     private String name;
-    private int height;
-    private int length;
-    private int width;
+    private  double height;
+    private  double length;
+    private  double width;
     private String imageAddress;
     private ImageView buildingImage;
 
-    BuildingGraphics(String name, int height, int length, int width, String imageAddress) {
+    BuildingGraphics(String name,  double height,  double length,  double width, String imageAddress) {
         this.name = name;
         this.height = height;
         this.length = length;
@@ -39,15 +43,15 @@ public enum BuildingGraphics {
         return name;
     }
 
-    public int getHeight() {
+    public  double getHeight() {
         return height;
     }
 
-    public int getLength() {
+    public  double getLength() {
         return length;
     }
 
-    public int getWidth() {
+    public  double getWidth() {
         return width;
     }
 
