@@ -53,7 +53,7 @@ public class TestMap2 extends Application {
             polygon.setStroke(Color.WHITE);;
         }
     }
-    int tileSize = 50;
+    int tileSize = 80;
     int tileSizeDelta = 20;
     int satr = 400;
     int sotoon = 400;
@@ -132,10 +132,10 @@ public class TestMap2 extends Application {
 
         BuildingGraphics tower = BuildingGraphics.LOOKOUT_TOWER;
         getHex(tower.getHeight(), 5, 5, tower.getWidth(), tower.getLength(), tower.getImageAddress(), mapPane);
-        getHex(1, 12, 6, 3, 3, "wine.png", mapPane);
-        getHex(2,  9, 15, 3, 3, "Barracks.png", mapPane);
-        getHex(2,  12, 12, 3, 3, "Barracks.png", mapPane);
-        getHex(3, 12, 15, 3, 3, "small_gate.png", mapPane);
+        getHex(1, 12, 6, 3, 3, "stable.jpg", mapPane);
+        getHex(2,  9, 15, 3, 3, "barrack.jpg", mapPane);
+        getHex(2,  12, 12, 3, 3, "barrack.jpg", mapPane);
+        getHex(1, 12, 15, 3, 3, "stable.jpg", mapPane);
         pane.getChildren().add(mapPane);
         Scene gameScene = new Scene(pane);
         stage.setScene(gameScene);

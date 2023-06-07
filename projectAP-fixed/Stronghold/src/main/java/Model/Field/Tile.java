@@ -1,7 +1,7 @@
 package Model.Field;
 
 import Model.Buildings.Building;
-import Model.Buildings.Defending.Enums.Stair;
+import Model.Buildings.Defending.Stair;
 import Model.Buildings.Defending.Enums.WallTypes;
 import Model.Buildings.Defending.Gates;
 import Model.Buildings.Defending.Towers;

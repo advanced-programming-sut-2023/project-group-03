@@ -1,6 +1,6 @@
 package Model.Units.Combat;
 
-import Model.Buildings.Defending.Enums.Stair;
+import Model.Buildings.Defending.Stair;
 import Model.Buildings.Defending.Enums.StairsTypes;
 import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
