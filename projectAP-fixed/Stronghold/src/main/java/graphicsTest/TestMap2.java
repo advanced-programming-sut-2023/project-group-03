@@ -138,7 +138,7 @@ public class TestMap2 extends Application {
         getHex(1, 12, 6, 3, 3, "stable.jpg", mapPane);
         getHex(2,  9, 15, 3, 3, "barrack.jpg", mapPane);
         getHex(2,  12, 12, 3, 3, "barrack.jpg", mapPane);
-        getHex(1.3, 12, 15, 3, 3, "hunter.png", mapPane);
+        getHex(0.66, 12, 15, 1, 1, "food_storage.png", mapPane);
         pane.getChildren().add(mapPane);
         Scene gameScene = new Scene(pane);
         stage.setScene(gameScene);

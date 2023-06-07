@@ -44,6 +44,15 @@ public enum BuildingGraphics {
     BAKERY("bakery", 2, 3, 3, "bakery.png"),
     MILL("mill", 4, 3, 3, "mill1.png"),
     HUNTERS_HUT("hunter's hut", 1.3, 3, 3, "hunter.png"),
+    BOW_MAKER("bow maker", 2, 3, 3, "bow_maker.png"),
+    SWORD_MAKER("sword maker", 2, 3, 3, "sword_maker.png"),
+    SPEAR_MAKER("spear_maker", 2, 3, 3, "spear_maker.png"),
+    PIKE_MAKER("pike_maker", 2, 3, 3, "spear_maker.png"),
+    BREWERY("brewery", 3, 3, 3, "brewery.png"),
+    //inventory
+    STOCKPILE("stockpile", 0, 1, 1, "stockpile.png"),
+    ARMOURY("armoury", 0.66, 1, 1, "armoury.png"),
+    FOOD_STORAGE("food storage", 0.66, 1, 1, "food_storage.png"),
 
 
 
