@@ -41,7 +41,9 @@ public enum BuildingGraphics {
     ORCHARD("apple orchard", 2, 3, 3, "apple_orchard.png"),
     DAIRY_FARM("dairy farm", 2, 3, 3, "dairy_farm.png"),
     WHEAT_FARM("wheat farm", 2, 3, 3, "wheat_farm.png"),
-
+    BAKERY("bakery", 2, 3, 3, "bakery.png"),
+    MILL("mill", 4, 3, 3, "mill1.png"),
+    HUNTERS_HUT("hunter's hut", 1.3, 3, 3, "hunter.png"),
 
 
 

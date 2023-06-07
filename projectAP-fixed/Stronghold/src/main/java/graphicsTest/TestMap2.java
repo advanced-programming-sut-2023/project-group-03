@@ -115,6 +115,9 @@ public class TestMap2 extends Application {
     public void start(Stage stage) throws Exception {
         stage.setHeight(720);
         stage.setWidth(1240);
+//        stage.setResizable(false);
+//        stage.setMaximized(true);
+//        System.out.println(stage.getHeight() + " " + stage.getWidth());
         Pane pane = new Pane();
 //        pane.setStyle("-fx-background-color: #c09d5e;");
         updateAllRecs();
@@ -135,7 +138,7 @@ public class TestMap2 extends Application {
         getHex(1, 12, 6, 3, 3, "stable.jpg", mapPane);
         getHex(2,  9, 15, 3, 3, "barrack.jpg", mapPane);
         getHex(2,  12, 12, 3, 3, "barrack.jpg", mapPane);
-        getHex(2, 12, 15, 3, 3, "wheat_farm.png", mapPane);
+        getHex(1.3, 12, 15, 3, 3, "hunter.png", mapPane);
         pane.getChildren().add(mapPane);
         Scene gameScene = new Scene(pane);
         stage.setScene(gameScene);
