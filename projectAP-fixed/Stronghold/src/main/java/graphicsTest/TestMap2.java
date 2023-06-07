@@ -156,8 +156,9 @@ public class TestMap2 extends Application {
                 -stage.getWidth(), stage.getHeight()
         );
 
-        view.setFill(Color.TRANSPARENT);
-//        mapPane.getChildren().add(view);
+        view.setFill(Color.BLACK);
+        view.setOpacity(0.5);
+        mapPane.getChildren().add(view);//todo
         view.setLayoutY(0);
         view.setLayoutX(0);
 
@@ -180,6 +181,9 @@ public class TestMap2 extends Application {
         gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode().equals(KeyCode.Q)) {
+                    moveCamera(20, 50);
+                }
                 currentTile[0] = 50;
                 currentTile[1] = 50;
                 if (keyEvent.getCode().equals(KeyCode.LEFT)) {
@@ -214,9 +218,12 @@ public class TestMap2 extends Application {
                         currentTile[0]++;
                         updateCamera();
                     }
-                } else if (keyEvent.getCode().equals(KeyCode.CONTROL)) {
+                }
+                if (keyEvent.getCode().equals(KeyCode.CONTROL)) {
                     isCtrlPressed = true;
-                } else if (keyEvent.getCode().equals(KeyCode.MINUS) && isCtrlPressed) {
+                }
+
+                if (keyEvent.getCode().equals(KeyCode.MINUS) && isCtrlPressed) {
                     changeZoom(false);
                 } else if (keyEvent.getCode().equals(KeyCode.EQUALS) && isCtrlPressed) {
                     changeZoom(true);
@@ -269,7 +276,7 @@ public class TestMap2 extends Application {
                 thing.setOpacity(0.8);
                 thing.setFill(imagePattern);
                 allRecs[i][j] = thing;
-                if (i == 2 && j == 4) thing.setFill(Color.GREEN);
+                if (i == 2 && j == 4 || i == 20 && j == 50) thing.setFill(Color.GREEN);
                 if (i == satr / 2 && j == sotoon / 2) thing.setFill(Color.GREEN);
                 thing.setStroke(Color.GREEN);
 //                mapPane.getChildren().add(thing);
@@ -294,6 +301,14 @@ public class TestMap2 extends Application {
         for (BuildingGraphic building : buildings) {
             building.updatePolygon();
         }
+        updateCamera();
+    }
+
+    public void moveCamera(int row, int col) {
+        view.setLayoutY(allRecs[row][col].getPoints().get(1));
+        mapPane.setLayoutY(-allRecs[row][col].getPoints().get(1));
+        view.setLayoutX(allRecs[row][col].getPoints().get(0));
+        mapPane.setLayoutX(-allRecs[row][col].getPoints().get(0));
         updateCamera();
     }
 }
