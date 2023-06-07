@@ -21,19 +21,20 @@ public enum BuildingGraphics {
     BARRACK("barrack", 2 * 5f / 3, 5, 5, "barrack.jpg"),
     ENGINEER_GUILD("engineer_guild", 2 * 5f / 3, 5, 5, "engineer_guild.jpg"),
     MERCENARY_POST("mercenary_post", 0.8, 5, 5, "mercenary_post.png"),
-    TUNNELER_GUILD("tunneler guild", 2 * 5f / 3, 5, 5, "tunneller_guild.png"),
+    TUNNELER_GUILD("tunneler guild", 2.5, 5, 5, "tunneller_guild.png"),
     //rest
     STABLE("stable", 1, RestTypes.STABLE.getSize(), RestTypes.STABLE.getSize(), "stable.jpg"),
-    HOVEL("hovel", 1, RestTypes.HOVEL.getSize(), RestTypes.HOVEL.getSize(), "hovel.png"),
+    HOVEL("hovel", 1, RestTypes.HOVEL.getSize(), RestTypes.HOVEL.getSize(), "hovel.jpg"),
     OX_TETHER("ox tether", 1, RestTypes.OX_TETHER.getSize(), RestTypes.OX_TETHER.getSize(), "ox_tether.png"),
     //store
     STORE("store", 1.7, 3, 3, "store.jpg"),
     //generators
     CHURCH("church", 1.4, 3, 3, "church.png"),
     CATHEDRAL("cathedral", 2, 3, 3, "cathedral.png"),
-    INN("inn", 1, 3, 3, "stable.jpg"),
+    INN("inn", 1, 3, 3, "stable.jpg"),//todo
     IRON_MINE("iron mine", 1, 3, 3, "iron_mine.png"),
     PITCH_RIG("pitch rig", 1, 3, 3, "pitch_rig.png"),
+
 
 
 
