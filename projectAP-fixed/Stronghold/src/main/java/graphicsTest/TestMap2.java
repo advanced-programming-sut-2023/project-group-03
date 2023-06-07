@@ -1,6 +1,7 @@
 package graphicsTest;
 
 import Model.Buildings.Building;
+import Model.Buildings.Enums.BuildingGraphics;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -40,14 +41,14 @@ public class TestMap2 extends Application {
 
         public void updatePolygon (){
             this.polygon = new Polygon(
-                    ((double)(row+ iSize - col)) / iDivider * tileSize, ((double)(row + iSize + col)) / jDivider * tileSize,
+                    ((double)(row + iSize - col)) / iDivider * tileSize, ((double)(row + iSize + col)) / jDivider * tileSize,
                     ((double)(row - col + iSize - jSize)) / iDivider * tileSize, ((double)(row + col + iSize + jSize)) / jDivider * tileSize,
                     ((double)(row - col - jSize)) / iDivider * tileSize, ((double)(row + col + jSize)) / jDivider * tileSize,
                     ((double)(row - col - jSize)) / iDivider * tileSize, ((double)(row + col + jSize)) / jDivider * tileSize - height * tileSize,
                     ((double)(row - col)) / iDivider * tileSize, ((double)(row + col)) / jDivider * tileSize - height * tileSize,
                     ((double)(row + iSize - col)) / iDivider * tileSize, ((double)(row + iSize + col)) / jDivider * tileSize - height * tileSize
             );
-            polygon.setFill(new ImagePattern(new Image(TestMap2.class.getResource("/images/" + image).toExternalForm())
+            polygon.setFill(new ImagePattern(new Image(TestMap2.class.getResource("/images/buildings/" + image).toExternalForm())
                     , 0, 0, 1, 1, true));
             polygon.setStroke(Color.WHITE);;
         }
@@ -83,7 +84,7 @@ public class TestMap2 extends Application {
                 ((double)(i - j)) / iDivider * tileSize, ((double)(i + j)) / jDivider * tileSize - height * tileSize,
                 ((double)(i + iSize - j)) / iDivider * tileSize, ((double)(i + iSize + j)) / jDivider * tileSize - height * tileSize
                 );
-        thing.setFill(new ImagePattern(new Image(TestMap2.class.getResource("/images/" + image).toExternalForm())
+        thing.setFill(new ImagePattern(new Image(TestMap2.class.getResource("/images/buildings/" + image).toExternalForm())
         , 0, 0, 1, 1, true));
         thing.setStroke(Color.WHITE);
 //        thing.setFill(Color.BROWN);
@@ -129,12 +130,12 @@ public class TestMap2 extends Application {
         }
 
 
-
-        getHex(4, 5, 5, 1, 1, "tower1.png", mapPane);
+        BuildingGraphics tower = BuildingGraphics.LOOKOUT_TOWER;
+        getHex(tower.getHeight(), 5, 5, tower.getWidth(), tower.getLength(), tower.getImageAddress(), mapPane);
         getHex(1, 12, 6, 3, 3, "wine.png", mapPane);
         getHex(2,  9, 15, 3, 3, "Barracks.png", mapPane);
         getHex(2,  12, 12, 3, 3, "Barracks.png", mapPane);
-        getHex(2, 12, 15, 3, 3, "Barracks.png", mapPane);
+        getHex(2, 12, 15, 3, 3, "square_tower.jpg", mapPane);
         pane.getChildren().add(mapPane);
         Scene gameScene = new Scene(pane);
         stage.setScene(gameScene);
@@ -156,7 +157,7 @@ public class TestMap2 extends Application {
                 -stage.getWidth(), stage.getHeight()
         );
 
-        view.setFill(Color.BLACK);
+        view.setFill(Color.TRANSPARENT);
         view.setOpacity(0.5);
         mapPane.getChildren().add(view);//todo
         view.setLayoutY(0);
