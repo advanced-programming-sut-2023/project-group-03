@@ -31,9 +31,17 @@ public enum BuildingGraphics {
     //generators
     CHURCH("church", 1.4, 3, 3, "church.png"),
     CATHEDRAL("cathedral", 2, 3, 3, "cathedral.png"),
-    INN("inn", 1, 3, 3, "stable.jpg"),//todo
+    INN("inn", 2, 3, 3, "inn.png"),
     IRON_MINE("iron mine", 1, 3, 3, "iron_mine.png"),
     PITCH_RIG("pitch rig", 1, 3, 3, "pitch_rig.png"),
+    STONE_MINE("stone mine", 2, 3, 3, "quarry.png"),
+    WOODCUTTER("woodcutter", 1, 3, 3, "woodCutter.png"),
+    ARMOURER("armourer", 2, 3, 3, "armourer.png"),
+    TANNER("tanner", 2, 3, 3, "tanner.png"),
+    ORCHARD("apple orchard", 2, 3, 3, "apple_orchard.png"),
+    DAIRY_FARM("dairy farm", 2, 3, 3, "dairy_farm.png"),
+    WHEAT_FARM("wheat farm", 2, 3, 3, "wheat_farm.png"),
+
 
 
 
@@ -46,7 +54,7 @@ public enum BuildingGraphics {
     private  double length;
     private  double width;
     private String imageAddress;
-    private ImageView buildingImage;
+    private Image buildingImage;
 
     BuildingGraphics(String name,  double height,  double length,  double width, String imageAddress) {
         this.name = name;
@@ -54,9 +62,9 @@ public enum BuildingGraphics {
         this.length = length;
         this.width = width;
         this.imageAddress = imageAddress;
-        buildingImage = new ImageView(new Image(
+        buildingImage = new Image(
                 Tile.class.getResource("/images/buildings/" + imageAddress).toExternalForm()
-        ));
+        );
     }
 
     public BuildingGraphics getBuildingByName(String name) {
@@ -86,7 +94,7 @@ public enum BuildingGraphics {
         return imageAddress;
     }
 
-    public ImageView getBuildingImage() {
+    public Image getBuildingImage() {
         return buildingImage;
     }
 }
