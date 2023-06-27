@@ -3,10 +3,7 @@ package Model.Buildings;
 import Model.Buildings.Defending.Gates;
 import Model.Buildings.Defending.Towers;
 import Model.Buildings.Defending.Wall;
-import Model.Buildings.Enums.BarracksType;
-import Model.Buildings.Enums.InventoryTypes;
-import Model.Buildings.Enums.ResourceTypes;
-import Model.Buildings.Enums.Resources;
+import Model.Buildings.Enums.*;
 import Model.Field.GameMap;
 import Model.Field.Texture;
 import Model.Field.Tile;
@@ -22,6 +19,7 @@ public abstract class Building extends Drawable {
     protected int stoneCost;
     protected int woodCost;
     protected int goldCost;
+    protected BuildingGraphics buildingShape;
 
     public void setName(String name) {
         this.name = name;
@@ -31,6 +29,9 @@ public abstract class Building extends Drawable {
 
     public Building(Player owner, Tile position, int size, String name) {
         super(owner, position, name);
+        buildingShape = BuildingGraphics.getBuildingByName(name);
+        if (buildingShape == null) System.out.println("there was a problem in getting buildingGraphics for " + name);
+
         Building.size = size;
 
         GameMap gameMap = Tile.getGameMap();
@@ -51,6 +52,10 @@ public abstract class Building extends Drawable {
         owner.decreaseGold(goldCost);
         owner.decreaseInventory(Resources.WOOD, woodCost);
         owner.decreaseInventory(Resources.STONE, stoneCost);
+    }
+
+    public BuildingGraphics getBuildingShape() {
+        return buildingShape;
     }
 
     public static HashSet<Texture> getTextures() {

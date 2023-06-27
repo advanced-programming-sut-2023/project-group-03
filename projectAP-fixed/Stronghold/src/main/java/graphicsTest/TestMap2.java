@@ -2,18 +2,23 @@ package graphicsTest;
 
 import Model.Buildings.Enums.BuildingGraphics;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -55,22 +60,22 @@ public class TestMap2 extends Application {
     }
     int tileSize = 80;
     int tileSizeDelta = 20;
-    int satr = 400;
-    int sotoon = 400;
-    int halfSatr = satr / 2;
-    int halfSotoon = sotoon / 2;
+    int rowSize = 125;
+    int colSize = 125;
+    int halfSatr = rowSize / 2;
+    int halfSotoon = colSize / 2;
     double iDivider = 2;
     double jDivider = 3.5;
     int[] currentTile = {0, 0};
     double verticalCameraMove = 2 / jDivider * tileSize;
     double horizontalCameraMove = 2 / iDivider * tileSize;
-    int cameraRow = 60;
-    int cameraCol = 60;
+    int cameraRowSize = 60;
+    int cameraColSize = 60;
     boolean isCtrlPressed = false;
-    ImagePattern imagePattern = new ImagePattern(new Image(TestMap2.class.getResource("/images/Plain1.jpg").toExternalForm()));
+    ImagePattern imagePattern = new ImagePattern(new Image(TestMap2.class.getResource("/images/tiles/ground.jpg").toExternalForm()));
 
     HashSet<Polygon> currentTiles = new HashSet<>();
-    Polygon[][] allRecs = new Polygon[satr][sotoon];
+    Polygon[][] allRecs = new Polygon[rowSize][colSize];
     ArrayList<BuildingShape> buildings = new ArrayList<>();
     Polygon view;
     Pane mapPane = new Pane();
@@ -122,8 +127,8 @@ public class TestMap2 extends Application {
 //        pane.setStyle("-fx-background-color: #c09d5e;");
         updateAllRecs();
 
-        for (int x = currentTile[0]; x < currentTile[0] + cameraRow; x++) {
-            for (int y = currentTile[1]; y < currentTile[1] + cameraCol; y++) {
+        for (int x = currentTile[0]; x < currentTile[0] + cameraRowSize; x++) {
+            for (int y = currentTile[1]; y < currentTile[1] + cameraColSize; y++) {
                 currentTiles.add(allRecs[x][y]);
             }
         }
@@ -191,7 +196,7 @@ public class TestMap2 extends Application {
                 currentTile[0] = 50;
                 currentTile[1] = 50;
                 if (keyEvent.getCode().equals(KeyCode.LEFT)) {
-                    if (currentTile[0] > 0 && currentTile[1] < sotoon - cameraCol / 2) {
+                    if (currentTile[0] > 0 && currentTile[1] < colSize - cameraColSize / 2) {
                         mapPane.setLayoutX(mapPane.getLayoutX() + horizontalCameraMove);
                         view.setLayoutX(view.getLayoutX() - horizontalCameraMove);
                         currentTile[1]++;
@@ -199,7 +204,7 @@ public class TestMap2 extends Application {
                         updateCamera();
                     }
                 } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
-                    if (currentTile[0] < satr - cameraRow / 2 && currentTile[1] > 0) {
+                    if (currentTile[0] < rowSize - cameraRowSize / 2 && currentTile[1] > 0) {
                         mapPane.setLayoutX(mapPane.getLayoutX() - horizontalCameraMove);
                         view.setLayoutX(view.getLayoutX() + horizontalCameraMove);
                         currentTile[1]--;
@@ -215,7 +220,7 @@ public class TestMap2 extends Application {
                         updateCamera();
                     }
                 } else if (keyEvent.getCode().equals(KeyCode.DOWN)) {
-                    if (currentTile[0] < satr - cameraRow / 2 && currentTile[1] < sotoon - cameraCol / 2) {
+                    if (currentTile[0] < rowSize - cameraRowSize / 2 && currentTile[1] < colSize - cameraColSize / 2) {
                         mapPane.setLayoutY(mapPane.getLayoutY() - verticalCameraMove);
                         view.setLayoutY(view.getLayoutY() + verticalCameraMove);
                         currentTile[1]++;
@@ -241,8 +246,8 @@ public class TestMap2 extends Application {
             mapPane.getChildren().remove(polygon);
         }
         currentTiles.clear();
-        for (int x = 0; x < satr; x++) {
-            for (int y = 0; y < sotoon; y++) {
+        for (int x = 0; x < rowSize; x++) {
+            for (int y = 0; y < colSize; y++) {
                 Polygon polygon = allRecs[x][y];
                 if (polygon.getBoundsInParent().intersects(view.getBoundsInParent())) {
                     mapPane.getChildren().add(polygon);
@@ -269,8 +274,8 @@ public class TestMap2 extends Application {
     }
 
     private void updateAllRecs() {
-        for (int i = 0; i < satr; i++) {
-            for (int j = 0; j < sotoon; j++) {
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
                 Polygon thing = new Polygon(
                         ((double)(i + 1 - j)) / iDivider * tileSize, ((double)(i + 1 + j)) / jDivider * tileSize,
                         ((double)(i - j)) / iDivider * tileSize, ((double)(i + j)) / jDivider * tileSize,
@@ -280,10 +285,35 @@ public class TestMap2 extends Application {
                 thing.setOpacity(0.8);
                 thing.setFill(imagePattern);
                 allRecs[i][j] = thing;
-                if (i == 2 && j == 4 || i == 20 && j == 50) thing.setFill(Color.GREEN);
-                if (i == satr / 2 && j == sotoon / 2) thing.setFill(Color.GREEN);
+                if (i == 2 && j == 4 || i == 20 && j == 50) {
+                    thing.setFill(Color.RED);
+                    thing.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            VBox tempBox = new VBox();
+                            tempBox.getChildren().add(new Button("hello"));
+                            tempBox.getChildren().add(new Label("darn it"));
+                            tempBox.setLayoutX(thing.getPoints().get(2));
+                            tempBox.setLayoutY(thing.getPoints().get(3));
+                            mapPane.getChildren().add(tempBox);
+                            System.out.println("you are in");
+                        }
+                        else if (!newValue && oldValue) System.out.println("We got out!");
+                    });
+                    thing.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            thing.setStroke(Color.BLUE);
+                        }
+                    });
+                    thing.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            thing.setStroke(Color.RED);
+                        }
+                    });
+                }
+                if (i == rowSize / 2 && j == colSize / 2) thing.setFill(Color.GREEN);
                 thing.setStroke(Color.GREEN);
-//                mapPane.getChildren().add(thing);
             }
         }
     }
@@ -298,7 +328,7 @@ public class TestMap2 extends Application {
 //        }
         mapPane.getChildren().clear();
 //        currentTiles.clear();
-        allRecs = new Polygon[satr][sotoon];
+        allRecs = new Polygon[rowSize][colSize];
         updateAllRecs();
         verticalCameraMove = 2 / jDivider * tileSize;
         horizontalCameraMove = 2 / iDivider * tileSize;
