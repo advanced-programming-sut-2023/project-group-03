@@ -45,7 +45,9 @@ public enum GameMenuCommands {
     TRADE_LIST("trade list"),
     TRADE_HISTORY("trade history"),
     BUILD_STAIR("build stair (?<stairInfo>.+)"),
-    BUILD_OX_TETHER("build tether (?<buildingInfo>.+)")
+    BUILD_OX_TETHER("build tether (?<buildingInfo>.+)"),
+    //phase2
+    SELECT_TILE("select tile (?<tilesCoordinates>.+)"),
     ;
 
     String regex;

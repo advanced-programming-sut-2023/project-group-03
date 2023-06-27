@@ -662,4 +662,28 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             unit.setCurrentTarget(unit.getOwner().getKeep().getPosition());
         }
     }
+
+    //phase2
+    public void selectUnitMultipleTiles(ArrayList<Tile> tiles, HashMap<String, Integer> unitsAmount, Player player, GameMenu gameMenu) {
+        gameMenu.setSelected(null);
+        ArrayList<Unit> selectedUnits = gameMenu.getSelectedUnits();
+        selectedUnits = new ArrayList<>();
+        for (String unitName : unitsAmount.keySet()) {
+            int amount = unitsAmount.get(unitName);
+            int tileIndex = 0;
+            while (amount > 0) {
+                Tile tile = tiles.get(tileIndex++);
+                ArrayList<Unit> properUnits = new ArrayList<>();
+                for (Unit unit : tile.getUnits()) {
+                    if (unit.getName().equals(unitName) && unit.getOwner().equals(player)) properUnits.add(unit);
+                }
+
+                int amountCopy = amount;
+                for (int i = 0; i < Math.min(properUnits.size(), amountCopy); i++) {
+                    selectedUnits.add(properUnits.get(i));
+                    amount--;
+                }
+            }
+        }
+    }
 }

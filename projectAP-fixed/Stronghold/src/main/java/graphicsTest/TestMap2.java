@@ -2,15 +2,13 @@ package graphicsTest;
 
 import Model.Buildings.Enums.BuildingGraphics;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.ObjectProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,7 +16,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -79,6 +76,11 @@ public class TestMap2 extends Application {
     ArrayList<BuildingShape> buildings = new ArrayList<>();
     Polygon view;
     Pane mapPane = new Pane();
+    double dragXStart;
+    double dragXFinish;
+    double dragYStart;
+    double dragYFinish;
+    boolean isDragging;
 
     public Polygon getHex(double height, int i, int j, double iSize, double jSize, String image, Pane pane) {
         Polygon thing = new Polygon(
@@ -171,6 +173,18 @@ public class TestMap2 extends Application {
         view.setLayoutY(0);
         view.setLayoutX(0);
 
+        //test unit movement
+        Image image1 = new Image(TestMap3.class.getResource("/images/troops/Humans/soldier/walk/down/anim1.png").toExternalForm());
+        Image image2 = new Image(TestMap3.class.getResource("/images/troops/Humans/soldier/walk/down/anim4.png").toExternalForm());
+        UnitMovementTemp unitAnimation = new UnitMovementTemp(allRecs[2][4].getPoints().get(2), allRecs[2][4].getPoints().get(3)
+                , 10000, image1, image2);
+        unitAnimation.shape.setLayoutX(allRecs[0][0].getPoints().get(2));
+        unitAnimation.shape.setLayoutY(allRecs[0][0].getPoints().get(3));
+
+        mapPane.getChildren().add(unitAnimation.shape);
+        unitAnimation.startAnimations();
+        //test unit movement
+
         double x1 = view.getPoints().get(0);
         double y1 = view.getPoints().get(1);
         mapPane.setLayoutX(x1);
@@ -180,10 +194,58 @@ public class TestMap2 extends Application {
         mapPane.setLayoutY(0);
         stage.show();
 
+
+        mapPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (!isDragging) {
+                    dragXStart = event.getX();
+                    dragYStart = event.getY();
+                    isDragging = true;
+                }
+            }
+        });
+
+//        mapPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                if (!isDragging) {
+//                    dragXStart = event.getX();
+//                    dragYStart = event.getY();
+//                }
+//                isDragging = true;
+//                System.out.println(dragXStart);
+//                System.out.println(dragYStart);
+//            }
+//        });
+//
+        mapPane.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (isDragging) {
+                    isDragging = false;
+                    dragXFinish = event.getX();
+                    dragYFinish = event.getY();
+                    Polygon dragRect = new Polygon(dragXStart, dragYStart, dragXStart, dragYFinish, dragXFinish, dragYFinish, dragXFinish, dragYStart);
+                    mapPane.getChildren().add(dragRect);
+                    dragRect.setFill(Color.BLACK);
+                    for (Polygon tile : currentTiles) {
+                        if (tile.getBoundsInParent().intersects(dragRect.getBoundsInParent())) {
+                            tile.setFill(Color.GREEN);
+                        }
+                    }
+
+                }
+            }
+        });
         gameScene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode().equals(KeyCode.CONTROL)) isCtrlPressed = false;
+                if (keyEvent.getCode().equals(KeyCode.CONTROL)) {
+                    isCtrlPressed = false;
+                    addAllBuildings();
+                }
+
             }
         });
 
@@ -230,6 +292,7 @@ public class TestMap2 extends Application {
                 }
                 if (keyEvent.getCode().equals(KeyCode.CONTROL)) {
                     isCtrlPressed = true;
+                    removeBuildings();
                 }
 
                 if (keyEvent.getCode().equals(KeyCode.MINUS) && isCtrlPressed) {
@@ -290,14 +353,18 @@ public class TestMap2 extends Application {
                     thing.hoverProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
                             VBox tempBox = new VBox();
+                            tempBox.setStyle("-fx-background-color: white;");
                             tempBox.getChildren().add(new Button("hello"));
                             tempBox.getChildren().add(new Label("darn it"));
-                            tempBox.setLayoutX(thing.getPoints().get(2));
-                            tempBox.setLayoutY(thing.getPoints().get(3));
+                            tempBox.setLayoutX(thing.getPoints().get(0) / 2 + thing.getPoints().get(4) / 2);
+                            tempBox.setLayoutY(thing.getPoints().get(3) / 2 + thing.getPoints().get(7) / 2);
                             mapPane.getChildren().add(tempBox);
+                            tempBox.hoverProperty().addListener(((observable1, oldValue1, newValue1) -> {
+                                if (!newValue1 && oldValue1) mapPane.getChildren().remove(tempBox);
+                            }));
                             System.out.println("you are in");
                         }
-                        else if (!newValue && oldValue) System.out.println("We got out!");
+                        else if (oldValue) System.out.println("We got out!");
                     });
                     thing.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
@@ -344,5 +411,17 @@ public class TestMap2 extends Application {
         view.setLayoutX(allRecs[row][col].getPoints().get(0));
         mapPane.setLayoutX(-allRecs[row][col].getPoints().get(0));
         updateCamera();
+    }
+
+    public void removeBuildings() {
+        for (BuildingShape buildingShape : buildings) {
+            mapPane.getChildren().remove(buildingShape.polygon);
+        }
+    }
+
+    public void addAllBuildings() {
+        for (BuildingShape buildingShape : buildings) {
+            if (!mapPane.getChildren().contains(buildingShape.polygon)) mapPane.getChildren().add(buildingShape.polygon);
+        }
     }
 }

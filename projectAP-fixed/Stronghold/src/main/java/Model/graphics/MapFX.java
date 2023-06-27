@@ -1,8 +1,10 @@
 package Model.graphics;
 
 import Model.Buildings.Building;
+import Model.Buildings.Enums.BuildingGraphics;
 import Model.Buildings.Enums.TileGraphics;
 import Model.Field.GameMap;
+import Model.Units.Unit;
 import graphicsTest.TestMap2;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -11,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -25,17 +28,14 @@ public class MapFX {
         double jSize;
         String image;
         Polygon polygon;
-        Pane mapPane;
 
-
-        public BuildingShape(Building building, Pane mapPane) {
+        public BuildingShape(Building building) {
             this.row = building.getPosition().getRowNum();
             this.col = building.getPosition().getColumnNum();
             this.height = building.getBuildingShape().getHeight();
             this.iSize = building.getBuildingShape().getWidth();
             this.jSize = building.getBuildingShape().getLength();
             this.image = building.getBuildingShape().getImageAddress();
-            this.mapPane = mapPane;
             this.polygon = getHex(height, row, col, iSize, jSize, building.getBuildingShape().getBuildingImage());
         }
 
@@ -52,6 +52,22 @@ public class MapFX {
                     , 0, 0, 1, 1, true));
             polygon.setStroke(Color.WHITE);;
         }
+    }
+
+    public class UnitShape {
+        int row;
+        int col;
+        int height = 40;
+        int width = 20;
+        Rectangle shape = new Rectangle(20, 40);
+        Unit unit;
+        public UnitShape(Unit unit) {
+            row = unit.getPosition().getRowNum();
+            col = unit.getPosition().getColumnNum();
+            shape.setX(tilesCenters[row][col][0]);
+            shape.setY(tilesCenters[row][col][1]);
+        }
+
     }
 
     public Polygon getHex(double height, int i, int j, double iSize, double jSize, Image image) {
@@ -89,7 +105,9 @@ public class MapFX {
     private HashSet<Polygon> currentTiles = new HashSet<>();
     private Pane mapPane;
     private Polygon[][] allRecs = new Polygon[rowSize][colSize];
+    private double[][][] tilesCenters;
     ArrayList<BuildingShape> buildings = new ArrayList<>();
+    ArrayList<UnitShape> units = new ArrayList<>();
 
     public MapFX(int size, Pane mapPane, Stage stage) {
         this.rowSize = size;
@@ -105,6 +123,11 @@ public class MapFX {
         mapPane.getChildren().add(view);//todo
         view.setLayoutY(0);
         view.setLayoutX(0);
+        tilesCenters = new double[size][size][2];
+    }
+
+    public double[][][] getTilesCenters() {
+        return tilesCenters;
     }
 
     private void updateCamera() {
@@ -120,6 +143,11 @@ public class MapFX {
                     currentTiles.add(polygon);
                 }
             }
+        }
+        for (UnitShape unit : units) {
+            Rectangle shape = unit.shape;
+            mapPane.getChildren().remove(shape);
+            mapPane.getChildren().add(shape);
         }
         for (BuildingShape building : buildings) {
             Polygon polygon = building.polygon;
@@ -165,6 +193,10 @@ public class MapFX {
                         ((double)(i - j - 1)) / iDivider * tileSize, ((double)(i + j + 1)) / jDivider * tileSize,
                         ((double)(i - j)) / iDivider * tileSize, ((double)(i + j + 2)) / jDivider * tileSize
                 );
+                //update tilesCenters
+                tilesCenters[i][j][0] = tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2;
+                tilesCenters[i][j][1] = tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2;
+
                 Image tileImage = TileGraphics.getTileGraphicByName(gameMap.getMap()[i][j].getTexture().getName()).getTileImage();
                 tileShape.setFill(new ImagePattern(tileImage));
                 tileShape.setOpacity(0.8);
@@ -192,6 +224,18 @@ public class MapFX {
             mapPane.setLayoutY(mapPane.getLayoutY() - verticalCameraMove);
             view.setLayoutY(view.getLayoutY() + verticalCameraMove);
             updateCamera();
+        }
+    }
+
+    public void removeBuildings() {
+        for (BuildingShape buildingShape : buildings) {
+            mapPane.getChildren().remove(buildingShape.polygon);
+        }
+    }
+
+    public void addAllBuildings() {
+        for (BuildingShape buildingShape : buildings) {
+            mapPane.getChildren().add(buildingShape.polygon);
         }
     }
 
