@@ -151,8 +151,6 @@ public class TestMap2 extends Application {
 //        System.out.println(stage.getHeight() + " " + stage.getWidth());
         Pane pane = new Pane();
 
-<<<<<<< HEAD
-=======
         //camera setup
         view = new Polygon(
                 -stage.getWidth(), 0f,
@@ -166,7 +164,6 @@ public class TestMap2 extends Application {
         view.setLayoutY(0);
         view.setLayoutX(0);
 
->>>>>>> phase2GraphicsAli
         //setup allRecs
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
@@ -433,10 +430,6 @@ public class TestMap2 extends Application {
                 allRecs[i][j] = new TileShape(null);
             }
         }
-<<<<<<< HEAD
-        updateAllRecs();
-=======
->>>>>>> phase2GraphicsAli
         verticalCameraMove = 2 / jDivider * tileSize;
         horizontalCameraMove = 2 / iDivider * tileSize;
         for (BuildingShape building : buildings) {

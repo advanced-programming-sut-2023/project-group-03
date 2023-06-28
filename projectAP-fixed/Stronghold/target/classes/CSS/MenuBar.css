@@ -1,0 +1,16 @@
+.EndingPane {
+    -fx-background-image: url(../images/menu/lower2.png);
+}
+.upperMenu {
+    -fx-background-image: url(../images/menu/upper.png);
+}
+.lowerMenu {
+    -fx-fill: url(../images/menu/lower2.png);
+}
+.upperMenu2 {
+    -fx-fill: url(../images/menu/upper.png);
+
+}
+.lowerBoardInf{
+    -fx-fill: url(../images/menu/letter.png);
+}
