@@ -9,7 +9,11 @@ import Model.Units.Combat.Troop;
 import Model.Units.Enums.TroopTypes;
 import Model.User;
 import Model.UserDatabase;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import view.Enums.ConsoleColors;
+import view.Game.Phase2Test.GameGraphic;
+import view.Game.Phase2Test.GameThread;
 import view.Menu;
 import view.Transition;
 
@@ -22,6 +26,12 @@ import static view.Enums.ConsoleColors.colorPrint;
 public class SetGameMenu extends Menu {
     User user = null;
     Game game;
+    Stage stage;
+    public SetGameMenu(Scanner scanner, User user, Stage stage) {
+        super(scanner);
+        this.user = user;
+        this.stage = stage;
+    }
     public SetGameMenu(Scanner scanner, User user) {
         super(scanner);
         this.user = user;
@@ -49,6 +59,20 @@ public class SetGameMenu extends Menu {
         setResourses(3500);
         GameMenu gameMenu = new GameMenu(scanner, game);
         gameMenu.setUser(user);
+        //todo
+        if (stage != null) {
+            Platform.runLater(() -> {
+                GameGraphic gameGraphic = new GameGraphic(gameMenu.getGame().getMap(), gameMenu.getGame().getMap().getSize());
+                try {
+                    gameGraphic.start(stage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+            });
+//            GameThread gameThread = new GameThread(gameMenu);
+//            gameThread.start();
+        }
         throw new Transition(gameMenu);
     }
 

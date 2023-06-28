@@ -4,16 +4,26 @@ import Model.Field.GameMap;
 import Model.User;
 import Model.UserDatabase;
 import controller.gameControllers.MapController;
-import view.Enums.GameMenuCommands;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import view.Game.Phase2Test.GameGraphic;
 import view.Game.Phase2Test.GameThread;
 import view.Game.SetGameMenu;
-import view.StartingMenu;
 
 import java.io.File;
 import java.util.Scanner;
 
-public class Main2 {
+public class MainAliP2 extends Application {
     public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setScene(new Scene(new Pane()));
+        primaryStage.show();
         final File mapFolder = new File("src/main/resources/maps");
         for (File file : mapFolder.listFiles()) {
             GameMap map = MapController.loadbufferMap(file);
@@ -24,7 +34,9 @@ public class Main2 {
         User user2 = new User("firstUser", "2", "mehran", "adf", "ammat");
         UserDatabase.addUser(user1);
         UserDatabase.addUser(user2);
-        SetGameMenu Menu = new SetGameMenu((new Scanner(System.in)),user1);
-        Menu.RunHandler();
+        SetGameMenu Menu = new SetGameMenu((new Scanner(System.in)),user1, primaryStage);
+//        Menu.RunHandler();
+        GameThread gameThread = new GameThread(Menu);
+        gameThread.start();
     }
 }

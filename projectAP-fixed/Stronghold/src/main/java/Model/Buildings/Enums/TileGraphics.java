@@ -4,15 +4,15 @@ import javafx.scene.image.Image;
 
 public enum TileGraphics {
     GROUND("ground", "ground.jpg"),
-    PEBBLE("pebble", "ground.jpg"),
-    STONE_SLAB("stone slab", "ground.jpg"),
-    STONE("stone", "ground.jpg"),
-    IRON("iron", "ground.jpg"),
-    GRASS("grass", "ground.jpg"),
-    GRASSLAND("grassland", "ground.jpg"),
-    DENSE_GRASSLAND("dense grassland", "ground.jpg"),
-    WATER("water", "ground.jpg"),
-    OIL("oil", "ground.jpg"),
+    PEBBLE("pebble", "pebble.png"),
+    STONE_SLAB("stone slab", "stone.png"),//added, can be better
+    STONE("stone", "stone.png"),
+    IRON("iron", "iron.png"),
+    GRASS("grass", "grass.jpg"),
+    GRASSLAND("grassland", "grass.jpg"),//added, can be better
+    DENSE_GRASSLAND("dense grassland", "grass.jpg"),//added, can be better
+    WATER("water", "sea.jpg"),
+    OIL("oil", "oil.png"),
 
     ;
     private String name;

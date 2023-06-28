@@ -7,10 +7,13 @@ import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.Units.Unit;
 import graphicsTest.TestMap2;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
@@ -56,17 +59,18 @@ public class MapFX {
     }
 
     public class UnitShape {
-        int row;
-        int col;
         int height = 40;
         int width = 20;
         Rectangle shape = new Rectangle(20, 40);
         Unit unit;
         public UnitShape(Unit unit) {
-            row = unit.getPosition().getRowNum();
-            col = unit.getPosition().getColumnNum();
-            shape.setX(tilesCenters[row][col][0]);
-            shape.setY(tilesCenters[row][col][1]);
+            shape.setX(tilesCenters[unit.getPosition().getRowNum()][unit.getPosition().getColumnNum()][0]);
+            shape.setY(tilesCenters[unit.getPosition().getRowNum()][unit.getPosition().getColumnNum()][1]);
+        }
+
+        public void updateShape() {
+            shape.setX(tilesCenters[unit.getPosition().getRowNum()][unit.getPosition().getColumnNum()][0]);
+            shape.setY(tilesCenters[unit.getPosition().getRowNum()][unit.getPosition().getColumnNum()][1]);
         }
 
     }
@@ -102,9 +106,9 @@ public class MapFX {
 
     private int rowSize;
     private int colSize;
-    private int iDivider;
-    private int jDivider;
-    private int tileSize;
+    private double iDivider = 2;
+    private double jDivider = 3.5;
+    private int tileSize = 80;
     private int tileSizeDelta;
     private int cameraRowSize = 60;
     private int cameraColSize = 60;
@@ -123,25 +127,44 @@ public class MapFX {
         this.rowSize = size;
         this.colSize = size;
         this.mapPane = mapPane;
+        this.gameMap = gameMap;
+
+        //setup camera
         view = new Polygon(
                 -stage.getWidth(), 0f,
                 stage.getWidth(), 0f,
                 stage.getWidth(), stage.getHeight(),
                 -stage.getWidth(), stage.getHeight()
         );
+        System.out.println(view.getPoints());
         view.setFill(Color.TRANSPARENT);
         mapPane.getChildren().add(view);//todo
+
         view.setLayoutY(0);
         view.setLayoutX(0);
+
+        double x1 = view.getPoints().get(0);
+        double y1 = view.getPoints().get(1);
+        mapPane.setLayoutX(x1);
+        mapPane.setLayoutY(-y1);
+        mapPane.setLayoutX(stage.getWidth() / 2);
+        mapPane.setLayoutY(0);
+
+        //centers
         tilesCenters = new double[size][size][2];
 
         //setup allRecs
+        allRecs = new TileShape[size][size];
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
                 allRecs[i][j] = new TileShape(gameMap.getMap()[i][j]);
             }
         }
         updateAllRecs();
+//        mapPane = new VBox();
+//        mapPane.getChildren().add(new Button("you were in mapfx"));
+//        stage.setScene(new Scene(mapPane));
+//        mapPane.setStyle("-fx-background-color: black;");
     }
 
     public double[][][] getTilesCenters() {
@@ -186,7 +209,6 @@ public class MapFX {
                 allRecs[i][j] = new TileShape(null);
             }
         }
-        updateAllRecs();
 
         verticalCameraMove = (double) 2 / jDivider * tileSize;
         horizontalCameraMove = (double) 2 / iDivider * tileSize;
@@ -195,7 +217,12 @@ public class MapFX {
             building.updatePolygon();
         }
 
-        updateCamera();
+        //todo for units
+        for (UnitShape unitShape : units) {
+            unitShape.updateShape();
+        }
+
+        updateAllRecs();
     }
 
     public void moveCameraWithPosition(int row, int col) {
@@ -219,13 +246,21 @@ public class MapFX {
                 tilesCenters[i][j][0] = tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2;
                 tilesCenters[i][j][1] = tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2;
 
-                Image tileImage = TileGraphics.getTileGraphicByName(gameMap.getMap()[i][j].getTexture().getName()).getTileImage();
+                Image tileImage = null;
+                try {
+                    tileImage = TileGraphics.getTileGraphicByName(gameMap.getMap()[i][j].getTexture().getName()).getTileImage();
+                } catch (Exception e) {
+                    //todo
+                    System.out.println(gameMap.getMap()[i][j] == null);
+                    throw new RuntimeException(e);
+                }
                 tileShape.setFill(new ImagePattern(tileImage));
                 tileShape.setOpacity(0.8);
                 allRecs[i][j].shape = tileShape;
                 tileShape.setStroke(Color.GREEN);//todo
             }
         }
+        updateCamera();
     }
 
     public void moveMapWithKeys(KeyEvent keyEvent) {
