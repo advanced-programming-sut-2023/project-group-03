@@ -11,8 +11,11 @@ import Model.Units.Unit;
 import Model.Units.Worker;
 import controller.Controller;
 import view.Enums.ConsoleColors;
+import view.Game.GameMenu;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 
@@ -129,50 +132,46 @@ public class GeneralGameController extends Controller {
         return SUCCESSFUL_MOVE_MAP.getOutput();
     }
 
-    public String showDetails(Matcher matcher) {
-        String mapCoordinates = matcher.group("coordinatesInfo");
-        HashMap<String, String> coordinates = getOptions(COORDINATES.getKeys(), mapCoordinates);
-        String error = coordinates.get("error");
-        if (error != null) return error;
-
-        String checkCoordinatesResult = checkCoordinates(coordinates, "x", "y");
-        if (checkCoordinatesResult != null) return checkCoordinatesResult;
-
-        int x = Integer.parseInt(coordinates.get("x")) - 1;
-        int y = Integer.parseInt(coordinates.get("y")) - 1;
-        Tile targetTile = gameMap.getMap()[x][y];
-        String output = "";
-        output += "texture: " + targetTile.getTexture().name() + " " + targetTile.getOwner().getUser().getNickname() + "\n";
-
-        int workerAmount = 0;
-        for (Unit unit : targetTile.getUnits()) {
-            if (unit instanceof Worker) workerAmount++;
-        }
-        output += "worker amount: " + workerAmount + "\n";
-
-        if (targetTile.getTexture().getResource() != null) {
-            output += "resource: " + targetTile.getTexture().getResource() + "\n";
-        } else {
-            output += "resource: " + "nothing\n";
-        }
-
-        if (targetTile.getBuilding() == null) {
-            output += "building: nothing\n";
-        } else {
-            output += "building: " + targetTile.getBuilding().getName() + "HP: " + targetTile.getBuilding().getHP() + "\n";
-        }
-
+    private ArrayList<Player> getPlayers() {
         ArrayList<Player> players = new ArrayList<>();
         for (int i = 0; i < gameMap.getPlayers().length; i++) {
             if (gameMap.getPlayers()[i] != null) players.add(gameMap.getPlayers()[i]);
         }
+        return players;
+    }
 
-        HashMap<Player, ArrayList<Unit>> unitsAcquisition = new HashMap<>();
-        for (Player player : players) unitsAcquisition.put(player, new ArrayList<>());
-
-        for (Unit unit : targetTile.getUnits()) {
-            unitsAcquisition.get(unit.getOwner()).add(unit);
+    public HashMap<Player, ArrayList<Unit>> getUnitAcquisitions(ArrayList<Tile> tiles) {
+        ArrayList<Player> players = getPlayers();
+        HashMap<Player, ArrayList<Unit>> unitAcquisitions = new HashMap<>();
+        for (Player player : players) unitAcquisitions.put(player, new ArrayList<>());
+        for (Tile tile : tiles) {
+            for (Unit unit : tile.getUnits()) {
+                unitAcquisitions.get(unit.getOwner()).add(unit);
+            }
         }
+
+        return unitAcquisitions;
+    }
+
+    private String getUnitInfos(ArrayList<Tile> tiles) {
+        HashMap<Player, ArrayList<Unit>> unitAcquisitions = getUnitAcquisitions(tiles);
+        ArrayList<Player> players = getPlayers();
+        String output = "";
+        for (Player player : players) {
+            ArrayList<Unit> units = unitAcquisitions.get(player);
+            for (Unit unit : units) {
+                output += "owner: " + player.getUser().getNickname() + " type: " + unit.getName() + " health: " + unit.getHP();
+                if (unit instanceof CombatUnit) output += " damage: " + ((CombatUnit) unit).getDamage();
+                if (unit instanceof Troop) output += " mode: " + ((Troop) unit).getMode().name();
+                output += "\n";
+            }
+        }
+
+        return output;
+    }
+
+    private String extractTileDetails(HashMap<Player, ArrayList<Unit>> unitsAcquisition, ArrayList<Player> players) {
+        String output = "";
         boolean shouldPrintSpecial = false;
 
         for (TroopTypes troopType : TroopTypes.values()) {
@@ -362,6 +361,75 @@ public class GeneralGameController extends Controller {
             counter = 0;
             playerCounter++;
         }
+
         return output;
+    }
+
+    private String setupDetails(ArrayList<Tile> tiles) {
+        String output = "";
+        for (Tile targetTile : tiles) {
+            output += "texture: " + targetTile.getTexture().name() + " " + targetTile.getOwner().getUser().getNickname() + "\n";
+
+            int workerAmount = 0;
+            for (Unit unit : targetTile.getUnits()) {
+                if (unit instanceof Worker) workerAmount++;
+            }
+            output += "worker amount: " + workerAmount + "\n";
+
+            if (targetTile.getTexture().getResource() != null) {
+                output += "resource: " + targetTile.getTexture().getResource() + "\n";
+            } else {
+                output += "resource: " + "nothing\n";
+            }
+
+            if (targetTile.getBuilding() == null) {
+                output += "building: nothing\n";
+            } else {
+                output += "building: " + targetTile.getBuilding().getName() + "HP: " + targetTile.getBuilding().getHP() + "\n";
+            }
+        }
+        return output;
+    }
+
+    public String showDetails(Matcher matcher) {
+        String mapCoordinates = matcher.group("coordinatesInfo");
+        HashMap<String, String> coordinates = getOptions(COORDINATES.getKeys(), mapCoordinates);
+        String error = coordinates.get("error");
+        if (error != null) return error;
+
+        String checkCoordinatesResult = checkCoordinates(coordinates, "x", "y");
+        if (checkCoordinatesResult != null) return checkCoordinatesResult;
+
+        int x = Integer.parseInt(coordinates.get("x")) - 1;
+        int y = Integer.parseInt(coordinates.get("y")) - 1;
+        Tile targetTile = gameMap.getMap()[x][y];
+        String output = "";
+        output += setupDetails(new ArrayList<>() {{add(targetTile);}});
+
+        ArrayList<Player> players = getPlayers();
+        HashMap<Player, ArrayList<Unit>> unitsAcquisition = getUnitAcquisitions(new ArrayList<>() {{
+            add(targetTile);
+        }});
+
+        output += extractTileDetails(unitsAcquisition, players);
+
+        return output;
+    }
+
+    public void selectTilesMatcherHandler(Matcher matcher, GameMenu gameMenu, Player player) {
+        String coordinatesWhole = matcher.group("tilesCoordinates");
+        String[] coordinatesString = coordinatesWhole.split(" ");
+        int[][] coordinates = new int[coordinatesString.length / 2][2];
+        for (int i = 0; i < coordinatesString.length / 2; i++) {
+            coordinates[i][0] = Integer.parseInt(coordinatesString[i * 2]);
+            coordinates[i][1] = Integer.parseInt(coordinatesString[i * 2 + 1]);
+        }
+
+        ArrayList<Tile> selectedTiles = new ArrayList<>();
+        for (int[] coordinate : coordinates) {
+            selectedTiles.add(gameMap.getMap()[coordinate[0]][coordinate[1]]);
+        }
+
+        gameMenu.getSelectedTiles().put(player, selectedTiles);
     }
 }

@@ -6,6 +6,7 @@ import Model.Buildings.Enums.BarracksType;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
+import Model.GamePlay.Player;
 import Model.Units.Unit;
 import Model.User;
 import controller.ControllerFunctions;
@@ -22,6 +23,7 @@ import view.Menu;
 import view.Transition;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -33,6 +35,7 @@ public class GameMenu extends Menu {
 
     private Drawable selected = null;
     private ArrayList<Unit> selectedUnits = new ArrayList<>();
+    private HashMap<Player, ArrayList<Tile>> selectedTiles = new HashMap<>();
 
     CastleBuildingMenu castleBuildingMenu;
     FarmBuidingMenu farmBuidingMenu;
@@ -60,6 +63,7 @@ public class GameMenu extends Menu {
         GameController gameController = new GameController(game.getMap());
         game.getMap().showMap(halfSide);
         setStockPile(gameController);
+        for (Player player : game.getPlayers()) selectedTiles.put(player, new ArrayList<>());
     }
 
     @Override
@@ -299,6 +303,10 @@ public class GameMenu extends Menu {
 
     public void setSelectedUnits(ArrayList<Unit> selectedUnits) {
         this.selectedUnits = selectedUnits;
+    }
+
+    public HashMap<Player, ArrayList<Tile>> getSelectedTiles() {
+        return selectedTiles;
     }
 
     public User getUser() {

@@ -2,13 +2,15 @@ package graphicsTest;
 
 import Model.Buildings.Enums.BuildingGraphics;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
@@ -55,25 +57,30 @@ public class TestMap2 extends Application {
     }
     int tileSize = 80;
     int tileSizeDelta = 20;
-    int satr = 400;
-    int sotoon = 400;
-    int halfSatr = satr / 2;
-    int halfSotoon = sotoon / 2;
+    int rowSize = 125;
+    int colSize = 125;
+    int halfSatr = rowSize / 2;
+    int halfSotoon = colSize / 2;
     double iDivider = 2;
     double jDivider = 3.5;
     int[] currentTile = {0, 0};
     double verticalCameraMove = 2 / jDivider * tileSize;
     double horizontalCameraMove = 2 / iDivider * tileSize;
-    int cameraRow = 60;
-    int cameraCol = 60;
+    int cameraRowSize = 60;
+    int cameraColSize = 60;
     boolean isCtrlPressed = false;
-    ImagePattern imagePattern = new ImagePattern(new Image(TestMap2.class.getResource("/images/Plain1.jpg").toExternalForm()));
+    ImagePattern imagePattern = new ImagePattern(new Image(TestMap2.class.getResource("/images/tiles/ground.jpg").toExternalForm()));
 
     HashSet<Polygon> currentTiles = new HashSet<>();
-    Polygon[][] allRecs = new Polygon[satr][sotoon];
+    Polygon[][] allRecs = new Polygon[rowSize][colSize];
     ArrayList<BuildingShape> buildings = new ArrayList<>();
     Polygon view;
     Pane mapPane = new Pane();
+    double dragXStart;
+    double dragXFinish;
+    double dragYStart;
+    double dragYFinish;
+    boolean isDragging;
 
     public Polygon getHex(double height, int i, int j, double iSize, double jSize, String image, Pane pane) {
         Polygon thing = new Polygon(
@@ -122,8 +129,8 @@ public class TestMap2 extends Application {
 //        pane.setStyle("-fx-background-color: #c09d5e;");
         updateAllRecs();
 
-        for (int x = currentTile[0]; x < currentTile[0] + cameraRow; x++) {
-            for (int y = currentTile[1]; y < currentTile[1] + cameraCol; y++) {
+        for (int x = currentTile[0]; x < currentTile[0] + cameraRowSize; x++) {
+            for (int y = currentTile[1]; y < currentTile[1] + cameraColSize; y++) {
                 currentTiles.add(allRecs[x][y]);
             }
         }
@@ -166,6 +173,18 @@ public class TestMap2 extends Application {
         view.setLayoutY(0);
         view.setLayoutX(0);
 
+        //test unit movement
+        Image image1 = new Image(TestMap3.class.getResource("/images/troops/Humans/soldier/walk/down/anim1.png").toExternalForm());
+        Image image2 = new Image(TestMap3.class.getResource("/images/troops/Humans/soldier/walk/down/anim4.png").toExternalForm());
+        UnitMovementTemp unitAnimation = new UnitMovementTemp(allRecs[2][4].getPoints().get(2), allRecs[2][4].getPoints().get(3)
+                , 10000, image1, image2);
+        unitAnimation.shape.setLayoutX(allRecs[0][0].getPoints().get(2));
+        unitAnimation.shape.setLayoutY(allRecs[0][0].getPoints().get(3));
+
+        mapPane.getChildren().add(unitAnimation.shape);
+        unitAnimation.startAnimations();
+        //test unit movement
+
         double x1 = view.getPoints().get(0);
         double y1 = view.getPoints().get(1);
         mapPane.setLayoutX(x1);
@@ -175,10 +194,58 @@ public class TestMap2 extends Application {
         mapPane.setLayoutY(0);
         stage.show();
 
+
+        mapPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (!isDragging) {
+                    dragXStart = event.getX();
+                    dragYStart = event.getY();
+                    isDragging = true;
+                }
+            }
+        });
+
+//        mapPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                if (!isDragging) {
+//                    dragXStart = event.getX();
+//                    dragYStart = event.getY();
+//                }
+//                isDragging = true;
+//                System.out.println(dragXStart);
+//                System.out.println(dragYStart);
+//            }
+//        });
+//
+        mapPane.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (isDragging) {
+                    isDragging = false;
+                    dragXFinish = event.getX();
+                    dragYFinish = event.getY();
+                    Polygon dragRect = new Polygon(dragXStart, dragYStart, dragXStart, dragYFinish, dragXFinish, dragYFinish, dragXFinish, dragYStart);
+                    mapPane.getChildren().add(dragRect);
+                    dragRect.setFill(Color.BLACK);
+                    for (Polygon tile : currentTiles) {
+                        if (tile.getBoundsInParent().intersects(dragRect.getBoundsInParent())) {
+                            tile.setFill(Color.GREEN);
+                        }
+                    }
+
+                }
+            }
+        });
         gameScene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode().equals(KeyCode.CONTROL)) isCtrlPressed = false;
+                if (keyEvent.getCode().equals(KeyCode.CONTROL)) {
+                    isCtrlPressed = false;
+                    addAllBuildings();
+                }
+
             }
         });
 
@@ -191,7 +258,7 @@ public class TestMap2 extends Application {
                 currentTile[0] = 50;
                 currentTile[1] = 50;
                 if (keyEvent.getCode().equals(KeyCode.LEFT)) {
-                    if (currentTile[0] > 0 && currentTile[1] < sotoon - cameraCol / 2) {
+                    if (currentTile[0] > 0 && currentTile[1] < colSize - cameraColSize / 2) {
                         mapPane.setLayoutX(mapPane.getLayoutX() + horizontalCameraMove);
                         view.setLayoutX(view.getLayoutX() - horizontalCameraMove);
                         currentTile[1]++;
@@ -199,7 +266,7 @@ public class TestMap2 extends Application {
                         updateCamera();
                     }
                 } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
-                    if (currentTile[0] < satr - cameraRow / 2 && currentTile[1] > 0) {
+                    if (currentTile[0] < rowSize - cameraRowSize / 2 && currentTile[1] > 0) {
                         mapPane.setLayoutX(mapPane.getLayoutX() - horizontalCameraMove);
                         view.setLayoutX(view.getLayoutX() + horizontalCameraMove);
                         currentTile[1]--;
@@ -215,7 +282,7 @@ public class TestMap2 extends Application {
                         updateCamera();
                     }
                 } else if (keyEvent.getCode().equals(KeyCode.DOWN)) {
-                    if (currentTile[0] < satr - cameraRow / 2 && currentTile[1] < sotoon - cameraCol / 2) {
+                    if (currentTile[0] < rowSize - cameraRowSize / 2 && currentTile[1] < colSize - cameraColSize / 2) {
                         mapPane.setLayoutY(mapPane.getLayoutY() - verticalCameraMove);
                         view.setLayoutY(view.getLayoutY() + verticalCameraMove);
                         currentTile[1]++;
@@ -225,6 +292,7 @@ public class TestMap2 extends Application {
                 }
                 if (keyEvent.getCode().equals(KeyCode.CONTROL)) {
                     isCtrlPressed = true;
+                    removeBuildings();
                 }
 
                 if (keyEvent.getCode().equals(KeyCode.MINUS) && isCtrlPressed) {
@@ -241,8 +309,8 @@ public class TestMap2 extends Application {
             mapPane.getChildren().remove(polygon);
         }
         currentTiles.clear();
-        for (int x = 0; x < satr; x++) {
-            for (int y = 0; y < sotoon; y++) {
+        for (int x = 0; x < rowSize; x++) {
+            for (int y = 0; y < colSize; y++) {
                 Polygon polygon = allRecs[x][y];
                 if (polygon.getBoundsInParent().intersects(view.getBoundsInParent())) {
                     mapPane.getChildren().add(polygon);
@@ -269,8 +337,8 @@ public class TestMap2 extends Application {
     }
 
     private void updateAllRecs() {
-        for (int i = 0; i < satr; i++) {
-            for (int j = 0; j < sotoon; j++) {
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
                 Polygon thing = new Polygon(
                         ((double)(i + 1 - j)) / iDivider * tileSize, ((double)(i + 1 + j)) / jDivider * tileSize,
                         ((double)(i - j)) / iDivider * tileSize, ((double)(i + j)) / jDivider * tileSize,
@@ -280,10 +348,39 @@ public class TestMap2 extends Application {
                 thing.setOpacity(0.8);
                 thing.setFill(imagePattern);
                 allRecs[i][j] = thing;
-                if (i == 2 && j == 4 || i == 20 && j == 50) thing.setFill(Color.GREEN);
-                if (i == satr / 2 && j == sotoon / 2) thing.setFill(Color.GREEN);
+                if (i == 2 && j == 4 || i == 20 && j == 50) {
+                    thing.setFill(Color.RED);
+                    thing.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            VBox tempBox = new VBox();
+                            tempBox.setStyle("-fx-background-color: white;");
+                            tempBox.getChildren().add(new Button("hello"));
+                            tempBox.getChildren().add(new Label("darn it"));
+                            tempBox.setLayoutX(thing.getPoints().get(0) / 2 + thing.getPoints().get(4) / 2);
+                            tempBox.setLayoutY(thing.getPoints().get(3) / 2 + thing.getPoints().get(7) / 2);
+                            mapPane.getChildren().add(tempBox);
+                            tempBox.hoverProperty().addListener(((observable1, oldValue1, newValue1) -> {
+                                if (!newValue1 && oldValue1) mapPane.getChildren().remove(tempBox);
+                            }));
+                            System.out.println("you are in");
+                        }
+                        else if (oldValue) System.out.println("We got out!");
+                    });
+                    thing.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            thing.setStroke(Color.BLUE);
+                        }
+                    });
+                    thing.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            thing.setStroke(Color.RED);
+                        }
+                    });
+                }
+                if (i == rowSize / 2 && j == colSize / 2) thing.setFill(Color.GREEN);
                 thing.setStroke(Color.GREEN);
-//                mapPane.getChildren().add(thing);
             }
         }
     }
@@ -298,7 +395,7 @@ public class TestMap2 extends Application {
 //        }
         mapPane.getChildren().clear();
 //        currentTiles.clear();
-        allRecs = new Polygon[satr][sotoon];
+        allRecs = new Polygon[rowSize][colSize];
         updateAllRecs();
         verticalCameraMove = 2 / jDivider * tileSize;
         horizontalCameraMove = 2 / iDivider * tileSize;
@@ -314,5 +411,17 @@ public class TestMap2 extends Application {
         view.setLayoutX(allRecs[row][col].getPoints().get(0));
         mapPane.setLayoutX(-allRecs[row][col].getPoints().get(0));
         updateCamera();
+    }
+
+    public void removeBuildings() {
+        for (BuildingShape buildingShape : buildings) {
+            mapPane.getChildren().remove(buildingShape.polygon);
+        }
+    }
+
+    public void addAllBuildings() {
+        for (BuildingShape buildingShape : buildings) {
+            if (!mapPane.getChildren().contains(buildingShape.polygon)) mapPane.getChildren().add(buildingShape.polygon);
+        }
     }
 }

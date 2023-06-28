@@ -14,4 +14,5 @@ module Stronghold {
     opens view to javafx.fxml;
     opens view.fxmlMenu to javafx.fxml;
     opens view.Controllers to javafx.fxml;
+    exports Model.graphics;
 }

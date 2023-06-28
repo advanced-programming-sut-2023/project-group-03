@@ -71,13 +71,10 @@ public enum BuildingGraphics {
         this.length = length;
         this.width = width;
         this.imageAddress = imageAddress;
-        buildingImage = new Image(
-                Tile.class.getResource("/images/buildings/" + imageAddress).toExternalForm()
-        );
+
     }
 
-
-    public BuildingGraphics getBuildingByName(String name) {
+    public static BuildingGraphics getBuildingByName(String name) {
         for (BuildingGraphics graphics : BuildingGraphics.values()) {
             if (graphics.name.equals(name)) return graphics;
         }
@@ -105,6 +102,10 @@ public enum BuildingGraphics {
     }
 
     public Image getBuildingImage() {
+        if (buildingImage != null) return buildingImage;
+        else buildingImage = new Image(
+                Tile.class.getResource("/images/buildings/" + imageAddress).toExternalForm()
+        );
         return buildingImage;
     }
 
