@@ -4,6 +4,7 @@ import Model.Buildings.Building;
 import Model.Buildings.Enums.BuildingGraphics;
 import Model.Buildings.Enums.TileGraphics;
 import Model.Field.GameMap;
+import Model.Field.Tile;
 import Model.Units.Unit;
 import graphicsTest.TestMap2;
 import javafx.scene.image.Image;
@@ -70,6 +71,15 @@ public class MapFX {
 
     }
 
+    public class TileShape {
+        Tile tile;
+        Polygon shape;
+        public TileShape(Tile tile) {
+            this.tile = tile;
+
+        }
+    }
+
     public Polygon getHex(double height, int i, int j, double iSize, double jSize, Image image) {
         Polygon shape = new Polygon(
                 ((double)(i + iSize - j)) / iDivider * tileSize, ((double)(i + iSize + j)) / jDivider * tileSize,
@@ -104,12 +114,12 @@ public class MapFX {
     private GameMap gameMap;
     private HashSet<Polygon> currentTiles = new HashSet<>();
     private Pane mapPane;
-    private Polygon[][] allRecs = new Polygon[rowSize][colSize];
+    private TileShape[][] allRecs = new TileShape[rowSize][colSize];
     private double[][][] tilesCenters;
     ArrayList<BuildingShape> buildings = new ArrayList<>();
     ArrayList<UnitShape> units = new ArrayList<>();
 
-    public MapFX(int size, Pane mapPane, Stage stage) {
+    public MapFX(int size, Pane mapPane, Stage stage, GameMap gameMap) {
         this.rowSize = size;
         this.colSize = size;
         this.mapPane = mapPane;
@@ -124,6 +134,14 @@ public class MapFX {
         view.setLayoutY(0);
         view.setLayoutX(0);
         tilesCenters = new double[size][size][2];
+
+        //setup allRecs
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+                allRecs[i][j] = new TileShape(gameMap.getMap()[i][j]);
+            }
+        }
+        updateAllRecs();
     }
 
     public double[][][] getTilesCenters() {
@@ -137,7 +155,7 @@ public class MapFX {
         currentTiles.clear();
         for (int x = 0; x < rowSize; x++) {
             for (int y = 0; y < colSize; y++) {
-                Polygon polygon = allRecs[x][y];
+                Polygon polygon = allRecs[x][y].shape;
                 if (polygon.getBoundsInParent().intersects(view.getBoundsInParent())) {
                     mapPane.getChildren().add(polygon);
                     currentTiles.add(polygon);
@@ -163,11 +181,15 @@ public class MapFX {
         if (plus) tileSize += tileSizeDelta;
         else tileSize -= tileSizeDelta;
         mapPane.getChildren().clear();
-        allRecs = new Polygon[rowSize][colSize];
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+                allRecs[i][j] = new TileShape(null);
+            }
+        }
         updateAllRecs();
 
-        verticalCameraMove = 2 / jDivider * tileSize;
-        horizontalCameraMove = 2 / iDivider * tileSize;
+        verticalCameraMove = (double) 2 / jDivider * tileSize;
+        horizontalCameraMove = (double) 2 / iDivider * tileSize;
 
         for (BuildingShape building : buildings) {
             building.updatePolygon();
@@ -177,10 +199,10 @@ public class MapFX {
     }
 
     public void moveCameraWithPosition(int row, int col) {
-        view.setLayoutY(allRecs[row][col].getPoints().get(1));
-        mapPane.setLayoutY(-allRecs[row][col].getPoints().get(1));
-        view.setLayoutX(allRecs[row][col].getPoints().get(0));
-        mapPane.setLayoutX(-allRecs[row][col].getPoints().get(0));
+        view.setLayoutY(allRecs[row][col].shape.getPoints().get(1));
+        mapPane.setLayoutY(-allRecs[row][col].shape.getPoints().get(1));
+        view.setLayoutX(allRecs[row][col].shape.getPoints().get(0));
+        mapPane.setLayoutX(-allRecs[row][col].shape.getPoints().get(0));
         updateCamera();
     }
 
@@ -200,7 +222,7 @@ public class MapFX {
                 Image tileImage = TileGraphics.getTileGraphicByName(gameMap.getMap()[i][j].getTexture().getName()).getTileImage();
                 tileShape.setFill(new ImagePattern(tileImage));
                 tileShape.setOpacity(0.8);
-                allRecs[i][j] = tileShape;
+                allRecs[i][j].shape = tileShape;
                 tileShape.setStroke(Color.GREEN);//todo
             }
         }
