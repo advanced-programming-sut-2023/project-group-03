@@ -260,7 +260,7 @@ public class MapFX {
                 tileShape.setStroke(Color.GREEN);//todo
             }
         }
-        updateCamera(); 
+        updateCamera();
     }
 
     public void moveMapWithKeys(KeyEvent keyEvent) {
