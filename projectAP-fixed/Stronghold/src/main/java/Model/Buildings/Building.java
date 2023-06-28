@@ -1,19 +1,26 @@
 package Model.Buildings;
 
+import Model.Buildings.Defending.Enums.GateTypes;
+import Model.Buildings.Defending.Enums.TowerTypes;
+import Model.Buildings.Defending.Enums.TrapsTypes;
+import Model.Buildings.Defending.Enums.WallTypes;
 import Model.Buildings.Defending.Gates;
 import Model.Buildings.Defending.Towers;
 import Model.Buildings.Defending.Wall;
-import Model.Buildings.Enums.BarracksType;
-import Model.Buildings.Enums.InventoryTypes;
-import Model.Buildings.Enums.ResourceTypes;
-import Model.Buildings.Enums.Resources;
+import Model.Buildings.Enums.*;
+import Model.Field.Direction;
 import Model.Field.GameMap;
 import Model.Field.Texture;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 
+import java.util.HashMap;
 import java.util.HashSet;
+
+import static controller.Enums.InputOptions.BUILD_STONE_GATE;
+import static controller.Enums.InputOptions.DROP_BUILDING;
+import static controller.Enums.Response.*;
 
 public abstract class Building extends Drawable {
     protected int length;
@@ -47,6 +54,78 @@ public abstract class Building extends Drawable {
         }
     }
 
+    public static HashMap<String, Integer> findCost(String type) {
+        HashMap<String, Integer> ans=new HashMap<>();
+
+        BarracksType barracksType = BarracksType.getTypeByName(type);
+        if (barracksType != null) {
+            ans.put("gold", barracksType.getGold());
+            ans.put("wood", barracksType.getWood());
+            ans.put("stone", barracksType.getStoneCost());
+        }
+
+        GeneratorTypes generatorType = GeneratorTypes.getTypeByName(type);
+        if (generatorType != null) {
+            ans.put("gold", generatorType.getGold());
+            ans.put("wood", generatorType.getWood());
+            ans.put("stone", 0);
+        }
+
+        RestTypes restType = RestTypes.getTypeByName(type);
+        if (restType != null) {
+            ans.put("gold", restType.getGold());
+            ans.put("wood", restType.getWood());
+            ans.put("stone", 0);
+        }
+
+        InventoryTypes inventoryType = InventoryTypes.getTypeByName(type);
+        if (inventoryType != null) {
+            ans.put("gold", 0);
+            ans.put("wood", inventoryType.getWood());
+            ans.put("stone", inventoryType.getStoneCost());
+        }
+
+        GateTypes gateType = GateTypes.getTypeByName(type);
+        if (gateType != null) {
+            ans.put("gold", 0);
+            ans.put("wood", gateType.getWoodCost());
+            ans.put("stone", gateType.getStoneCost());
+        }
+
+        TowerTypes towerType = TowerTypes.getTypeByName(type);
+        if (towerType != null) {
+            ans.put("gold", 0);
+            ans.put("wood", 0);
+            ans.put("stone", towerType.getStoneCost());
+        }
+
+        TrapsTypes trapsType = TrapsTypes.getTypeByName(type);
+        if (trapsType != null) {
+            ans.put("gold", trapsType.getGold());
+            ans.put("wood", trapsType.getWood());
+            ans.put("stone", 0);
+        }
+
+        WallTypes wallType = WallTypes.getTypeByName(type);
+        if (wallType != null) {
+            ans.put("gold", 0);
+            ans.put("wood", 0);
+            ans.put("stone", wallType.getStoneCost());
+        }
+
+        if (type.equals("store")) {
+            ans.put("gold", 10);
+            ans.put("wood", 5);
+            ans.put("stone", 5);
+        }
+
+        if (type.equals("keep")) {
+            ans.put("gold", 0);
+            ans.put("wood", 0);
+            ans.put("stone", 0);
+        }
+        return ans;
+    }
     protected void manageCost() {
         owner.decreaseGold(goldCost);
         owner.decreaseInventory(Resources.WOOD, woodCost);

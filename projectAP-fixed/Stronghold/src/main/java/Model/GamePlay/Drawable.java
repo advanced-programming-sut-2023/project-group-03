@@ -27,6 +27,9 @@ public abstract class Drawable extends Element {
         drawables.add(this);
     }
 
+    public Drawable() {
+    }
+
     public void getHit(CombatUnit enemy) {
         this.HP -= enemy.getDamage();
     }

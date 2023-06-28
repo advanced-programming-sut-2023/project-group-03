@@ -43,7 +43,6 @@ public class Barracks extends Building {
             Products = new HashSet<>(
                     List.of(TUNELLER));
     }
-
     public HashSet<TroopTypes> getProducts() {
         return Products;
     }
