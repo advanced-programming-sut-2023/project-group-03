@@ -151,6 +151,22 @@ public class TestMap2 extends Application {
 //        System.out.println(stage.getHeight() + " " + stage.getWidth());
         Pane pane = new Pane();
 
+<<<<<<< HEAD
+=======
+        //camera setup
+        view = new Polygon(
+                -stage.getWidth(), 0f,
+                stage.getWidth(), 0f,
+                stage.getWidth(), stage.getHeight(),
+                -stage.getWidth(), stage.getHeight()
+        );
+        view.setFill(Color.TRANSPARENT);
+        view.setOpacity(0.5);
+        mapPane.getChildren().add(view);//todo
+        view.setLayoutY(0);
+        view.setLayoutX(0);
+
+>>>>>>> phase2GraphicsAli
         //setup allRecs
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
@@ -165,9 +181,9 @@ public class TestMap2 extends Application {
             }
         }
 
-        for (Polygon polygon : currentTiles) {
-            mapPane.getChildren().add(polygon);
-        }
+//        for (Polygon polygon : currentTiles) {
+//            mapPane.getChildren().add(polygon);
+//        }
 
 
         BuildingGraphics tower = BuildingGraphics.LOOKOUT_TOWER;
@@ -190,19 +206,6 @@ public class TestMap2 extends Application {
 //                ((double)( - halfSotoon + halfMinus)) / iDivider * tileSize, ((double)(halfSotoon + halfSums)) / jDivider * tileSize
 //        );
 
-        view = new Polygon(
-                -stage.getWidth(), 0f,
-                stage.getWidth(), 0f,
-                stage.getWidth(), stage.getHeight(),
-                -stage.getWidth(), stage.getHeight()
-        );
-
-        view.setFill(Color.TRANSPARENT);
-        view.setOpacity(0.5);
-        mapPane.getChildren().add(view);//todo
-        view.setLayoutY(0);
-        view.setLayoutX(0);
-
         //test unit movement
         Image image1 = new Image(TestMap3.class.getResource("/images/troops/Humans/soldier/walk/down/anim1.png").toExternalForm());
         Image image2 = new Image(TestMap3.class.getResource("/images/troops/Humans/soldier/walk/down/anim4.png").toExternalForm());
@@ -224,8 +227,8 @@ public class TestMap2 extends Application {
         mapPane.setLayoutX(x1);
         mapPane.setLayoutY(-y1);
         mapPane.setLayoutX(stage.getWidth() / 2);
-//        mapPane.setLayoutY(20 * verticalCameraMove);
         mapPane.setLayoutY(0);
+//        mapPane.setLayoutY(20 * verticalCameraMove);
         stage.show();
 
 
@@ -336,6 +339,7 @@ public class TestMap2 extends Application {
                 }
             }
         });
+//        mapPane.setStyle("-fx-background-color: black;");
     }
 
     private void updateCamera() {
@@ -411,6 +415,7 @@ public class TestMap2 extends Application {
                 thing.setStroke(Color.GREEN);
             }
         }
+        updateCamera();
     }
 
     private void changeZoom(boolean plus) {
@@ -428,13 +433,16 @@ public class TestMap2 extends Application {
                 allRecs[i][j] = new TileShape(null);
             }
         }
+<<<<<<< HEAD
         updateAllRecs();
+=======
+>>>>>>> phase2GraphicsAli
         verticalCameraMove = 2 / jDivider * tileSize;
         horizontalCameraMove = 2 / iDivider * tileSize;
         for (BuildingShape building : buildings) {
             building.updatePolygon();
         }
-        updateCamera();
+        updateAllRecs();
     }
 
     public void moveCamera(int row, int col) {

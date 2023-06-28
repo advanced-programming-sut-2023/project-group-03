@@ -66,6 +66,44 @@ public class CastleBuildingMenu extends Menu {
         throw new Transition(this);
     }
 
+    public void executeCastleBuildingMenuOrder(String command) {
+        String output = "";
+        Player player = gameMenu.getGame().getCurrentPlayer();
+        GameController gameController = new GameController(this.gameMenu.getGame().getMap());
+        if (command.matches(GameMenuCommands.BUILD_STONE_GATES.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_STONE_GATES.toString());
+            output = gameController.buildStoneGatesMatcherHandler(matcher, player);
+            System.out.println(output);
+        }
+        else if (command.matches(GameMenuCommands.BUILD_TOWER.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.BUILD_TOWER.toString());
+            output = gameController.buildTowerMatcherHandler(matcher, gameMenu.getGame().getCurrentPlayer());
+            System.out.println(output);
+        }
+        else if (command.matches(DROP_BUILDING.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, DROP_BUILDING.toString());
+            output = gameController.dropBuildingMatcherHandler(matcher, player);
+            System.out.println(output);
+        }
+        else if (command.matches(BUILD_DRAW_BRIDGE.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_DRAW_BRIDGE.toString());
+            output = gameController.buildDrawbridgeMatcherHandler(matcher, player);
+            System.out.println(output);
+        }
+        else if (command.matches(BUILD_WALL.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_WALL.toString());
+            output = gameController.buildWallMatcherHandler(matcher, player);
+            System.out.println(output);
+        }
+        else if (command.matches(BUILD_STAIR.toString())) {
+            Matcher matcher = ControllerFunctions.getMatcher(command, BUILD_STAIR.toString());
+            System.out.println(gameController.buildStairMatcherHandler(matcher, gameMenu.getGame().getCurrentPlayer()));
+        }
+        else {
+            System.out.println(formatPrinter(TEXT_RED, "", "invalid command"));
+        }
+    }
+
     public void Guide() {
         gameMenu.getGame().getMap().showMap(gameMenu.getHalfSide());
         colorPrint(TEXT_RED,"================================================");
