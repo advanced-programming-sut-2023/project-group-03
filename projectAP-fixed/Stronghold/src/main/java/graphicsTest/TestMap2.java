@@ -1,6 +1,9 @@
 package graphicsTest;
 
 import Model.Buildings.Enums.BuildingGraphics;
+import Model.Field.Tile;
+import Model.Units.Unit;
+import Model.graphics.MapFX;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.EventHandler;
@@ -14,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -55,6 +59,25 @@ public class TestMap2 extends Application {
             polygon.setStroke(Color.WHITE);;
         }
     }
+
+    public class UnitShape {
+        int row;
+        int col;
+        int height = 40;
+        int width = 20;
+        Rectangle shape = new Rectangle(20, 40);
+        Unit unit;
+
+    }
+
+    public class TileShape {
+        Tile tile;
+        Polygon shape;
+        public TileShape(Tile tile) {
+            this.tile = tile;
+
+        }
+    }
     int tileSize = 80;
     int tileSizeDelta = 20;
     int rowSize = 125;
@@ -72,8 +95,9 @@ public class TestMap2 extends Application {
     ImagePattern imagePattern = new ImagePattern(new Image(TestMap2.class.getResource("/images/tiles/ground.jpg").toExternalForm()));
 
     HashSet<Polygon> currentTiles = new HashSet<>();
-    Polygon[][] allRecs = new Polygon[rowSize][colSize];
+    TileShape[][] allRecs = new TileShape[rowSize][colSize];
     ArrayList<BuildingShape> buildings = new ArrayList<>();
+    ArrayList<UnitShape> units = new ArrayList<>();
     Polygon view;
     Pane mapPane = new Pane();
     double dragXStart;
@@ -126,12 +150,18 @@ public class TestMap2 extends Application {
 //        stage.setMaximized(true);
 //        System.out.println(stage.getHeight() + " " + stage.getWidth());
         Pane pane = new Pane();
-//        pane.setStyle("-fx-background-color: #c09d5e;");
+
+        //setup allRecs
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+                allRecs[i][j] = new TileShape(null);
+            }
+        }
         updateAllRecs();
 
         for (int x = currentTile[0]; x < currentTile[0] + cameraRowSize; x++) {
             for (int y = currentTile[1]; y < currentTile[1] + cameraColSize; y++) {
-                currentTiles.add(allRecs[x][y]);
+                currentTiles.add(allRecs[x][y].shape);
             }
         }
 
@@ -176,12 +206,16 @@ public class TestMap2 extends Application {
         //test unit movement
         Image image1 = new Image(TestMap3.class.getResource("/images/troops/Humans/soldier/walk/down/anim1.png").toExternalForm());
         Image image2 = new Image(TestMap3.class.getResource("/images/troops/Humans/soldier/walk/down/anim4.png").toExternalForm());
-        UnitMovementTemp unitAnimation = new UnitMovementTemp(allRecs[2][4].getPoints().get(2), allRecs[2][4].getPoints().get(3)
+        UnitMovementTemp unitAnimation = new UnitMovementTemp(allRecs[2][4].shape.getPoints().get(2), allRecs[2][4].shape.getPoints().get(3)
                 , 10000, image1, image2);
-        unitAnimation.shape.setLayoutX(allRecs[0][0].getPoints().get(2));
-        unitAnimation.shape.setLayoutY(allRecs[0][0].getPoints().get(3));
+        unitAnimation.shape.setLayoutX(allRecs[0][0].shape.getPoints().get(2));
+        unitAnimation.shape.setLayoutY(allRecs[0][0].shape.getPoints().get(3));
+        UnitShape unitShape = new UnitShape();
+        unitShape.shape = unitAnimation.shape;
+        units.add(unitShape);
 
         mapPane.getChildren().add(unitAnimation.shape);
+
         unitAnimation.startAnimations();
         //test unit movement
 
@@ -311,29 +345,23 @@ public class TestMap2 extends Application {
         currentTiles.clear();
         for (int x = 0; x < rowSize; x++) {
             for (int y = 0; y < colSize; y++) {
-                Polygon polygon = allRecs[x][y];
+                Polygon polygon = allRecs[x][y].shape;
                 if (polygon.getBoundsInParent().intersects(view.getBoundsInParent())) {
                     mapPane.getChildren().add(polygon);
                     currentTiles.add(polygon);
                 }
             }
         }
+        for (UnitShape unit : units) {
+            Rectangle shape = unit.shape;
+            mapPane.getChildren().remove(shape);
+            mapPane.getChildren().add(shape);
+        }
         for (BuildingShape building : buildings) {
             Polygon polygon = building.polygon;
             mapPane.getChildren().remove(polygon);
-        }
-        for (BuildingShape building : buildings) {
-            Polygon polygon = building.polygon;
             mapPane.getChildren().add(polygon);
         }
-//        for (int x = currentTile[0]; x < currentTile[0] + cameraRow; x++) {
-//            for (int y = currentTile[1]; y < currentTile[1] + cameraCol; y++) {
-//                if (x >= satr) continue;
-//                if (y >= sotoon) continue;
-//                currentTiles.add(allRecs[x][y]);
-//                mapPane.getChildren().add(allRecs[x][y]);
-//            }
-//        }
     }
 
     private void updateAllRecs() {
@@ -347,7 +375,7 @@ public class TestMap2 extends Application {
                 );
                 thing.setOpacity(0.8);
                 thing.setFill(imagePattern);
-                allRecs[i][j] = thing;
+                allRecs[i][j].shape = thing;
                 if (i == 2 && j == 4 || i == 20 && j == 50) {
                     thing.setFill(Color.RED);
                     thing.hoverProperty().addListener((observable, oldValue, newValue) -> {
@@ -395,7 +423,11 @@ public class TestMap2 extends Application {
 //        }
         mapPane.getChildren().clear();
 //        currentTiles.clear();
-        allRecs = new Polygon[rowSize][colSize];
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+                allRecs[i][j] = new TileShape(null);
+            }
+        }
         updateAllRecs();
         verticalCameraMove = 2 / jDivider * tileSize;
         horizontalCameraMove = 2 / iDivider * tileSize;
@@ -406,10 +438,10 @@ public class TestMap2 extends Application {
     }
 
     public void moveCamera(int row, int col) {
-        view.setLayoutY(allRecs[row][col].getPoints().get(1));
-        mapPane.setLayoutY(-allRecs[row][col].getPoints().get(1));
-        view.setLayoutX(allRecs[row][col].getPoints().get(0));
-        mapPane.setLayoutX(-allRecs[row][col].getPoints().get(0));
+        view.setLayoutY(allRecs[row][col].shape.getPoints().get(1));
+        mapPane.setLayoutY(-allRecs[row][col].shape.getPoints().get(1));
+        view.setLayoutX(allRecs[row][col].shape.getPoints().get(0));
+        mapPane.setLayoutX(-allRecs[row][col].shape.getPoints().get(0));
         updateCamera();
     }
 
