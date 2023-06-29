@@ -31,13 +31,13 @@ import java.util.regex.Matcher;
 import static view.Enums.ConsoleColors.*;
 
 public class GameMenu extends Menu {
-    private Game game;
-    private MapFX mapFX;
+    protected Game game;
+    protected MapFX mapFX;
     User user;
 
-    private Drawable selected = null;
-    private ArrayList<Unit> selectedUnits = new ArrayList<>();
-    private HashMap<Player, ArrayList<Tile>> selectedTiles = new HashMap<>();
+    protected Drawable selected = null;
+    protected ArrayList<Unit> selectedUnits = new ArrayList<>();
+    protected HashMap<Player, ArrayList<Tile>> selectedTiles = new HashMap<>();
 
     CastleBuildingMenu castleBuildingMenu;
     FarmBuidingMenu farmBuidingMenu;
@@ -48,6 +48,16 @@ public class GameMenu extends Menu {
     BaracksMenu baracksMenu;
     KeepMenu keepMenu;
     int halfSide = 3;
+
+    public GameMenu(Game game, MapFX mapFX) {
+        super(null);
+        this.game = game;
+        this.mapFX = mapFX;
+        for (Player player : game.getPlayers()) {
+            selectedTiles.put(player, new ArrayList<>());
+        }
+
+    }
 
     public GameMenu(Scanner scanner, Game game, MapFX mapFX) {
         super(scanner);
@@ -119,7 +129,7 @@ public class GameMenu extends Menu {
             selectedUnits = new ArrayList<>();
             selected = null;
             if (game.nextTurn()) {
-                throw new Transition(new MapMenu(scanner, user));
+                throw new Transition(new MapMenu(scanner, user, mapFX));
             }
         } else if (selected instanceof Building) {
             if (command.matches(GameMenuCommands.REPAIR.toString())) {
@@ -174,96 +184,6 @@ public class GameMenu extends Menu {
             }
         }
         throw new Transition(this);
-    }
-
-    public void executeGameMenuOrder(String command) {
-        GameController gameController = new GameController(game.getMap(), mapFX);
-        if(command.matches("change size of map"))
-        {
-            int size = changeSizeOfMap();
-            GeneralGameController.setGameWidth(size);
-        }
-        else if (command.matches(GameMenuCommands.SHOW_INVENTORY.toString())) {
-            String output = gameController.showInventories(game.getCurrentPlayer());
-            System.out.println(output);
-        }
-        else if (command.matches(GameMenuCommands.SELECT_BUILDING.toString())) {
-            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_BUILDING.toString());
-            String output = gameController.selectBuilding(matcher, game.getCurrentPlayer(), this);
-            System.out.println(output);
-        }
-        else if (command.matches(GameMenuCommands.SELECT_UNIT.toString())) {
-            Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_UNIT.toString());
-            String output = gameController.selectUnitMatcherHandler(matcher, game.getCurrentPlayer(), this);
-            System.out.println(output);
-        }
-        else if (command.matches(MapMenuCommands.MOVE_ALI.getRegex())) {
-            Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.MOVE_ALI.getRegex());
-            String output = gameController.moveMap(matcher);
-            System.out.println(output);
-        }
-        else if (command.matches(MapMenuCommands.SHOW_MAP.getRegex())) {
-            Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SHOW_MAP.getRegex());
-            String output = gameController.moveMap(matcher);
-            System.out.println(output);
-        } else if (command.matches(MapMenuCommands.SHOW_DETAILS_ALI.getRegex())) {
-            Matcher matcher = ControllerFunctions.getMatcher(command, MapMenuCommands.SHOW_DETAILS_ALI.getRegex());
-            String output = gameController.showDetail(matcher);
-            System.out.println(output);
-        } else if (command.matches("next turn")) {
-            //todo
-        } else if (selected instanceof Building) {
-            if (command.matches(GameMenuCommands.REPAIR.toString())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.REPAIR.toString());
-                String output = gameController.repair(((Building) selected), game.getCurrentPlayer());
-                System.out.println(output);
-            } else if (selected instanceof Barracks) {
-                if (command.matches(GameMenuCommands.CREATE_UNIT.toString())) {
-                    Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
-                    System.out.println(gameController.addUnitMatcherHandler(matcher, game.getCurrentPlayer(), ((Barracks) selected)));
-                }
-            } else if (selected instanceof Store) {
-                if (command.matches(ShopMenuCommands.BUY.toString())) {
-                    Matcher matcher = ControllerFunctions.getMatcher(command, ShopMenuCommands.BUY.toString());
-                    String output = gameController.buyMatcherHandler(matcher, game.getCurrentPlayer());
-                    System.out.println(output);
-                } else if (command.matches(ShopMenuCommands.SELL.toString())) {
-                    Matcher matcher = ControllerFunctions.getMatcher(command, ShopMenuCommands.SELL.toString());
-                    String output = gameController.sellMatcherHandler(matcher, game.getCurrentPlayer());
-                    System.out.println(output);
-                } else if (command.matches(ShopMenuCommands.SHOW_PRICE_LIST.toString())) {
-                    Matcher matcher = ControllerFunctions.getMatcher(command, ShopMenuCommands.SHOW_PRICE_LIST.toString());
-                    String output = gameController.showPriceList(game.getCurrentPlayer());
-                    System.out.println(output);
-                } else if (selected instanceof Generators) {
-                    if (command.matches(GameMenuCommands.BUILD_OX_TETHER.toString())) {
-                        Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.BUILD_OX_TETHER.toString());
-                        System.out.println(gameController.buildOxTetherMatcherHandler(matcher, game.getCurrentPlayer(), ((Generators) selected)));
-                    }
-                }
-            }
-        } else if (selectedUnits.size() != 0) {
-            if (command.matches(GameMenuCommands.DISBAND_UNIT.toString())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.DISBAND_UNIT.toString());
-                gameController.disbandUnit(this);
-                System.out.println("successfull dabsh");
-            } else if (command.matches(GameMenuCommands.SET.toString())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SET.toString());
-                System.out.println(gameController.setState(matcher, game.getCurrentPlayer(), this));
-            } else if (command.matches(GameMenuCommands.ATTACK_PLACE.toString())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.ATTACK_PLACE.toString());
-                String output = gameController.attackMatcherHandler(matcher, this);
-                System.out.println(output);
-            } else if (command.matches(GameMenuCommands.ATTACK_BUILDING.toString())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.ATTACK_BUILDING.toString());
-                String output = gameController.attackToBuildingMatcherHandler(matcher, this);
-                System.out.println(output);
-            } else if (command.matches(GameMenuCommands.MOVE_UNIT.toString())) {
-                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.MOVE_UNIT.toString());
-                String output = gameController.moveUnit(matcher, this);
-                System.out.println(output);
-            }
-        }
     }
 
     public void showGuide() {

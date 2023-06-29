@@ -646,7 +646,7 @@ public class BuildingController extends GeneralGameController implements Buildin
 
         new OxTether(player, targetTile, mapFX);
         for (int i = 0; i < generators.getType().getWorker(); i++) {
-            generators.addWorker(new Ox(player, targetTile, generators));
+            generators.addWorker(new Ox(player, targetTile, generators, mapFX));
         }
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -697,7 +697,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         Generators newGenerator = new Generators(player, targetTile, generatorType, mapFX);
         for (int i = 0; i < generatorType.getWorker(); i++) {
             if (!generatorType.equals(GeneratorTypes.IRON_MINE) && !generatorType.equals(GeneratorTypes.STONE_MINE)) {
-                newGenerator.addWorker(new Worker(player, targetTile, newGenerator));
+                newGenerator.addWorker(new Worker(player, targetTile, newGenerator, mapFX));
             }
         }
 
@@ -783,7 +783,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         String errorCheck = checkTrapErrors(x, y, player, TrapsTypes.CAGED_WAR_DOGS);
         if (errorCheck != null) return errorCheck;
 
-        targetTile.setBuilding(new CagedWarDogs(player, targetTile));
+        targetTile.setBuilding(new CagedWarDogs(player, targetTile, mapFX));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 

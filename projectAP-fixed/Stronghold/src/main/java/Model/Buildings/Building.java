@@ -14,6 +14,7 @@ import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.graphics.MapFX;
+import javafx.application.Platform;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,10 +37,16 @@ public abstract class Building extends Drawable {
 
     public Building(Player owner, Tile position, int size, String name, MapFX mapFX) {
         super(owner, position, name);
-        mapBuildingShape = new MapFX.BuildingShape(this, mapFX);
-
         buildingShape = BuildingGraphics.getBuildingByName(name);
-        if (buildingShape == null) System.out.println("there was a problem in getting buildingGraphics for " + name);
+
+        //keep get made when we load maps so we don't have mapFX
+        if (!name.equals("keep")) {
+            Platform.runLater(() -> {
+                mapBuildingShape = new MapFX.BuildingShape(this, mapFX);
+                if (mapBuildingShape == null)
+                    System.out.println("there was a problem in getting buildingGraphics for " + name);
+            });
+        }
 
         Building.size = size;
 
@@ -253,5 +260,9 @@ public abstract class Building extends Drawable {
 
     public static void setTextures(HashSet<Texture> textures) {
         Building.textures = textures;
+    }
+
+    public MapFX.BuildingShape getMapBuildingShape() {
+        return mapBuildingShape;
     }
 }

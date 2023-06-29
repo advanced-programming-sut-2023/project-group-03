@@ -3,6 +3,7 @@ package Model.GamePlay;
 import Model.Buildings.Building;
 import Model.Buildings.Keep;
 import Model.Field.GameMap;
+import Model.graphics.MapFX;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class Game {
     private ArrayList<Player> players;
     private int turn = 1;
     private Player currentPlayer;
+    private MapFX mapFX;
 
     public Game(GameMap map, ArrayList<Player> players) {
         this.map = map;
@@ -86,6 +88,14 @@ public class Game {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public MapFX getMapFX() {
+        return mapFX;
+    }
+
+    public void setMapFX(MapFX mapFX) {
+        this.mapFX = mapFX;
     }
 
     public boolean FinishGame() {

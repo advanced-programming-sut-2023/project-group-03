@@ -4,14 +4,15 @@ import Model.Buildings.Enums.BarracksType;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 public class Engineer extends nonCombatUnit {
     public final static int price = 5;
 
     Drawable job = null;
 
-    public Engineer(Player owner, Tile position) {
-        super(owner, position, "engineer");
+    public Engineer(Player owner, Tile position, MapFX mapFX) {
+        super(owner, position, "engineer", mapFX);
         this.HP = 25;
         this.speed = 10;
         owner.decreaseGold(price);

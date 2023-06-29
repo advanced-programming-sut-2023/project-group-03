@@ -5,12 +5,13 @@ import Model.Buildings.Defending.Enums.StairsTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 public class LadderMen extends CombatUnit {
     private static final int price = 30;
 
-    public LadderMen(Player owner, Tile position) {
-        super(owner, position, "laddermen");
+    public LadderMen(Player owner, Tile position, MapFX mapFX) {
+        super(owner, position, "laddermen", mapFX);
         this.setDamage(0);
         this.setSpeed(30);
         this.setHP(30);
@@ -30,7 +31,7 @@ public class LadderMen extends CombatUnit {
     }
 
     public void setLadder(Tile target) {
-        target.setLadder(new Stair(owner, target, StairsTypes.LADDER));
+        target.setLadder(new Stair(owner, target, StairsTypes.LADDER, null));//todo
     }
 
     @Override

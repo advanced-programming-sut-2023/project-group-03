@@ -4,6 +4,7 @@ import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 public class BatteringRam extends CombatUnit {
     private final static int goldCost = 10;
@@ -11,8 +12,8 @@ public class BatteringRam extends CombatUnit {
     private final static int woodCost = 10;
     private Tile target;
 
-    public BatteringRam(Player owner, Tile position) {
-        super(owner, position, "battering ram");
+    public BatteringRam(Player owner, Tile position, MapFX mapFX) {
+        super(owner, position, "battering ram", mapFX);
         this.setDamage(1500);
         this.setMaterial(Material.FLESH);
         this.setSpeed(7);
