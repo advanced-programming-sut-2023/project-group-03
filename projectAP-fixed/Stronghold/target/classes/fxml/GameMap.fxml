@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -58,8 +59,8 @@
                </stroke>
             </Rectangle>
             <Rectangle fx:id="miniMap" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="190.0" layoutX="63.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="195.0" />
-            <HBox fx:id="upperBox" alignment="CENTER_LEFT" layoutX="355.0" layoutY="90.0" prefHeight="73.0" prefWidth="520.0" spacing="30.0" />
-            <HBox fx:id="lowerBox" alignment="CENTER_LEFT" layoutX="355.0" layoutY="161.0" prefHeight="73.0" prefWidth="520.0" spacing="30.0" />
+            <HBox fx:id="upperBox" alignment="CENTER_LEFT" layoutX="355.0" layoutY="90.0" prefHeight="73.0" prefWidth="488.0" spacing="30.0" />
+            <HBox fx:id="lowerBox" alignment="CENTER_LEFT" layoutX="355.0" layoutY="161.0" prefHeight="73.0" prefWidth="488.0" spacing="30.0" />
             <Rectangle fx:id="CastleBuildings" arcHeight="5.0" arcWidth="5.0" fill="#510b0c" height="33.0" layoutX="288.0" layoutY="10.0" strokeType="INSIDE" strokeWidth="2.0" width="42.0">
                <stroke>
                   <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
@@ -80,7 +81,7 @@
                   </LinearGradient>
                </stroke>
             </Rectangle>
-            <Label fx:id="BuildingName" layoutX="880.0" layoutY="89.0" text="BuildingName" textFill="#8d0f0a">
+            <Label fx:id="BuildingName" layoutX="880.0" layoutY="89.0" text="BuildingName" textFill="#8d0f0a" visible="false">
                <font>
                   <Font name="Cambria Bold" size="19.0" />
                </font>
@@ -89,6 +90,87 @@
                </effect>
             </Label>
             <VBox fx:id="CostList" layoutX="865.0" layoutY="116.0" prefHeight="119.0" prefWidth="170.0" visible="false" />
+            <VBox fx:id="ShopVbox" alignment="BOTTOM_CENTER" layoutX="847.0" layoutY="66.0" prefHeight="159.0" prefWidth="186.0" spacing="3.0" visible="false">
+               <children>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="44.0" prefWidth="186.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="ToDeal" prefHeight="26.0" prefWidth="101.0" text="Label" textFill="#791013">
+                           <effect>
+                              <DropShadow color="#ffe100" spread="0.32" />
+                           </effect>
+                           <font>
+                              <Font name="Cambria Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Count" prefHeight="28.0" prefWidth="36.0" text="count" textFill="#791013">
+                           <font>
+                              <Font name="Cambria Bold" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Slider fx:id="Slider" blockIncrement="1.0" majorTickUnit="1.0" max="50.0" min="1.0" minorTickCount="1" prefHeight="4.0" prefWidth="186.0" value="1.0" />
+                  <HBox alignment="CENTER" prefHeight="14.0" prefWidth="186.0" spacing="15.0">
+                     <children>
+                        <Rectangle fx:id="GoldCostImg" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="31.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="30.0" />
+                        <Label fx:id="GoldCostShop" text="cost" textFill="#791013">
+                           <font>
+                              <Font name="Cambria Bold" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="43.0" prefWidth="186.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="Sell" mnemonicParsing="false" prefWidth="70.0" text="Sell" textFill="#ffd800">
+                           <font>
+                              <Font name="Cambria Bold" size="17.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="Buy" mnemonicParsing="false" prefWidth="70.0" text="Buy" textFill="#ffd800">
+                           <font>
+                              <Font name="Cambria Bold" size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox fx:id="UnitsHbox" layoutX="777.0" layoutY="97.0" prefHeight="126.0" prefWidth="259.0" spacing="3.0">
+               <children>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="126.0" prefWidth="233.0" spacing="4.0">
+                     <children>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="42.0" prefWidth="233.0" spacing="15.0">
+                           <children>
+                              <Label fx:id="unitName" prefHeight="21.0" prefWidth="89.0" text="name" textFill="#861919">
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                                 <effect>
+                                    <DropShadow color="#faff00" spread="0.43" />
+                                 </effect>
+                              </Label>
+                              <Label fx:id="UnitCount" text="count" textFill="#861919">
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                                 <effect>
+                                    <DropShadow color="#faff00" spread="0.43" />
+                                 </effect>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="UnitsCost" alignment="CENTER" prefHeight="59.0" prefWidth="233.0" spacing="7.0" />
+                        <Button fx:id="MakeUnits" mnemonicParsing="false" text="Make" textFill="#fffa00">
+                           <font>
+                              <Font name="Cambria Bold" size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Slider fx:id="BarrackSlider" blockIncrement="1.0" max="20.0" min="1.0" orientation="VERTICAL" value="1.0" />
+               </children>
+            </HBox>
          </children>
       </Pane>
       <Pane layoutX="-3.0" layoutY="-4.0" prefHeight="45.0" prefWidth="1248.0" style="-fx-background-size: cover">

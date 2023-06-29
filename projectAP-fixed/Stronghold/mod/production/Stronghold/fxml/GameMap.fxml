@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<Pane prefHeight="720.0" prefWidth="1240.0" stylesheets="@../CSS/MenuBar.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.fxmlMenu.GameLayout">
+   <children>
+      <Pane layoutY="487.0" prefHeight="234.0" prefWidth="1240.0" style="-fx-background-size: cover">
+         <styleClass>
+            <String fx:value="lowerMenu" />
+            <String fx:value="EndingPane" />
+         </styleClass>
+         <children>
+            <Rectangle fx:id="book" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="175.0" layoutX="1037.0" layoutY="57.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="203.0" />
+            <Rectangle fx:id="FarmBuildings" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="288.0" layoutY="85.0" strokeType="INSIDE" strokeWidth="2.0" width="42.0">
+               <stroke>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#ffe800" />
+                        <Stop color="#8d8134" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+            <Rectangle fx:id="Industry" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="288.0" layoutY="122.0" strokeType="INSIDE" strokeWidth="2.0" width="42.0">
+               <stroke>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#ffe800" />
+                        <Stop color="#8d8134" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+            <Rectangle fx:id="TownBuildings" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="288.0" layoutY="159.0" strokeType="INSIDE" strokeWidth="2.0" width="42.0">
+               <stroke>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#ffe800" />
+                        <Stop color="#8d8134" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+            <Rectangle fx:id="defensive" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="288.0" layoutY="197.0" strokeType="INSIDE" strokeWidth="2.0" width="42.0">
+               <stroke>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#ffe800" />
+                        <Stop color="#8d8134" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+            <Rectangle fx:id="miniMap" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="190.0" layoutX="63.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="195.0" />
+            <HBox fx:id="upperBox" alignment="CENTER_LEFT" layoutX="355.0" layoutY="90.0" prefHeight="73.0" prefWidth="520.0" spacing="30.0" />
+            <HBox fx:id="lowerBox" alignment="CENTER_LEFT" layoutX="355.0" layoutY="161.0" prefHeight="73.0" prefWidth="520.0" spacing="30.0" />
+            <Rectangle fx:id="CastleBuildings" arcHeight="5.0" arcWidth="5.0" fill="#510b0c" height="33.0" layoutX="288.0" layoutY="10.0" strokeType="INSIDE" strokeWidth="2.0" width="42.0">
+               <stroke>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#ffe800" />
+                        <Stop color="#8d8134" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+            <Rectangle fx:id="WeaponBuildings" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="33.0" layoutX="288.0" layoutY="48.0" strokeType="INSIDE" strokeWidth="2.0" width="42.0">
+               <stroke>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#ffe800" />
+                        <Stop color="#8d8134" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+            <Label fx:id="BuildingName" layoutX="880.0" layoutY="89.0" text="BuildingName" textFill="#8d0f0a" visible="false">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <effect>
+                  <DropShadow color="YELLOW" radius="14.665" spread="0.37" width="39.66" />
+               </effect>
+            </Label>
+            <VBox fx:id="CostList" layoutX="865.0" layoutY="116.0" prefHeight="119.0" prefWidth="170.0" visible="false" />
+         </children>
+      </Pane>
+      <Pane layoutX="-3.0" layoutY="-4.0" prefHeight="45.0" prefWidth="1248.0" style="-fx-background-size: cover">
+         <styleClass>
+            <String fx:value="upperMenu" />
+         </styleClass>
+         <children>
+            <Rectangle fx:id="MenuRec" arcHeight="5.0" arcWidth="5.0" height="28.0" layoutX="14.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="151.0">
+               <fill>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#510b0c" />
+                        <Stop color="#bd1f1b" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Label fx:id="date" layoutX="555.0" layoutY="10.0" prefHeight="21.0" prefWidth="127.0" style="-fx-alignment: center;" text="6 jan 765" textAlignment="CENTER" textFill="#e8d7d7">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="Menu" contentDisplay="CENTER" layoutX="34.0" layoutY="1.0" prefHeight="33.0" prefWidth="112.0" style="-fx-alignment: center;" text="Menu" textAlignment="CENTER" textFill="#ffe100">
+               <font>
+                  <Font name="Cambria Bold" size="21.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="21.0" layoutX="773.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="90.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#570c0c" />
+                        <Stop color="#440c0d" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Rectangle>
+            <Label fx:id="gold" contentDisplay="CENTER" layoutX="771.0" layoutY="5.0" prefHeight="25.0" prefWidth="90.0" style="-fx-alignment: center;" text="1000" textAlignment="CENTER" textFill="#ffcc00">
+               <font>
+                  <Font name="Cambria Bold" size="17.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="21.0" layoutX="915.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="90.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#570c0c" />
+                        <Stop color="#440c0d" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Rectangle>
+            <Label fx:id="honor" contentDisplay="CENTER" layoutX="908.0" layoutY="6.0" prefHeight="25.0" prefWidth="90.0" style="-fx-alignment: center;" text="250" textAlignment="CENTER" textFill="#ffcc00">
+               <font>
+                  <Font name="Cambria Bold" size="17.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="22.0" layoutX="1047.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="90.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#570c0c" />
+                        <Stop color="#440c0d" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Rectangle>
+            <Label fx:id="population" contentDisplay="CENTER" layoutX="1043.0" layoutY="7.0" prefHeight="22.0" prefWidth="96.0" style="-fx-alignment: center;" text="8/16" textAlignment="CENTER" textFill="#ffcc00">
+               <font>
+                  <Font name="Cambria Bold" size="17.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="22.0" layoutX="1156.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="82.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#570c0c" />
+                        <Stop color="#440c0d" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Rectangle>
+            <Circle fx:id="face" fill="DODGERBLUE" layoutX="1168.0" layoutY="19.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Label fx:id="pop" contentDisplay="CENTER" layoutX="1171.0" layoutY="6.0" prefHeight="25.0" prefWidth="76.0" style="-fx-alignment: center;" text="100" textAlignment="CENTER" textFill="#00ff30">
+               <font>
+                  <Font name="Cambria Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</Pane>

@@ -1,19 +1,20 @@
 package view.fxmlMenu;
 
 import Model.Buildings.Building;
-import Model.Buildings.Enums.BuildingGraphics;
-import Model.Buildings.Enums.BuildingIcon;
+import Model.Buildings.Enums.*;
+import Model.Units.Enums.TroopIcon;
+import Model.Units.Enums.TroopTypes;
 import javafx.application.Application;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Circle;
@@ -21,7 +22,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,14 +43,35 @@ public class GameLayout extends Application implements Initializable {
     public Image stoneImg= new Image(GameLayout.class.getResource("/images/menu/stone.png").toExternalForm());
     public Image goldImg = new Image(GameLayout.class.getResource("/images/menu/gold.png").toExternalForm());
 
+    public Resources CurrentResourceToDeal;
+    public Rectangle currentRecResources;
+    public ResourceTypes currentType = null;
 
     public BuildingIcon currentBuilding;
+
+    public Rectangle currentRecTroop;
+    public TroopTypes currentUnit;
+
     public BuildingGraphics currentbuildingGraphics;
     public Rectangle currentMenu;
     public HBox upperBox;
     public HBox lowerBox;
     public Label BuildingName;
     public VBox CostList;
+    public Button Buy;
+    public Button Sell;
+    public javafx.scene.control.Slider Slider;
+    public Label GoldCostShop;
+    public Rectangle GoldCostImg;
+    public Label Count;
+    public Label ToDeal;
+    public VBox ShopVbox;
+    public Label pop;
+    public Label UnitCount;
+    public Label unitName;
+    public HBox UnitsHbox;
+    public javafx.scene.control.Slider BarrackSlider;
+    public HBox UnitsCost;
     private String currentMenuName = "castle";
     public Rectangle book;
     public Rectangle CastleBuildings;
@@ -71,6 +92,8 @@ public class GameLayout extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(FxmlRoot);
+        scene.getStylesheets()
+                .add(this.getClass().getResource("/CSS/MenuBar.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
@@ -94,6 +117,49 @@ public class GameLayout extends Application implements Initializable {
         setActions();
         setMenuClick();
         setMenuItems();
+        HandleShop();
+        setUpBarrackMenu();
+        //changeMenuToBarracks(BarracksType.BARRACK);
+        changeMenuToFood(ResourceTypes.FOOD);
+        //changeMenuToFood(ResourceTypes.STOCK);
+        //changeMenuToFood(ResourceTypes.WEAPON);
+    }
+
+    private void setUpBarrackMenu() {
+        BarrackSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+            BarrackSlider.setValue(Math.floor(BarrackSlider.getValue()));
+            UnitCount.setText(((int) BarrackSlider.getValue())+"");
+            UpdateCostOfUnits(currentUnit);
+        });
+    }
+
+    private void UpdateCostOfUnits(TroopTypes currentUnit) {
+        if (currentUnit != null) {
+            while (UnitsCost.getChildren().size() > 0) {
+                UnitsCost.getChildren().remove(UnitsCost.getChildren().size() - 1);
+            }
+            VBox vBox = new VBox();
+            vBox.setAlignment(Pos.CENTER);
+            vBox.setSpacing(3);
+            Label label = new Label();
+            Rectangle rectangle = new Rectangle(30,30);
+            vBox.getChildren().addAll(rectangle, label);
+            label.setText((int)currentUnit.getGold() * BarrackSlider.getValue() + "");
+            rectangle.setFill(new ImagePattern(goldImg));
+            if(currentUnit.getGold()>0)
+                UnitsCost.getChildren().add(vBox);
+            for (Resources equipment : currentUnit.getEquipment()) {
+                VBox vBox1 = new VBox();
+                vBox1.setAlignment(Pos.CENTER);
+                vBox1.setSpacing(3);
+                Label label1 = new Label();
+                Rectangle rectangle1 = new Rectangle(30, 30);
+                vBox1.getChildren().addAll(rectangle1, label1);
+                rectangle1.setFill(equipment.getImagePattern());
+                label1.setText((int) BarrackSlider.getValue() + "");
+                UnitsCost.getChildren().add(vBox1);
+            }
+        }
     }
 
     private void setMenuClick() {
@@ -115,6 +181,27 @@ public class GameLayout extends Application implements Initializable {
         Menu.setOnMouseExited(event -> {
             MenuRec.setEffect(null);
         });
+    }
+
+    private void HandleShop() {
+        GoldCostImg.setFill(new ImagePattern(goldImg));
+        Slider.setValue(1);
+        Slider.setBlockIncrement(1);
+        Slider.setMajorTickUnit(1);
+        Slider.setMinorTickCount(1);
+        Slider.valueProperty().addListener((obs, oldValue, newValue) -> {
+            Color imageColor = Color.RED.interpolate(Color.ORANGE,
+                    Slider.getValue() / 100);
+            Slider.setStyle("-fx-custom-color : " + colorToHex(imageColor) + ";");
+            Slider.setValue(Math.floor(Slider.getValue()));
+            Count.setText(((int) Slider.getValue())+"");
+            if(CurrentResourceToDeal!=null)
+                GoldCostShop.setText((int)Slider.getValue()*CurrentResourceToDeal.getGold()+"");
+        });
+    }
+    public static String colorToHex(Color color) {
+        return String.format("#%02X%02X%02X", (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
     }
 
     private void setActions() {
@@ -153,7 +240,7 @@ public class GameLayout extends Application implements Initializable {
             rectangle.setEffect(dropShadow);
         });
         rectangle.setOnMouseExited(event -> {
-            if (currentMenu.equals(rectangle)) {
+            if (currentMenu!=null &&currentMenu.equals(rectangle)) {
                 rectangle.setEffect(null);
             } else {
                 ColorAdjust colorAdjust = new ColorAdjust();
@@ -182,6 +269,8 @@ public class GameLayout extends Application implements Initializable {
     }
 
     private void setMenuItems() {
+        ShopVbox.setVisible(false);
+        UnitsHbox.setVisible(false);
         int counter = 0;
         while (upperBox.getChildren().size() > 0) {
             upperBox.getChildren().remove(upperBox.getChildren().size() - 1);
@@ -256,6 +345,8 @@ public class GameLayout extends Application implements Initializable {
     }
 
     private void setCostVbox(BuildingGraphics buildingGraphics) {
+        UnitsHbox.setVisible(false);
+        ShopVbox.setVisible(false);
         CostList.setVisible(true);
         while (CostList.getChildren().size() > 0) {
             CostList.getChildren().remove(CostList.getChildren().size() - 1);
@@ -293,5 +384,143 @@ public class GameLayout extends Application implements Initializable {
                 CostList.getChildren().add(hBox);
             }
         }
+    }
+
+    private void changeMenuToFood(ResourceTypes resourceTypes) {
+        UnitsHbox.setVisible(false);
+        CostList.setVisible(false);
+        currentMenu = null;
+        currentMenuName = null;
+        int counter = 0;
+        while (upperBox.getChildren().size() > 0) {
+            upperBox.getChildren().remove(upperBox.getChildren().size() - 1);
+        }
+        while (lowerBox.getChildren().size() > 0) {
+            lowerBox.getChildren().remove(lowerBox.getChildren().size() - 1);
+        }
+        for (Resources value : Resources.values()) {
+            if (value.getType().equals(resourceTypes)) {
+                ResourceIcon resourceIcon = new ResourceIcon(50,50,value);
+                resourceIcon.setFill(value.getImagePattern());
+                HandleResourceSensitivity(resourceIcon);
+                if (counter < 5) {
+                    upperBox.getChildren().add(resourceIcon);
+                } else {
+                    lowerBox.getChildren().add(resourceIcon);
+                }
+                counter++;
+            }
+        }
+    }
+
+    private void HandleResourceSensitivity(ResourceIcon rectangle) {
+        rectangle.setOnMouseExited(event -> {
+            if (!rectangle.equals(currentRecResources)) {
+                rectangle.setEffect(null);
+            }
+            if (currentRecResources != null) {
+                HandleShopVbox(CurrentResourceToDeal);
+            }
+            else {
+                ShopVbox.setVisible(false);
+            }
+        });
+        rectangle.setOnMouseEntered(event -> {
+            HandleShopVbox(rectangle.getResources());
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setColor(Color.DARKRED);
+            dropShadow.setSpread(0.5);
+            rectangle.setEffect(dropShadow);
+        });
+        rectangle.setOnMouseClicked(event -> {
+            HandleShopVbox(rectangle.getResources());
+            if(currentRecResources!=null)
+            currentRecResources.setEffect(null);
+            CurrentResourceToDeal = rectangle.getResources();
+            currentRecResources = rectangle;
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setColor(Color.DARKRED);
+            dropShadow.setSpread(0.5);
+            rectangle.setEffect(dropShadow);
+        });
+    }
+
+    private void HandleShopVbox(Resources resources) {
+        ShopVbox.setVisible(true);
+        ToDeal.setText(resources.getName());
+        Count.setText(1 + "");
+        GoldCostShop.setText(resources.getGold() + "");
+        Slider.setValue(1);
+    }
+
+    private void changeMenuToBarracks(BarracksType barracksType) {
+        UnitsHbox.setVisible(true);
+        ShopVbox.setVisible(false);
+        CostList.setVisible(false);
+        currentMenu = null;
+        currentMenuName = null;
+        int counter = 0;
+        while (upperBox.getChildren().size() > 0) {
+            upperBox.getChildren().remove(upperBox.getChildren().size() - 1);
+        }
+        while (lowerBox.getChildren().size() > 0) {
+            lowerBox.getChildren().remove(lowerBox.getChildren().size() - 1);
+        }
+        for (TroopTypes value : TroopTypes.values()) {
+            if (value.getBarracksType() != null && value.getBarracksType().equals(barracksType)) {
+                TroopIcon troopIcon = new TroopIcon(60, 60, value);
+                troopIcon.setFill(value.getImagePattern());
+                UnitSensitivity(troopIcon);
+                if (counter < 5) {
+                    upperBox.getChildren().add(troopIcon);
+                } else {
+                    lowerBox.getChildren().add(troopIcon);
+                }
+                counter++;
+            }
+        }
+    }
+
+    private void UnitSensitivity(TroopIcon rectangle) {
+        rectangle.setOnMouseExited(event -> {
+            if (!rectangle.equals(currentRecTroop)) {
+                rectangle.setEffect(null);
+            }
+            if (currentRecTroop != null) {
+                HandleUnitHbox(currentUnit);
+                UpdateCostOfUnits(currentUnit);
+            }
+            else {
+                UnitsHbox.setVisible(false);
+            }
+        });
+        rectangle.setOnMouseEntered(event -> {
+            UnitsHbox.setVisible(true);
+            HandleUnitHbox(rectangle.getTroopTypes());
+            UpdateCostOfUnits(rectangle.getTroopTypes());
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setColor(Color.DARKRED);
+            dropShadow.setSpread(0.5);
+            rectangle.setEffect(dropShadow);
+        });
+        rectangle.setOnMouseClicked(event -> {
+            UpdateCostOfUnits(rectangle.getTroopTypes());
+            UnitsHbox.setVisible(true);
+            HandleUnitHbox(rectangle.getTroopTypes());
+            if(currentRecTroop!=null)
+                currentRecTroop.setEffect(null);
+            currentUnit = rectangle.getTroopTypes();
+            currentRecTroop = rectangle;
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setColor(Color.DARKRED);
+            dropShadow.setSpread(0.5);
+            rectangle.setEffect(dropShadow);
+        });
+    }
+
+    public void HandleUnitHbox(TroopTypes troopTypes) {
+        unitName.setText(troopTypes.getName());
+        UnitCount.setText("1");
+        BarrackSlider.setValue(1);
     }
 }
