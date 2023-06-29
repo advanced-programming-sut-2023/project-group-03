@@ -6,6 +6,7 @@ import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 import java.util.ArrayList;
 
@@ -14,8 +15,8 @@ public class SiegeTower extends CombatUnit {
     private final static int stoneCost = 10;
     private final static int woodCost = 10;
 
-    public SiegeTower(Player owner, Tile position, Tile target) {
-        super(owner, position, "siege tower");
+    public SiegeTower(Player owner, Tile position, Tile target, MapFX mapFX) {
+        super(owner, position, "siege tower", mapFX);
         this.setDamage(0);
         this.setMaterial(Material.FLESH);
         this.setSpeed(5);
@@ -70,8 +71,8 @@ public class SiegeTower extends CombatUnit {
         super.attackTo(tile);
     }
 
-    public SiegeTower(Player owner, Tile position) {
-        super(owner, position, "siege tower");
+    public SiegeTower(Player owner, Tile position, MapFX mapFX) {
+        super(owner, position, "siege tower", mapFX);
     }
 
     public Tile getTarget() {
@@ -83,7 +84,7 @@ public class SiegeTower extends CombatUnit {
     }
 
     public void makeStairs(Tile target) {
-        target.setLadder(new Stair(owner, target, StairsTypes.SIEGE_TOWER));
+        target.setLadder(new Stair(owner, target, StairsTypes.SIEGE_TOWER, null));//todo
     }
 
     @Override

@@ -3,12 +3,13 @@ package Model.Units;
 import Model.Buildings.Generators;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 public class Ox extends Worker {
     private int cargo = 0;
 
-    public Ox(Player owner, Tile position, Generators generator) {
-        super(owner, position, generator);
+    public Ox(Player owner, Tile position, Generators generator, MapFX mapFX) {
+        super(owner, position, generator, mapFX);
     }
 
     public void check() {

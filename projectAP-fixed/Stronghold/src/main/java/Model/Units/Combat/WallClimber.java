@@ -2,6 +2,7 @@ package Model.Units.Combat;
 
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 public class WallClimber extends CombatUnit {
     private static final int cost = 70;
@@ -20,8 +21,8 @@ public class WallClimber extends CombatUnit {
         super.attackTo(tile);
     }
 
-    public WallClimber(Player owner, Tile position) {
-        super(owner, position, "wall climber");
+    public WallClimber(Player owner, Tile position, MapFX mapFX) {
+        super(owner, position, "wall climber", mapFX);
     }
 
     @Override

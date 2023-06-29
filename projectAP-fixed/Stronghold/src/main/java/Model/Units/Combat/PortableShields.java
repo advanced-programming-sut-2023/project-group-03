@@ -2,6 +2,7 @@ package Model.Units.Combat;
 
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 import java.util.ArrayList;
 
@@ -25,8 +26,8 @@ public class PortableShields extends CombatUnit {
 
     }
 
-    public PortableShields(Player owner, Tile position) {
-        super(owner, position, "portable shields");
+    public PortableShields(Player owner, Tile position, MapFX mapFX) {
+        super(owner, position, "portable shields", mapFX);
 
         owner.decreaseGold(10);
     }

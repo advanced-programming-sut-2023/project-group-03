@@ -134,7 +134,7 @@ public enum UnitGraphics {
         this.images = images;
     }
 
-    public UnitGraphics getUnitGraphicsByName(String name) {
+    public static UnitGraphics getUnitGraphicsByName(String name) {
         for (UnitGraphics unitGraphic : UnitGraphics.values()) {
             if (unitGraphic.name.equals(name)) return unitGraphic;
         }

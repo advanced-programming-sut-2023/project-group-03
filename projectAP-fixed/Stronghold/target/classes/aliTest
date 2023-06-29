@@ -1,7 +1,7 @@
 first
 ali
 1
-build Inventory -x 204 -y 195 -t stockpile
+build Inventory -x 1 -y 1 -t stockpile
 build Inventory -x 300 -y 300 -t stockpile
 select menu
 Industry

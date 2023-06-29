@@ -110,7 +110,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " wood";
 
         for (int i = 0; i < amount; i++) {
-            new PortableShields(player, gameMap.getMap()[x][y]);
+            new PortableShields(player, gameMap.getMap()[x][y], mapFX);
         }
         return SUCCESSFUL_DROP_UNIT.getOutput();
     }
@@ -122,7 +122,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         if (player.getGold() < amount * WallClimber.getCost()) return NOT_ENOUGH_GOLD_UNIT.getOutput();
 
         for (int i = 0; i < amount; i++) {
-            new WallClimber(player, gameMap.getMap()[x][y]);
+            new WallClimber(player, gameMap.getMap()[x][y], mapFX);
         }
 
         return SUCCESSFUL_DROP_UNIT.getOutput();
@@ -140,13 +140,13 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " wood";
 
         for (int i = 0; i < amount; i++) {
-            new BatteringRam(player, gameMap.getMap()[x][y]);
+            new BatteringRam(player, gameMap.getMap()[x][y], mapFX);
         }
         return SUCCESSFUL_DROP_UNIT.getOutput();
     }
 
     private String addSiegeTower(int x, int y, int amount, Player player, Barracks barracks) {
-        if (!barracks.getType().equals(BarracksType.SIEGE_TENT) && barracks != null)
+        if (barracks != null && !barracks.getType().equals(BarracksType.SIEGE_TENT))
             return NOT_RIGHT_PLACE_UNIT.getOutput();
 
         if (player.getGold() * amount < SiegeTower.getGoldCost())
@@ -157,7 +157,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             return NOT_ENOUGH_RESOURCES_UNIT.getOutput() + " wood";
 
         for (int i = 0; i < amount; i++) {
-            new SiegeTower(player, gameMap.getMap()[x][y]);
+            new SiegeTower(player, gameMap.getMap()[x][y], mapFX);
         }
         return SUCCESSFUL_DROP_UNIT.getOutput();
     }
@@ -174,7 +174,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
         }
 
         for (int i = 0; i < amount; i++) {
-            new Troop(player, tile, troopType);
+            new Troop(player, tile, troopType, mapFX);
         }
 
         return SUCCESSFUL_DROP_UNIT.getOutput();
@@ -189,7 +189,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             return NOT_ENOUGH_POPULATION_ENGINEER.getOutput();//todo engineer amount
 
         for (int i = 0; i < amount; i++) {
-            new Engineer(player, tile);
+            new Engineer(player, tile, mapFX);
         }
 
         return SUCCESSFUL_ADD_ENGINEER.getOutput();
@@ -201,7 +201,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         if (player.getGold() < amount * LadderMen.getPrice()) return NOT_ENOUGH_GOLD_UNIT.getOutput();
         for (int i = 0; i < amount; i++) {
-            new LadderMen(player, gameMap.getMap()[x][y]);
+            new LadderMen(player, gameMap.getMap()[x][y], mapFX);
         }
 
         return SUCCESSFUL_DROP_UNIT.getOutput();
@@ -222,7 +222,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
 
         if (!throwerType.getName().contains("tower")) {
             for (int i = 0; i < amount; i++) {
-                Throwers newThrower = new Throwers(player, targetTile, throwerType);
+                Throwers newThrower = new Throwers(player, targetTile, throwerType, mapFX);
                 ArrayList<Engineer> requiredEngineers = player.getKeep().getEngineers(throwerType.getEngineer());
                 for (Engineer engineer : requiredEngineers) {
                     engineer.setJob(newThrower);
@@ -240,7 +240,7 @@ public class UnitController extends GeneralGameController implements UnitInterfa
             Towers tower = (Towers) building;
             if (!(tower.getType().equals(TowerTypes.SQUARE_TOWER) || tower.getType().equals(TowerTypes.ROUND_TOWER)))
                 return BUILDING_NOT_PROPER_TOWER.getOutput();
-            Throwers newThrower = new Throwers(player, targetTile, throwerType);
+            Throwers newThrower = new Throwers(player, targetTile, throwerType, mapFX);
             ArrayList<Engineer> requiredEngineers = player.getKeep().getEngineers(throwerType.getEngineer());
             for (Engineer engineer : requiredEngineers) {
                 engineer.setJob(newThrower);

@@ -6,13 +6,14 @@ import Model.Buildings.Enums.Resources;
 import Model.Buildings.Generators;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 public class Worker extends nonCombatUnit {
 
     Generators job;
 
-    public Worker(Player owner, Tile position, Generators job) {
-        super(owner, position, "worker");
+    public Worker(Player owner, Tile position, Generators job, MapFX mapFX) {
+        super(owner, position, "worker", mapFX);
         this.job = job;
         this.HP = 20;
         speed = 2;

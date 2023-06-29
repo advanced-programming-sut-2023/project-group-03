@@ -8,6 +8,7 @@ import Model.GamePlay.Player;
 import Model.Units.Enums.AttackingMode;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
+import Model.graphics.MapFX;
 import controller.gameControllers.MoveUnitController;
 import view.Enums.ConsoleColors;
 
@@ -19,8 +20,8 @@ public class Troop extends CombatUnit {
     protected AttackingMode mode;
     protected HashSet<Resources> equipment;
 
-    public Troop(Player owner, Tile position, TroopTypes type) {
-        super(owner, position, type.getName());
+    public Troop(Player owner, Tile position, TroopTypes type, MapFX mapFX) {
+        super(owner, position, type.getName(), mapFX);
         this.type = type;
         this.speed = type.getSpeed();
         this.damage = type.getDamage();

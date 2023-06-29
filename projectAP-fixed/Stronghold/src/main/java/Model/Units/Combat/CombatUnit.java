@@ -7,6 +7,7 @@ import Model.GamePlay.Drawable;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
+import Model.graphics.MapFX;
 import controller.gameControllers.MoveUnitController;
 
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ public abstract class CombatUnit extends Unit {
     protected Drawable EnemyTarget = null;
     protected int gold;
 
-    public CombatUnit(Player owner, Tile position, String name) {
-        super(owner, position, name);
+    public CombatUnit(Player owner, Tile position, String name, MapFX mapFX) {
+        super(owner, position, name, mapFX);
     }
 
     public void attackTo(Tile tile) {

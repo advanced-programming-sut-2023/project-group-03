@@ -1,0 +1,11 @@
+first
+ali
+1
+build Inventory -x 1 -y 1 -t stockpile
+build Inventory -x 300 -y 300 -t stockpile
+select menu
+Castle Buildings
+drop castle building -x 4 -y 4 -t barrack
+back
+select building -x 3 -y 3
+create unit -x 10 -y 10 -t swordmen -c 1

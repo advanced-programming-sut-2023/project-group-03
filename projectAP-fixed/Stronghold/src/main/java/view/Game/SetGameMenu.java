@@ -58,31 +58,41 @@ public class SetGameMenu extends Menu {
         }
         setResourses(3500);
 
-        AtomicReference<MapFX> mapFX = null;
+        AtomicReference<MapFX> mapFX = new AtomicReference<>();
         //todo
         if (stage != null) {
+            AtomicReference<GameGraphic> gameGraphic = new AtomicReference<>();
             Platform.runLater(() -> {
-                GameGraphic gameGraphic = new GameGraphic(game.getMap(), game.getMap().getSize());
-                while (gameGraphic.getMapHandler() == null) {}
-                mapFX.set(gameGraphic.getMapHandler());
+                gameGraphic.set(new GameGraphic(game.getMap(), game.getMap().getSize(), game));
                 try {
-                    gameGraphic.start(stage);
+                    gameGraphic.get().start(stage);
                 } catch (Exception e) {
+                    System.out.println("dard ast");
                     e.printStackTrace();
+                    System.out.println("finish dard ast");
                     throw new RuntimeException(e);
                 }
             });
+            System.out.println("we are out for god sake.");
+            while (gameGraphic.get() == null || gameGraphic.get().getMapFX() == null) {
+                System.out.println("in while");
+            }
+            synchronized (mapFX){
+                mapFX.set(gameGraphic.get().getMapFX());
+                notify();
+            }
 //            GameThread gameThread = new GameThread(gameMenu);
 //            gameThread.start();
         }
-        System.out.println("behind the while");
-        while (true) {
-            System.out.println("out");
-            int x = scanner.nextInt();
-            if (x == 5 ) break;
+        synchronized (mapFX) {
+            if (mapFX.get() == null) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
-        System.out.println("we are good");
-        int t = scanner.nextInt();
         GameMenu gameMenu = new GameMenu(scanner, game, mapFX.get());
         gameMenu.setUser(user);
         throw new Transition(gameMenu);
@@ -127,8 +137,8 @@ public class SetGameMenu extends Menu {
                 player.setCurrentPopulation(0);
                 player.setMaxPopulation(16);
             }
-            Troop King = new Troop(player, player.getKeep().getPosition(), TroopTypes.KING);
-            player.setKing(King);
+//            Troop King = new Troop(player, player.getKeep().getPosition(), TroopTypes.KING);//todo
+//            player.setKing(King);
         }
     }
 

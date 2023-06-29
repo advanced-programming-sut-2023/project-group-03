@@ -5,6 +5,7 @@ import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Unit;
+import Model.graphics.MapFX;
 import controller.gameControllers.MoveUnitController;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public class Throwers extends CombatUnit {
     private final int cost;
     private int power;
 
-    public Throwers(Player owner, Tile position, ThrowerTypes type) {
-        super(owner, position, type.getName());
+    public Throwers(Player owner, Tile position, ThrowerTypes type, MapFX mapFX) {
+        super(owner, position, type.getName(), mapFX);
         targets.add(type.getTarget());
         this.type = type;
         this.speed = type.getSpeed();

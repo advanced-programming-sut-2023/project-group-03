@@ -76,7 +76,7 @@ public class MapBuffer {
         for (int i = 0; i < numberOfPlayers; i++) {
             TileBuffer tileBuffer = KeepOfPlayers[i];
             Tile tile = gameMap.getMap()[tileBuffer.getRowNum()][tileBuffer.getColumnNum()];
-            Keep keep = new Keep(gameMap.getPlayers()[i], tile);
+            Keep keep = new Keep(gameMap.getPlayers()[i], tile, null);//todo
             gameMap.getPlayers()[i].setKeep(keep);
         }
         return gameMap;

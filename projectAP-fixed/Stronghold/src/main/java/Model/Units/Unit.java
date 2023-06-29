@@ -7,7 +7,9 @@ import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Throwers;
 import Model.Units.Combat.Troop;
+import Model.graphics.MapFX;
 import controller.gameControllers.MoveUnitController;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 
@@ -18,10 +20,14 @@ public abstract class Unit extends Drawable {
     private Tile end;
     protected Tile currentTarget = null;
     protected Tile BufferTarget = null;
+    protected MapFX.UnitShape mapUnitShape;
     protected ArrayList<Tile> currentPath = new ArrayList<>();
 
-    public Unit(Player owner, Tile position, String name) {
+    public Unit(Player owner, Tile position, String name, MapFX mapFX) {
         super(owner, position, name);
+        Platform.runLater(() -> {
+            mapUnitShape = new MapFX.UnitShape(this, mapFX);
+        });
         currentTarget = position;
         owner.addUnit(this);
         position.addUnit(this);

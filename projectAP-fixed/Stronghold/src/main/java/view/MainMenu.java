@@ -31,7 +31,7 @@ public class MainMenu extends Menu{
             throw new Transition(startingMenu);
         }
         else if (command.matches(MainMenuCommands.MAP_MENU.getRegex())) {
-            throw new Transition(new MapMenu(scanner,user));
+            throw new Transition(new MapMenu(scanner,user, null));//todo
         }
         else if (command.matches(MainMenuCommands.START_GAME.getRegex())) {
             throw new Transition(new SetGameMenu(scanner, user));
