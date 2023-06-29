@@ -71,6 +71,7 @@ public enum BuildingGraphics {
         this.length = length;
         this.width = width;
         this.imageAddress = imageAddress;
+        System.out.println(name);
         buildingImage = new Image(
                 Tile.class.getResource("/images/buildings/" + imageAddress).toExternalForm()
         );
