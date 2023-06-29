@@ -362,7 +362,7 @@ public class MapFX {
 
     public void moveMapWithKeys(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.LEFT)) {
-                mapPane.setLayoutX(mapPane.getLayoutX() + horizontalCameraMove);
+                mapPane.setLayoutX(mapPane.getLayoutX() + horizontalCameraMove); 
                 view.setLayoutX(view.getLayoutX() - horizontalCameraMove);
                 updateCamera();
         } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
