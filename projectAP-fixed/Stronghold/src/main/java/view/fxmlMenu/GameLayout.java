@@ -119,8 +119,8 @@ public class GameLayout extends Application implements Initializable {
         setMenuItems();
         HandleShop();
         setUpBarrackMenu();
-        //changeMenuToBarracks(BarracksType.BARRACK);
-        changeMenuToFood(ResourceTypes.FOOD);
+        changeMenuToBarracks(BarracksType.BARRACK);
+        //changeMenuToFood(ResourceTypes.FOOD);
         //changeMenuToFood(ResourceTypes.STOCK);
         //changeMenuToFood(ResourceTypes.WEAPON);
     }
