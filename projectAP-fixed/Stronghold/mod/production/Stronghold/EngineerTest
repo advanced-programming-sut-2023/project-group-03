@@ -1,0 +1,50 @@
+first
+ali
+1
+build Inventory -x 204 -y 195 -t stockpile
+build Inventory -x 300 -y 300 -t stockpile
+select menu
+Industry
+build -x 204 -y 197 -t woodcutter
+back
+next turn
+next turn
+select menu
+Weopon Buildings
+build -x 198 -y 201 -t bowMaker
+back
+next turn
+next turn
+select menu
+Industry
+build Inventory -x 198 -y 210 -t armoury
+back
+select menu
+Weopon Buildings
+build generator -t bowMaker -x 198 -y 206
+back
+next turn
+next turn
+move up 100 left 100
+change size of map
+2
+select menu
+Castle Buildings
+drop castle building -t "engineer guild" -y 95 -x 99
+back
+select building -x 99 -y 95
+create unit -x 103 -y 95 -t engineer -c 10
+select menu
+Castle Buildings
+drop castle building -t "siege tent" -x 99 -y 107
+back
+select building -x 99 -y 107
+create unit -x 103 -y 107 -t trebuchets -c 1
+next turn
+next turn
+next turn
+next turn
+select unit -x 103 -y 107 -t trebuchets -c 1
+move unit -x 100 -y 107
+next turn
+next turn

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane prefHeight="750.0" prefWidth="1200.0" styleClass="rounding" stylesheets="@../CSS/Register.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controllers.StartingController">
+   <children>
+      <VBox alignment="CENTER" layoutX="345.0" layoutY="170.0" prefHeight="411.0" prefWidth="511.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="43.0" prefWidth="350.0" text="Welcome to Stronghold" textFill="#faff00">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="292.0" prefWidth="511.0" spacing="15.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#register" prefWidth="250.0" text="Register">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#login" prefWidth="250.0" text="Login">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#exit" prefWidth="250.0" text="Exit">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>

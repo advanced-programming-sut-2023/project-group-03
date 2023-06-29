@@ -1,0 +1,21 @@
+first
+ali
+1
+build Inventory -x 204 -y 195 -t stockpile
+build Inventory -x 300 -y 300 -t stockpile
+select menu
+Castle Buildings
+drop castle building -x 204 -y 192 -t barrack
+back
+select building -x 204 -y 192
+create unit -x 198 -y 210 -t swordmen -c 5
+next turn
+select menu
+Castle Buildings
+drop castle building -x 201 -y 209 -t "caged war dogs"
+back
+next turn
+select unit -x 198 -y 210 -t swordmen -c 3
+move unit -x 201 -y 209
+next turn
+next turn

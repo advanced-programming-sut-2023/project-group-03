@@ -1,0 +1,106 @@
+first
+ali
+1
+build Inventory -x 204 -y 195 -t stockpile
+build Inventory -x 300 -y 300 -t stockpile
+select menu
+Industry
+build -x 204 -y 197 -t woodcutter
+back
+next turn
+next turn
+select menu
+Weopon Buildings
+build -x 198 -y 201 -t bowMaker
+back
+next turn
+next turn
+select menu
+Industry
+build Inventory -x 198 -y 210 -t armoury
+back
+select menu
+Weopon Buildings
+build generator -t bowMaker -x 198 -y 206
+back
+next turn
+next turn
+move up 100 left 100
+change size of map
+2
+select menu
+Castle Buildings
+drop castle building -t barrack -y 95 -x 99
+back
+select building -x 99 -y 95
+create unit -x 103 -y 95 -t swordmen -c 10
+select unit -x 103 -y 95 -t swordmen -c 8
+move unit -x 103 -y 100
+set -s aggressive
+next turn
+next turn
+next turn
+move down 100 right 100
+change size of map
+3
+select menu
+Castle Buildings
+build Wall -x 204 -y 200 -t "big wall"
+build Wall -x 203 -y 200 -t "big wall"
+build Wall -x 202 -y 200 -t "big wall"
+build Wall -x 201 -y 200 -t "big wall"
+build Wall -x 200 -y 200 -t "big wall"
+build Wall -x 204 -y 201 -t "big wall"
+build Wall -x 205 -y 200 -t "big wall"
+build Wall -x 205 -y 201 -t "big wall"
+build Wall -x 205 -y 202 -t "big wall"
+build Wall -x 205 -y 203 -t "big wall"
+build Wall -x 205 -y 204 -t "big wall"
+build Wall -x 205 -y 205 -t "big wall"
+build Wall -x 205 -y 206 -t "big wall"
+build Wall -x 205 -y 207 -t "big wall"
+build Wall -x 205 -y 208 -t "big wall"
+back
+move down 1
+next turn
+select menu
+Weopon Buildings
+build Barrack -x 205 -y 192 -t "siege tent"
+back
+select building -x 205 -y 192
+create unit -x 205 -y 197 -t "trebuchets" -c 50
+select menu
+Weopon Buildings
+build Barrack -t "engineer guild" -x 199 -y 192
+back
+select menu
+Barracks
+engineer guild
+create unit -x 202 -y 194 -t engineer -c 15
+select building -x 205 -y 192
+create unit -x 205 -y 197 -t "trebuchets" -c 7
+next turn
+next turn
+select unit -x 205 -y 197 -t "trebuchets" -c 2
+attack building -x 205 -y 200
+next turn
+next turn
+next turn
+select building -x 204 -y 201
+show inventory
+select building -x 205 -y 201
+select menu
+Castle Buildings
+build tower -x 204 -y 201 -t "round tower"
+drop castle building -x 202 -y 209 -t "round tower"
+back
+select unit -x 205 -y 197 -t "trebuchets" -c 3
+move unit -x 203 -y 195
+next turn
+next turn
+next turn
+next turn
+next turn
+next turn
+select unit -x 204 -y 204 -t "trebuchets" -c 2
+attack building -x 203 -y 209

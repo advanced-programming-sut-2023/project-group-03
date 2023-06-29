@@ -17,7 +17,7 @@ public enum GameMenuCommands {
     FEAR_RATE("^fear rate (?<rateInfo>.+)"),
     FEAR_RATE_SHOW("^fear rate show$"),
     SELECT_BUILDING("^select building (?<buildingInfo>.+)"),
-    DROP_BUILDING("^drop castle building (?<buildingInfo>.+)"),
+    DROP_BUILDING("^drop building (?<buildingInfo>.+)"),
     BUILD_TOWER("^build Tower (?<towerInfo>.+)"),
     BUILD_WALL("^build Wall (?<wallInfo>.+)"),
     BUILD_BARRACKS("^build Barrack (?<barracksInfo>.+)"),
