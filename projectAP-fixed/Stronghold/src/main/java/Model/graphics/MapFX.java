@@ -357,7 +357,7 @@ public class MapFX {
                 });
             }
         }
-        updateCamera();
+        updateCamera(); 
     }
 
     public void moveMapWithKeys(KeyEvent keyEvent) {
