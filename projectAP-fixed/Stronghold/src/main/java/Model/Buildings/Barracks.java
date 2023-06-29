@@ -6,6 +6,7 @@ import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.CombatUnit;
 import Model.Units.Enums.TroopTypes;
+import Model.graphics.MapFX;
 import view.Enums.ConsoleColors;
 
 import java.util.Arrays;
@@ -19,8 +20,8 @@ public class Barracks extends Building {
     BarracksType type;
     HashSet<TroopTypes> Products = new HashSet<>();
 
-    public Barracks(Player owner, Tile position, BarracksType type) {
-        super(owner, position, type.getSize(), type.getName());
+    public Barracks(Player owner, Tile position, BarracksType type, MapFX mapFX) {
+        super(owner, position, type.getSize(), type.getName(), mapFX);
         this.material = type.getMaterial();
         this.type = type;
         this.HP = type.getHP();

@@ -6,6 +6,7 @@ import Model.Buildings.Enums.Resources;
 import Model.Buildings.Generators;
 import Model.Field.GameMap;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 import controller.Controller;
 import controller.interfaces.BuildingInterface;
 import controller.interfaces.GameMarketInterface;
@@ -24,14 +25,16 @@ public class GameController extends Controller implements GameMarketInterface, B
     private final UnitController unitController;
 
     private final GameMap gameMap;
+    private final MapFX mapFX;
 
-    public GameController(GameMap gameMap) {
-        this.buildingController = new BuildingController(gameMap);
-        this.kingdomController = new KingdomController(this);
+    public GameController(GameMap gameMap, MapFX mapFX) {
+        this.buildingController = new BuildingController(gameMap, mapFX);
+        this.kingdomController = new KingdomController(this, mapFX);
         this.marketController = new MarketController();
         this.moveUnitController = new MoveUnitController();
-        this.unitController = new UnitController(gameMap);
+        this.unitController = new UnitController(gameMap, mapFX);
         this.gameMap = gameMap;
+        this.mapFX = mapFX;
     }
 
     public GameMap getGameMap() {

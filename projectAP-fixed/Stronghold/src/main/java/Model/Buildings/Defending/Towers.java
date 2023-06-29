@@ -6,6 +6,7 @@ import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Throwers;
 import Model.Units.Combat.Troop;
+import Model.graphics.MapFX;
 import view.Enums.ConsoleColors;
 
 public class Towers extends CastleBuilding {
@@ -14,8 +15,8 @@ public class Towers extends CastleBuilding {
     private final int defenseIncrease;
     private final int rangeIncrease;
 
-    public Towers(Player owner, Tile position, TowerTypes type) {
-        super(owner, position, type.getSize(), type.getName());
+    public Towers(Player owner, Tile position, TowerTypes type, MapFX mapFX) {
+        super(owner, position, type.getSize(), type.getName(), mapFX);
         this.type = type;
         this.HP = type.getHP();
         size = type.getSize();

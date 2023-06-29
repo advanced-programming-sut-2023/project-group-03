@@ -5,6 +5,7 @@ import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 import java.util.HashMap;
 
@@ -13,8 +14,8 @@ public class Inventory extends Building {
     private final HashMap<Resources, Integer> inventory;
     int capacity;
 
-    public Inventory(Player owner, Tile position, InventoryTypes type) {
-        super(owner, position, type.getSize(), type.getName());
+    public Inventory(Player owner, Tile position, InventoryTypes type, MapFX mapFX) {
+        super(owner, position, type.getSize(), type.getName(), mapFX);
         goldCost = 10;
         stoneCost = type.getStoneCost();
         woodCost = type.getWood();

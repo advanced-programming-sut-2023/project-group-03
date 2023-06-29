@@ -4,6 +4,7 @@ import Model.Buildings.Enums.Resources;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 import view.Enums.ConsoleColors;
 
 public class Store extends Building {
@@ -18,8 +19,8 @@ public class Store extends Building {
     }
 
 
-    public Store(Player owner, Tile position) {
-        super(owner, position, 3, "store");
+    public Store(Player owner, Tile position, MapFX mapFX) {
+        super(owner, position, 3, "store", mapFX);
         setMaterial(Material.STONE);
         owner.getKeep().setStore(this);
         stoneCost = 5;

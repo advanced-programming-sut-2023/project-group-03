@@ -5,14 +5,15 @@ import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
+import Model.graphics.MapFX;
 
 import java.util.ArrayList;
 
 public abstract class CastleBuilding extends Building {
     protected ArrayList<Troop> troops;
 
-    public CastleBuilding(Player owner, Tile position, int size, String name) {
-        super(owner, position, size, name);
+    public CastleBuilding(Player owner, Tile position, int size, String name, MapFX mapFX) {
+        super(owner, position, size, name, mapFX);
         this.setMaterial(Material.STONE);
         this.troops = new ArrayList<>();
     }

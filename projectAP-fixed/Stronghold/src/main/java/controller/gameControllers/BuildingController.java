@@ -9,6 +9,7 @@ import Model.GamePlay.Player;
 import Model.Units.Ox;
 import Model.Units.Unit;
 import Model.Units.Worker;
+import Model.graphics.MapFX;
 import controller.interfaces.BuildingInterface;
 import view.Game.GameMenu;
 
@@ -19,10 +20,9 @@ import static controller.Enums.InputOptions.*;
 import static controller.Enums.Response.*;
 
 public class BuildingController extends GeneralGameController implements BuildingInterface {
-    GameController gameController;
 
-    BuildingController(GameMap gameMap) {
-        super(gameMap);
+    BuildingController(GameMap gameMap, MapFX mapFX) {
+        super(gameMap, mapFX);
     }
 
     public String selectBuilding(Matcher matcher, Player player, GameMenu gameMenu) {
@@ -191,18 +191,18 @@ public class BuildingController extends GeneralGameController implements Buildin
         WallTypes wallType = WallTypes.getTypeByName(type);
         if (wallType != null) {
             if (!wallType.getTextures().contains(tileTexture)) return DROP_BUILDING_TEXTURE.getOutput();
-            targetTile.setBuilding(new Wall(player, targetTile, wallType));
+            targetTile.setBuilding(new Wall(player, targetTile, wallType, mapFX));
             return SUCCESSFUL_DROP_BUILDING.getOutput();
         }
 
         if (type.equals("store")) {
-            targetTile.setBuilding(new Store(player, targetTile));
+            targetTile.setBuilding(new Store(player, targetTile, mapFX));
             return STORE_DROP.getOutput();
         }
 
         if (type.equals("keep")) {
             if (player.getKeep() != null) return KEEP_EXIST.getOutput();
-            new Keep(player, targetTile);
+            new Keep(player, targetTile, mapFX);
             return SUCCESSFUL_DROP_BUILDING.getOutput();
         }
 
@@ -256,7 +256,7 @@ public class BuildingController extends GeneralGameController implements Buildin
 
         if (targetTile.getOwner() != null && !targetTile.getOwner().equals(player)) return ACQUISITION.getOutput();
 
-        targetTile.setBuilding(new Wall(player, targetTile, wallType));
+        targetTile.setBuilding(new Wall(player, targetTile, wallType, mapFX));
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -344,7 +344,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (!targetTile.getHeight().equals(Height.GROUND) && !targetTile.getHeight().equals(Height.SMALL_WALL))
             return BAD_TEXTURE_STAIR.getOutput();
 
-        targetTile.setLadder(new Stair(player, targetTile, StairsTypes.STAIRS));
+        targetTile.setLadder(new Stair(player, targetTile, StairsTypes.STAIRS, mapFX));
         return SUCCESSFUL_DROP_STAIR.getOutput();
     }
 
@@ -497,7 +497,7 @@ public class BuildingController extends GeneralGameController implements Buildin
             }
         }
 
-        Towers newTower = new Towers(player, gameMap.getMap()[xCenter][yCenter], towerType);
+        Towers newTower = new Towers(player, gameMap.getMap()[xCenter][yCenter], towerType, mapFX);
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -530,7 +530,7 @@ public class BuildingController extends GeneralGameController implements Buildin
             }
         }
 
-        Barracks newBarracks = new Barracks(player, gameMap.getMap()[xCenter][yCenter], barracksType);
+        Barracks newBarracks = new Barracks(player, gameMap.getMap()[xCenter][yCenter], barracksType, mapFX);
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -548,7 +548,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
             return ROCK_EXIT_DROP_BUILDING.getOutput();
 
-        targetTile.setBuilding(new Inventory(player, targetTile, InventoryTypes.ARMOURY));
+        targetTile.setBuilding(new Inventory(player, targetTile, InventoryTypes.ARMOURY, mapFX));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
@@ -608,7 +608,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
             return ROCK_EXIT_DROP_BUILDING.getOutput();
 
-        targetTile.setBuilding(new Inventory(player, targetTile, inventoryType));
+        targetTile.setBuilding(new Inventory(player, targetTile, inventoryType, mapFX));
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -627,7 +627,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
             return ROCK_EXIT_DROP_BUILDING.getOutput();
 
-        targetTile.setBuilding(new Rest(player, targetTile, restType));
+        targetTile.setBuilding(new Rest(player, targetTile, restType, mapFX));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
@@ -644,7 +644,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (targetTile.getMazafaza() != null && targetTile.getMazafaza().getName().contains("rock"))
             return ROCK_EXIT_DROP_BUILDING.getOutput();
 
-        new OxTether(player, targetTile);
+        new OxTether(player, targetTile, mapFX);
         for (int i = 0; i < generators.getType().getWorker(); i++) {
             generators.addWorker(new Ox(player, targetTile, generators));
         }
@@ -694,7 +694,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         }
 
         targetTile = gameMap.getMap()[xCenter][yCenter];
-        Generators newGenerator = new Generators(player, targetTile, generatorType);
+        Generators newGenerator = new Generators(player, targetTile, generatorType, mapFX);
         for (int i = 0; i < generatorType.getWorker(); i++) {
             if (!generatorType.equals(GeneratorTypes.IRON_MINE) && !generatorType.equals(GeneratorTypes.STONE_MINE)) {
                 newGenerator.addWorker(new Worker(player, targetTile, newGenerator));
@@ -743,7 +743,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (terminalTile2.getBuilding() != null || terminalTile1.getBuilding() != null)
             return BUILDING_ON_TERMINAL.getOutput();
 
-        Gates newGate = new Gates(player, gameMap.getMap()[xCenter][yCenter], gateType, terminalTile1, terminalTile2);
+        Gates newGate = new Gates(player, gameMap.getMap()[xCenter][yCenter], gateType, terminalTile1, terminalTile2, mapFX);
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
@@ -774,7 +774,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         String errorCheck = checkTrapErrors(x, y, player, TrapsTypes.PITCH_DITCH);
         if (errorCheck != null) return errorCheck;
 
-        targetTile.setBuilding(new PitchDitch(player, targetTile));
+        targetTile.setBuilding(new PitchDitch(player, targetTile, mapFX));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
@@ -792,7 +792,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         String errorCheck = checkTrapErrors(x, y, player, TrapsTypes.KILLING_PIT);
         if (errorCheck != null) return errorCheck;
 
-        targetTile.setBuilding(new KillingPit(player, targetTile));
+        targetTile.setBuilding(new KillingPit(player, targetTile, mapFX));
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }
 
@@ -814,7 +814,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         }
 
         targetTile = gameMap.getMap()[xCenter][yCenter];
-        Store newStore = new Store(player, targetTile);
+        Store newStore = new Store(player, targetTile, mapFX);
 
         return SUCCESSFUL_DROP_BUILDING.getOutput();
     }

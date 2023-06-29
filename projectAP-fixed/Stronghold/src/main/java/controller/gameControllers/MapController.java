@@ -6,6 +6,7 @@ import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
 import Model.buffers.MapBuffer;
+import Model.graphics.MapFX;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -23,11 +24,13 @@ import static controller.Enums.Response.*;
 public class MapController extends GeneralGameController {
     private final int gameWidth = 3;
     private final int gameLength = gameWidth * 2;
-    private final BuildingController buildingController = new BuildingController(gameMap);
-    private final UnitController unitController = new UnitController(gameMap);
+    private final BuildingController buildingController;
+    private final UnitController unitController;
 
-    public MapController(GameMap gameMap) {
-        super(gameMap);
+    public MapController(GameMap gameMap, MapFX mapFX) {
+        super(gameMap, null);
+        buildingController = new BuildingController(gameMap, mapFX);
+        unitController = new UnitController(gameMap, mapFX);
     }
 
     public String setTexture(Matcher matcher) {

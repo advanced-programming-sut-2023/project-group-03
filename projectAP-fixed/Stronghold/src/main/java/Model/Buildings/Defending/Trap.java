@@ -5,6 +5,7 @@ import Model.Buildings.Defending.Enums.TrapsTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
+import Model.graphics.MapFX;
 import view.Enums.ConsoleColors;
 
 public class Trap extends Building {
@@ -16,8 +17,8 @@ public class Trap extends Building {
     private final int worker;
     private final int damage;
 
-    public Trap(Player owner, Tile position, TrapsTypes type) {
-        super(owner, position, type.getSize(), type.getName());
+    public Trap(Player owner, Tile position, TrapsTypes type, MapFX mapFX) {
+        super(owner, position, type.getSize(), type.getName(), mapFX);
         this.gold = type.getGold();
         this.wood = type.getWood();
         this.oil = type.getOil();

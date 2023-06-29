@@ -9,6 +9,7 @@ import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
 import Model.Units.Worker;
+import Model.graphics.MapFX;
 import controller.Controller;
 import view.Enums.ConsoleColors;
 import view.Game.GameMenu;
@@ -23,6 +24,7 @@ import static controller.Enums.InputOptions.COORDINATES;
 import static controller.Enums.Response.*;
 
 public class GeneralGameController extends Controller {
+    protected MapFX mapFX;
     protected GameMap gameMap;
     private static final int gameWidth = 3;
     private static int gameLength = 3 * gameWidth;
@@ -32,8 +34,9 @@ public class GeneralGameController extends Controller {
         gameLength = 3 * gameWidth;
     }
 
-    public GeneralGameController(GameMap gameMap) {
+    public GeneralGameController(GameMap gameMap, MapFX mapFX) {
         this.gameMap = gameMap;
+        this.mapFX = mapFX;
     }
 
     protected String checkCoordinates(HashMap<String, String> coordinates, String xString, String yString) {

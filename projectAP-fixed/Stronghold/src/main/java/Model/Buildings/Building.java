@@ -8,19 +8,15 @@ import Model.Buildings.Defending.Gates;
 import Model.Buildings.Defending.Towers;
 import Model.Buildings.Defending.Wall;
 import Model.Buildings.Enums.*;
-import Model.Field.Direction;
 import Model.Field.GameMap;
 import Model.Field.Texture;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 
 import java.util.HashMap;
 import java.util.HashSet;
-
-import static controller.Enums.InputOptions.BUILD_STONE_GATE;
-import static controller.Enums.InputOptions.DROP_BUILDING;
-import static controller.Enums.Response.*;
 
 public abstract class Building extends Drawable {
     protected int length;
@@ -36,9 +32,12 @@ public abstract class Building extends Drawable {
     }
 
     protected static HashSet<Texture> textures;
+    protected MapFX.BuildingShape mapBuildingShape;
 
-    public Building(Player owner, Tile position, int size, String name) {
+    public Building(Player owner, Tile position, int size, String name, MapFX mapFX) {
         super(owner, position, name);
+        mapBuildingShape = new MapFX.BuildingShape(this, mapFX);
+
         buildingShape = BuildingGraphics.getBuildingByName(name);
         if (buildingShape == null) System.out.println("there was a problem in getting buildingGraphics for " + name);
 

@@ -3,14 +3,15 @@ package Model.Buildings.Defending;
 import Model.Buildings.Defending.Enums.WallTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 import view.Enums.ConsoleColors;
 
 public class Wall extends CastleBuilding {
     private final WallTypes type;
     private Trap trap;
 
-    public Wall(Player owner, Tile position, WallTypes type) {
-        super(owner, position, 1, type.getName());
+    public Wall(Player owner, Tile position, WallTypes type, MapFX mapFX) {
+        super(owner, position, 1, type.getName(), mapFX);
         this.type = type;
         this.HP = type.getHP();
         this.stoneCost = type.getStoneCost();

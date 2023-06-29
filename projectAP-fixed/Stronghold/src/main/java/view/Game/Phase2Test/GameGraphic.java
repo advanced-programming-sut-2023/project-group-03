@@ -39,7 +39,6 @@ public class GameGraphic extends Application {
         gamePane = new Pane();
         mapPane = new Pane();
         gamePane.getChildren().add(mapPane);
-        int x = new Scanner(System.in).nextInt();
         System.out.println("setup panes");
 
         mapHandler = new MapFX(mapSize, mapPane, primaryStage, gameMap);
@@ -63,5 +62,9 @@ public class GameGraphic extends Application {
                 }
             }
         });
+    }
+
+    public MapFX getMapHandler() {
+        return mapHandler;
     }
 }

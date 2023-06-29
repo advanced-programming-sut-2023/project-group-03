@@ -9,6 +9,7 @@ import Model.GamePlay.Game;
 import Model.GamePlay.Player;
 import Model.Units.Unit;
 import Model.User;
+import Model.graphics.MapFX;
 import controller.ControllerFunctions;
 import controller.Enums.Response;
 import controller.gameControllers.GameController;
@@ -31,6 +32,7 @@ import static view.Enums.ConsoleColors.*;
 
 public class GameMenu extends Menu {
     private Game game;
+    private MapFX mapFX;
     User user;
 
     private Drawable selected = null;
@@ -47,8 +49,9 @@ public class GameMenu extends Menu {
     KeepMenu keepMenu;
     int halfSide = 3;
 
-    public GameMenu(Scanner scanner, Game game) {
+    public GameMenu(Scanner scanner, Game game, MapFX mapFX) {
         super(scanner);
+        this.mapFX = mapFX;
         this.game = game;
         game.setCurrentPlayer(game.getPlayers().get(0));
         Tile.setGameMap(game.getMap());
@@ -60,7 +63,7 @@ public class GameMenu extends Menu {
         weaponBuidingMenu = new WeaponBuidingMenu(scanner, this);
         baracksMenu = new BaracksMenu(scanner, this);
         keepMenu = new KeepMenu(scanner, this);
-        GameController gameController = new GameController(game.getMap());
+        GameController gameController = new GameController(game.getMap(), mapFX);
         game.getMap().showMap(halfSide);
         setStockPile(gameController);
         for (Player player : game.getPlayers()) selectedTiles.put(player, new ArrayList<>());
@@ -69,7 +72,7 @@ public class GameMenu extends Menu {
     @Override
     public void run() throws Transition {
         showGuide();
-        GameController gameController = new GameController(game.getMap());
+        GameController gameController = new GameController(game.getMap(), mapFX);
         String command = scanner.nextLine();
         if (command.matches("select menu")) {
             SelectMenuGuide();
@@ -174,7 +177,7 @@ public class GameMenu extends Menu {
     }
 
     public void executeGameMenuOrder(String command) {
-        GameController gameController = new GameController(game.getMap());
+        GameController gameController = new GameController(game.getMap(), mapFX);
         if(command.matches("change size of map"))
         {
             int size = changeSizeOfMap();
@@ -489,5 +492,13 @@ public class GameMenu extends Menu {
 
     public void setHalfSide(int halfSide) {
         this.halfSide = halfSide;
+    }
+
+    public MapFX getMapFX() {
+        return mapFX;
+    }
+
+    public void setMapFX(MapFX mapFX) {
+        this.mapFX = mapFX;
     }
 }

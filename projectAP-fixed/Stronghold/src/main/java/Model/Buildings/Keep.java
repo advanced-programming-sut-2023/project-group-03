@@ -7,6 +7,7 @@ import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Engineer;
+import Model.graphics.MapFX;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,8 +31,8 @@ public class Keep extends Building {
 
     private final ArrayList<Engineer> engineers = new ArrayList<>();
 
-    public Keep(Player owner, Tile position) {
-        super(owner, position, 5, "keep");
+    public Keep(Player owner, Tile position, MapFX mapFX) {
+        super(owner, position, 5, "keep", mapFX);
         owner.setKeep(this);
         HP = 10000;
         material = Material.IRON;

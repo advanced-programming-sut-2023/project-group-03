@@ -3,22 +3,22 @@ package view.Game;
 import Model.Buildings.Enums.Resources;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
-import Model.GamePlay.Government;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
 import Model.Units.Enums.TroopTypes;
 import Model.User;
 import Model.UserDatabase;
+import Model.graphics.MapFX;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import view.Enums.ConsoleColors;
 import view.Game.Phase2Test.GameGraphic;
-import view.Game.Phase2Test.GameThread;
 import view.Menu;
 import view.Transition;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static view.Enums.ConsoleColors.TEXT_RED;
 import static view.Enums.ConsoleColors.colorPrint;
@@ -38,7 +38,7 @@ public class SetGameMenu extends Menu {
     }
 
     @Override
-    public void run() throws Transition {
+    public synchronized void run() throws Transition {
         showGuide();
         Drawable.setDrawables(new ArrayList<>());
         String output = null;
@@ -57,12 +57,14 @@ public class SetGameMenu extends Menu {
             Drawable.getDrawables().add(game.getPlayers().get(i).getKeep());
         }
         setResourses(3500);
-        GameMenu gameMenu = new GameMenu(scanner, game);
-        gameMenu.setUser(user);
+
+        AtomicReference<MapFX> mapFX = null;
         //todo
         if (stage != null) {
             Platform.runLater(() -> {
-                GameGraphic gameGraphic = new GameGraphic(gameMenu.getGame().getMap(), gameMenu.getGame().getMap().getSize());
+                GameGraphic gameGraphic = new GameGraphic(game.getMap(), game.getMap().getSize());
+                while (gameGraphic.getMapHandler() == null) {}
+                mapFX.set(gameGraphic.getMapHandler());
                 try {
                     gameGraphic.start(stage);
                 } catch (Exception e) {
@@ -73,6 +75,16 @@ public class SetGameMenu extends Menu {
 //            GameThread gameThread = new GameThread(gameMenu);
 //            gameThread.start();
         }
+        System.out.println("behind the while");
+        while (true) {
+            System.out.println("out");
+            int x = scanner.nextInt();
+            if (x == 5 ) break;
+        }
+        System.out.println("we are good");
+        int t = scanner.nextInt();
+        GameMenu gameMenu = new GameMenu(scanner, game, mapFX.get());
+        gameMenu.setUser(user);
         throw new Transition(gameMenu);
     }
 

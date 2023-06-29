@@ -5,6 +5,7 @@ import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.User;
 import Model.UserDatabase;
+import Model.graphics.MapFX;
 import controller.ControllerFunctions;
 import controller.gameControllers.MapController;
 import view.Enums.ConsoleColors;
@@ -23,11 +24,13 @@ import static view.Enums.ConsoleColors.*;
 public class MapMenu extends Menu {
     private User user;
     private GameMap map;
+    private MapFX mapFX;
     int displaySize = 3;
 
-    public MapMenu(Scanner scanner, User user) {
+    public MapMenu(Scanner scanner, User user, MapFX mapFX) {
         super(scanner);
         this.user = user;
+        this.mapFX = mapFX;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class MapMenu extends Menu {
             output = intializeName();
             System.out.println(output);
         } while (output.equals(TEXT_RED + "Invalid name"+ TEXT_RESET));
-        MapController mapController = new MapController(map);
+        MapController mapController = new MapController(map, mapFX);
         Player currentPlayer = map.getPlayers()[0];
         while (true) {
             showGuide();

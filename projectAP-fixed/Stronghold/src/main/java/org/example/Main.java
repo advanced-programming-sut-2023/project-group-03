@@ -18,7 +18,7 @@ public class Main {
             UserDatabase.addMap(map);
         }
         Scanner scanner = new Scanner(System.in);
-        MapMenu mapMenu = new MapMenu(scanner, new User("", "", "", "", ""));
+        MapMenu mapMenu = new MapMenu(scanner, new User("", "", "", "", ""), null);
         mapMenu.RunHandler();
     }
 }

@@ -6,6 +6,7 @@ import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
 import Model.Units.Worker;
+import Model.graphics.MapFX;
 import view.Enums.ConsoleColors;
 
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ public class Generators extends Building {
 
     private boolean isInFire;
 
-    public Generators(Player owner, Tile position, GeneratorTypes type) {
-        super(owner, position, type.getSize(), type.getName());
+    public Generators(Player owner, Tile position, GeneratorTypes type, MapFX mapFX) {
+        super(owner, position, type.getSize(), type.getName(), mapFX);
         this.type = type;
         this.useRate = type.getUseRate();
         this.produceRate = type.getProduceRate();

@@ -8,6 +8,7 @@ import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.Units.Combat.Troop;
 import Model.Units.Unit;
+import Model.graphics.MapFX;
 import view.Enums.ConsoleColors;
 
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ public class Gates extends CastleBuilding {
     private Direction direction;
     private ArrayList<Tile> terminals = new ArrayList<>();
 
-    public Gates(Player owner, Tile position, GateTypes type, Tile upTerminal, Tile downTerminal) {
-        super(owner, position, type.getSize(), type.getName());
+    public Gates(Player owner, Tile position, GateTypes type, Tile upTerminal, Tile downTerminal, MapFX mapFX) {
+        super(owner, position, type.getSize(), type.getName(), mapFX);
         this.HP = type.getHP();
         this.stoneCost = type.getStoneCost();
         this.goldCost = 5;

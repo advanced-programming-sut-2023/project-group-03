@@ -5,13 +5,14 @@ import Model.Buildings.Enums.RestTypes;
 import Model.Field.Tile;
 import Model.GamePlay.Material;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 import view.Enums.ConsoleColors;
 
 public class Rest extends Building {
     private RestTypes type;
 
-    public Rest(Player owner, Tile position, RestTypes type) {
-        super(owner, position, type.getSize(), type.getName());
+    public Rest(Player owner, Tile position, RestTypes type, MapFX mapFX) {
+        super(owner, position, type.getSize(), type.getName(), mapFX);
         owner.decreaseGold(type.getGold());
         owner.decreaseInventory(Resources.WOOD, type.getWood());
         if (type.equals(RestTypes.HOVEL)) {

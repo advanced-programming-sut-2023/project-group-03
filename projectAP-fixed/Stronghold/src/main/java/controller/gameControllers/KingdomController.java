@@ -1,6 +1,7 @@
 package controller.gameControllers;
 
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 import controller.interfaces.KingdomInterface;
 
 import java.util.HashMap;
@@ -12,8 +13,8 @@ import static controller.Enums.Response.*;
 public class KingdomController extends GeneralGameController implements KingdomInterface {
     GameController gameController;
 
-    KingdomController(GameController gameController) {
-        super(gameController.getGameMap());
+    KingdomController(GameController gameController, MapFX mapFX) {
+        super(gameController.getGameMap(), mapFX);
         this.gameController = gameController;
     }
 

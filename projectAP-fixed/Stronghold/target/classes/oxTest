@@ -1,0 +1,16 @@
+oxChecker
+ali
+1
+build Inventory -x 100 -y 100 -t stockpile
+build Inventory -x 300 -y 300 -t stockpile
+move left 100 up 100
+select menu
+Castle Buildings
+drop castle building -x 104 -y 92 -t "iron mine"
+back
+next turn
+next turn
+next turn
+next turn
+next turn
+next turn

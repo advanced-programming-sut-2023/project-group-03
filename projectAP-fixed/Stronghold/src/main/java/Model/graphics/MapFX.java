@@ -1,19 +1,14 @@
 package Model.graphics;
 
 import Model.Buildings.Building;
-import Model.Buildings.Enums.BuildingGraphics;
 import Model.Buildings.Enums.TileGraphics;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.Units.Unit;
-import graphicsTest.TestMap2;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
@@ -24,7 +19,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class MapFX {
-    public class BuildingShape {
+    public static class BuildingShape {
+        Building building;
         int row;
         int col;
         double height;
@@ -32,35 +28,34 @@ public class MapFX {
         double jSize;
         String image;
         Polygon polygon;
+        MapFX mapFX;
 
-        public BuildingShape(Building building) {
+        public BuildingShape(Building building, MapFX mapFX) {
+            this.mapFX = mapFX;
+            this.building = building;
             this.row = building.getPosition().getRowNum();
             this.col = building.getPosition().getColumnNum();
             this.height = building.getBuildingShape().getHeight();
             this.iSize = building.getBuildingShape().getWidth();
             this.jSize = building.getBuildingShape().getLength();
             this.image = building.getBuildingShape().getImageAddress();
-            this.polygon = getHex(height, row, col, iSize, jSize, building.getBuildingShape().getBuildingImage());
+            this.polygon = getHex(height, row, col, iSize, jSize, building.getBuildingShape().getBuildingImage()
+            , mapFX.iDivider, mapFX.jDivider, mapFX.tileSize);
+
+            mapFX.buildings.add(this);
+            mapFX.mapPane.getChildren().add(polygon);
         }
 
         public void updatePolygon (){
-            this.polygon = new Polygon(
-                    ((double)(row + iSize - col)) / iDivider * tileSize, ((double)(row + iSize + col)) / jDivider * tileSize,
-                    ((double)(row - col + iSize - jSize)) / iDivider * tileSize, ((double)(row + col + iSize + jSize)) / jDivider * tileSize,
-                    ((double)(row - col - jSize)) / iDivider * tileSize, ((double)(row + col + jSize)) / jDivider * tileSize,
-                    ((double)(row - col - jSize)) / iDivider * tileSize, ((double)(row + col + jSize)) / jDivider * tileSize - height * tileSize,
-                    ((double)(row - col)) / iDivider * tileSize, ((double)(row + col)) / jDivider * tileSize - height * tileSize,
-                    ((double)(row + iSize - col)) / iDivider * tileSize, ((double)(row + iSize + col)) / jDivider * tileSize - height * tileSize
-            );
-            polygon.setFill(new ImagePattern(new Image(TestMap2.class.getResource("/images/buildings/" + image).toExternalForm())
-                    , 0, 0, 1, 1, true));
-            polygon.setStroke(Color.WHITE);;
+            this.polygon = getHex(height, row, col, iSize, jSize, building.getBuildingShape().getBuildingImage()
+            , mapFX.iDivider, mapFX.jDivider, mapFX.tileSize);
         }
     }
 
     public class UnitShape {
         int height = 40;
         int width = 20;
+        MapFX mapFX;
         Rectangle shape = new Rectangle(20, 40);
         Unit unit;
         public UnitShape(Unit unit) {
@@ -84,7 +79,7 @@ public class MapFX {
         }
     }
 
-    public Polygon getHex(double height, int i, int j, double iSize, double jSize, Image image) {
+    public static Polygon getHex(double height, int i, int j, double iSize, double jSize, Image image, double iDivider, double jDivider, int tileSize) {
         Polygon shape = new Polygon(
                 ((double)(i + iSize - j)) / iDivider * tileSize, ((double)(i + iSize + j)) / jDivider * tileSize,
                 ((double)(i - j + iSize - jSize)) / iDivider * tileSize, ((double)(i + j + iSize + jSize)) / jDivider * tileSize,
@@ -217,7 +212,6 @@ public class MapFX {
             building.updatePolygon();
         }
 
-        //todo for units
         for (UnitShape unitShape : units) {
             unitShape.updateShape();
         }
@@ -296,4 +290,58 @@ public class MapFX {
         }
     }
 
+
+    //getters and setters
+
+    public int getRowSize() {
+        return rowSize;
+    }
+
+    public void setRowSize(int rowSize) {
+        this.rowSize = rowSize;
+    }
+
+    public double getiDivider() {
+        return iDivider;
+    }
+
+    public void setiDivider(double iDivider) {
+        this.iDivider = iDivider;
+    }
+
+    public double getjDivider() {
+        return jDivider;
+    }
+
+    public void setjDivider(double jDivider) {
+        this.jDivider = jDivider;
+    }
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
+    public void setTileSize(int tileSize) {
+        this.tileSize = tileSize;
+    }
+
+    public GameMap getGameMap() {
+        return gameMap;
+    }
+
+    public void setGameMap(GameMap gameMap) {
+        this.gameMap = gameMap;
+    }
+
+    public TileShape[][] getAllRecs() {
+        return allRecs;
+    }
+
+    public void setAllRecs(TileShape[][] allRecs) {
+        this.allRecs = allRecs;
+    }
+
+    public void setTilesCenters(double[][][] tilesCenters) {
+        this.tilesCenters = tilesCenters;
+    }
 }

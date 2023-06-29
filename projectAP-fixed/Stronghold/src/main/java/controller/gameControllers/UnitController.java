@@ -19,6 +19,7 @@ import Model.Units.Enums.AttackingMode;
 import Model.Units.Enums.ThrowerTypes;
 import Model.Units.Enums.TroopTypes;
 import Model.Units.Unit;
+import Model.graphics.MapFX;
 import controller.interfaces.UnitInterface;
 import view.Game.GameMenu;
 
@@ -31,8 +32,8 @@ import static controller.Enums.Response.*;
 
 public class UnitController extends GeneralGameController implements UnitInterface {
 
-    UnitController(GameMap gameMap) {
-        super(gameMap);
+    UnitController(GameMap gameMap, MapFX mapFX) {
+        super(gameMap, mapFX);
     }
 
     public String setState(Matcher matcher, Player player, GameMenu gameMenu) {

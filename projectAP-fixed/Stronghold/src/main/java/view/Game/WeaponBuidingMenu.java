@@ -2,6 +2,7 @@ package view.Game;
 
 import Model.Buildings.Enums.GeneratorTypes;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 import controller.ControllerFunctions;
 import controller.gameControllers.GameController;
 import view.Enums.GameMenuCommands;
@@ -16,9 +17,11 @@ import static view.Enums.ConsoleColors.TEXT_YELLOW;
 
 public class WeaponBuidingMenu extends Menu {
     GameMenu gameMenu;
+    private MapFX mapFX;
     public WeaponBuidingMenu(Scanner scanner, GameMenu gameMenu) {
         super(scanner);
         this.gameMenu = gameMenu;
+        this.mapFX = gameMenu.getMapFX();
     }
 
     @Override
@@ -27,7 +30,7 @@ public class WeaponBuidingMenu extends Menu {
         String command = scanner.nextLine();
         String output = "";
         Player player = gameMenu.getGame().getCurrentPlayer();
-        GameController gameController = new GameController(this.gameMenu.getGame().getMap());
+        GameController gameController = new GameController(this.gameMenu.getGame().getMap(), mapFX);
         if (command.matches("back")) {
             throw new Transition(gameMenu);
         }

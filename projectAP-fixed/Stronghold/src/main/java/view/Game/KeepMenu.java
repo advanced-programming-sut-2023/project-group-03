@@ -2,6 +2,7 @@ package view.Game;
 
 import Model.GamePlay.Game;
 import Model.GamePlay.Player;
+import Model.graphics.MapFX;
 import controller.ControllerFunctions;
 import controller.gameControllers.GameController;
 import controller.gameControllers.TradeController;
@@ -16,11 +17,13 @@ import static view.Enums.ConsoleColors.*;
 
 public class KeepMenu extends Menu {
     GameMenu gameMenu;
+    private MapFX mapFX;
     private Game game;
     public KeepMenu(Scanner scanner,GameMenu gameMenu) {
         super(scanner);
         this.gameMenu = gameMenu;
         game = gameMenu.getGame();
+        this.mapFX = gameMenu.getMapFX();
     }
 
     @Override
@@ -29,7 +32,7 @@ public class KeepMenu extends Menu {
         String command = scanner.nextLine();
         String output = "";
         Player player = gameMenu.getGame().getCurrentPlayer();
-        GameController gameController = new GameController(this.gameMenu.getGame().getMap());
+        GameController gameController = new GameController(this.gameMenu.getGame().getMap(), mapFX);
         TradeController tradeController = new TradeController(player);
         //player.getKeep().getBarracks();
 
