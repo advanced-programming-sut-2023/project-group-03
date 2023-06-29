@@ -164,6 +164,7 @@ public class MapFX {
     private double[][][] tilesCenters;
     private boolean menuBarAction = false;
     private boolean multiSelectingTiles = false;
+    private boolean showInfo = false;
 
     //dragging
     private boolean dragging = false;
@@ -335,13 +336,17 @@ public class MapFX {
                         Matcher matcher = ControllerFunctions.getMatcher(command , GameMenuCommands.SHOW_DETAILS.toString());
                         lastTileShape.infoBox = new VBox();
                         VBox tempBox = lastTileShape.infoBox;
-                        tempBox.getChildren().add(
+                        if (showInfo) tempBox.getChildren().add(
                             new TextArea(new GeneralGameController(gameMap, this).showDetails(matcher))
                         );
-                        // tempBox.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
-                        // tempBox.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
-                        tempBox.setLayoutX(tileShape.getPoints().get(6));
-                        tempBox.setLayoutY(tileShape.getPoints().get(7) - 1);
+                         tempBox.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
+                         tempBox.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
+
+//                        tempBox.setLayoutX(tileShape.getPoints().get(6));
+//                        tempBox.setLayoutY(tileShape.getPoints().get(7) - 1);
+
+//                        tempBox.setLayoutX(tileShape.getPoints().get(4));
+//                        tempBox.setLayoutY(tileShape.getPoints().get(3));
                         mapPane.getChildren().add(tempBox);
                         lastTileShape.onInfoBox = false;
                         tempBox.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
@@ -352,7 +357,7 @@ public class MapFX {
                         });
                     }
                     else if (oldValue) {
-                        if (!lastTileShape.onInfoBox) mapPane.getChildren().remove(lastTileShape.infoBox);
+//                        if (!lastTileShape.onInfoBox) mapPane.getChildren().remove(lastTileShape.infoBox);
                     }
                 });
             }
@@ -431,6 +436,14 @@ public class MapFX {
 
     //getters and setters
 
+
+    public boolean isShowInfo() {
+        return showInfo;
+    }
+
+    public void setShowInfo(boolean showInfo) {
+        this.showInfo = showInfo;
+    }
 
     public GameGraphic getGameGraphic() {
         return gameGraphic;
