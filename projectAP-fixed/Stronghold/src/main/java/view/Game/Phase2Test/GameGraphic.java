@@ -41,6 +41,7 @@ public class GameGraphic extends Application {
     private boolean ctrlPressed = false;
     private boolean menuBarAction = false;
     private boolean multiSelectingTiles = false;
+    private boolean showInfo = false;
 
     
 
@@ -101,6 +102,11 @@ public class GameGraphic extends Application {
 
                 if (keyCode.equals(KeyCode.S) && !menuBarAction) {
                     setMultiSelectingTiles(!multiSelectingTiles);
+                }
+
+                //change ability to see the info of tiles
+                if (keyCode.equals(KeyCode.Q)) {
+                    setShowInfo(!showInfo);
                 }
             }
         });
@@ -183,5 +189,14 @@ public class GameGraphic extends Application {
     public void setMultiSelectingTiles(boolean multiSelectingTiles) {
         this.multiSelectingTiles = multiSelectingTiles;
         mapFX.setMultiSelectingTiles(multiSelectingTiles);
+    }
+
+    public boolean isShowInfo() {
+        return showInfo;
+    }
+
+    public void setShowInfo(boolean showInfo) {
+        this.showInfo = showInfo;
+        mapFX.setShowInfo(showInfo);
     }
 }
