@@ -8,8 +8,8 @@ import Model.Units.Enums.UnitGraphics;
 import controller.ControllerFunctions;
 import controller.gameControllers.GeneralGameController;
 import Model.Units.Unit;
-import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -52,7 +52,7 @@ public class MapFX {
             this.jSize = building.getBuildingShape().getLength();
             this.image = building.getBuildingShape().getImageAddress();
             this.polygon = getHex(height, row, col, iSize, jSize, building.getBuildingShape().getBuildingImage()
-            , mapFX.iDivider, mapFX.jDivider, mapFX.tileSize);
+                    , mapFX.iDivider, mapFX.jDivider, mapFX.tileSize);
 
             mapFX.buildings.add(this);
             mapFX.mapPane.getChildren().add(polygon);
@@ -68,7 +68,7 @@ public class MapFX {
 
         public void updatePolygon (){
             this.polygon = getHex(height, row, col, iSize, jSize, building.getBuildingShape().getBuildingImage()
-            , mapFX.iDivider, mapFX.jDivider, mapFX.tileSize);
+                    , mapFX.iDivider, mapFX.jDivider, mapFX.tileSize);
 
             BuildingShape current = this;
             polygon.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -233,6 +233,7 @@ public class MapFX {
         for (TileShape tileShape : currentTiles) {
             Polygon polygon = tileShape.shape;
             mapPane.getChildren().remove(polygon);
+            mapPane.getChildren().remove(tileShape.infoBox);
         }
         currentTiles.clear();
         for (int x = 0; x < rowSize; x++) {
@@ -331,76 +332,73 @@ public class MapFX {
                 });
                 final int finali = i;
                 final int finalj = j;
-                tileShape.setOnMouseEntered(event->{
-                    String command = "show details -x " + (finali + 1) + " -y " + (finalj + 1);
-                    Matcher matcher = ControllerFunctions.getMatcher(command , GameMenuCommands.SHOW_DETAILS.toString());
-                    lastTileShape.infoBox = new VBox();
-                    VBox tempBox = lastTileShape.infoBox;
-                    if (showInfo) tempBox.getChildren().add(
-                            new TextArea(new GeneralGameController(gameMap, this).showDetails(matcher))
-                    );
-                    tempBox.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
-                    tempBox.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
+//                tileShape.setOnMouseEntered(event -> {
+//                    String command = "show details -x " + (finali + 1) + " -y " + (finalj + 1);
+//                    Matcher matcher = ControllerFunctions.getMatcher(command , GameMenuCommands.SHOW_DETAILS.toString());
+//                    lastTileShape.infoBox = new VBox();
+//                    VBox tempBox = lastTileShape.infoBox;
+//                    if (showInfo) tempBox.getChildren().add(
+//                            new TextArea(new GeneralGameController(gameMap, this).showDetails(matcher))
+//                    );
+//                    tempBox.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
+//                    tempBox.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
+//                    mapPane.getChildren().add(tempBox);
+//                    lastTileShape.onInfoBox = false;
+//                    tempBox.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
+//                        if (newValue1){
+//                            lastTileShape.onInfoBox = true;
+//                        }
+//                        else if (oldValue1) lastTileShape.onInfoBox = false;
+//                    });
+//                });
+//
+//                tileShape.setOnMouseExited(event -> {
+//                    if (!lastTileShape.onInfoBox) mapPane.getChildren().remove(lastTileShape.infoBox);
+//                });
+
+                tileShape.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue && showInfo) {
+                        String command = "show details -x " + (finali + 1) + " -y " + (finalj + 1);
+                        Matcher matcher = ControllerFunctions.getMatcher(command , GameMenuCommands.SHOW_DETAILS.toString());
+                        lastTileShape.infoBox = new VBox();
+                        VBox tempBox = lastTileShape.infoBox;
+                        Label label = new Label(new GeneralGameController(gameMap, this).showDetails(matcher));
+                        label.setStyle("-fx-background-color: white;");
+                        if (showInfo) tempBox.getChildren().add(
+                                label
+                        );
+                        tempBox.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
+                        tempBox.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
 
 //                        tempBox.setLayoutX(tileShape.getPoints().get(6));
 //                        tempBox.setLayoutY(tileShape.getPoints().get(7) - 1);
 
 //                        tempBox.setLayoutX(tileShape.getPoints().get(4));
 //                        tempBox.setLayoutY(tileShape.getPoints().get(3));
-                    mapPane.getChildren().add(tempBox);
-                    lastTileShape.onInfoBox = false;
-//                    tempBox.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
-//                        if (!newValue1) mapPane.getChildren().remove(tempBox);
-//                        else if (newValue1 && !oldValue1){
-//                            lastTileShape.onInfoBox = true;
-//                        }
-//                    });
+                        if (!mapPane.getChildren().contains(tempBox)) mapPane.getChildren().add(tempBox);
+                        lastTileShape.onInfoBox = false;
+                        //    tempBox.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
+                        //        if (!newValue1) mapPane.getChildren().remove(tempBox);
+                        //        else if (newValue1 && !oldValue1){
+                        //             lastTileShape.onInfoBox = true;
+                        //        }
+                        //    });
+                    }
+                    else if (oldValue && showInfo) {
+                        mapPane.getChildren().remove(lastTileShape.infoBox);
+                    }
                 });
-                tileShape.setOnMouseExited(event->{
-                    lastTileShape.infoBox.setVisible(false);
-                    mapPane.getChildren().remove(lastTileShape.infoBox);
-                });
-
-//                tileShape.hoverProperty().addListener((observable, oldValue, newValue) -> {
-//                    if (newValue) {
-//                        String command = "show details -x " + (finali + 1) + " -y " + (finalj + 1);
-//                        Matcher matcher = ControllerFunctions.getMatcher(command , GameMenuCommands.SHOW_DETAILS.toString());
-//                        lastTileShape.infoBox = new VBox();
-//                        VBox tempBox = lastTileShape.infoBox;
-//                        if (showInfo) tempBox.getChildren().add(
-//                            new TextArea(new GeneralGameController(gameMap, this).showDetails(matcher))
-//                        );
-//                         tempBox.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
-//                         tempBox.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
-//
-////                        tempBox.setLayoutX(tileShape.getPoints().get(6));
-////                        tempBox.setLayoutY(tileShape.getPoints().get(7) - 1);
-//
-////                        tempBox.setLayoutX(tileShape.getPoints().get(4));
-////                        tempBox.setLayoutY(tileShape.getPoints().get(3));
-//                        mapPane.getChildren().add(tempBox);
-//                        lastTileShape.onInfoBox = false;
-//                        tempBox.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
-//                            if (!newValue1) mapPane.getChildren().remove(tempBox);
-//                            else if (newValue1 && !oldValue1){
-//                                 lastTileShape.onInfoBox = true;
-//                            }
-//                        });
-//                    }
-//                    else if (oldValue) {
-////                        if (!lastTileShape.onInfoBox) mapPane.getChildren().remove(lastTileShape.infoBox);
-//                    }
-//                });
             }
         }
-        updateCamera(); 
+        updateCamera();
     }
 
     public void moveMapWithKeys(KeyEvent keyEvent) {
+        if (showInfo) return;//when showing info, not update camera
         if (keyEvent.getCode().equals(KeyCode.LEFT)) {
-                mapPane.setLayoutX(mapPane.getLayoutX() + horizontalCameraMove); 
-                view.setLayoutX(view.getLayoutX() - horizontalCameraMove);
-                updateCamera();
+            mapPane.setLayoutX(mapPane.getLayoutX() + horizontalCameraMove);
+            view.setLayoutX(view.getLayoutX() - horizontalCameraMove);
+            updateCamera();
         } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
             mapPane.setLayoutX(mapPane.getLayoutX() - horizontalCameraMove);
             view.setLayoutX(view.getLayoutX() + horizontalCameraMove);
