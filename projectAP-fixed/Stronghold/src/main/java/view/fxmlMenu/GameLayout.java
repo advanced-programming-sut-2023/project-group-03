@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class GameLayout extends Application implements Initializable {
-    GameGraphic gameGraphic;
+    private GameGraphic gameGraphic;
     private static Pane FxmlRoot;
 
     static {
@@ -125,8 +125,8 @@ public class GameLayout extends Application implements Initializable {
         MapPane = new Pane();
         //changeMenuToBarracks(BarracksType.BARRACK);
         changeMenuToFood(ResourceTypes.FOOD);
-        //changeMenuToFood(ResourceTypes.STOCK);
-        //changeMenuToFood(ResourceTypes.WEAPON);
+        changeMenuToFood(ResourceTypes.STOCK);
+        changeMenuToFood(ResourceTypes.WEAPON);
     }
 
     private void setUpBarrackMenu() {
@@ -256,6 +256,7 @@ public class GameLayout extends Application implements Initializable {
     }
 
     private void chooseMenu(Rectangle rectangle) {
+        if(BuildingName!=null)
         BuildingName.setText("");
         currentBuilding = null;
         currentbuildingGraphics = null;
