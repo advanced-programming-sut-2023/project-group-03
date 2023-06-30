@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LaunchInitializer extends Application implements Initializable {
+public class LaunchInitializer {
     static Pane fxmlPane;
 
     static {
@@ -23,20 +23,5 @@ public class LaunchInitializer extends Application implements Initializable {
         }
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Pane root = fxmlPane;
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
+    
 }

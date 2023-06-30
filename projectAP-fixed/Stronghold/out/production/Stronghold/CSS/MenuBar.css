@@ -2,10 +2,10 @@
     -fx-background-image: url(../images/menu/lower2.png);
 }
 .upperMenu {
-    -fx-background-image: url(../images/menu/upper.png);
+    -fx-background-image: url(../images/LaunchMenu/menu.jpg);
 }
-.MainPain{
-    -fx-background-image: url(../images/LaunchMenu/second.jpg);
+.somePain{
+    -fx-background-image: url(../images/LaunchMenu/menu.png);
 }
 .lowerMenu {
     -fx-fill: url(../images/menu/lower2.png);
