@@ -7,6 +7,7 @@ module Stronghold {
 
     exports view;
     exports view.fxmlMenu;
+    exports view.Network;
     exports view.Controllers;
     exports graphicsTest;
     exports Model;
