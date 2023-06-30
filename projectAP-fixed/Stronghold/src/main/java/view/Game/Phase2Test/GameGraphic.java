@@ -236,14 +236,14 @@ public class GameGraphic extends Application {
         System.out.println(command);
         System.out.println(result);
         if (result.equals(Response.SUCCESSFUL_SELECT.getOutput())) {
-            if (building instanceof Inventory) {
-                System.out.println("inventory selected");
-                GameLayout.currentInstance.changeMenuToFood(((Inventory) building).getType().getResource());
-            }
-            else if (building instanceof Barracks) {
-                System.out.println("barrack selected");
-                gameGraphic.gameLayout.changeMenuToBarracks(((Barracks) building).getType());
-            }
+//            if (building instanceof Inventory) {
+//                System.out.println("inventory selected");
+//                GameLayout.currentInstance.changeMenuToFood(((Inventory) building).getType().getResource());
+//            }
+//            else if (building instanceof Barracks) {
+//                System.out.println("barrack selected");
+//                gameGraphic.gameLayout.changeMenuToBarracks(((Barracks) building).getType());
+//            }
         }
         return command;
     }

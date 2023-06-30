@@ -91,7 +91,7 @@
                </effect>
             </Label>
             <VBox fx:id="CostList" layoutX="865.0" layoutY="116.0" prefHeight="119.0" prefWidth="170.0" visible="false" />
-            <VBox fx:id="ShopVbox" alignment="BOTTOM_CENTER" layoutX="800.0" layoutY="66.0" prefHeight="159.0" prefWidth="245.0" spacing="3.0">
+            <VBox fx:id="ShopVbox" alignment="BOTTOM_CENTER" layoutX="793.0" layoutY="69.0" prefHeight="159.0" prefWidth="245.0" spacing="3.0">
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="44.0" prefWidth="186.0" spacing="10.0">
                      <children>
@@ -142,13 +142,13 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox fx:id="UnitsHbox" layoutX="777.0" layoutY="97.0" prefHeight="126.0" prefWidth="259.0" spacing="3.0" visible="false">
+            <HBox fx:id="UnitsHbox" layoutX="793.0" layoutY="101.0" prefHeight="126.0" prefWidth="245.0" spacing="3.0" visible="false">
                <children>
-                  <VBox alignment="BOTTOM_CENTER" prefHeight="126.0" prefWidth="233.0" spacing="4.0">
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="126.0" prefWidth="212.0" spacing="4.0">
                      <children>
                         <HBox alignment="BOTTOM_CENTER" prefHeight="42.0" prefWidth="233.0" spacing="15.0">
                            <children>
-                              <Label fx:id="unitName" prefHeight="21.0" prefWidth="89.0" text="name" textFill="#861919">
+                              <Label fx:id="unitName" prefHeight="22.0" prefWidth="103.0" text="name" textFill="#861919">
                                  <font>
                                     <Font name="Cambria Bold" size="18.0" />
                                  </font>
@@ -177,6 +177,36 @@
                   <Slider fx:id="BarrackSlider" blockIncrement="1.0" max="20.0" min="1.0" orientation="VERTICAL" value="1.0" />
                </children>
             </HBox>
+            <Rectangle fx:id="ShopIconRec" arcHeight="5.0" arcWidth="5.0" fill="#510b0c" height="35.0" layoutX="8.0" layoutY="146.0" strokeType="INSIDE" strokeWidth="2.0" width="36.0">
+               <stroke>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#ffe800" />
+                        <Stop color="#8d8134" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+            <Rectangle fx:id="BarracksRec" arcHeight="5.0" arcWidth="5.0" fill="#510b0c" height="35.0" layoutX="8.0" layoutY="186.0" strokeType="INSIDE" strokeWidth="2.0" width="36.0">
+               <stroke>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#ffe800" />
+                        <Stop color="#8d8134" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+            <Rectangle fx:id="nextMenu" arcHeight="5.0" arcWidth="5.0" fill="#510b0c" height="35.0" layoutX="1062.0" layoutY="196.0" strokeType="INSIDE" strokeWidth="2.0" width="36.0">
+               <stroke>
+                  <LinearGradient endX="0.7961165048543689" endY="1.0" startX="0.8155339805825244" startY="0.0970873786407767">
+                     <stops>
+                        <Stop color="#ffe800" />
+                        <Stop color="#8d8134" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
          </children>
       </Pane>
       <Pane layoutX="-3.0" layoutY="-4.0" prefHeight="45.0" prefWidth="1248.0" style="-fx-background-size: cover">

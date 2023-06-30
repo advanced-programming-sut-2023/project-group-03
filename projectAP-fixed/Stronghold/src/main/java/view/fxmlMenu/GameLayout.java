@@ -31,8 +31,12 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GameLayout extends Application implements Initializable {
+    public static InventoryTypes currentInventoryType = InventoryTypes.STOCKPILE;
+    public static BarracksType currentBarracksType = BarracksType.BARRACK;
     public static GameLayout currentInstance;
     private static GameGraphic gameGraphic = GameGraphic.getGameGraphic();
+
+    private static String currentState="menu";
     private static Pane FxmlRoot;
 
     static {
@@ -43,13 +47,20 @@ public class GameLayout extends Application implements Initializable {
         }
     }
 
-    public GameLayout() {
-        currentInstance = this;
-    }
+    public Rectangle nextMenu;
+    public Rectangle ShopIconRec;
+    public Rectangle BarracksRec;
+
+//    public GameLayout() {
+//        currentInstance = this;
+//    }
 
     public Image woodImg =new Image(GameLayout.class.getResource("/images/menu/wood.png").toExternalForm());
     public Image stoneImg= new Image(GameLayout.class.getResource("/images/menu/stone.png").toExternalForm());
     public Image goldImg = new Image(GameLayout.class.getResource("/images/menu/gold.png").toExternalForm());
+    public Image shopeImg = new Image(GameLayout.class.getResource("/images/menu/shop.png").toExternalForm());
+    public Image BarracksImg = new Image(GameLayout.class.getResource("/images/menu/Barrack.png").toExternalForm());
+    public Image nextImg = new Image(GameLayout.class.getResource("/images/menu/point.jpg").toExternalForm());
 
     public Resources CurrentResourceToDeal;
     public Rectangle currentRecResources;
@@ -135,6 +146,7 @@ public class GameLayout extends Application implements Initializable {
         changeMenuToFood(ResourceTypes.FOOD);
         changeMenuToFood(ResourceTypes.STOCK);
         changeMenuToFood(ResourceTypes.WEAPON);
+        setRecs();
 
         log.setText("Welcome");
     }
@@ -144,6 +156,77 @@ public class GameLayout extends Application implements Initializable {
             BarrackSlider.setValue(Math.floor(BarrackSlider.getValue()));
             UnitCount.setText(((int) BarrackSlider.getValue())+"");
             UpdateCostOfUnits(currentUnit);
+        });
+    }
+
+    private void setRecs() {
+        BarracksRec.setFill(new ImagePattern(BarracksImg));
+        BarracksRec.setOnMouseClicked(event->{
+            changeMenuToBarracks(currentBarracksType);
+        });
+        BarracksRec.setOnMouseEntered(event->{
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setColor(Color.YELLOW);
+            dropShadow.setSpread(0.3);
+            BarracksRec.setEffect(dropShadow);
+        });
+        BarracksRec.setOnMouseExited(event->{
+            BarracksRec.setEffect(null);
+        });
+        nextMenu.setFill(new ImagePattern(nextImg));
+        nextMenu.setOnMouseClicked(event->{
+            System.out.println("hahaha");
+            switch (currentState) {
+                case "shop":
+                    System.out.println("shop");
+                    switch (currentInventoryType) {
+                        case STOCKPILE:
+                            currentInventoryType = InventoryTypes.ARMOURY;
+                            break;
+                        case ARMOURY:
+                            currentInventoryType = InventoryTypes.FOOD_STORAGE;
+                            break;
+                        case FOOD_STORAGE:
+                            currentInventoryType = InventoryTypes.STOCKPILE;
+                            break;
+                    }
+                    changeMenuToFood(currentInventoryType.getResource());
+                    break;
+                case "barrack":
+                    switch (currentBarracksType) {
+                        case BARRACK:
+                            currentBarracksType = BarracksType.MERCENARY_POST;
+                            break;
+                        case MERCENARY_POST:
+                            currentBarracksType = BarracksType.BARRACK;
+                            break;
+                    }
+                    changeMenuToBarracks(currentBarracksType);
+                default:
+                    break;
+            }
+        });
+        nextMenu.setOnMouseEntered(event->{
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setColor(Color.DARKRED);
+            dropShadow.setSpread(0.3);
+            nextMenu.setEffect(dropShadow);
+        });
+        nextMenu.setOnMouseExited(event->{
+            nextMenu.setEffect(null);
+        });
+        ShopIconRec.setFill(new ImagePattern(shopeImg));
+        ShopIconRec.setOnMouseClicked(event->{
+            changeMenuToFood(currentInventoryType.getResource());
+        });
+        ShopIconRec.setOnMouseEntered(event->{
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setColor(Color.YELLOW);
+            dropShadow.setSpread(0.3);
+            ShopIconRec.setEffect(dropShadow);
+        });
+        ShopIconRec.setOnMouseExited(event->{
+            ShopIconRec.setEffect(null);
         });
     }
 
@@ -283,6 +366,7 @@ public class GameLayout extends Application implements Initializable {
     }
 
     private void setMenuItems() {
+        currentState = "menu";
         ShopVbox.setVisible(false);
         UnitsHbox.setVisible(false);
         int counter = 0;
@@ -404,6 +488,7 @@ public class GameLayout extends Application implements Initializable {
     }
 
     public void changeMenuToFood(ResourceTypes resourceTypes) {
+        currentState = "shop";
         UnitsHbox.setVisible(false);
         CostList.setVisible(false);
         currentMenu = null;
@@ -471,6 +556,7 @@ public class GameLayout extends Application implements Initializable {
     }
 
     public void changeMenuToBarracks(BarracksType barracksType) {
+        currentState = "barrack";
         UnitsHbox.setVisible(true);
         ShopVbox.setVisible(false);
         CostList.setVisible(false);
