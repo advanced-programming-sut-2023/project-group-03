@@ -125,8 +125,8 @@ public class GameLayout extends Application implements Initializable {
         MapPane = new Pane();
         //changeMenuToBarracks(BarracksType.BARRACK);
         changeMenuToFood(ResourceTypes.FOOD);
-        changeMenuToFood(ResourceTypes.STOCK);
-        changeMenuToFood(ResourceTypes.WEAPON);
+        //changeMenuToFood(ResourceTypes.STOCK);
+        //changeMenuToFood(ResourceTypes.WEAPON);
     }
 
     private void setUpBarrackMenu() {
@@ -256,7 +256,6 @@ public class GameLayout extends Application implements Initializable {
     }
 
     private void chooseMenu(Rectangle rectangle) {
-        if(BuildingName!=null)
         BuildingName.setText("");
         currentBuilding = null;
         currentbuildingGraphics = null;
@@ -343,7 +342,6 @@ public class GameLayout extends Application implements Initializable {
             setCostVbox(rectangle.getBuildingGraphics());
             if(currentBuilding!=null) currentBuilding.setEffect(null);
             currentbuildingGraphics = rectangle.getBuildingGraphics();
-            System.out.println(gameGraphic == null);
             gameGraphic.setMenuBarAction(true);
             gameGraphic.setDropBuilding(true);
             currentBuilding = rectangle;

@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class GameGraphic extends Application {
+    private static GameGraphic gameGraphic;
     private Pane mapPane;
     private Pane gamePane;
     private Scene gameScene;
@@ -46,13 +47,15 @@ public class GameGraphic extends Application {
     private boolean multiSelectingTiles = false;
     private boolean showInfo = false;
 
-    GameLayout gameLayout = new GameLayout();
+    GameLayout gameLayout;
 
 
     public GameGraphic(GameMap gameMap, int mapSize, Game game) {
         this.gameMap = gameMap;
         this.mapSize = mapSize;
         this.game = game;
+        gameGraphic = this;
+        gameLayout = new GameLayout();
     }
 
     @Override
@@ -196,6 +199,14 @@ public class GameGraphic extends Application {
         this.gameLayout = gameLayout;
     }
 
+    public static GameGraphic getGameGraphic() {
+        return gameGraphic;
+    }
+
+    public static void setGameGraphic(GameGraphic gameGraphic) {
+        GameGraphic.gameGraphic = gameGraphic;
+    }
+
     public Game getGame() {
         return game;
     }
@@ -250,6 +261,5 @@ public class GameGraphic extends Application {
     public void setDropBuilding(boolean dropBuilding) {
         this.dropBuilding = dropBuilding;
         mapFX.setDropBuilding(dropBuilding);
-        System.out.println("fuck building");
     }
 }
