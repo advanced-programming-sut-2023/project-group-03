@@ -3,6 +3,7 @@ package controller.gameControllers;
 import java.util.ArrayList;
 
 import Model.Buildings.Enums.Resources;
+import Model.Field.Tile;
 import Model.User;
 import Model.UserDatabase;
 import Model.Field.GameMap;
@@ -44,6 +45,7 @@ public class GraphicController {
         game.setCurrentPlayer(game.getPlayers().get(0));
 
         int amount = 3500;
+        Tile.setGameMap(gameMap);
 
         //set up resources
         for (Player player : game.getPlayers()) {

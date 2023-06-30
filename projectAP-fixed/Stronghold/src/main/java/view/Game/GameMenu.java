@@ -35,7 +35,7 @@ public class GameMenu extends Menu {
     protected MapFX mapFX;
     User user;
 
-    protected Drawable selected = null;
+    protected static Drawable selected = null;
     protected ArrayList<Unit> selectedUnits = new ArrayList<>();
     protected HashMap<Player, ArrayList<Tile>> selectedTiles = new HashMap<>();
 
@@ -298,7 +298,7 @@ public class GameMenu extends Menu {
         return game;
     }
 
-    public Drawable getSelected() {
+    public static Drawable getSelected() {
         return selected;
     }
 
@@ -306,8 +306,8 @@ public class GameMenu extends Menu {
         this.game = game;
     }
 
-    public void setSelected(Drawable selected) {
-        this.selected = selected;
+    public static void setSelected(Drawable selected) {
+        GameMenu.selected = selected;
     }
 
     public ArrayList<Unit> getSelectedUnits() {

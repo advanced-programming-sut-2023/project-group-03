@@ -44,7 +44,7 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (!targetTile.getOwner().equals(player)) return ACQUISITION_SELECT.getOutput();
         gameMenu.getSelectedUnits().clear();
         gameMenu.setSelected(targetTile.getBuilding());
-        System.out.println("select tile " + (gameMenu.getSelected() == null));
+        System.out.println("select tile " + (GameMenu.getSelected() == null));
         return SUCCESSFUL_SELECT.getOutput();
     }
 
