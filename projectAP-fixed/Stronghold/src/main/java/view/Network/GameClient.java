@@ -19,15 +19,30 @@ public class GameClient implements Runnable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
+        new Thread(this).start();
     }
 
     @Override
     public void run() {
-
+        while (true) {
+            try {
+                GameEvent gameEvent = GameEvent.getEvent(dataInputStream.readUTF());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public GameEvent getEvent() {
         return events.remove();
+    }
+
+    public boolean hasEvent() {
+        return events.size() > 0;
     }
 }
