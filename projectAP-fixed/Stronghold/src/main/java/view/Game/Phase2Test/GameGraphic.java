@@ -42,6 +42,7 @@ public class GameGraphic extends Application {
 
     private boolean ctrlPressed = false;
     private boolean menuBarAction = false;
+    private boolean dropBuilding = false;
     private boolean multiSelectingTiles = false;
     private boolean showInfo = false;
 
@@ -209,5 +210,13 @@ public class GameGraphic extends Application {
     public void setShowInfo(boolean showInfo) {
         this.showInfo = showInfo;
         mapFX.setShowInfo(showInfo);
+    }
+
+    public boolean isDropBuilding() {
+        return dropBuilding;
+    }
+
+    public void setDropBuilding(boolean dropBuilding) {
+        this.dropBuilding = dropBuilding;
     }
 }
