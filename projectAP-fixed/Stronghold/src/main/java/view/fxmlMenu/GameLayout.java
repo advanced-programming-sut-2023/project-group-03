@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class GameLayout extends Application implements Initializable {
-    private GameGraphic gameGraphic;
+    private static GameGraphic gameGraphic = GameGraphic.getGameGraphic();
     private static Pane FxmlRoot;
 
     static {
