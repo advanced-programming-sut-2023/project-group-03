@@ -345,6 +345,7 @@ public class MapFX {
                 tileShape.setOnMouseReleased(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
+                        //shit
                         if (!multiSelectingTiles && dropBuilding && menuBarAction) {
                             int row = lastTileShape.getTile().getRowNum();
                             int col = lastTileShape.getTile().getColumnNum();
@@ -355,6 +356,7 @@ public class MapFX {
                             if (buildingName.split(" ").length > 1) buildingName = "\"" + buildingName + "\"";
                             String command = "drop building -x " + (row + 1) + " -y " + (col + 1) + " -t " + buildingName;
                             gameGraphic.dropBuilding(command);
+                            //todo gate
                         }
                     }
                 });
