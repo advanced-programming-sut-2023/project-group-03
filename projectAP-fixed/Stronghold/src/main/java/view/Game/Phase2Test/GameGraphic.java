@@ -181,6 +181,37 @@ public class GameGraphic extends Application {
         return output;
     }
 
+    public String dropBuilding(String command) {
+        Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.DROP_BUILDING.toString());
+        String output = gameController.dropBuildingMatcherHandler(matcher, game.getCurrentPlayer());
+        System.out.println(output);
+        return output;
+    }
+
+    public GameLayout getGameLayout() {
+        return gameLayout;
+    }
+
+    public void setGameLayout(GameLayout gameLayout) {
+        this.gameLayout = gameLayout;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public GameController getGameController() {
+        return gameController;
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+    }
+
     public MapFX getMapFX() {
         return mapFX;
     }
@@ -218,5 +249,7 @@ public class GameGraphic extends Application {
 
     public void setDropBuilding(boolean dropBuilding) {
         this.dropBuilding = dropBuilding;
+        mapFX.setDropBuilding(dropBuilding);
+        System.out.println("fuck building");
     }
 }

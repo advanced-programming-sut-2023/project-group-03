@@ -342,6 +342,7 @@ public class GameLayout extends Application implements Initializable {
             setCostVbox(rectangle.getBuildingGraphics());
             if(currentBuilding!=null) currentBuilding.setEffect(null);
             currentbuildingGraphics = rectangle.getBuildingGraphics();
+            System.out.println(gameGraphic == null);
             gameGraphic.setMenuBarAction(true);
             gameGraphic.setDropBuilding(true);
             currentBuilding = rectangle;

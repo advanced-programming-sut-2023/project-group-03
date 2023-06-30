@@ -1,6 +1,7 @@
 package Model.graphics;
 
 import Model.Buildings.Building;
+import Model.Buildings.Enums.BuildingGraphics;
 import Model.Buildings.Enums.TileGraphics;
 import Model.Field.GameMap;
 import Model.Field.Tile;
@@ -163,7 +164,9 @@ public class MapFX {
     private Pane mapPane;
     private TileShape[][] allRecs = new TileShape[rowSize][colSize];
     private double[][][] tilesCenters;
+    //booleans
     private boolean menuBarAction = false;
+    private boolean dropBuilding = false;
     private boolean multiSelectingTiles = false;
     private boolean showInfo = false;
 
@@ -332,31 +335,21 @@ public class MapFX {
                         }
                     }
                 });
+                tileShape.setOnMouseReleased(event -> {
+                    if (!multiSelectingTiles && dropBuilding && menuBarAction) {
+                        int row = lastTileShape.getTile().getRowNum();
+                        int col = lastTileShape.getTile().getColumnNum();
+                        dropBuilding = false;
+                        menuBarAction = false;
+                        BuildingGraphics buildingGraphics = gameGraphic.getGameLayout().currentbuildingGraphics;
+                        String buildingName = buildingGraphics.getName();
+                        String command = "drop building -x " + row + " -y " + col + " -t " + buildingName;
+                        gameGraphic.dropBuilding(command);
+                    }
+                });
+
                 final int finali = i;
                 final int finalj = j;
-//                tileShape.setOnMouseEntered(event -> {
-//                    String command = "show details -x " + (finali + 1) + " -y " + (finalj + 1);
-//                    Matcher matcher = ControllerFunctions.getMatcher(command , GameMenuCommands.SHOW_DETAILS.toString());
-//                    lastTileShape.infoBox = new VBox();
-//                    VBox tempBox = lastTileShape.infoBox;
-//                    if (showInfo) tempBox.getChildren().add(
-//                            new TextArea(new GeneralGameController(gameMap, this).showDetails(matcher))
-//                    );
-//                    tempBox.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
-//                    tempBox.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
-//                    mapPane.getChildren().add(tempBox);
-//                    lastTileShape.onInfoBox = false;
-//                    tempBox.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
-//                        if (newValue1){
-//                            lastTileShape.onInfoBox = true;
-//                        }
-//                        else if (oldValue1) lastTileShape.onInfoBox = false;
-//                    });
-//                });
-//
-//                tileShape.setOnMouseExited(event -> {
-//                    if (!lastTileShape.onInfoBox) mapPane.getChildren().remove(lastTileShape.infoBox);
-//                });
 
                 tileShape.hoverProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue && showInfo) {
@@ -474,6 +467,14 @@ public class MapFX {
 
     public void setShowInfo(boolean showInfo) {
         this.showInfo = showInfo;
+    }
+
+    public boolean isDropBuilding() {
+        return dropBuilding;
+    }
+
+    public void setDropBuilding(boolean dropBuilding) {
+        this.dropBuilding = dropBuilding;
     }
 
     public GameGraphic getGameGraphic() {
