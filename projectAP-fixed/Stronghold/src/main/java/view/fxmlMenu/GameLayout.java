@@ -91,9 +91,9 @@ public class GameLayout extends Application implements Initializable {
 
     @Override
     public void start(Stage stage) throws Exception {
+        FxmlRoot.setPrefWidth(1240);
+        FxmlRoot.setPrefHeight(720);
         Scene scene = new Scene(FxmlRoot);
-        scene.getStylesheets()
-                .add(this.getClass().getResource("/CSS/MenuBar.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
@@ -522,5 +522,9 @@ public class GameLayout extends Application implements Initializable {
         unitName.setText(troopTypes.getName());
         UnitCount.setText("1");
         BarrackSlider.setValue(1);
+    }
+
+    public static Pane getFxmlRoot() {
+        return FxmlRoot;
     }
 }

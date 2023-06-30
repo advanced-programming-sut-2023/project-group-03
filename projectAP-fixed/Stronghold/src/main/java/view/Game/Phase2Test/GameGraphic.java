@@ -22,11 +22,13 @@ import javafx.stage.Stage;
 import view.Enums.GameMenuCommands;
 import view.Game.GameMenu;
 import view.Game.GraphicalGameMenu;
+import view.fxmlMenu.GameLayout;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class GameGraphic extends Application {
+    GameLayout gameLayout = new GameLayout();
     private Pane mapPane;
     private Pane gamePane;
     private Scene gameScene;
@@ -56,6 +58,7 @@ public class GameGraphic extends Application {
     public void start(Stage primaryStage) throws Exception {
         System.out.println("in the game graphics");
 
+
         //setup stage
         primaryStage.setHeight(720);
         primaryStage.setWidth(1240);
@@ -76,6 +79,7 @@ public class GameGraphic extends Application {
         System.out.println("made mapFX");
 
         gameScene = new Scene(gamePane);
+        gamePane.getChildren().add(gameLayout.getFxmlRoot());
         primaryStage.setScene(gameScene);
         primaryStage.show();
         System.out.println("showing the stage.");
