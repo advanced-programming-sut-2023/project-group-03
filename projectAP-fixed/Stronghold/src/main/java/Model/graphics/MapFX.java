@@ -3,6 +3,7 @@ package Model.graphics;
 import Model.Buildings.Building;
 import Model.Buildings.Enums.BuildingGraphics;
 import Model.Buildings.Enums.TileGraphics;
+import Model.Buildings.Keep;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.Units.Enums.UnitGraphics;
@@ -149,7 +150,7 @@ public class MapFX {
             this.mapFX = mapFX;
             mapFX.units.add(this);
             Building building = mapFX.allRecs[unit.getPosition().getRowNum()][unit.getPosition().getColumnNum()].tile.getBuilding();
-            if (building != null) {
+            if (building != null && !(building instanceof Keep)) {
                 BuildingShape buildingShape = building.getMapBuildingShape();
                 mapFX.mapPane.getChildren().remove(buildingShape.polygon);
                 mapFX.mapPane.getChildren().add(shape);

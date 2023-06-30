@@ -137,8 +137,8 @@ public class SetGameMenu extends Menu {
                 player.setCurrentPopulation(0);
                 player.setMaxPopulation(16);
             }
-//            Troop King = new Troop(player, player.getKeep().getPosition(), TroopTypes.KING);//todo
-//            player.setKing(King);
+        //    Troop King = new Troop(player, player.getKeep().getPosition(), TroopTypes.KING);//todo
+        //    player.setKing(King);
         }
     }
 

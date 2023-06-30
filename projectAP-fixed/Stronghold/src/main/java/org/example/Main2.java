@@ -4,10 +4,7 @@ import Model.Field.GameMap;
 import Model.User;
 import Model.UserDatabase;
 import controller.gameControllers.MapController;
-import view.Enums.GameMenuCommands;
-import view.Game.Phase2Test.GameThread;
 import view.Game.SetGameMenu;
-import view.StartingMenu;
 
 import java.io.File;
 import java.util.Scanner;

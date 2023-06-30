@@ -1,19 +1,7 @@
 package org.example;
 
-import Model.Field.GameMap;
-import Model.User;
-import Model.UserDatabase;
-import controller.gameControllers.MapController;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import view.Game.Phase2Test.GameGraphic;
-import view.Game.Phase2Test.GameThread;
-import view.Game.SetGameMenu;
-
-import java.io.File;
-import java.util.Scanner;
 
 public class MainHelpGraphic extends Application {
     public static void main(String[] args) {
