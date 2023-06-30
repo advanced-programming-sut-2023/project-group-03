@@ -12,8 +12,5 @@ public class GamePlayerClient {
     String name;
     boolean isAlive = true;
 
-    public GamePlayerClient(Player user, String host, int port) {
-        gameClient = new GameClient(host, port);
 
-    }
 }

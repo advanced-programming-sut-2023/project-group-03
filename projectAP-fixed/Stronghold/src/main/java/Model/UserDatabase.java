@@ -1,9 +1,11 @@
 package Model;
 
 import Model.Field.GameMap;
+import Model.buffers.MapBuffer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import controller.gameControllers.MapController;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,15 +13,17 @@ import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UserDatabase {
     static String dataPath = "src/main/resources/users/users.json";
     static String backupData = "src/main/resources/users/backup.json";
 
-    private static final ArrayList<GameMap> maps = new ArrayList<>();
+    private static ArrayList<MapBuffer> mapBuffers = new ArrayList<>();
+    private static ArrayList<GameMap> maps = new ArrayList<>();
     private static ArrayList<User> users = new ArrayList<>();
-    private static final ArrayList<User> ranking = new ArrayList<>();
+    private static ArrayList<User> ranking = new ArrayList<>();
 
 
     public static User getUserByName(String name) {
@@ -140,4 +144,22 @@ public class UserDatabase {
         }
         return null;
     }
+
+    public static MapBuffer getMapBufferByName(String name) {
+        for (int i = 0; i < mapBuffers.size(); i++) {
+            if (mapBuffers.get(i).getName().equals(name)) {
+                return mapBuffers.get(i);
+            }
+        }
+        return null;
+    }
+
+    public static void updateMaps() {
+        final File mapFolder = new File("src/main/resources/maps");
+        for (File file : mapFolder.listFiles()) {
+            GameMap map = MapController.loadbufferMap(file);
+            UserDatabase.addMap(map);
+        }
+    }
+
 }

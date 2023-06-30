@@ -3,6 +3,7 @@ package view.Network;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.Network.Server.DataBase;
 
 public class StartAsGuest extends Application {
     @Override
