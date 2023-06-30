@@ -59,6 +59,7 @@ public class Towers extends CastleBuilding {
 
     @Override
     public void check() {
+        super.check();
         if (shouldBreak()) {
         }
     }

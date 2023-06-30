@@ -23,6 +23,7 @@ public class Rest extends Building {
 
     @Override
     public void check() {
+        super.check();
         if (shouldBreak()) {
         }
     }

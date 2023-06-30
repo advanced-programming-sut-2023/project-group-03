@@ -10,8 +10,11 @@ import Model.Units.Combat.Troop;
 import Model.graphics.MapFX;
 import controller.gameControllers.MoveUnitController;
 import javafx.application.Platform;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Unit extends Drawable {
     private boolean isPatrol = false;
@@ -22,6 +25,7 @@ public abstract class Unit extends Drawable {
     protected Tile BufferTarget = null;
     protected MapFX.UnitShape mapUnitShape;
     protected ArrayList<Tile> currentPath = new ArrayList<>();
+    protected boolean ill;
 
     public Unit(Player owner, Tile position, String name, MapFX mapFX) {
         super(owner, position, name);
@@ -56,6 +60,20 @@ public abstract class Unit extends Drawable {
 
     @Override
     public void check() {
+        if (!ill) {
+            int getFireChance = new Random().nextInt(30);
+            if (getFireChance > 27) {
+                ill = true;
+                Platform.runLater(() -> {
+                    DropShadow dropShadow = new DropShadow();
+                    dropShadow.setSpread(0.3);
+                    dropShadow.setColor(Color.GREENYELLOW);
+                    mapUnitShape.shape.setEffect(dropShadow);
+                });
+            }
+        }
+        else HP -= 30;
+        
         shouldBreak();
         if (isPatrol) {
             Patrol();
@@ -148,6 +166,14 @@ public abstract class Unit extends Drawable {
         } else {
             return this.getClass().getSimpleName();
         }
+    }
+
+    public boolean isIll() {
+        return ill;
+    }
+
+    public void setIll(boolean ill) {
+        this.ill = ill;
     }
 
     public Tile getBufferTarget() {

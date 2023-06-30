@@ -665,14 +665,25 @@ public class UnitController extends GeneralGameController implements UnitInterfa
     }
 
     //phase2
-    public void selectUnitMultipleTiles(ArrayList<Tile> tiles, HashMap<String, Integer> unitsAmount, Player player, GameMenu gameMenu) {
+    public void selectUnitMultipleTiles(ArrayList<Tile> tiles, String input, Player player, GameMenu gameMenu) {
+        String [] inputArray = input.split("ali");
+        HashMap<String, Integer> unitsAmount = new HashMap<>();
+        String key;
+        String valueString;
+        for (int i = 0; i < inputArray.length / 2 ; i++) {
+            key = inputArray[2 * i];
+            valueString = inputArray[2 * i + 1];
+            if (!valueString.matches("[0-9]+")) return;
+            unitsAmount.put(key, Integer.parseInt(valueString));
+        }
+        
         gameMenu.setSelected(null);
         ArrayList<Unit> selectedUnits = gameMenu.getSelectedUnits();
         selectedUnits = new ArrayList<>();
         for (String unitName : unitsAmount.keySet()) {
             int amount = unitsAmount.get(unitName);
             int tileIndex = 0;
-            while (amount > 0) {
+            while (amount > 0 && tileIndex < tiles.size()) {
                 Tile tile = tiles.get(tileIndex++);
                 ArrayList<Unit> properUnits = new ArrayList<>();
                 for (Unit unit : tile.getUnits()) {

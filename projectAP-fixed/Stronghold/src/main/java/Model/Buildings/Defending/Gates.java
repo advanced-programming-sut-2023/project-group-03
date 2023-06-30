@@ -93,6 +93,7 @@ public class Gates extends CastleBuilding {
 
     @Override
     public void check() {
+        super.check();
         if (shouldBreak()) {
             return;
         }
