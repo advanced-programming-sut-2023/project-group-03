@@ -552,4 +552,5 @@ public class GameLayout extends Application implements Initializable {
     public BuildingGraphics getCurrentbuildingGraphics() {
         return currentbuildingGraphics;
     }
+
 }
