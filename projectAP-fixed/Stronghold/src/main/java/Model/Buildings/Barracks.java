@@ -58,6 +58,7 @@ public class Barracks extends Building {
 
     @Override
     public void check() {
+        super.check();
         if (shouldBreak()) {
         }
     }

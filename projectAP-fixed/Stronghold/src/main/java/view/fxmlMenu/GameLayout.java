@@ -5,6 +5,7 @@ import Model.Buildings.Enums.*;
 import Model.Units.Enums.TroopIcon;
 import Model.Units.Enums.TroopTypes;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -654,5 +655,11 @@ public class GameLayout extends Application implements Initializable {
 //        if (currentInstance == null) System.out.println("current instance is null");
         if (log == null) System.out.println("its log is null");
         log.setText(logContent);
+    }
+
+    public void makeUnit(ActionEvent actionEvent) {
+        String name = currentUnit.getName();
+        int amount = Integer.parseInt(UnitCount.getText());
+        gameGraphic.dropUnit(name, amount);
     }
 }

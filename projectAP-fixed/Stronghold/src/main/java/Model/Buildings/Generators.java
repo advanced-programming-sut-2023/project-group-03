@@ -106,6 +106,7 @@ public class Generators extends Building {
 
     @Override
     public void check() {
+        super.check();
         if (shouldBreak()) {
             return;
         }

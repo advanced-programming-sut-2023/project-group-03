@@ -5,6 +5,7 @@ import Model.Buildings.Building;
 import Model.Buildings.Enums.Resources;
 import Model.Buildings.Generators;
 import Model.Field.GameMap;
+import Model.Field.Tile;
 import Model.GamePlay.Player;
 import Model.graphics.MapFX;
 import controller.Controller;
@@ -14,6 +15,8 @@ import controller.interfaces.KingdomInterface;
 import controller.interfaces.UnitInterface;
 import view.Game.GameMenu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class GameController extends Controller implements GameMarketInterface, BuildingInterface,
@@ -159,6 +162,11 @@ public class GameController extends Controller implements GameMarketInterface, B
     @Override
     public String selectUnitMatcherHandler(Matcher matcher, Player player, GameMenu gameMenu) {
         return unitController.selectUnitMatcherHandler(matcher, player, gameMenu);
+    }
+
+    public void selectUnitMultipleTiles(ArrayList<Tile> tiles, String input, Player player, GameMenu gameMenu) {
+//        System.out.println(tiles.size());
+        unitController.selectUnitMultipleTiles(tiles, input, player, gameMenu);
     }
 
     @Override

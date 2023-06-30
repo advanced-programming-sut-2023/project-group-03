@@ -8,8 +8,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import view.Game.Phase2Test.GameGraphic;
-import view.Game.Phase2Test.GameThread;
 import view.Game.SetGameMenu;
 
 import java.io.File;
@@ -38,7 +36,7 @@ public class MainAliP2 extends Application {
        UserDatabase.addUser(user2);
        SetGameMenu Menu = new SetGameMenu((new Scanner(System.in)),user1, primaryStage);
     //    Menu.RunHandler();
-       GameThread gameThread = new GameThread(Menu);
-       gameThread.start();
+//       GameThread gameThread = new GameThread(Menu);
+//       gameThread.start();
     }
 }

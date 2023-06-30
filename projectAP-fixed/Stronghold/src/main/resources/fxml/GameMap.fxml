@@ -167,7 +167,7 @@
                            </children>
                         </HBox>
                         <HBox fx:id="UnitsCost" alignment="CENTER" prefHeight="59.0" prefWidth="233.0" spacing="7.0" />
-                        <Button fx:id="MakeUnits" mnemonicParsing="false" text="Make" textFill="#fffa00">
+                        <Button fx:id="MakeUnits" onAction="#makeUnit" mnemonicParsing="false" text="Make" textFill="#fffa00">
                            <font>
                               <Font name="Cambria Bold" size="17.0" />
                            </font>

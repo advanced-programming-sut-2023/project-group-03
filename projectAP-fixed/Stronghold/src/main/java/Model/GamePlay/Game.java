@@ -19,6 +19,35 @@ public class Game {
         this.players = players;
     }
 
+    public void nextTurnPhase3() {
+        int size = Drawable.getDrawables().size() - 1;
+        for (int i = size; i >= 0; i--) {
+            Drawable.getDrawables().get(i).check();
+        }
+        size = Drawable.getDrawables().size() - 1;
+        for (int i = size; i > 0; i--) {
+            if (Drawable.getDrawables().get(i) instanceof Building) {
+                if (!(Drawable.getDrawables().get(i) instanceof Keep)) {
+                    Drawable.getDrawables().get(i).check();
+                }
+            }
+        }
+        for (int i = 0; i < players.size(); i++) {
+//            System.out.print(i + " ");
+            if (players.get(i).getKing().getHP() <= 0) {
+                for (int j = Drawable.getDrawables().size() - 1; j >= 0; j--) {
+                    Drawable drawable = Drawable.getDrawables().get(j);
+                    if (drawable.getOwner().equals(players.get(i))) {
+                        drawable.erase();
+                    }
+                }
+                players.remove(players.get(i));//todo
+            }
+        }
+//        System.out.println("\n");
+        currentPlayer = players.get(0);
+    }
+
     public boolean nextTurn() {
         if (!currentPlayer.equals(players.get(players.size() - 1))) {
             for (int i = 0; i < players.size() - 1; i++) {
@@ -28,31 +57,7 @@ public class Game {
                 }
             }
         } else {
-            int size = Drawable.getDrawables().size() - 1;
-            for (int i = size; i >= 0; i--) {
-                Drawable.getDrawables().get(i).check();
-            }
-            size = Drawable.getDrawables().size() - 1;
-            for (int i = size; i > 0; i--) {
-                if (Drawable.getDrawables().get(i) instanceof Building) {
-                    if (!(Drawable.getDrawables().get(i) instanceof Keep)) {
-                        Drawable.getDrawables().get(i).check();
-                    }
-                }
-            }
-            for (int i = 0; i < players.size(); i++) {
-                if (players.get(i).getKing().getHP() <= 0) {
-                    for (int j = Drawable.getDrawables().size() - 1; j >= 0; j--) {
-                        Drawable drawable = Drawable.getDrawables().get(j);
-                        if (drawable.getOwner().equals(players.get(i))) {
-                            drawable.erase();
-                        }
-                    }
-                    players.remove(players.get(i));
-                }
-            }
-            currentPlayer = players.get(0);
-            turn++;
+            nextTurnPhase3();
             return FinishGame();
         }
         return false;

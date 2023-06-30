@@ -9,8 +9,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import view.Game.Phase2Test.GameGraphic;
-import view.Game.Phase2Test.GameThread;
 import view.Game.SetGameMenu;
 
 import java.io.File;

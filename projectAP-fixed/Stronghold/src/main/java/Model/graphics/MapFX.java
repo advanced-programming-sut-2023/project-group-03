@@ -3,6 +3,7 @@ package Model.graphics;
 import Model.Buildings.Building;
 import Model.Buildings.Enums.BuildingGraphics;
 import Model.Buildings.Enums.TileGraphics;
+import Model.Buildings.Keep;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.Units.Enums.UnitGraphics;
@@ -140,7 +141,7 @@ public class MapFX {
         int height = 40;
         int width = 20;
         MapFX mapFX;
-        Rectangle shape = new Rectangle(20, 40);
+        public Rectangle shape = new Rectangle(20, 40);
         Unit unit;
         public UnitShape(Unit unit, MapFX mapFX) {
             shape.setX(mapFX.tilesCenters[unit.getPosition().getRowNum()][unit.getPosition().getColumnNum()][0] - shape.getWidth() / 2);
@@ -149,7 +150,7 @@ public class MapFX {
             this.mapFX = mapFX;
             mapFX.units.add(this);
             Building building = mapFX.allRecs[unit.getPosition().getRowNum()][unit.getPosition().getColumnNum()].tile.getBuilding();
-            if (building != null) {
+            if (building != null && !(building instanceof Keep)) {
                 BuildingShape buildingShape = building.getMapBuildingShape();
                 mapFX.mapPane.getChildren().remove(buildingShape.polygon);
                 mapFX.mapPane.getChildren().add(shape);
@@ -225,6 +226,8 @@ public class MapFX {
     private boolean dropBuilding = false;
     private boolean multiSelectingTiles = false;
     private boolean showInfo = false;
+    private boolean selectingMoveTarget = false;
+    private boolean selectingTileToAttack = false;
 
     //mouse event for multiSelecting
     MouseEvent event;
@@ -359,15 +362,15 @@ public class MapFX {
     private void updateAllRecs() {
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
-                Polygon tileShape = new Polygon(
+                Polygon tilePolygon = new Polygon(
                         ((double)(i + 1 - j)) / iDivider * tileSize, ((double)(i + 1 + j)) / jDivider * tileSize,
                         ((double)(i - j)) / iDivider * tileSize, ((double)(i + j)) / jDivider * tileSize,
                         ((double)(i - j - 1)) / iDivider * tileSize, ((double)(i + j + 1)) / jDivider * tileSize,
                         ((double)(i - j)) / iDivider * tileSize, ((double)(i + j + 2)) / jDivider * tileSize
                 );
                 //update tilesCenters
-                tilesCenters[i][j][0] = tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2;
-                tilesCenters[i][j][1] = tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2;
+                tilesCenters[i][j][0] = tilePolygon.getPoints().get(0) / 2 + tilePolygon.getPoints().get(4) / 2;
+                tilesCenters[i][j][1] = tilePolygon.getPoints().get(3) / 2 + tilePolygon.getPoints().get(7) / 2;
 
                 Image tileImage = null;
                 try {
@@ -376,40 +379,48 @@ public class MapFX {
                     System.out.println(gameMap.getMap()[i][j] == null);
                     throw new RuntimeException(e);
                 }
-                tileShape.setFill(new ImagePattern(tileImage));
-//                tileShape.setOpacity(0.8);
-                allRecs[i][j].shape = tileShape;
-                tileShape.setStroke(Color.GREEN);//todo
+                tilePolygon.setFill(new ImagePattern(tileImage));
+//                tilePolygon.setOpacity(0.8);
+                allRecs[i][j].shape = tilePolygon;
+                tilePolygon.setStroke(Color.GREEN);//todo
 
                 //set on clicked for tile
-                TileShape lastTileShape = allRecs[i][j];
+                TileShape mapTileShape = allRecs[i][j];
                 MapFX current = this;
-                tileShape.setOnMousePressed(new EventHandler<MouseEvent>() {
+                tilePolygon.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        if (!multiSelectingTiles && !menuBarAction && !dropBuilding && !dragging) {
-                            gameGraphic.selectTiles(new ArrayList<>(Arrays.asList(lastTileShape)), event);
+                        if (!multiSelectingTiles && !menuBarAction && !dropBuilding && !dragging && !selectingMoveTarget && !selectingTileToAttack) {
+                            gameGraphic.selectTiles(new ArrayList<>(Arrays.asList(mapTileShape)), event);
                         }
-//                        update(lastTileShape,tileShape);
-                    }
-                });
-                tileShape.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        if (multiSelectingTiles && !menuBarAction) {
-                            multiSelectedTiles.add(lastTileShape);
+                        if (multiSelectingTiles && !menuBarAction && !selectingMoveTarget && !selectingTileToAttack) {
+                            multiSelectedTiles.add(mapTileShape);
                             current.event = event;
+                        }
+                        if (selectingMoveTarget && !multiSelectingTiles && !selectingTileToAttack) {
+                            int x = mapTileShape.getTile().getRowNum();
+                            int y = mapTileShape.getTile().getColumnNum();
+                            gameGraphic.setSelectingMoveTarget(false);
+                            selectingMoveTarget = false;
+                            gameGraphic.moveUnit(x, y);
+                        }
+                        if (selectingTileToAttack && !multiSelectingTiles) {
+                            int x = mapTileShape.getTile().getRowNum();
+                            int y = mapTileShape.getTile().getColumnNum();
+                            gameGraphic.setSelectingTileToAttack(false);
+                            selectingTileToAttack = false;
+                            gameGraphic.attackUnit(x, y);
                         }
                     }
                 });
 
-                tileShape.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                tilePolygon.setOnMouseReleased(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         //shit
                         if (!multiSelectingTiles && dropBuilding && menuBarAction) {
-                            int row = lastTileShape.getTile().getRowNum();
-                            int col = lastTileShape.getTile().getColumnNum();
+                            int row = mapTileShape.getTile().getRowNum();
+                            int col = mapTileShape.getTile().getColumnNum();
                             dropBuilding = false;
                             menuBarAction = false;
                             BuildingGraphics buildingGraphics = GameLayout.currentAtomicBuildingGraphics.get();
@@ -424,7 +435,7 @@ public class MapFX {
                 final int finali = i;
                 final int finalj = j;
 
-                tileShape.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                tilePolygon.hoverProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue && showInfo) {
                         String command = "show details -x " + (finali + 1) + " -y " + (finalj + 1);
                         Matcher matcher = ControllerFunctions.getMatcher(command , GameMenuCommands.SHOW_DETAILS.toString());
@@ -436,22 +447,22 @@ public class MapFX {
                         );
 
                         ScrollPane scrollPane = new ScrollPane();
-                        lastTileShape.infoBox = scrollPane;
+                        mapTileShape.infoBox = scrollPane;
 
                         scrollPane.setPrefSize(400, 100);
                         scrollPane.setContent(tempBox);
 
-//                        scrollPane.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
-//                        scrollPane.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
+//                        scrollPane.setLayoutX(tilePolygon.getPoints().get(0) / 2 + tilePolygon.getPoints().get(4) / 2);
+//                        scrollPane.setLayoutY(tilePolygon.getPoints().get(3) / 2 + tilePolygon.getPoints().get(7) / 2);
 
-//                        tempBox.setLayoutX(tileShape.getPoints().get(6));
-//                        tempBox.setLayoutY(tileShape.getPoints().get(7) - 1);
+//                        tempBox.setLayoutX(tilePolygon.getPoints().get(6));
+//                        tempBox.setLayoutY(tilePolygon.getPoints().get(7) - 1);
 
-                        scrollPane.setLayoutX(tileShape.getPoints().get(4));
-                        scrollPane.setLayoutY(tileShape.getPoints().get(3));
+                        scrollPane.setLayoutX(tilePolygon.getPoints().get(4));
+                        scrollPane.setLayoutY(tilePolygon.getPoints().get(3));
 
                         if (!mapPane.getChildren().contains(scrollPane)) mapPane.getChildren().add(scrollPane);
-                        lastTileShape.onInfoBox = false;
+                        mapTileShape.onInfoBox = false;
                         scrollPane.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
                             if (!newValue1) mapPane.getChildren().remove(scrollPane);
                         });
@@ -549,6 +560,22 @@ public class MapFX {
 
     //getters and setters
 
+
+    public boolean isSelectingTileToAttack() {
+        return selectingTileToAttack;
+    }
+
+    public void setSelectingTileToAttack(boolean selectingTileToAttack) {
+        this.selectingTileToAttack = selectingTileToAttack;
+    }
+
+    public boolean isSelectingMoveTarget() {
+        return selectingMoveTarget;
+    }
+
+    public void setSelectingMoveTarget(boolean selectingMoveTarget) {
+        this.selectingMoveTarget = selectingMoveTarget;
+    }
 
     public boolean isShowInfo() {
         return showInfo;

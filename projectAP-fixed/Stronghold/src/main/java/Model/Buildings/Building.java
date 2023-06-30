@@ -15,9 +15,12 @@ import Model.GamePlay.Drawable;
 import Model.GamePlay.Player;
 import Model.graphics.MapFX;
 import javafx.application.Platform;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
 
 public abstract class Building extends Drawable {
     protected int length;
@@ -27,6 +30,7 @@ public abstract class Building extends Drawable {
     protected int woodCost;
     protected int goldCost;
     protected BuildingGraphics buildingShape;
+    protected boolean onFire = false;
 
     public void setName(String name) {
         this.name = name;
@@ -150,10 +154,29 @@ public abstract class Building extends Drawable {
         return textures;
     }
 
+    @Override
+    public void check() {
+        if (!onFire){
+            int getFireChance = new Random().nextInt(30);
+            if (getFireChance > 27) {
+                onFire = true;
+                Platform.runLater(() -> {
+                    DropShadow dropShadow = new DropShadow();
+                    dropShadow.setSpread(0.3);
+                    dropShadow.setColor(Color.RED);
+                    mapBuildingShape.polygon.setEffect(dropShadow);
+                });
+            }
+        }
+        else HP -= 30;
+    }
+
 
     public boolean shouldBreak() {
         if (HP <= 0) {
-            mapBuildingShape.removeBuildingShape();
+            Platform.runLater(() -> {
+                mapBuildingShape.removeBuildingShape();
+            });
             this.erase();
             return true;
         }
@@ -233,6 +256,14 @@ public abstract class Building extends Drawable {
 
     public static void setSize(int size) {
         size = size;
+    }
+
+    public boolean isOnFire() {
+        return onFire;
+    }
+
+    public void setOnFire(boolean onFire) {
+        this.onFire = onFire;
     }
 
     public int getStoneCost() {

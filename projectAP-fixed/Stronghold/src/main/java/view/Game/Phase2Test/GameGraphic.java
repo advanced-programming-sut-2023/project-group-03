@@ -2,39 +2,41 @@ package view.Game.Phase2Test;
 
 import Model.Buildings.Barracks;
 import Model.Buildings.Building;
-import Model.Buildings.Inventory;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
+import Model.Units.Enums.AttackingMode;
+import Model.Units.Enums.UnitGraphics;
 import Model.graphics.MapFX;
 import Model.graphics.MapFX.BuildingShape;
 import Model.graphics.MapFX.TileShape;
 import controller.ControllerFunctions;
-import controller.Enums.Response;
 import controller.gameControllers.GameController;
 import controller.gameControllers.GeneralGameController;
 import javafx.application.Application;
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import view.Enums.GameMenuCommands;
-import view.Game.GameMenu;
 import view.Game.GraphicalGameMenu;
 import view.fxmlMenu.GameLayout;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class GameGraphic extends Application {
@@ -48,13 +50,17 @@ public class GameGraphic extends Application {
     private Game game;
     private GameController gameController;
 
-    private GraphicalGameMenu gameMenu;
+    private static GraphicalGameMenu gameMenu;
 
     private boolean ctrlPressed = false;
     private boolean menuBarAction = false;
     private boolean dropBuilding = false;
     private boolean multiSelectingTiles = false;
     private boolean showInfo = false;
+    private boolean selectingMoveTarget = false;
+    private boolean selectingTileToAttack = false;
+
+    private static HashMap<String, Integer> unitsAmount = new HashMap<>();
 
     GameLayout gameLayout;
 
@@ -132,6 +138,27 @@ public class GameGraphic extends Application {
                 if (keyCode.equals(KeyCode.Q)) {
                     setShowInfo(!showInfo);
                 }
+
+                //unit shortcuts
+                if (keyCode.equals(KeyCode.M) && ctrlPressed) {
+                    setSelectingMoveTarget(true);
+                }
+                if (keyCode.equals(KeyCode.C) && ctrlPressed) {
+                    getAttackingMode();
+                }
+                if (keyCode.equals(KeyCode.D) && ctrlPressed) {
+                    disbandUnits();
+                }
+                if (keyCode.equals(KeyCode.A) && ctrlPressed) {
+                    setSelectingTileToAttack(true);
+                }
+
+
+
+                //test
+                if (keyCode.equals(KeyCode.Y)) {
+                    HBox hBox = getChooseUnitBox();
+                }
             }
         });
 
@@ -188,11 +215,21 @@ public class GameGraphic extends Application {
         //showing details of selected tiles
         String details = generalGameController.showDetailsMultipleTiles(matcher);
         VBox vBox = new VBox();
+        Button button = new Button("select unit");
         Label label = new Label(details);
         label.setStyle("-fx-background-color: white;");
-        vBox.getChildren().add(label);
+
+        vBox.getChildren().addAll(button, label);
         vBox.setLayoutX(event.getX() - 1);
         vBox.setLayoutY(event.getY() - 1);
+
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                getChooseUnitBox();
+            }
+        });
+
         mapPane.getChildren().add(vBox);
         vBox.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
@@ -211,6 +248,13 @@ public class GameGraphic extends Application {
         System.out.println(result + " hp: " + building.getHP());
     }
 
+    public void moveUnit(int x, int y) {
+        String command = "move unit -x " + x + " -y " + y;
+        Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.MOVE_UNIT.toString());
+        String result = gameController.moveUnit(matcher, gameMenu);
+        System.out.println(result);
+    }
+
     public String selectBuilding(BuildingShape buildingShape) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setColor(Color.BLUE);
@@ -220,7 +264,12 @@ public class GameGraphic extends Application {
         //removing previous drop shadow
         Drawable prevBuilding = gameMenu.getSelected();
         if (prevBuilding instanceof Building) {
-            ((Building) prevBuilding).getMapBuildingShape().polygon.setEffect(null);
+            Building building = (Building) prevBuilding;
+            if (!building.isOnFire()) building.getMapBuildingShape().polygon.setEffect(null);
+            else {
+                dropShadow.setColor(Color.RED);
+                building.getMapBuildingShape().polygon.setEffect(dropShadow);
+            }
         }
 
 
@@ -235,7 +284,7 @@ public class GameGraphic extends Application {
 //        gameLayout.setLog(result);
         System.out.println(command);
         System.out.println(result);
-        if (result.equals(Response.SUCCESSFUL_SELECT.getOutput())) {
+//        if (result.equals(Response.SUCCESSFUL_SELECT.getOutput())) {
 //            if (building instanceof Inventory) {
 //                System.out.println("inventory selected");
 //                GameLayout.currentInstance.changeMenuToFood(((Inventory) building).getType().getResource());
@@ -244,7 +293,7 @@ public class GameGraphic extends Application {
 //                System.out.println("barrack selected");
 //                gameGraphic.gameLayout.changeMenuToBarracks(((Barracks) building).getType());
 //            }
-        }
+//        }
         return command;
     }
 
@@ -253,6 +302,168 @@ public class GameGraphic extends Application {
         String output = gameController.dropBuildingMatcherHandler(matcher, game.getCurrentPlayer());
         System.out.println(output);
         return output;
+    }
+
+    public void dropUnit(String name, int amount) {
+        if (name.split(" ").length > 1) name = "\"" + name + "\"";
+
+        HBox hBox = new HBox();
+        TextField xTextField = new TextField();
+        xTextField.setPromptText("x location");
+        TextField yTextField = new TextField();
+        yTextField.setPromptText("y location");
+        Button accept = new Button("accept");
+
+        hBox.getChildren().addAll(xTextField, yTextField, accept);
+
+        String finalName = name;
+        accept.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String xString = xTextField.getText();
+                String yString = yTextField.getText();
+                gamePane.getChildren().remove(hBox);
+
+                String command = "create unit -t " + finalName + " -c " + amount;
+
+                command += " -x " + xString + " -y " + yString;
+                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.CREATE_UNIT.toString());
+                Drawable building = gameMenu.getSelected();
+                if (building instanceof Barracks) {
+                    Barracks barracks = (Barracks) building;
+                    String result = gameController.addUnitMatcherHandler(matcher, game.getCurrentPlayer(), barracks);
+                    System.out.println(result);
+                }
+                else {
+                    System.out.println("no barracks selected");
+                }
+            }
+        });
+
+        hBox.setLayoutX(gamePane.getWidth() / 2);
+        hBox.setLayoutY(gamePane.getHeight() / 2);
+        gamePane.getChildren().add(hBox);
+    }
+
+    public boolean isSelectingMoveTarget() {
+        return selectingMoveTarget;
+    }
+
+    public void setSelectingMoveTarget(boolean selectingMoveTarget) {
+        this.selectingMoveTarget = selectingMoveTarget;
+        mapFX.setSelectingMoveTarget(selectingMoveTarget);
+    }
+
+    public HBox getChooseUnitBox() {
+        HBox hBox = new HBox();
+        ChoiceBox<String> unitTypes = new ChoiceBox<>();
+        for (UnitGraphics unitGraphics : UnitGraphics.values()) {
+            unitTypes.getItems().add(unitGraphics.name());
+        }
+        unitTypes.setValue("archer");
+
+        unitsAmount = new HashMap<>();
+
+
+        TextField amount = new TextField();
+        amount.setPromptText("amount");
+
+        Button select = new Button("select");
+        Button add = new Button("add");
+        Button cancel = new Button("cancel");
+
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                gamePane.getChildren().remove(hBox);
+            }
+        });
+
+        select.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String input = "";
+                for (String key : unitsAmount.keySet()) {
+                    input += key + "ali" + unitsAmount.get(key) + "ali";
+                }
+
+                gameController.selectUnitMultipleTiles(gameMenu.getSelectedTiles().get(game.getCurrentPlayer()),
+                        input, game.getCurrentPlayer(), gameMenu);
+                gamePane.getChildren().remove(hBox);
+
+                System.out.println(gameMenu.getSelectedUnits().size());
+            }
+        });
+
+        add.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String unitType = unitTypes.getValue();
+                String count = amount.getText();
+                if (!count.matches("[0-9]+")) return;
+                unitsAmount.put(unitType, Integer.parseInt(count));
+                amount.setText("");
+                amount.setPromptText("amount");
+            }
+        });
+
+        hBox.getChildren().addAll(unitTypes, amount, add, select, cancel);
+        hBox.setLayoutX(gamePane.getWidth() / 2);
+        hBox.setLayoutY(gamePane.getHeight() / 2);
+        gamePane.getChildren().add(hBox);
+
+        return hBox;
+    }
+
+    public void getAttackingMode() {
+        HBox hBox = new HBox();
+
+        ChoiceBox<String> modes = new ChoiceBox<>();
+        for (AttackingMode attackingMode : AttackingMode.values()) {
+            modes.getItems().add(attackingMode.getName());
+        }
+        modes.setValue("standing");
+
+        Button accept = new Button("accept");
+        accept.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String command = "set " + modes.getValue();
+                Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SET.toString());
+                String result = gameGraphic.gameController.setState(matcher, game.getCurrentPlayer(), gameMenu);
+                System.out.println(result);
+                gamePane.getChildren().remove(hBox);
+            }
+        });
+
+        hBox.getChildren().addAll(modes, accept);
+        hBox.setLayoutX(gamePane.getWidth() / 2);
+        hBox.setLayoutY(gamePane.getHeight() / 2);
+
+        gamePane.getChildren().add(hBox);
+    }
+
+    public void disbandUnits() {
+        gameController.disbandUnit(gameMenu);
+    }
+
+    public void attackUnit(int x, int y) {
+        String command = "attack place -x " + x + " -y " + y;
+        Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.ATTACK_PLACE.toString());
+        String result = gameController.attackMatcherHandler(matcher, gameMenu);
+        System.out.println(result);
+    }
+
+    //getters and setters
+
+
+    public boolean isSelectingTileToAttack() {
+        return selectingTileToAttack;
+    }
+
+    public void setSelectingTileToAttack(boolean selectingTileToAttack) {
+        this.selectingTileToAttack = selectingTileToAttack;
+        mapFX.setSelectingTileToAttack(true);
     }
 
     public GameLayout getGameLayout() {
