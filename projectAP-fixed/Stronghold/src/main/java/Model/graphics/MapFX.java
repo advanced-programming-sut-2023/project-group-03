@@ -187,13 +187,15 @@ public class MapFX {
         this.colSize = size;
         this.mapPane = mapPane;
         this.gameMap = gameMap;
+        int cameraWidth = 1240;
+        int cameraHeight = 720;
 
         //setup camera
         view = new Polygon(
-                -stage.getWidth(), 0f,
-                stage.getWidth(), 0f,
-                stage.getWidth(), stage.getHeight(),
-                -stage.getWidth(), stage.getHeight()
+                -cameraHeight, 0f,
+                cameraWidth, 0f,
+                cameraWidth, cameraHeight,
+                -cameraWidth, cameraHeight
         );
         view.setFill(Color.TRANSPARENT);
         mapPane.getChildren().add(view);//todo

@@ -60,12 +60,14 @@ public class GameGraphic extends Application {
 
 
         //setup stage
-        primaryStage.setHeight(720);
-        primaryStage.setWidth(1240);
+//        primaryStage.setHeight(720);
+//        primaryStage.setWidth(1240);
+
         System.out.println("setup stage");
 
         //setup panes
         gamePane = new Pane();
+        gamePane.setPrefSize(1240, 720);
         mapPane = new Pane();
         gamePane.getChildren().add(mapPane);
         System.out.println("setup panes");

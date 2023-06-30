@@ -2,6 +2,8 @@ package Model;
 
 import view.Network.Client;
 
+import java.beans.Transient;
+
 public class User implements Comparable<User> {
     private String password;
     private String username;
@@ -13,7 +15,6 @@ public class User implements Comparable<User> {
     private int highScore;
     private int rank;
     private boolean stayLoggedIn = false;
-    Client client;
 
     public User(String password, String username, String nickname, String email, String slogan) {
         this.password = password;
@@ -113,13 +114,5 @@ public class User implements Comparable<User> {
 
     public void setStayLoggedIn(boolean stayLoggedIn) {
         this.stayLoggedIn = stayLoggedIn;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 }
