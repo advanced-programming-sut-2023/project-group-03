@@ -338,6 +338,7 @@ public class MapFX {
                         if (multiSelectingTiles && !menuBarAction) {
                             multiSelectedTiles.add(lastTileShape);
                         }
+                        update(lastTileShape,tileShape);
                     }
                 });
 
@@ -359,7 +360,6 @@ public class MapFX {
                         }
                     }
                 });
-
                 final int finali = i;
                 final int finalj = j;
 
@@ -384,12 +384,12 @@ public class MapFX {
 //                        tempBox.setLayoutY(tileShape.getPoints().get(3));
                         if (!mapPane.getChildren().contains(tempBox)) mapPane.getChildren().add(tempBox);
                         lastTileShape.onInfoBox = false;
-                        //    tempBox.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
-                        //        if (!newValue1) mapPane.getChildren().remove(tempBox);
-                        //        else if (newValue1 && !oldValue1){
-                        //             lastTileShape.onInfoBox = true;
-                        //        }
-                        //    });
+//                            tempBox.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
+//                                if (!newValue1) mapPane.getChildren().remove(tempBox);
+//                                else if (newValue1 && !oldValue1){
+//                                     lastTileShape.onInfoBox = true;
+//                                }
+//                            });
                     }
                     else if (oldValue && showInfo) {
                         mapPane.getChildren().remove(lastTileShape.infoBox);
@@ -398,6 +398,21 @@ public class MapFX {
             }
         }
         updateCamera();
+    }
+
+    public void update(TileShape lastTileShape,Polygon tileShape) {
+        tileShape.setOnMouseReleased(event -> {
+            if (!multiSelectingTiles && dropBuilding && menuBarAction) {
+                int row = lastTileShape.getTile().getRowNum();
+                int col = lastTileShape.getTile().getColumnNum();
+                dropBuilding = false;
+                menuBarAction = false;
+                BuildingGraphics buildingGraphics = gameGraphic.getGameLayout().currentbuildingGraphics;
+                String buildingName = buildingGraphics.getName();
+                String command = "drop building -x " + row + " -y " + col + " -t " + buildingName;
+                gameGraphic.dropBuilding(command);
+            }
+        });
     }
 
     public void moveMapWithKeys(KeyEvent keyEvent) {
