@@ -18,11 +18,13 @@ import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -31,6 +33,7 @@ import view.Game.GameMenu;
 import view.Game.GraphicalGameMenu;
 import view.fxmlMenu.GameLayout;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
@@ -156,7 +159,7 @@ public class GameGraphic extends Application {
         });
     }
 
-    public String selectTiles(ArrayList<TileShape> tileShapes) {
+    public String selectTiles(ArrayList<TileShape> tileShapes, MouseEvent event) {
         if (tileShapes == null || tileShapes.size() == 0) return null;
         ArrayList<Tile> tiles = new ArrayList<>();
         String output = "select tile";
@@ -178,7 +181,25 @@ public class GameGraphic extends Application {
         }
 
         Matcher matcher = ControllerFunctions.getMatcher(output, GameMenuCommands.SELECT_TILE.toString());
-        new GeneralGameController(gameMap, mapFX).selectTilesMatcherHandler(matcher, gameMenu, game.getCurrentPlayer());
+        GeneralGameController generalGameController = new GeneralGameController(gameMap, mapFX);
+        generalGameController.selectTilesMatcherHandler(matcher, gameMenu, game.getCurrentPlayer());
+//        System.out.println(generalGameController.showDetailsMultipleTiles(matcher));
+
+        //showing details of selected tiles
+        String details = generalGameController.showDetailsMultipleTiles(matcher);
+        VBox vBox = new VBox();
+        Label label = new Label(details);
+        label.setStyle("-fx-background-color: white;");
+        vBox.getChildren().add(label);
+        vBox.setLayoutX(event.getX() - 1);
+        vBox.setLayoutY(event.getY() - 1);
+        mapPane.getChildren().add(vBox);
+        vBox.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                mapPane.getChildren().remove(vBox);
+            }
+        });
         return output;
     }
 

@@ -47,6 +47,6 @@ public class LaunchInitializer implements Initializable{
         strings.add("salam");
         strings.add("bye");
         strings.add("vai");
-        listOfPlayers.setItems(FXCollections.observableList(strings));
+        // listOfPlayers.setItems(FXCollections.observableList(strings));
     }
 }

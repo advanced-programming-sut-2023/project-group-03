@@ -421,7 +421,25 @@ public class GeneralGameController extends Controller {
 
     public void selectTilesMatcherHandler(Matcher matcher, GameMenu gameMenu, Player player) {
         String coordinatesWhole = matcher.group("tilesCoordinates");
-        String[] coordinatesString = coordinatesWhole.split(" ");
+        ArrayList<Tile> selectedTiles = getSelectedTilesFromString(coordinatesWhole);
+
+        GameMenu.getSelectedTiles().put(player, selectedTiles);
+    }
+
+    public String showDetailsMultipleTiles(Matcher matcher) {
+        String positions = matcher.group("tilesCoordinates");
+        ArrayList<Tile> selectedTiles = getSelectedTilesFromString(positions);
+        String output = "";
+
+        output += setupDetails(selectedTiles);
+
+        output += extractTileDetails(getUnitAcquisitions(selectedTiles), getPlayers());
+
+        return output;    
+    }
+
+    private ArrayList<Tile> getSelectedTilesFromString(String positions) {
+        String[] coordinatesString = positions.split(" ");
         int[][] coordinates = new int[coordinatesString.length / 2][2];
         for (int i = 0; i < coordinatesString.length / 2; i++) {
             coordinates[i][0] = Integer.parseInt(coordinatesString[i * 2]);
@@ -432,7 +450,6 @@ public class GeneralGameController extends Controller {
         for (int[] coordinate : coordinates) {
             selectedTiles.add(gameMap.getMap()[coordinate[0]][coordinate[1]]);
         }
-
-        GameMenu.getSelectedTiles().put(player, selectedTiles);
+        return selectedTiles;
     }
 }
