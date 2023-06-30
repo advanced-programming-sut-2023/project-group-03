@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GameLayout extends Application implements Initializable {
+    private static GameLayout currentInstance;
     private static GameGraphic gameGraphic = GameGraphic.getGameGraphic();
     private static Pane FxmlRoot;
 
@@ -40,6 +41,10 @@ public class GameLayout extends Application implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public GameLayout() {
+        currentInstance = this;
     }
 
     public Image woodImg =new Image(GameLayout.class.getResource("/images/menu/wood.png").toExternalForm());
@@ -558,7 +563,7 @@ public class GameLayout extends Application implements Initializable {
         return currentbuildingGraphics;
     }
 
-    public void setLog(String logContent) {
-        log.setText(logContent);
+    public static void setLog(String logContent) {
+        currentInstance.log.setText(logContent);
     }
 }

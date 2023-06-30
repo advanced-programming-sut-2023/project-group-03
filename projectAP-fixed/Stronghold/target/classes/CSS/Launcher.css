@@ -1,0 +1,30 @@
+
+.somePain{
+    -fx-background-image: url(../images/LaunchMenu/castle.png);
+}
+
+Button{
+    -fx-background-color: radial-gradient(focus-distance 0%,center 50% 50%,radius 50%, #0b2e02, #50721e);
+    -fx-background-radius: 10px;
+}
+
+
+/*Button:focused {*/
+/*    -fx-background-color: radial-gradient(focus-distance 0%,center 50% 50%,radius 50%, #ffcc00, #ff4400);*/
+/*    -fx-background-radius: 10px;*/
+/*    -fx-border-radius: 8px;*/
+/*    -fx-border-width: 6px;*/
+/*    -fx-border-color: #ffa500;*/
+/*}*/
+
+Button:hover {
+    -fx-border-radius: 7px;
+    -fx-border-width: 4px;
+    -fx-border-color: #42b921;
+    -fx-opacity: 70%;
+}
+TextField{
+    -fx-background-color: radial-gradient(focus-distance 0%,center 50% 50%,radius 50%, #818b81, #94947b);
+    -fx-text-fill: #043104;
+    -fx-font-style: bold;
+}
