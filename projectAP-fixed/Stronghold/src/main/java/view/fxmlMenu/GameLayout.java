@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GameLayout extends Application implements Initializable {
     private static GameGraphic gameGraphic = GameGraphic.getGameGraphic();
@@ -54,7 +55,8 @@ public class GameLayout extends Application implements Initializable {
     public Rectangle currentRecTroop;
     public TroopTypes currentUnit;
 
-    public BuildingGraphics currentbuildingGraphics;
+    public static BuildingGraphics currentbuildingGraphics;
+    public static AtomicReference<BuildingGraphics> currentAtomicBuildingGraphics = new AtomicReference<>();
     public Rectangle currentMenu;
     public HBox upperBox;
     public HBox lowerBox;
@@ -341,7 +343,9 @@ public class GameLayout extends Application implements Initializable {
         rectangle.setOnMouseClicked(event -> {
             setCostVbox(rectangle.getBuildingGraphics());
             if(currentBuilding!=null) currentBuilding.setEffect(null);
+            System.out.println("null? " + rectangle.getBuildingGraphics() == null);
             currentbuildingGraphics = rectangle.getBuildingGraphics();
+            currentAtomicBuildingGraphics.set(currentbuildingGraphics);
             gameGraphic.setMenuBarAction(true);
             gameGraphic.setDropBuilding(true);
             currentBuilding = rectangle;
