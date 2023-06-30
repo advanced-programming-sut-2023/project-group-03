@@ -4,6 +4,9 @@
 .upperMenu {
     -fx-background-image: url(../images/menu/upper.png);
 }
+.MainPain{
+    -fx-background-image: url(../images/LaunchMenu/second.jpg);
+}
 .lowerMenu {
     -fx-fill: url(../images/menu/lower2.png);
 }
@@ -18,6 +21,7 @@ Button{
     -fx-background-color: radial-gradient(focus-distance 0%,center 50% 50%,radius 50%, #920d28, #631622);
     -fx-background-radius: 10px;
 }
+
 
 /*Button:focused {*/
 /*    -fx-background-color: radial-gradient(focus-distance 0%,center 50% 50%,radius 50%, #ffcc00, #ff4400);*/
