@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class GameGraphic extends Application {
-    GameLayout gameLayout = new GameLayout();
     private Pane mapPane;
     private Pane gamePane;
     private Scene gameScene;
@@ -46,7 +45,7 @@ public class GameGraphic extends Application {
     private boolean multiSelectingTiles = false;
     private boolean showInfo = false;
 
-    
+    GameLayout gameLayout = new GameLayout();
 
 
     public GameGraphic(GameMap gameMap, int mapSize, Game game) {
@@ -68,6 +67,7 @@ public class GameGraphic extends Application {
 
         //setup panes
         gamePane = new Pane();
+        gameLayout.setGameGraphic(this);
         gamePane.setPrefSize(1240, 720);
         mapPane = new Pane();
         Pane root = GameLayout.getFxmlRoot();

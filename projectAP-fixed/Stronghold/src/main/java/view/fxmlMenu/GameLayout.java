@@ -22,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import view.Game.Phase2Test.GameGraphic;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class GameLayout extends Application implements Initializable {
+    GameGraphic gameGraphic;
     private static Pane FxmlRoot;
 
     static {
@@ -536,5 +538,13 @@ public class GameLayout extends Application implements Initializable {
 
     public void setMapPane(Pane mapPane) {
         MapPane = mapPane;
+    }
+
+    public GameGraphic getGameGraphic() {
+        return gameGraphic;
+    }
+
+    public void setGameGraphic(GameGraphic gameGraphic) {
+        this.gameGraphic = gameGraphic;
     }
 }
