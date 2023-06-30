@@ -214,7 +214,7 @@ public class GameGraphic extends Application {
             }
             else if (building instanceof Barracks) {
                 System.out.println("barrack selected");
-                GameLayout.currentInstance.changeMenuToBarracks(((Barracks) building).getType());
+                gameGraphic.gameLayout.changeMenuToBarracks(((Barracks) building).getType());
             }
         }
         return output;

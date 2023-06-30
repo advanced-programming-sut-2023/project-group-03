@@ -63,6 +63,5 @@
             </Label>
          </children>
       </HBox>
-      <ListView fx:id="listOfPlayers" fixedCellSize="2.0" layoutX="897.0" layoutY="139.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </Pane>

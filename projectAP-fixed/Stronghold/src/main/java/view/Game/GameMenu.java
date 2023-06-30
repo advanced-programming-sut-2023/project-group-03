@@ -35,9 +35,9 @@ public class GameMenu extends Menu {
     protected MapFX mapFX;
     User user;
 
-    protected static Drawable selected = null;
-    protected static ArrayList<Unit> selectedUnits = new ArrayList<>();
-    protected static HashMap<Player, ArrayList<Tile>> selectedTiles = new HashMap<>();
+    protected Drawable selected = null;
+    protected ArrayList<Unit> selectedUnits = new ArrayList<>();
+    protected HashMap<Player, ArrayList<Tile>> selectedTiles = new HashMap<>();
 
     CastleBuildingMenu castleBuildingMenu;
     FarmBuidingMenu farmBuidingMenu;
@@ -56,7 +56,7 @@ public class GameMenu extends Menu {
         for (Player player : game.getPlayers()) {
             selectedTiles.put(player, new ArrayList<>());
         }
-        Tile.setGameMap(game.getMap());
+
     }
 
     public GameMenu(Scanner scanner, Game game, MapFX mapFX) {
@@ -298,7 +298,7 @@ public class GameMenu extends Menu {
         return game;
     }
 
-    public static Drawable getSelected() {
+    public Drawable getSelected() {
         return selected;
     }
 
@@ -306,19 +306,19 @@ public class GameMenu extends Menu {
         this.game = game;
     }
 
-    public static void setSelected(Drawable selected) {
-        GameMenu.selected = selected;
+    public void setSelected(Drawable selected) {
+        this.selected = selected;
     }
 
-    public static ArrayList<Unit> getSelectedUnits() {
+    public ArrayList<Unit> getSelectedUnits() {
         return selectedUnits;
     }
 
-    public static void setSelectedUnits(ArrayList<Unit> selectedUnits) {
-        GameMenu.selectedUnits = selectedUnits;
+    public void setSelectedUnits(ArrayList<Unit> selectedUnits) {
+        this.selectedUnits = selectedUnits;
     }
 
-    public static HashMap<Player, ArrayList<Tile>> getSelectedTiles() {
+    public HashMap<Player, ArrayList<Tile>> getSelectedTiles() {
         return selectedTiles;
     }
 
