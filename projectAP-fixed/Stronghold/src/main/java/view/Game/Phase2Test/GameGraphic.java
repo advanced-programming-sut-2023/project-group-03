@@ -1,6 +1,8 @@
 package view.Game.Phase2Test;
 
+import Model.Buildings.Barracks;
 import Model.Buildings.Building;
+import Model.Buildings.Inventory;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Drawable;
@@ -9,6 +11,7 @@ import Model.graphics.MapFX;
 import Model.graphics.MapFX.BuildingShape;
 import Model.graphics.MapFX.TileShape;
 import controller.ControllerFunctions;
+import controller.Enums.Response;
 import controller.gameControllers.GameController;
 import controller.gameControllers.GeneralGameController;
 import javafx.application.Application;
@@ -194,9 +197,26 @@ public class GameGraphic extends Application {
 
 
         Building building = buildingShape.getBuilding();
-        String output = "select building -x " + building.getPosition().getRowNum() + " -y " + building.getPosition().getColumnNum();
+//        System.out.println("building type: " + building.getName());
+//        System.out.println("building instance of inventory: " + (building instanceof Inventory));
+//        System.out.println("x: " + building.getPosition().getRowNum() + " y " + building.getPosition().getColumnNum());
+        String output = "select building -x " + (building.getPosition().getRowNum() + 1) + " -y " +
+                (building.getPosition().getColumnNum() + 1);
         Matcher matcher = ControllerFunctions.getMatcher(output, GameMenuCommands.SELECT_BUILDING.toString());
         String result = gameController.selectBuilding(matcher, game.getCurrentPlayer(), gameMenu);
+//        gameLayout.setLog(result);
+        System.out.println(output);
+        System.out.println(result);
+        if (result.equals(Response.SUCCESSFUL_SELECT.getOutput())) {
+            if (building instanceof Inventory) {
+                System.out.println("inventory selected");
+                GameLayout.currentInstance.changeMenuToFood(((Inventory) building).getType().getResource());
+            }
+            else if (building instanceof Barracks) {
+                System.out.println("barrack selected");
+                GameLayout.currentInstance.changeMenuToBarracks(((Barracks) building).getType());
+            }
+        }
         return output;
     }
 

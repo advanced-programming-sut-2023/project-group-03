@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GameLayout extends Application implements Initializable {
-    private static GameLayout currentInstance;
+    public static GameLayout currentInstance;
     private static GameGraphic gameGraphic = GameGraphic.getGameGraphic();
     private static Pane FxmlRoot;
 
@@ -131,10 +131,12 @@ public class GameLayout extends Application implements Initializable {
         HandleShop();
         setUpBarrackMenu();
         MapPane = new Pane();
-        //changeMenuToBarracks(BarracksType.BARRACK);
+        changeMenuToBarracks(BarracksType.BARRACK);
         changeMenuToFood(ResourceTypes.FOOD);
-        //changeMenuToFood(ResourceTypes.STOCK);
-        //changeMenuToFood(ResourceTypes.WEAPON);
+        changeMenuToFood(ResourceTypes.STOCK);
+        changeMenuToFood(ResourceTypes.WEAPON);
+
+        log.setText("Welcome");
     }
 
     private void setUpBarrackMenu() {
@@ -349,7 +351,6 @@ public class GameLayout extends Application implements Initializable {
         rectangle.setOnMouseClicked(event -> {
             setCostVbox(rectangle.getBuildingGraphics());
             if(currentBuilding!=null) currentBuilding.setEffect(null);
-            System.out.println("null? " + rectangle.getBuildingGraphics() == null);
             currentbuildingGraphics = rectangle.getBuildingGraphics();
             currentAtomicBuildingGraphics.set(currentbuildingGraphics);
             gameGraphic.setMenuBarAction(true);
@@ -402,7 +403,7 @@ public class GameLayout extends Application implements Initializable {
         }
     }
 
-    private void changeMenuToFood(ResourceTypes resourceTypes) {
+    public void changeMenuToFood(ResourceTypes resourceTypes) {
         UnitsHbox.setVisible(false);
         CostList.setVisible(false);
         currentMenu = null;
@@ -469,7 +470,7 @@ public class GameLayout extends Application implements Initializable {
         Slider.setValue(1);
     }
 
-    private void changeMenuToBarracks(BarracksType barracksType) {
+    public void changeMenuToBarracks(BarracksType barracksType) {
         UnitsHbox.setVisible(true);
         ShopVbox.setVisible(false);
         CostList.setVisible(false);
@@ -563,7 +564,9 @@ public class GameLayout extends Application implements Initializable {
         return currentbuildingGraphics;
     }
 
-    public static void setLog(String logContent) {
-        currentInstance.log.setText(logContent);
+    public void setLog(String logContent) {
+//        if (currentInstance == null) System.out.println("current instance is null");
+        if (log == null) System.out.println("its log is null");
+        log.setText(logContent);
     }
 }
