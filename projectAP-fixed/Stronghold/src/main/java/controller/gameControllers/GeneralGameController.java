@@ -195,8 +195,7 @@ public class GeneralGameController extends Controller {
                 for (Unit unit : unitsAcquisition.get(player)) {
                     if (unit instanceof Troop && ((Troop) unit).getType().equals(troopType)) counter++;
                 }
-                output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
-                        "player number " + playerCounter + " :" + counter + ", ");
+                output += "player number " + playerCounter + " :" + counter + ", ";
                 counter = 0;
                 playerCounter++;
             }
@@ -222,8 +221,7 @@ public class GeneralGameController extends Controller {
                 for (Unit unit : unitsAcquisition.get(player)) {
                     if (unit instanceof Throwers && ((Throwers) unit).getType().equals(throwerType)) counter++;
                 }
-                output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
-                        "player number " + playerCounter + " :" + counter + ", ");
+                output += "player number " + playerCounter + " :" + counter + ", ";
                 counter = 0;
                 playerCounter++;
             }
@@ -239,8 +237,7 @@ public class GeneralGameController extends Controller {
             for (Unit unit : unitsAcquisition.get(player)) {
                 if (unit instanceof SiegeTower) counter++;
             }
-            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
-                    "player number " + playerCounter + " :" + counter + ", ");
+            output += "player number " + playerCounter + " :" + counter + ", ";
             counter = 0;
             playerCounter++;
         }
@@ -263,8 +260,7 @@ public class GeneralGameController extends Controller {
             for (Unit unit : unitsAcquisition.get(player)) {
                 if (unit instanceof BatteringRam) counter++;
             }
-            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
-                    "player number " + playerCounter + " :" + counter + ", ");
+            output += "player number " + playerCounter + " :" + counter + ", ";
             counter = 0;
             playerCounter++;
         }
@@ -287,8 +283,7 @@ public class GeneralGameController extends Controller {
             for (Unit unit : unitsAcquisition.get(player)) {
                 if (unit instanceof LadderMen) counter++;
             }
-            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
-                    "player number " + playerCounter + " :" + counter + ", ");
+            output += "player number " + playerCounter + " :" + counter + ", ";
             counter = 0;
             playerCounter++;
         }
@@ -311,8 +306,7 @@ public class GeneralGameController extends Controller {
             for (Unit unit : unitsAcquisition.get(player)) {
                 if (unit instanceof PortableShields) counter++;
             }
-            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
-                    "player number " + playerCounter + " :" + counter + ", ");
+            output += "player number " + playerCounter + " :" + counter + ", ";
             counter = 0;
             playerCounter++;
         }
@@ -335,8 +329,7 @@ public class GeneralGameController extends Controller {
             for (Unit unit : unitsAcquisition.get(player)) {
                 if (unit instanceof WallClimber) counter++;
             }
-            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
-                    "player number " + playerCounter + " :" + counter + ", ");
+            output += "player number " + playerCounter + " :" + counter + ", ";
             counter = 0;
             playerCounter++;
         }
@@ -359,8 +352,7 @@ public class GeneralGameController extends Controller {
             for (Unit unit : unitsAcquisition.get(player)) {
                 if (unit instanceof Engineer) counter++;
             }
-            output += ConsoleColors.formatPrinter(player.getFlagColor().getColor(), ConsoleColors.TEXT_BG_BLACK,
-                    "player number " + playerCounter + " :" + counter + ", ");
+            output += "player number " + playerCounter + " :" + counter + ", ";
             counter = 0;
             playerCounter++;
         }
@@ -423,7 +415,7 @@ public class GeneralGameController extends Controller {
         String coordinatesWhole = matcher.group("tilesCoordinates");
         ArrayList<Tile> selectedTiles = getSelectedTilesFromString(coordinatesWhole);
 
-        GameMenu.getSelectedTiles().put(player, selectedTiles);
+        gameMenu.getSelectedTiles().put(player, selectedTiles);
     }
 
     public String showDetailsMultipleTiles(Matcher matcher) {
@@ -433,7 +425,8 @@ public class GeneralGameController extends Controller {
 
         output += setupDetails(selectedTiles);
 
-        output += extractTileDetails(getUnitAcquisitions(selectedTiles), getPlayers());
+//        output += extractTileDetails(getUnitAcquisitions(selectedTiles), getPlayers());
+        output += getUnitInfos(selectedTiles);
 
         return output;    
     }

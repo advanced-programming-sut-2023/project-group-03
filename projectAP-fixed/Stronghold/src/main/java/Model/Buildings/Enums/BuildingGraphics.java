@@ -20,8 +20,8 @@ public enum BuildingGraphics {
     //todo
     //barracks
     BARRACK("barrack", 2 * 5f / 3, 5, 5, "barrack.jpg","defensive"),
-    ENGINEER_GUILD("engineer_guild", 2 * 5f / 3, 5, 5, "engineer_guild.jpg","defensive"),
-    MERCENARY_POST("mercenary_post", 0.8, 5, 5, "mercenary_post.png","defensive"),
+    ENGINEER_GUILD("engineer guild", 2 * 5f / 3, 5, 5, "engineer_guild.jpg","defensive"),
+    MERCENARY_POST("mercenary post", 0.8, 5, 5, "mercenary_post.png","defensive"),
     TUNNELER_GUILD("tunneler guild", 2.5, 5, 5, "tunneller_guild.png","defensive"),
     //rest
     STABLE("stable", 1, RestTypes.STABLE.getSize(), RestTypes.STABLE.getSize(), "stable.jpg","town"),
@@ -46,9 +46,9 @@ public enum BuildingGraphics {
     MILL("mill", 4, 3, 3, "mill1.png","town"),
     HUNTERS_HUT("hunter's hut", 1.3, 3, 3, "hunter.png","farm"),
     BOW_MAKER("bow maker", 2, 3, 3, "bow_maker.png","weapon"),
-    SWORD_MAKER("sword maker", 2, 3, 3, "sword_maker.png","weapon"),
-    SPEAR_MAKER("spear_maker", 2, 3, 3, "spear_maker.png","weapon"),
-    PIKE_MAKER("pike_maker", 2, 3, 3, "spear_maker.png","weapon"),
+    SWORD_MAKER("swordMaker", 2, 3, 3, "sword_maker.png","weapon"),
+    SPEAR_MAKER("spearMaker", 2, 3, 3, "spear_maker.png","weapon"),
+    PIKE_MAKER("pikeMaker", 2, 3, 3, "spear_maker.png","weapon"),
     BREWERY("brewery", 3, 3, 3, "brewery.png","weapon"),
     //inventory
     STOCKPILE("stockpile", 0, 1, 1, "stockpile.png","industry"),

@@ -151,8 +151,9 @@ public abstract class Building extends Drawable {
     }
 
 
-    protected boolean shouldBreak() {
+    public boolean shouldBreak() {
         if (HP <= 0) {
+            mapBuildingShape.removeBuildingShape();
             this.erase();
             return true;
         }

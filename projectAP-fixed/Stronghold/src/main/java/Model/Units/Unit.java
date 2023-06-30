@@ -119,6 +119,7 @@ public abstract class Unit extends Drawable {
     @Override
     protected boolean shouldBreak() {
         if (this.HP <= 0) {
+            mapUnitShape.removeUnitShape();
             erase();
             return true;
         }

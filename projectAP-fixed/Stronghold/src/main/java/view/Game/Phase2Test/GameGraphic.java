@@ -173,7 +173,7 @@ public class GameGraphic extends Application {
         }
 
         //removing previous tiles' colors
-        ArrayList<Tile> previousTiles = GameMenu.getSelectedTiles().get(game.getCurrentPlayer());
+        ArrayList<Tile> previousTiles = gameMenu.getSelectedTiles().get(game.getCurrentPlayer());
         for (Tile previousTile : previousTiles) {
             mapFX.getAllRecs()[previousTile.getRowNum()][previousTile.getColumnNum()].shape.setStroke(Color.GREEN);
             mapFX.getAllRecs()[previousTile.getRowNum()][previousTile.getColumnNum()].shape.setStrokeWidth(1);
@@ -203,6 +203,14 @@ public class GameGraphic extends Application {
         return output;
     }
 
+    public void repairBuilding(BuildingShape buildingShape) {
+        Building building = gameMap.getMap()[buildingShape.getBuilding().getPosition().getRowNum()]
+                [buildingShape.getBuilding().getPosition().getColumnNum()].getBuilding();
+        System.out.println(building.getHP());
+        String result = gameController.repair(building, game.getCurrentPlayer());
+        System.out.println(result + " hp: " + building.getHP());
+    }
+
     public String selectBuilding(BuildingShape buildingShape) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setColor(Color.BLUE);
@@ -210,8 +218,7 @@ public class GameGraphic extends Application {
         buildingShape.polygon.setEffect(dropShadow);
 
         //removing previous drop shadow
-        Drawable prevBuilding = GameMenu.getSelected();
-        System.out.println("prev building null? " + prevBuilding);
+        Drawable prevBuilding = gameMenu.getSelected();
         if (prevBuilding instanceof Building) {
             ((Building) prevBuilding).getMapBuildingShape().polygon.setEffect(null);
         }
@@ -221,12 +228,12 @@ public class GameGraphic extends Application {
 //        System.out.println("building type: " + building.getName());
 //        System.out.println("building instance of inventory: " + (building instanceof Inventory));
 //        System.out.println("x: " + building.getPosition().getRowNum() + " y " + building.getPosition().getColumnNum());
-        String output = "select building -x " + (building.getPosition().getRowNum() + 1) + " -y " +
+        String command = "select building -x " + (building.getPosition().getRowNum() + 1) + " -y " +
                 (building.getPosition().getColumnNum() + 1);
-        Matcher matcher = ControllerFunctions.getMatcher(output, GameMenuCommands.SELECT_BUILDING.toString());
+        Matcher matcher = ControllerFunctions.getMatcher(command, GameMenuCommands.SELECT_BUILDING.toString());
         String result = gameController.selectBuilding(matcher, game.getCurrentPlayer(), gameMenu);
 //        gameLayout.setLog(result);
-        System.out.println(output);
+        System.out.println(command);
         System.out.println(result);
         if (result.equals(Response.SUCCESSFUL_SELECT.getOutput())) {
             if (building instanceof Inventory) {
@@ -238,7 +245,7 @@ public class GameGraphic extends Application {
                 gameGraphic.gameLayout.changeMenuToBarracks(((Barracks) building).getType());
             }
         }
-        return output;
+        return command;
     }
 
     public String dropBuilding(String command) {

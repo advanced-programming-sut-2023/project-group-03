@@ -9,13 +9,17 @@ import Model.Units.Enums.UnitGraphics;
 import controller.ControllerFunctions;
 import controller.gameControllers.GeneralGameController;
 import Model.Units.Unit;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -64,11 +68,26 @@ public class MapFX {
             mapFX.buildings.add(this);
             mapFX.mapPane.getChildren().add(polygon);
             BuildingShape current = this;
+            updatePolygonActions(polygon, this);
+        }
 
+        public void removeBuildingShape() {
+            mapFX.buildings.remove(this);
+            mapFX.mapPane.getChildren().remove(polygon);
+        }
+
+        public void updatePolygon (){
+            this.polygon = getHex(height, row, col, iSize, jSize, building.getBuildingShape().getBuildingImage()
+                    , mapFX.iDivider, mapFX.jDivider, mapFX.tileSize);
+
+            updatePolygonActions(polygon, this);
+        }
+
+        private void updatePolygonActions(Polygon polygon, BuildingShape buildingShape) {
             polygon.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    if (!mapFX.menuBarAction) mapFX.gameGraphic.selectBuilding(current);
+                    if (!mapFX.menuBarAction) mapFX.gameGraphic.selectBuilding(buildingShape);
                 }
             });
 
@@ -80,21 +99,34 @@ public class MapFX {
                     Building currentBuilding = GameGraphic.gameMap.getMap()
                             [building.getPosition().getRowNum()][building.getPosition().getColumnNum()].getBuilding();
                     output += "type: " + currentBuilding.getName() + "\nHP: " + currentBuilding.getHP();
-
                     Label label = new Label(output);
-                }
-            });
-        }
+                    label.setStyle("-fx-background-color: white;");
 
-        public void updatePolygon (){
-            this.polygon = getHex(height, row, col, iSize, jSize, building.getBuildingShape().getBuildingImage()
-                    , mapFX.iDivider, mapFX.jDivider, mapFX.tileSize);
+                    Button repairButton = new Button("repair");
+                    repairButton.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            mapFX.gameGraphic.repairBuilding(buildingShape);
+                        }
+                    });
+                    Button removeButton = new Button("remove");
+                    removeButton.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            building.setHP(-1);
+                            building.shouldBreak();
+                        }
+                    });
+                    HBox buttons = new HBox();
+                    buttons.getChildren().addAll(removeButton, repairButton);
 
-            BuildingShape current = this;
-            polygon.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (!mapFX.menuBarAction) mapFX.gameGraphic.selectBuilding(current);
+                    infoBox.getChildren().addAll(label, buttons);
+                    infoBox.setLayoutX(mapFX.tilesCenters[building.getPosition().getRowNum()][building.getPosition().getColumnNum()][0]);
+                    infoBox.setLayoutY(mapFX.tilesCenters[building.getPosition().getRowNum()][building.getPosition().getColumnNum()][1]);
+                    mapFX.mapPane.getChildren().add(infoBox);
+                    infoBox.setOnMouseExited(infoBoxEvent -> {
+                        mapFX.mapPane.getChildren().remove(infoBox);
+                    });
                 }
             });
         }
@@ -125,6 +157,11 @@ public class MapFX {
             }
         }
 
+        public void removeUnitShape() {
+            mapFX.units.remove(this);
+            mapFX.mapPane.getChildren().remove(shape);
+        }
+
         public void updateShape() {
             shape.setX(mapFX.tilesCenters[unit.getPosition().getRowNum()][unit.getPosition().getColumnNum()][0] - shape.getWidth() / 2);
             shape.setY(mapFX.tilesCenters[unit.getPosition().getRowNum()][unit.getPosition().getColumnNum()][1] - shape.getHeight() / 2);
@@ -135,7 +172,7 @@ public class MapFX {
     public static class TileShape {
         private Tile tile;
         public Polygon shape;
-        public VBox infoBox;
+        public ScrollPane infoBox;
         public boolean onInfoBox = false;
         public TileShape(Tile tile) {
             this.tile = tile;
@@ -340,24 +377,29 @@ public class MapFX {
                     throw new RuntimeException(e);
                 }
                 tileShape.setFill(new ImagePattern(tileImage));
-                tileShape.setOpacity(0.8);
+//                tileShape.setOpacity(0.8);
                 allRecs[i][j].shape = tileShape;
                 tileShape.setStroke(Color.GREEN);//todo
 
                 //set on clicked for tile
                 TileShape lastTileShape = allRecs[i][j];
                 MapFX current = this;
+                tileShape.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if (!multiSelectingTiles && !menuBarAction && !dropBuilding && !dragging) {
+                            gameGraphic.selectTiles(new ArrayList<>(Arrays.asList(lastTileShape)), event);
+                        }
+//                        update(lastTileShape,tileShape);
+                    }
+                });
                 tileShape.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        if (!multiSelectingTiles && !menuBarAction) {
-                            gameGraphic.selectTiles(new ArrayList<>(Arrays.asList(lastTileShape)), event);
-                        }
                         if (multiSelectingTiles && !menuBarAction) {
                             multiSelectedTiles.add(lastTileShape);
                             current.event = event;
                         }
-//                        update(lastTileShape,tileShape);
                     }
                 });
 
@@ -386,32 +428,33 @@ public class MapFX {
                     if (newValue && showInfo) {
                         String command = "show details -x " + (finali + 1) + " -y " + (finalj + 1);
                         Matcher matcher = ControllerFunctions.getMatcher(command , GameMenuCommands.SHOW_DETAILS.toString());
-                        lastTileShape.infoBox = new VBox();
-                        VBox tempBox = lastTileShape.infoBox;
+                        VBox tempBox = new VBox();
                         Label label = new Label(new GeneralGameController(gameMap, this).showDetails(matcher));
                         label.setStyle("-fx-background-color: white;");
                         if (showInfo) tempBox.getChildren().add(
                                 label
                         );
-                        tempBox.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
-                        tempBox.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
+
+                        ScrollPane scrollPane = new ScrollPane();
+                        lastTileShape.infoBox = scrollPane;
+
+                        scrollPane.setPrefSize(400, 100);
+                        scrollPane.setContent(tempBox);
+
+//                        scrollPane.setLayoutX(tileShape.getPoints().get(0) / 2 + tileShape.getPoints().get(4) / 2);
+//                        scrollPane.setLayoutY(tileShape.getPoints().get(3) / 2 + tileShape.getPoints().get(7) / 2);
 
 //                        tempBox.setLayoutX(tileShape.getPoints().get(6));
 //                        tempBox.setLayoutY(tileShape.getPoints().get(7) - 1);
 
-//                        tempBox.setLayoutX(tileShape.getPoints().get(4));
-//                        tempBox.setLayoutY(tileShape.getPoints().get(3));
-                        if (!mapPane.getChildren().contains(tempBox)) mapPane.getChildren().add(tempBox);
+                        scrollPane.setLayoutX(tileShape.getPoints().get(4));
+                        scrollPane.setLayoutY(tileShape.getPoints().get(3));
+
+                        if (!mapPane.getChildren().contains(scrollPane)) mapPane.getChildren().add(scrollPane);
                         lastTileShape.onInfoBox = false;
-//                            tempBox.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
-//                                if (!newValue1) mapPane.getChildren().remove(tempBox);
-//                                else if (newValue1 && !oldValue1){
-//                                     lastTileShape.onInfoBox = true;
-//                                }
-//                            });
-                    }
-                    else if (oldValue && showInfo) {
-                        mapPane.getChildren().remove(lastTileShape.infoBox);
+                        scrollPane.hoverProperty().addListener((observable1, oldValue1, newValue1) -> {
+                            if (!newValue1) mapPane.getChildren().remove(scrollPane);
+                        });
                     }
                 });
             }
