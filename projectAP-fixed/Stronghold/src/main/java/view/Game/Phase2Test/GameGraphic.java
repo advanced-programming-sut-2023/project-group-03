@@ -18,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import view.Enums.GameMenuCommands;
 import view.Game.GameMenu;
@@ -69,8 +70,13 @@ public class GameGraphic extends Application {
         gamePane = new Pane();
         gamePane.setPrefSize(1240, 720);
         mapPane = new Pane();
-        gamePane.getChildren().add(mapPane);
+        Pane root = GameLayout.getFxmlRoot();
+        root.getChildren().set(0, mapPane);
+        gamePane.getChildren().add(root);
         System.out.println("setup panes");
+        mapPane.setOnMouseClicked(event->{
+            mapPane.requestFocus();
+        });
 
         //mapFX
         mapFX = new MapFX(mapSize, mapPane, primaryStage, gameMap);
@@ -81,7 +87,6 @@ public class GameGraphic extends Application {
         System.out.println("made mapFX");
 
         gameScene = new Scene(gamePane);
-        gamePane.getChildren().add(gameLayout.getFxmlRoot());
         primaryStage.setScene(gameScene);
         primaryStage.show();
         System.out.println("showing the stage.");

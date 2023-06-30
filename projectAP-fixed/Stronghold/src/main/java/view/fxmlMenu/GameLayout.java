@@ -72,6 +72,7 @@ public class GameLayout extends Application implements Initializable {
     public HBox UnitsHbox;
     public javafx.scene.control.Slider BarrackSlider;
     public HBox UnitsCost;
+    public Pane MapPane;
     private String currentMenuName = "castle";
     public Rectangle book;
     public Rectangle CastleBuildings;
@@ -119,6 +120,7 @@ public class GameLayout extends Application implements Initializable {
         setMenuItems();
         HandleShop();
         setUpBarrackMenu();
+        MapPane = new Pane();
         //changeMenuToBarracks(BarracksType.BARRACK);
         changeMenuToFood(ResourceTypes.FOOD);
         //changeMenuToFood(ResourceTypes.STOCK);
@@ -526,5 +528,13 @@ public class GameLayout extends Application implements Initializable {
 
     public static Pane getFxmlRoot() {
         return FxmlRoot;
+    }
+
+    public Pane getMapPane() {
+        return MapPane;
+    }
+
+    public void setMapPane(Pane mapPane) {
+        MapPane = mapPane;
     }
 }

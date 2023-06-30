@@ -11,6 +11,7 @@
 
 <Pane prefHeight="720.0" prefWidth="1240.0" stylesheets="@../CSS/MenuBar.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.fxmlMenu.GameLayout">
    <children>
+      <Pane fx:id="MapPane" layoutY="1.0" prefHeight="720.0" prefWidth="1240.0" />
       <Pane layoutY="487.0" prefHeight="234.0" prefWidth="1240.0" style="-fx-background-size: cover">
          <styleClass>
             <String fx:value="lowerMenu" />
