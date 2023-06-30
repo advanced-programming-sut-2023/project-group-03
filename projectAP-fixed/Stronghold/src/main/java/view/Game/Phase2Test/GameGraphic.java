@@ -3,6 +3,7 @@ package view.Game.Phase2Test;
 import Model.Buildings.Building;
 import Model.Field.GameMap;
 import Model.Field.Tile;
+import Model.GamePlay.Drawable;
 import Model.GamePlay.Game;
 import Model.graphics.MapFX;
 import Model.graphics.MapFX.BuildingShape;
@@ -11,8 +12,10 @@ import controller.ControllerFunctions;
 import controller.gameControllers.GameController;
 import controller.gameControllers.GeneralGameController;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -33,7 +36,7 @@ public class GameGraphic extends Application {
     private Pane mapPane;
     private Pane gamePane;
     private Scene gameScene;
-    private GameMap gameMap;
+    public static GameMap gameMap;
     private int mapSize;
     private MapFX mapFX;
     private Game game;
@@ -164,7 +167,7 @@ public class GameGraphic extends Application {
         }
 
         //removing previous tiles' colors
-        ArrayList<Tile> previousTiles = gameMenu.getSelectedTiles().get(game.getCurrentPlayer());
+        ArrayList<Tile> previousTiles = GameMenu.getSelectedTiles().get(game.getCurrentPlayer());
         for (Tile previousTile : previousTiles) {
             mapFX.getAllRecs()[previousTile.getRowNum()][previousTile.getColumnNum()].shape.setStroke(Color.GREEN);
             mapFX.getAllRecs()[previousTile.getRowNum()][previousTile.getColumnNum()].shape.setStrokeWidth(1);
@@ -177,6 +180,19 @@ public class GameGraphic extends Application {
     }
 
     public String selectBuilding(BuildingShape buildingShape) {
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(Color.BLUE);
+        dropShadow.setSpread(0.3);
+        buildingShape.polygon.setEffect(dropShadow);
+
+        //removing previous drop shadow
+        Drawable prevBuilding = GameMenu.getSelected();
+        System.out.println("prev building null? " + prevBuilding);
+        if (prevBuilding instanceof Building) {
+            ((Building) prevBuilding).getMapBuildingShape().polygon.setEffect(null);
+        }
+
+
         Building building = buildingShape.getBuilding();
         String output = "select building -x " + building.getPosition().getRowNum() + " -y " + building.getPosition().getColumnNum();
         Matcher matcher = ControllerFunctions.getMatcher(output, GameMenuCommands.SELECT_BUILDING.toString());

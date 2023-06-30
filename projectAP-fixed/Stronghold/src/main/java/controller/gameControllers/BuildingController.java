@@ -12,6 +12,7 @@ import Model.Units.Worker;
 import Model.graphics.MapFX;
 import controller.interfaces.BuildingInterface;
 import view.Game.GameMenu;
+import view.Game.Phase2Test.GameGraphic;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -41,8 +42,9 @@ public class BuildingController extends GeneralGameController implements Buildin
         if (targetTile.getBuilding() == null) return BUILDING_NOT_EXIST_SELECT.getOutput();
 
         if (!targetTile.getOwner().equals(player)) return ACQUISITION_SELECT.getOutput();
-        gameMenu.getSelectedUnits().clear();
-        gameMenu.setSelected(targetTile.getBuilding());
+        GameMenu.getSelectedUnits().clear();
+        GameMenu.setSelected(targetTile.getBuilding());
+        System.out.println("select tile " + (GameMenu.getSelected() == null));
         return SUCCESSFUL_SELECT.getOutput();
     }
 
@@ -121,6 +123,8 @@ public class BuildingController extends GeneralGameController implements Buildin
     }
 
     public String dropBuildingMatcherHandler(Matcher matcher, Player player) {
+        System.out.println("we are in drop building matcher handler");
+//        System.out.println("equal? " + (BuildingController.gameMap == GameGraphic.gameMap));
         String buildingInfo = matcher.group("buildingInfo");
         HashMap<String, String> infoMap = getOptions(DROP_BUILDING.getKeys(), buildingInfo);
         String error = infoMap.get("error");

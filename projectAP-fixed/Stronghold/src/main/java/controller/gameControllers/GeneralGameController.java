@@ -25,7 +25,7 @@ import static controller.Enums.Response.*;
 
 public class GeneralGameController extends Controller {
     protected MapFX mapFX;
-    protected GameMap gameMap;
+    protected static GameMap gameMap;
     private static final int gameWidth = 3;
     private static int gameLength = 3 * gameWidth;
 
@@ -35,7 +35,7 @@ public class GeneralGameController extends Controller {
     }
 
     public GeneralGameController(GameMap gameMap, MapFX mapFX) {
-        this.gameMap = gameMap;
+        GeneralGameController.gameMap = gameMap;
         this.mapFX = mapFX;
     }
 
@@ -433,6 +433,6 @@ public class GeneralGameController extends Controller {
             selectedTiles.add(gameMap.getMap()[coordinate[0]][coordinate[1]]);
         }
 
-        gameMenu.getSelectedTiles().put(player, selectedTiles);
+        GameMenu.getSelectedTiles().put(player, selectedTiles);
     }
 }
