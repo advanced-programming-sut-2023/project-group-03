@@ -25,6 +25,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import view.Enums.GameMenuCommands;
 import view.Game.Phase2Test.GameGraphic;
+import view.fxmlMenu.GameLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +33,10 @@ import java.util.HashSet;
 import java.util.regex.Matcher;
 
 public class MapFX {
+//    @FunctionalInterface
+//    public interface HelpInterface {
+//
+//    }
     public static class BuildingShape {
         private Building building;
         int row;
@@ -336,16 +341,21 @@ public class MapFX {
                         update(lastTileShape,tileShape);
                     }
                 });
-                tileShape.setOnMouseReleased(event -> {
-                    if (!multiSelectingTiles && dropBuilding && menuBarAction) {
-                        int row = lastTileShape.getTile().getRowNum();
-                        int col = lastTileShape.getTile().getColumnNum();
-                        dropBuilding = false;
-                        menuBarAction = false;
-                        BuildingGraphics buildingGraphics = gameGraphic.getGameLayout().currentbuildingGraphics;
-                        String buildingName = buildingGraphics.getName();
-                        String command = "drop building -x " + row + " -y " + col + " -t " + buildingName;
-                        gameGraphic.dropBuilding(command);
+
+                tileShape.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if (!multiSelectingTiles && dropBuilding && menuBarAction) {
+                            int row = lastTileShape.getTile().getRowNum();
+                            int col = lastTileShape.getTile().getColumnNum();
+                            dropBuilding = false;
+                            menuBarAction = false;
+                            BuildingGraphics buildingGraphics = GameLayout.currentAtomicBuildingGraphics.get();
+                            String buildingName = buildingGraphics.getName();
+                            if (buildingName.split(" ").length > 1) buildingName = "\"" + buildingName + "\"";
+                            String command = "drop building -x " + (row + 1) + " -y " + (col + 1) + " -t " + buildingName;
+                            gameGraphic.dropBuilding(command);
+                        }
                     }
                 });
                 final int finali = i;
