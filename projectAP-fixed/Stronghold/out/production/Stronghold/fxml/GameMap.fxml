@@ -265,7 +265,11 @@
                   <Font name="Cambria Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="225.0" layoutY="8.0" prefHeight="21.0" prefWidth="212.0" style="-fx-alignment: center;" text="Label" textFill="#ffe100" />
+            <Label fx:id="log" layoutX="213.0" layoutY="3.0" prefHeight="32.0" prefWidth="245.0" style="-fx-alignment: center;" text="Label" textFill="#ffe100">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

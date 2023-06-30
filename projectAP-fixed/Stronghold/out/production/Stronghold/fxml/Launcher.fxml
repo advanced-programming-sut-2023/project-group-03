@@ -1,12 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane prefHeight="720.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Network.LaunchInitializer">
-
+<Pane prefHeight="720.0" prefWidth="1240.0" styleClass="somePain" stylesheets="@../CSS/Launcher.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Network.LaunchInitializer">
+   <children>
+      <VBox fx:id="ServerVbox" layoutX="918.0" layoutY="30.0" prefHeight="57.0" prefWidth="279.0" visible="false">
+         <children>
+            <Label fx:id="ServerAddress" text="Server Address" textFill="#ffc8c8">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#426f08" spread="0.82" />
+               </effect>
+            </Label>
+            <TextField fx:id="SeverAddress" prefHeight="31.0" prefWidth="214.0" promptText="ex:  1234.567.890" />
+         </children>
+      </VBox>
+      <Button fx:id="exit" layoutX="14.0" layoutY="675.0" mnemonicParsing="false" prefWidth="100.0" text="exit" textFill="#ffc8c8">
+         <font>
+            <Font name="Cambria Bold" size="19.0" />
+         </font>
+      </Button>
+      <Button fx:id="next" layoutX="1097.0" layoutY="675.0" mnemonicParsing="false" prefWidth="100.0" text="next" textFill="#ffc8c8">
+         <font>
+            <Font name="Cambria Bold" size="19.0" />
+         </font>
+      </Button>
+      <VBox fx:id="MapVbox" layoutX="918.0" layoutY="30.0" prefHeight="57.0" prefWidth="279.0" visible="false">
+         <children>
+            <Label fx:id="ServerAddress1" text="Map " textFill="#ffc8c8">
+               <effect>
+                  <DropShadow color="#426f08" spread="0.82" />
+               </effect>
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Label>
+            <TextField fx:id="mapNumber" prefHeight="31.0" prefWidth="214.0" promptText="ex:  firstMap" />
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="767.0" layoutY="59.0" prefHeight="31.0" prefWidth="380.0" spacing="15.0">
+         <children>
+            <Label text="Server Address:" textFill="#ffc8c8">
+               <effect>
+                  <DropShadow color="#426f08" spread="0.82" />
+               </effect>
+               <font>
+                  <Font name="Cambria Bold" size="21.0" />
+               </font>
+            </Label>
+            <Label text="AnnouncedAddress" textFill="#13462d">
+               <font>
+                  <Font name="Cambria Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <ListView fx:id="listOfPlayers" fixedCellSize="2.0" layoutX="897.0" layoutY="139.0" prefHeight="200.0" prefWidth="200.0" />
+   </children>
 </Pane>
