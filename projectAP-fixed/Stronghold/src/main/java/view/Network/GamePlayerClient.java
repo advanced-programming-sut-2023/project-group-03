@@ -14,6 +14,6 @@ public class GamePlayerClient {
 
     public GamePlayerClient(Player user, String host, int port) {
         gameClient = new GameClient(host, port);
-
+        
     }
 }
