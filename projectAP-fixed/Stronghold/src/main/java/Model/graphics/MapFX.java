@@ -47,6 +47,7 @@ public class MapFX {
         String image;
         public Polygon polygon;
         MapFX mapFX;
+        public VBox infoBox;
 
         public BuildingShape(Building building, MapFX mapFX) {
             this.mapFX = mapFX;
@@ -68,6 +69,19 @@ public class MapFX {
                 @Override
                 public void handle(MouseEvent event) {
                     if (!mapFX.menuBarAction) mapFX.gameGraphic.selectBuilding(current);
+                }
+            });
+
+            polygon.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    infoBox = new VBox();
+                    String output = "";
+                    Building currentBuilding = GameGraphic.gameMap.getMap()
+                            [building.getPosition().getRowNum()][building.getPosition().getColumnNum()].getBuilding();
+                    output += "type: " + currentBuilding.getName() + "\nHP: " + currentBuilding.getHP();
+
+                    Label label = new Label(output);
                 }
             });
         }
@@ -174,6 +188,9 @@ public class MapFX {
     private boolean dropBuilding = false;
     private boolean multiSelectingTiles = false;
     private boolean showInfo = false;
+
+    //mouse event for multiSelecting
+    MouseEvent event;
 
     //dragging
     private boolean dragging = false;
@@ -329,14 +346,16 @@ public class MapFX {
 
                 //set on clicked for tile
                 TileShape lastTileShape = allRecs[i][j];
+                MapFX current = this;
                 tileShape.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         if (!multiSelectingTiles && !menuBarAction) {
-                            gameGraphic.selectTiles(new ArrayList<>(Arrays.asList(lastTileShape)));
+                            gameGraphic.selectTiles(new ArrayList<>(Arrays.asList(lastTileShape)), event);
                         }
                         if (multiSelectingTiles && !menuBarAction) {
                             multiSelectedTiles.add(lastTileShape);
+                            current.event = event;
                         }
 //                        update(lastTileShape,tileShape);
                     }
@@ -462,7 +481,7 @@ public class MapFX {
                     selectedTiles.add(shape);
                 }
             }
-            getGameGraphic().selectTiles(selectedTiles);
+            getGameGraphic().selectTiles(selectedTiles, event);
         }
 
         // else if (!dragging && multiSelectingTiles && !menuBarAction) {
@@ -527,7 +546,11 @@ public class MapFX {
     public void setMultiSelectingTiles(boolean multiSelectingTiles) {
         this.multiSelectingTiles = multiSelectingTiles;
         if (!multiSelectingTiles) {
-            gameGraphic.selectTiles(multiSelectedTiles);
+            if (event == null) {
+                System.out.println("mouse event was null");
+                return;
+            }
+            gameGraphic.selectTiles(multiSelectedTiles, event);
             multiSelectedTiles.clear();
         }
     }
