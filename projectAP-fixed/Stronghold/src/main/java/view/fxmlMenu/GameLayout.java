@@ -77,6 +77,7 @@ public class GameLayout extends Application implements Initializable {
     public javafx.scene.control.Slider BarrackSlider;
     public HBox UnitsCost;
     public Pane MapPane;
+    public Label log;
     private String currentMenuName = "castle";
     public Rectangle book;
     public Rectangle CastleBuildings;
@@ -557,4 +558,7 @@ public class GameLayout extends Application implements Initializable {
         return currentbuildingGraphics;
     }
 
+    public void setLog(String logContent) {
+        log.setText(logContent);
+    }
 }
