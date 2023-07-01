@@ -1,22 +1,29 @@
 package view.Controllers;
 
 import Model.Defaults;
+import Model.GamePlay.Game;
 import controller.UserBasedMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import view.Captcha;
 import view.StartingMenu;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -34,6 +41,9 @@ public class RegisterController implements Initializable {
     public PasswordField password;
     public TextField nickname;
     public TextField email;
+    public ScrollPane scroller;
+    private ImagePattern avatar;
+    private HBox menuHBox;
 
     public static void setRegisterPane() {
         try {
@@ -60,6 +70,39 @@ public class RegisterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ArrayList<Rectangle> rectangles=new ArrayList<>();
+        for (int i = 1; i <= 30; i++) {
+            Image image = new Image(Game.class.getResource("/images/avatars/" + i + ".png").toExternalForm());
+            Rectangle rectangle = new Rectangle(100,100);
+            rectangle.setFill(new ImagePattern(image));
+            rectangles.add(rectangle);
+            rectangle.setOnMouseEntered(event -> {
+                if (avatar == null || !avatar.equals(((ImagePattern) rectangle.getFill()))) {
+                    DropShadow dropShadow = new DropShadow();
+                    dropShadow.setColor(Color.GRAY);
+                    dropShadow.setSpread(1);
+                    rectangle.setEffect(dropShadow);
+                }
+            });
+            rectangle.setOnMouseExited(event -> {
+                if(avatar==null || !avatar.equals(((ImagePattern) rectangle.getFill())))
+                    rectangle.setEffect(null);
+            });
+            rectangle.setOnMouseClicked(event -> {
+                for (Rectangle rectangleI : rectangles) {
+                    rectangleI.setEffect(null);
+                }
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setColor(Color.YELLOW);
+                dropShadow.setSpread(1);
+                rectangle.setEffect(dropShadow);
+                avatar = ((ImagePattern) rectangle.getFill());
+            });
+        }
+        HBox menuHBox = new HBox();
+        menuHBox.getChildren().addAll(rectangles);
+        this.menuHBox = menuHBox;
+        scroller.setContent(menuHBox);
     }
 
     public void usernameChanged(InputMethodEvent inputMethodEvent) {
@@ -109,7 +152,14 @@ public class RegisterController implements Initializable {
     }
 
     public void sloganRespose(KeyEvent keyEvent) {
-
+        String output = UserBasedMenuController.checkUsername(slogan.getText());
+        if (output.equals("correct")) {
+            SloganAns.setText(output);
+            SloganAns.setFill(Color.GREEN);
+        } else {
+            SloganAns.setText(output);
+            SloganAns.setFill(Color.RED);
+        }
     }
 
     public void usernameResponse(KeyEvent keyEvent) {

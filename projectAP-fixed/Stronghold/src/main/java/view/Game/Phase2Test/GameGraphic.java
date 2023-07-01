@@ -33,6 +33,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.Enums.GameMenuCommands;
 import view.Game.GraphicalGameMenu;
+import view.Network.GameEvent;
 import view.fxmlMenu.GameLayout;
 
 import java.util.ArrayList;
@@ -109,7 +110,6 @@ public class GameGraphic extends Application {
         primaryStage.setScene(gameScene);
         primaryStage.show();
         System.out.println("showing the stage.");
-
         //key pressed
         gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -185,7 +185,6 @@ public class GameGraphic extends Application {
             }
         });
     }
-
     public String selectTiles(ArrayList<TileShape> tileShapes, MouseEvent event) {
         if (tileShapes == null || tileShapes.size() == 0) return null;
         ArrayList<Tile> tiles = new ArrayList<>();

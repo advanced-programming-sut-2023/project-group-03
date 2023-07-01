@@ -1,10 +1,12 @@
 package Model;
 
 import view.Network.Client;
+import view.Network.GameClient;
 
 import java.beans.Transient;
 
 public class User implements Comparable<User> {
+    private GameClient gameClient;
     private String password;
     private String username;
     private String nickname;
@@ -114,5 +116,13 @@ public class User implements Comparable<User> {
 
     public void setStayLoggedIn(boolean stayLoggedIn) {
         this.stayLoggedIn = stayLoggedIn;
+    }
+
+    public GameClient getGameClient() {
+        return gameClient;
+    }
+
+    public void setGameClient(GameClient gameClient) {
+        this.gameClient = gameClient;
     }
 }

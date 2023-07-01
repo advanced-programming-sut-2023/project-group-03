@@ -19,6 +19,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="242.0" spacing="8.0">
                <children>
+                  <CheckBox fx:id="showSlogan1" mnemonicParsing="false" onAction="#showSlagan" prefHeight="21.0" prefWidth="107.0" text="random" textFill="#d4ff00" />
                   <PasswordField fx:id="password" onKeyTyped="#passwordResponse" promptText="password" />
                   <Text fx:id="PassAns" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="password is empty" />
                </children>
@@ -67,6 +68,6 @@
             </Button>
          </children>
       </HBox>
-      <ScrollPane layoutX="26.0" layoutY="585.0" prefHeight="116.0" prefWidth="612.0" />
+      <ScrollPane fx:id="scroller" layoutX="26.0" layoutY="585.0" prefHeight="116.0" prefWidth="612.0" />
    </children>
 </Pane>

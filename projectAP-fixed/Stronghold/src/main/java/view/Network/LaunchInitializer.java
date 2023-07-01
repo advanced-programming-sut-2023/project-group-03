@@ -13,8 +13,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import view.Network.Server.DataBase;
 import view.Network.Server.Server;
@@ -26,10 +30,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class LaunchInitializer implements Initializable{
-    public boolean isHost = true;
+public class LaunchInitializer implements Initializable {
+    public static boolean isHost = true;
     public TextField SeverAddress;
-    private User user;
+    public VBox PlayersList;
+
+    static Stage stage;
+    public HBox LogHbox;
+    public Label AnnouncedAddress;
+    public static User user = UserDatabase.getUsers().get(0);
     static Pane fxmlPane;
 
     static {
@@ -40,12 +49,17 @@ public class LaunchInitializer implements Initializable{
         }
     }
 
+    public HBox LogHboxMap;
+    public Button startGame;
+
+    public GameClient gameClient;
     public VBox ServerVbox;
     public Button exit;
     public Button next;
     public VBox MapVbox;
     public Label ServerAddress1;
     public TextField mapNumber;
+    public Label MapLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -78,10 +92,22 @@ public class LaunchInitializer implements Initializable{
         if (isHost) {
             String s = SeverAddress.getText();
             if (s.matches("\\d\\d\\d\\d") && UserDatabase.getMapByName(mapNumber.getText()) != null) {
-                System.out.println("in");
                 try {
-                    GameClient gameClient = new GameClient("localhost", Integer.parseInt(s), user);
+                    GameClient gameClient = new GameClient("localhost", Integer.parseInt(s), user, LaunchInitializer.this);
+                    gameClient.setHost(true);
+                    user.setGameClient(gameClient);
+                    gotoWaitingAsHost(s);
+                    MapLabel.setText(mapNumber.getText());
+                    GameEvent makeGame = GameEvent.MAKE_GAME;
+                    makeGame.fixMessage(mapNumber.getText(), user.getUsername());
+                    user.getGameClient().dataOutputStream.writeUTF(makeGame.getMessage());
+                    Thread.sleep(300);
+                    GameEvent intro = GameEvent.INTRODUCE;
+                    intro.fixMessage(user.getUsername());
+                    user.getGameClient().dataOutputStream.writeUTF(intro.getMessage());
+                    Thread.sleep(300);
                 } catch (Exception e) {
+                    System.out.println(e.getStackTrace());
                     SeverAddress.setPromptText("there is no such a server");
                     SeverAddress.setText("");
                 }
@@ -96,12 +122,69 @@ public class LaunchInitializer implements Initializable{
                 }
             }
         } else {
+            if (mapNumber.getText().length() > 0) {
+                mapNumber.setText("you are not host");
+                return;
+            }
+            mapNumber.setText("you are not host");
             String s = SeverAddress.getText();
             if (s.matches("\\d\\d\\d\\d")) {
-
+                try {
+                    GameClient gameClient = new GameClient("localhost", Integer.parseInt(s), user, LaunchInitializer.this);
+                    gameClient.setHost(false);
+                    user.setGameClient(gameClient);
+                    GameEvent intro = GameEvent.INTRODUCE;
+                    intro.fixMessage(user.getUsername());
+                    System.out.println(user.getUsername());
+                    user.getGameClient().dataOutputStream.writeUTF(intro.getMessage());
+                    Thread.sleep(300);
+                    GameEvent gameEvent = GameEvent.JOIN_T0_GAME;
+                    gameEvent.fixMessage(user.getUsername());
+                    user.getGameClient().dataOutputStream.writeUTF(gameEvent.getMessage());
+                } catch (Exception e) {
+                    System.out.println(e.getStackTrace());
+                    SeverAddress.setPromptText("there is no such a server");
+                    SeverAddress.setText("");
+                }
             } else {
                 SeverAddress.setPromptText("invalid port");
+                SeverAddress.setText("");
+                return;
             }
+        }
+    }
+    public void gotoWaiting (String numport){
+        next.setVisible(false);
+        LogHboxMap.setVisible(true);
+        ServerVbox.setVisible(false);
+        MapVbox.setVisible(false);
+        PlayersList.setVisible(true);
+        LogHbox.setVisible(true);
+        AnnouncedAddress.setText(numport);
+    }
+
+    public void gotoWaitingAsHost(String numport) {
+        startGame.setVisible(true);
+        next.setVisible(false);
+        LogHboxMap.setVisible(true);
+        ServerVbox.setVisible(false);
+        MapVbox.setVisible(false);
+        PlayersList.setVisible(true);
+        LogHbox.setVisible(true);
+        AnnouncedAddress.setText(numport);
+        Label label = new Label();
+        label.setFont(Font.font("cambria", FontWeight.BOLD, 16));
+        label.setText("1. "+user.getUsername()+" (HOST)");
+        PlayersList.getChildren().add(label);
+    }
+
+    public void startAction(ActionEvent actionEvent) {
+        GameEvent gameEvent = GameEvent.START_GAME;
+        gameEvent.fixMessage(null);
+        try {
+            user.getGameClient().dataOutputStream.writeUTF(gameEvent.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

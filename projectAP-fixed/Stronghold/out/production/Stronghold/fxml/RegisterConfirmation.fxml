@@ -28,7 +28,7 @@
             </Button>
          </children>
       </HBox>
-      <VBox layoutX="38.0" layoutY="40.0" prefHeight="667.0" prefWidth="459.0">
+      <VBox layoutX="38.0" layoutY="40.0" prefHeight="667.0" prefWidth="375.0">
          <children>
             <VBox prefHeight="251.0" prefWidth="712.0">
                <children>
@@ -49,9 +49,9 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="420.0" prefWidth="888.0">
+            <VBox prefHeight="418.0" prefWidth="371.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" focusTraversable="true" prefHeight="229.0" prefWidth="459.0" style="-fx-background-color: white;">
+                  <HBox alignment="CENTER_LEFT" focusTraversable="true" prefHeight="124.0" prefWidth="375.0" style="-fx-background-color: transparent;">
                      <children>
                         <Label fx:id="Captcha" prefHeight="169.0" prefWidth="293.0" text="Captcha">
                            <font>

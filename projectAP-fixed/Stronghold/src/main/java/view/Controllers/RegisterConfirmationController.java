@@ -1,6 +1,8 @@
 package view.Controllers;
 
 import Model.Defaults;
+import controller.LoginMenuController;
+import controller.UserBasedMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import view.fxmlMenu.MainMenu;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class RegisterConfirmationController implements Initializable {
@@ -66,4 +69,5 @@ public class RegisterConfirmationController implements Initializable {
                 new Stop(2, Color.BLUE)});
         Captcha.setTextFill(gradient);
     }
+
 }

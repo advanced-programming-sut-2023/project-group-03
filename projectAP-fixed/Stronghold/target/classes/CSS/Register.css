@@ -46,6 +46,13 @@
     /*-fx-border-radius: 15px 2px 15px 2px;*/
     -fx-background-radius: 15px 2px 15px 2px;
 }
+
+.login{
+    -fx-background-image: url(../images/LaunchMenu/menu.png);
+}
+.LOGIN{
+    -fx-background-image: url(../images/LaunchMenu/menu.png);
+}
 Button{
     -fx-background-color: radial-gradient(focus-distance 0%,center 50% 50%,radius 50%, #ffcc00, #ff4400);
     -fx-background-radius: 10px;

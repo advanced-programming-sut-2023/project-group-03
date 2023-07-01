@@ -10,6 +10,14 @@
 
 <Pane prefHeight="720.0" prefWidth="1240.0" styleClass="somePain" stylesheets="@../CSS/Launcher.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Network.LaunchInitializer">
    <children>
+      <Label fx:id="IsHost" layoutX="10.0" layoutY="10.0" text="Host" textFill="#ffc8c8">
+         <effect>
+            <DropShadow color="#426f08" spread="0.82" />
+         </effect>
+         <font>
+            <Font name="Cambria Bold" size="25.0" />
+         </font>
+      </Label>
       <VBox fx:id="ServerVbox" layoutX="918.0" layoutY="30.0" prefHeight="57.0" prefWidth="279.0" visible="false">
          <children>
             <Label text="Server Address" textFill="#ffc8c8">
@@ -46,7 +54,7 @@
             <TextField fx:id="mapNumber" prefHeight="31.0" prefWidth="214.0" promptText="ex:  firstMap" />
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="798.0" layoutY="59.0" prefHeight="31.0" prefWidth="380.0" spacing="15.0" visible="false">
+      <HBox fx:id="LogHbox" alignment="CENTER" layoutX="798.0" layoutY="59.0" prefHeight="31.0" prefWidth="380.0" spacing="15.0" visible="false">
          <children>
             <Label text="Server Address:" textFill="#ffc8c8">
                <effect>
@@ -56,13 +64,45 @@
                   <Font name="Cambria Bold" size="21.0" />
                </font>
             </Label>
-            <Label text="AnnouncedAddress" textFill="#13462d">
+            <Label fx:id="AnnouncedAddress" text="AnnouncedAddress" textFill="#13462d">
                <font>
                   <Font name="Cambria Bold" size="16.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <VBox fx:id="PlayersList" layoutX="869.0" layoutY="129.0" prefHeight="200.0" prefWidth="330.0" visible="false" />
+      <VBox fx:id="PlayersList" layoutX="828.0" layoutY="132.0" prefHeight="200.0" prefWidth="330.0" spacing="10.0" style="-fx-border-color: green; -fx-padding: 7; -fx-border-width: 3; -fx-border-radius: 15;" visible="false">
+         <children>
+            <Label fx:id="ServerAddress11" text="Players:" textFill="#ffc8c8">
+               <effect>
+                  <DropShadow color="#426f08" spread="0.82" />
+               </effect>
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Label>
+         </children></VBox>
+      <HBox fx:id="LogHboxMap" alignment="CENTER" layoutX="798.0" layoutY="94.0" prefHeight="31.0" prefWidth="380.0" spacing="15.0" visible="false">
+         <children>
+            <Label text="Map:" textFill="#ffc8c8">
+               <effect>
+                  <DropShadow color="#426f08" spread="0.82" />
+               </effect>
+               <font>
+                  <Font name="Cambria Bold" size="21.0" />
+               </font>
+            </Label>
+            <Label fx:id="MapLabel" text="AnnouncedMap" textFill="#13462d">
+               <font>
+                  <Font name="Cambria Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Button fx:id="startGame" layoutX="1097.0" layoutY="675.0" mnemonicParsing="false" onAction="#startAction" prefWidth="100.0" text="start" textFill="#ffc8c8" visible="false">
+         <font>
+            <Font name="Cambria Bold" size="19.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

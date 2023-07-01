@@ -19,12 +19,16 @@ import java.util.Scanner;
 public class UserDatabase {
     static String dataPath = "src/main/resources/users/users.json";
     static String backupData = "src/main/resources/users/backup.json";
-
     private static ArrayList<MapBuffer> mapBuffers = new ArrayList<>();
     private static ArrayList<GameMap> maps = new ArrayList<>();
-    private static ArrayList<User> users = new ArrayList<>();
+    private static ArrayList<User> users;
     private static ArrayList<User> ranking = new ArrayList<>();
 
+    static {
+        users = new ArrayList<>();
+        User user = new User("1qaz@WSX", "mammad", "mmd", "metala82@gmail.com", "hooora");
+        User user2 = new User("1qaz@WSX", "jafar", "jfr", "metala82@gmail.com", "ahhh");
+    }
 
     public static User getUserByName(String name) {
         for (int i = 0; i < users.size(); i++) {
@@ -160,6 +164,11 @@ public class UserDatabase {
             GameMap map = MapController.loadbufferMap(file);
             UserDatabase.addMap(map);
         }
+    }
+
+    public static void updateUsers() {
+        User user = new User("1qaz@WSX", "mammad", "mmd", "metala82@gmail.com", "hooora");
+        User user2 = new User("1qaz@WSX", "jafar", "jfr", "metala82@gmail.com", "ahhh");
     }
 
 }

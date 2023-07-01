@@ -14,12 +14,18 @@ import static controller.Enums.ControllerCommands.OPTION_FIELD;
 import static controller.Enums.Response.*;
 
 public enum GameEvent {
+    ANNOUNCE_LIST("list of players", new ArrayList<>(Arrays.asList("m", "1", "2", "3", "4"))),
+    MAKE_GAME("make game", new ArrayList<>(Arrays.asList("m", "u"))),
+    INTRODUCE("introduce", new ArrayList<>(Arrays.asList("u"))),
     START_GAME("start game", null),
     JOIN_T0_GAME("join to game", new ArrayList<>(Arrays.asList("u"))),
     USER_JOINED_TO_NETWORK("user joined to net work", null),
+
     USER_SUCCESSFULLY_CREATED("user successfully created", null),
     DROP_BUILDING("drop building", new ArrayList<>(Arrays.asList("x", "y", "t"))),
     DROP_UNIT("drop unit", new ArrayList<>(Arrays.asList("x", "y", "t", "c"))),
+    REJECT_JOIN("reject join", null),
+    DELETE_BUILDING("delete building", new ArrayList<>(Arrays.asList("x", "y"))),
     ;
 
     GameEvent(String name, ArrayList<String> keys) {
@@ -29,14 +35,19 @@ public enum GameEvent {
 
     private final ArrayList<String> keys;
 
-    private void fixMessage(String... args) {
+    public void fixMessage(String... args) {
         message = new String();
         message += name;
         if (keys == null) {
             return;
         }
+        int counter = 0;
         for (String key : keys) {
-            message += " -" + key;
+            if (args.length <= counter) {
+                return;
+            }
+            message += " -" + key + " " + args[counter];
+            counter++;
         }
     }
 
@@ -59,11 +70,25 @@ public enum GameEvent {
     public static GameEvent getEvent(String content) {
         return GameEvent.JOIN_T0_GAME;
     }
-    protected HashMap<String, String> setHashMapKeys(ArrayList<String> keys) {
+    protected static HashMap<String, String> setHashMapKeys(ArrayList<String> keys) {
         HashMap<String, String> infoMap = new HashMap<>();
         for (String key : keys) infoMap.put(key, null);
         infoMap.put("error", null);
         return infoMap;
+    }
+
+    public static String makeClean(String input) {
+        String output = new String();
+        boolean flag = false;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == '-') {
+                flag = true;
+            }
+            if (flag == true) {
+                output += input.charAt(i);
+            }
+        }
+        return output;
     }
 
     public static HashMap<String, String> getOptions(ArrayList<String> keys, String input) {
