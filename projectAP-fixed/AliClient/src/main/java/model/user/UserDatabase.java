@@ -186,7 +186,9 @@ public class UserDatabase {
         Packet resultPacket = Packet.convertStringToPacket(result);
         String userString = resultPacket.getCommand();
 
-        User user = (new GsonBuilder().create()).fromJson(userString, User.class);
+        userPacket = UserPacket.convertStringToPacket(userString);
+
+        User user = (new GsonBuilder().create()).fromJson(userPacket.getCommand(), User.class);
         return user;
     }
 

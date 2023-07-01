@@ -17,6 +17,8 @@ public class User implements Comparable<User> {
     private boolean stayLoggedIn = false;
     private int userId;//todo
     private ArrayList<Integer> chatIds = new ArrayList<>();
+    private ArrayList<Integer> waitingRequests = new ArrayList<>();
+    private ArrayList<Integer> friends = new ArrayList<>();
 
     public User(String password, String username, String nickname, String email, String slogan) {
         this.password = password;
@@ -113,8 +115,29 @@ public class User implements Comparable<User> {
         this.highScore = highScore;
     }
 
+    public ArrayList<Integer> getFriends() {
+        return friends;
+    }
+
     public int getRank() {
         return rank;
+    }
+
+    public ArrayList<Integer> getWaitingRequests() {
+        return waitingRequests;
+    }
+
+    public void removeFromRequest(int id) {
+        for (int i = 0; i < waitingRequests.size(); i++) {
+            if (waitingRequests.get(i) == id) {
+                waitingRequests.remove(i);
+                return;
+            }
+        }
+    }
+
+    public void addToRequests(int id) {
+        if (!waitingRequests.contains(id) && !friends.contains(id)) waitingRequests.add(id);
     }
 
     public void setRank(int rank) {
@@ -138,5 +161,9 @@ public class User implements Comparable<User> {
 
     public void setStayLoggedIn(boolean stayLoggedIn) {
         this.stayLoggedIn = stayLoggedIn;
+    }
+
+    public void addFriend(int id) {
+        friends.add(id);
     }
 }

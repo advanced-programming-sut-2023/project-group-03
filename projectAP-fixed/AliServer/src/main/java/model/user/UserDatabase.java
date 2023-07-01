@@ -156,4 +156,15 @@ public class UserDatabase {
 //        }
 //        return null;
 //    }
+
+    public static void updateUser(User user) {
+        for (int i = 0; i < users.size(); i++) {
+            User mainUser = users.get(i);
+            if (mainUser.getUserId() == user.getUserId()) {
+                users.set(i, user);
+                return;
+            }
+        }
+        users.add(user);
+    }
 }

@@ -61,6 +61,34 @@ public class Connection extends Thread {
             }
 
             Packet packet = Packet.convertStringToPacket(input);
+            if (packet.getType().equals("user")) {
+                UserPacket userPacket = UserPacket.convertStringToPacket(packet.getCommand());
+                if (userPacket.getType().equals("update user")) {
+                    User newUser = (new GsonBuilder()).create().fromJson(userPacket.getCommand(), User.class);
+                    UserDatabase.updateUser(newUser);
+                }
+                else if (userPacket.getType().equals("get users")) {
+                    //todo
+                }
+                else if (userPacket.getType().equals("get user")) {
+                    int userId = Integer.parseInt(userPacket.getCommand());
+                    User gotUser = UserDatabase.getUserById(userId);
+                    UserPacket newUserPacket = new UserPacket("get user", (new GsonBuilder()).create().toJson(gotUser));
+                    Packet newPacket = new Packet("user", newUserPacket.convertPacketToString());
+                    try {
+                        dataOutputStream.writeUTF(Packet.convertPacketToString(newPacket));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        continue;
+                    }
+                }
+                else if (userPacket.getType().equals("make request")) {
+                    int friendId = Integer.parseInt(userPacket.getCommand());
+                    User friend = UserDatabase.getUserById(friendId);
+                    friend.addToRequests(friendId);
+                }
+            }
+
             if (packet.getType().equals("all chat")) {
                 AllChatPacket allChatPacket = AllChatPacket.convertStringToPacket(packet.getCommand());
                 if (allChatPacket.getType().equals("get chats")) {
