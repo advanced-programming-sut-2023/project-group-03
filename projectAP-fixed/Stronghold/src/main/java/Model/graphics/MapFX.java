@@ -449,7 +449,7 @@ public class MapFX {
                         ScrollPane scrollPane = new ScrollPane();
                         mapTileShape.infoBox = scrollPane;
 
-                        scrollPane.setPrefSize(400, 100);
+                        scrollPane.setPrefSize(300, 100);
                         scrollPane.setContent(tempBox);
 
 //                        scrollPane.setLayoutX(tilePolygon.getPoints().get(0) / 2 + tilePolygon.getPoints().get(4) / 2);
@@ -460,6 +460,12 @@ public class MapFX {
 
                         scrollPane.setLayoutX(tilePolygon.getPoints().get(4));
                         scrollPane.setLayoutY(tilePolygon.getPoints().get(3));
+                        label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                tempBox.setVisible(false);
+                            }
+                        });
 
                         if (!mapPane.getChildren().contains(scrollPane)) mapPane.getChildren().add(scrollPane);
                         mapTileShape.onInfoBox = false;
