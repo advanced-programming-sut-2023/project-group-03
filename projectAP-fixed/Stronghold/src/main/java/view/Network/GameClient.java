@@ -1,5 +1,6 @@
 package view.Network;
 
+import Model.Buildings.Barracks;
 import Model.Field.GameMap;
 import Model.Field.Tile;
 import Model.GamePlay.Game;
@@ -7,6 +8,7 @@ import Model.GamePlay.Government;
 import Model.GamePlay.Player;
 import Model.User;
 import Model.UserDatabase;
+import controller.ControllerFunctions;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
@@ -14,7 +16,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import org.example.MainGraphicTest;
+import view.Enums.GameMenuCommands;
+import view.Game.GameMenu;
 import view.Game.Phase2Test.GameGraphic;
+import view.Network.Server.Main;
 import view.Network.Server.Server;
 
 import java.io.DataInputStream;
@@ -23,11 +28,14 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.regex.Matcher;
 
 public class GameClient extends Thread{
     Player player;
     User user;
     boolean isHost = false;
+
+    GameGraphic gameGraphic;
 
     LaunchInitializer launchInitializer;
     final DataInputStream dataInputStream;
@@ -111,6 +119,7 @@ public class GameClient extends Thread{
                             }
                             Game game = new Game(gameMap, players);
                             GameGraphic gameGraphic = new GameGraphic(gameMap, gameMap.getSize(), game);
+                            this.gameGraphic = gameGraphic;
                             Tile.setGameMap(gameMap);
                             try {
                                 gameGraphic.start(LaunchInitializer.stage);
@@ -122,11 +131,35 @@ public class GameClient extends Thread{
                         throw new RuntimeException(e);
                     }
                 }
+                if (input.startsWith(GameEvent.DROP_BUILDING.getName())) {
+                    gameGraphic.dropBuilding(input);
+                }
+                if (input.startsWith(GameEvent.DROP_UNIT.getName())) {
+//                    Matcher matcher = ControllerFunctions.getMatcher(input, GameMenuCommands.CREATE_UNIT.toString());
+//                    Barracks barracks=new Barracks()
+//                    gameGraphic.getGameController().addUnitMatcherHandler(matcher,player,player,);
+                    gameGraphic.dropUnit(input, 4);
+                }
+                if (input.startsWith(GameEvent.DELETE_BUILDING.getName())) {
+                    
+                }
+                if (input.startsWith(GameEvent.ATTACK.getName())) {
+
+                }
+                if (input.startsWith(GameEvent.SELECT_BUILDING.getName())) {
+
+                }
+                if (input.startsWith(GameEvent.SELECT_TILE.getName())) {
+
+                }
+                if (input.startsWith(GameEvent.MOVE.getName())) {
+
+                }
                 Thread.sleep(200);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                        throw new RuntimeException(e);
             }
         }
     }

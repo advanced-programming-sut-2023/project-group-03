@@ -114,6 +114,27 @@ public class Connection extends Thread{
             if (input.startsWith(GameEvent.START_GAME.getName())) {
                 sendEventToAll(input);
             }
+            if (input.startsWith(GameEvent.DROP_BUILDING.getName())) {
+                sendEvent(input);
+            }
+            if (input.startsWith(GameEvent.DROP_UNIT.getName())) {
+                sendEvent(input);
+            }
+            if (input.startsWith(GameEvent.DELETE_BUILDING.getName())) {
+                sendEvent(input);
+            }
+            if (input.startsWith(GameEvent.ATTACK.getName())) {
+                sendEvent(input);
+            }
+            if (input.startsWith(GameEvent.SELECT_BUILDING.getName())) {
+                sendEvent(input);
+            }
+            if (input.startsWith(GameEvent.SELECT_TILE.getName())) {
+                sendEvent(input);
+            }
+            if (input.startsWith(GameEvent.MOVE.getName())) {
+                sendEvent(input);
+            }
         } catch (IOException e) {
             System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             throw new RuntimeException();

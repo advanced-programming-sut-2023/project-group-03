@@ -26,6 +26,10 @@ public enum GameEvent {
     DROP_UNIT("drop unit", new ArrayList<>(Arrays.asList("x", "y", "t", "c"))),
     REJECT_JOIN("reject join", null),
     DELETE_BUILDING("delete building", new ArrayList<>(Arrays.asList("x", "y"))),
+    SELECT_TILE("select tile", null),
+    SELECT_BUILDING("select building", new ArrayList<>(Arrays.asList("x", "y", "u"))),
+    ATTACK("attack", new ArrayList<>(Arrays.asList("x", "y"))),
+    MOVE("move", new ArrayList<>(Arrays.asList("x", "y"))),
     ;
 
     GameEvent(String name, ArrayList<String> keys) {
@@ -70,6 +74,7 @@ public enum GameEvent {
     public static GameEvent getEvent(String content) {
         return GameEvent.JOIN_T0_GAME;
     }
+
     protected static HashMap<String, String> setHashMapKeys(ArrayList<String> keys) {
         HashMap<String, String> infoMap = new HashMap<>();
         for (String key : keys) infoMap.put(key, null);
